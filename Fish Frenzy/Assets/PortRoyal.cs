@@ -9,12 +9,15 @@ public class PortRoyal : MonoBehaviour {
     public Vector3 jumpForce;
     public static float sCharMass;
     public float characterMass;
-
+    public static bool sDebugMode;
+    public bool debugMode;
+   
     // Use this for initialization
     void Start () {
         sCharacterSpeed = speed;
         sJumpForce = jumpForce;
         sCharMass = characterMass;
+        sDebugMode = debugMode;
     }
 	
 	// Update is called once per frame

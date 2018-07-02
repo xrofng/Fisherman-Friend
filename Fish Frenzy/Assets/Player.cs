@@ -24,7 +24,7 @@ public class Player : MonoBehaviour {
 	}
 	void FixedUpdate () {
 		move();
-       
+        startFishing();
 	}
 	void move(){
         string hori = "Hori" + player;
@@ -33,6 +33,7 @@ public class Player : MonoBehaviour {
         
         mov = mov * Time.deltaTime;
         //   mov = mov * fixedFPS_DT;
+   
        
         this.transform.Translate(mov);
         string jump_b = "Jump" + player;
@@ -41,10 +42,13 @@ public class Player : MonoBehaviour {
             rigid.velocity = Vector3.zero;
             rigid.AddForce(jumpForce);
         }
-       
-	}
-    void jump()
-    {
 
+     
+
+    }
+    void startFishing()
+    {
+        string fishi = "Fishing" + player;
+  
     }
 }
