@@ -11,6 +11,7 @@ public class Player : MonoBehaviour {
     public bool nearCoast;
     public Transform model;
     private Vector3 lookTo;
+    public Rigidbody fishPoint;
 	// Use this for initialization
 	void Start () {
         player = gameObject.name[6] - 48;
@@ -109,5 +110,14 @@ public class Player : MonoBehaviour {
             }
         }
   
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+       
+        //if(fishPoint.contacts.Length != 0)
+        //{
+        //    print("s");
+        //}
     }
 }
