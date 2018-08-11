@@ -13,10 +13,13 @@ public class Player : MonoBehaviour {
     private Vector3 lookTo;
     public Transform fishPoint_finder;
     public Transform fishPoint;
+
+    private PortRoyal portroyal;
     // Use this for initialization
     void Start() {
         player = gameObject.name[6] - 48;
         fixedFPS_DT = 0.016f;
+        portroyal = FindObjectOfType<PortRoyal>();
         speed = PortRoyal.sCharacterSpeed;
         jumpForce = PortRoyal.sJumpForce;
         rigid = GetComponent<Rigidbody>();
@@ -30,39 +33,12 @@ public class Player : MonoBehaviour {
         move();
         coastCheck();
         startFishing();
+        action();
     }
     void FixedUpdate() {
 
     }
-    int getSign(float f, float zero)
-    {
-        if (f > zero)
-        {
-            return 1;
-        } else if (f < -zero)
-        {
-            return -1;
-        }
-        return 0;
-    }
-    bool intervalCheck(float f, float inte, float rval, bool outOf)
-    {
-        if (outOf)
-        {
-            if (f < inte || f > rval)
-            {
-                return true;
-            }
-
-        } else
-        {
-            if (f > inte && f < rval)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
+   
     void move() {
 
         string hori = "Hori" + player;
@@ -75,9 +51,9 @@ public class Player : MonoBehaviour {
         float axisRawX = Input.GetAxisRaw(hori);
         float axisRawY = Input.GetAxisRaw(verti);
         Vector3 playerDirection = lookTo;
-        if (getSign(Input.GetAxis(hori), 0.015f) != 0 || getSign(Input.GetAxis(verti), 0.015f) != 0)
+        if (sClass.getSign(Input.GetAxis(hori), 0.015f) != 0 ||sClass.getSign(Input.GetAxis(verti), 0.015f) != 0)
         {
-            if (intervalCheck(axisRawX, -0.9f, 0.9f, true) || intervalCheck(axisRawY, -0.9f, 0.9f, true))
+            if (sClass.intervalCheck(axisRawX, -0.9f, 0.9f, true) || sClass.intervalCheck(axisRawY, -0.9f, 0.9f, true))
             {
                 playerDirection = Vector3.right * -axisRawX + Vector3.forward * -axisRawY;
                 lookTo = playerDirection;
@@ -88,7 +64,6 @@ public class Player : MonoBehaviour {
         if (playerDirection.sqrMagnitude > 0.0f)
         {
             model.transform.rotation = Quaternion.LookRotation(playerDirection, Vector3.up);
-
         }
 
         string jump_b = "Jump" + player;
@@ -99,6 +74,10 @@ public class Player : MonoBehaviour {
         }
 
 
+
+    }
+    void action()
+    {
 
     }
     void coastCheck()
@@ -121,33 +100,34 @@ public class Player : MonoBehaviour {
                 fishPoint.gameObject.SetActive(false);
             }
             Debug.DrawRay(fishPoint_finder.position, transform.TransformDirection(Vector3.down) * hit.distance, lineColor);
-            Debug.Log("Did Hit");
         }
         else
         {
             Debug.DrawRay(fishPoint_finder.position, transform.TransformDirection(Vector3.down) * 1000, Color.white);
-            Debug.Log("Did not Hit");
+      
         }
     }
+   
     void startFishing()
     {
         string fishi = "Fishing" + player;
         if (Input.GetButtonDown(fishi))
         {
-            if(nearCoast == true)
+            if (nearCoast == true)
             {
+                Fish got = Instantiate(portroyal.randomFish(), fishPoint.position, model.transform.rotation);
+                got.holder = this.gameObject;
+                // in dev start with toPlayer
+                got.changeState(2) ;
 
             }
         }
   
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision other)
     {
        
-        //if(fishPoint_finder.contacts.Length != 0)
-        //{
-        //    print("s");
-        //}
     }
+    
 }

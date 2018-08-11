@@ -11,6 +11,8 @@ public class PortRoyal : MonoBehaviour {
     public float characterMass;
     public static bool sDebugMode;
     public bool debugMode;
+
+    public Fish[] fishPool;
    
     // Use this for initialization
     void Start () {
@@ -24,4 +26,19 @@ public class PortRoyal : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public Fish getFish(int number)
+    {
+        return fishPool[number];
+    }
+    public Fish randomFish()
+    {
+        int fishIndex = randomFishIndex(); 
+        return getFish(fishIndex);
+    }
+    public int randomFishIndex()
+    {
+        return 0;
+    }
+
 }
