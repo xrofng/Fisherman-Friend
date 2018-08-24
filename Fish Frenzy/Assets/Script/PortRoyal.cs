@@ -38,7 +38,9 @@ public class PortRoyal : MonoBehaviour {
     }
     public int randomFishIndex()
     {
-        return 0;
+        return Random.Range(0, fishPool.Length);
+        
+   
     }
 
 }

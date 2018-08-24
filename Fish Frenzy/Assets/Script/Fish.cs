@@ -12,7 +12,10 @@ public class Fish : MonoBehaviour {
     }
     public fState state;
     public GameObject holder;
-    private float veloY;
+    public int mashCountDown;
+    public Vector3 direction;
+    public Transform snap;
+    //public float veloY;
 	// Use this for initialization
 	void Start () {
         
@@ -22,17 +25,16 @@ public class Fish : MonoBehaviour {
 	void Update () {
 		if(state == fState.toPlayer)
         {
-            veloY -= Time.deltaTime*4;
-            if( transform.position.x != holder.transform.position.x &&
-                transform.position.y != holder.transform.position.y &&
-                transform.position.z != holder.transform.position.z)
-            {
-                this.transform.Translate(Vector3.forward);
-                this.transform.Translate(Vector3.up*veloY);
-            }
+            //veloY -= Time.deltaTime*4;
+            
+            //this.transform.Translate(Vector3.forward);
+            //this.transform.Translate(Vector3.up*veloY);
+               
+            this.transform.Translate( (direction) *Time.deltaTime);
+            
         }
-	}
-    void playerCollideInteraction(GameObject player)
+    }
+    public void playerCollideInteraction(GameObject player)
     {
         switch ((int)state)
         {
@@ -40,19 +42,28 @@ public class Fish : MonoBehaviour {
                 break;
 
             case 1:
-
                 break;
-
             case 2:
                 state = fState.hold;
-                this.gameObject.transform.parent = player.transform;
+                Player p = player.GetComponent<Player>();
+                this.gameObject.transform.parent = p.model.transform;
+                p.holdingFish = true;
+                p.state = 0;
                 break;
 
             case 3:
                 break;
         }
     }
-
+    public void MashForCatch()
+    {
+        mashCountDown -= 1;
+        if (mashCountDown <= 0)
+        {
+            changeState(2);
+        }
+       
+    }
     public void changeState(int i)
     {
        switch (i)
@@ -63,9 +74,8 @@ public class Fish : MonoBehaviour {
 
             case 2:
                 state = fState.toPlayer;
-                Vector3 dire = holder.transform.position - transform.position;
-                veloY = 1;
-                
+                direction = holder.transform.position - transform.position;
+                //veloY = 1;
                 break;
 
             case 3: state = fState.hold;     break;

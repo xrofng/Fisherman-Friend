@@ -9,12 +9,27 @@ public class Player : MonoBehaviour {
     public static float fixedFPS_DT;
     private Rigidbody rigid;
     public bool nearCoast;
+
+    public bool holdingFish;
+    public Fish mainFish;
+    public Fish subFish;
+    public Fish baitedFish;
+
     public Transform model;
     private Vector3 lookTo;
     public Transform fishPoint_finder;
     public Transform fishPoint;
 
     private PortRoyal portroyal;
+
+    public enum eState
+    {
+        ground,
+        air,
+        water,
+        fishing
+    }
+    public eState state;
     // Use this for initialization
     void Start() {
         player = gameObject.name[6] - 48;
@@ -25,15 +40,24 @@ public class Player : MonoBehaviour {
         rigid = GetComponent<Rigidbody>();
         rigid.mass = PortRoyal.sCharMass;
         //model.transform.Rotate(0, 180, 0, Space.World);
-
     }
 
     // Update is called once per frame
     void Update() {
-        move();
-        coastCheck();
-        startFishing();
-        action();
+        switch (state)
+        {
+            case eState.ground:
+                move();
+                coastCheck();
+                switchFish();
+                startFishing();
+                checkInput();
+                break;
+            case eState.fishing:
+                startFishing();
+                break;
+        }
+        
     }
     void FixedUpdate() {
 
@@ -59,8 +83,7 @@ public class Player : MonoBehaviour {
                 lookTo = playerDirection;
             }
         }
-
-
+        
         if (playerDirection.sqrMagnitude > 0.0f)
         {
             model.transform.rotation = Quaternion.LookRotation(playerDirection, Vector3.up);
@@ -72,14 +95,9 @@ public class Player : MonoBehaviour {
             rigid.velocity = Vector3.zero;
             rigid.AddForce(jumpForce);
         }
-
-
-
     }
-    void action()
-    {
 
-    }
+ 
     void coastCheck()
     {
         RaycastHit hit;
@@ -88,7 +106,7 @@ public class Player : MonoBehaviour {
         if (Physics.Raycast(fishPoint_finder.position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity))
         {
             Color lineColor = Color.yellow;
-            if (hit.transform.gameObject.tag == "Sea")
+            if (hit.transform.gameObject.tag == "Sea" && !holdingFish)
             {
                 lineColor = Color.blue;
                 nearCoast = true;
@@ -104,7 +122,6 @@ public class Player : MonoBehaviour {
         else
         {
             Debug.DrawRay(fishPoint_finder.position, transform.TransformDirection(Vector3.down) * 1000, Color.white);
-      
         }
     }
    
@@ -113,21 +130,64 @@ public class Player : MonoBehaviour {
         string fishi = "Fishing" + player;
         if (Input.GetButtonDown(fishi))
         {
-            if (nearCoast == true)
+            switch (state)
             {
-                Fish got = Instantiate(portroyal.randomFish(), fishPoint.position, model.transform.rotation);
-                got.holder = this.gameObject;
-                // in dev start with toPlayer
-                got.changeState(2) ;
-
+                case eState.ground:
+                    if (nearCoast == true && !holdingFish)
+                    {
+                        baitedFish = Instantiate(portroyal.randomFish(), fishPoint.position, model.transform.rotation);
+                        baitedFish.holder = this.gameObject;
+                        state = eState.fishing;
+                        baitedFish.changeState(1);
+                    }
+                    break;
+                case eState.fishing:
+                    baitedFish.MashForCatch();
+                    break;
             }
         }
-  
     }
+    void switchFish()
+    {
+        string switc = "Switch" + player;
+        if (Input.GetButtonDown(switc))
+        {
+         
+        }
+    }
+    void checkInput()
+    {
+        string[] button = { "Fishing", "Switch", "Jump" };
+        int numPlayer = 4;
+        for (int i = 0; i < button.Length; i++)
+        {
+            for (int j = 1; j < numPlayer+1; j++)
+            {
+                string bitton = button[i] + j;
+                if (Input.GetButtonDown(bitton))
+                {
+                    print(bitton);
+                }
+            }
+        }
+    }
+    public void changeState(eState staTE)
+    {
+        switch (staTE)
+        {
+            case eState.ground:  state = eState.ground; break;
 
+            case eState.air:  state = eState.air; break;
+
+            case eState.water:  state = eState.water;  break;
+
+            case eState.fishing: state = eState.fishing; break;
+        }
+
+    }
     void OnCollisionEnter(Collision other)
     {
-       
+        
     }
     
 }
