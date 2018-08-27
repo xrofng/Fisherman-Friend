@@ -13,24 +13,29 @@ public class Fish : MonoBehaviour {
     public fState state;
     public GameObject holder;
     public int mashCountDown;
-    public Vector3 direction;
+
     public Transform snap;
-    //public float veloY;
+    public float veloY;
+    public Rigidbody myRigid;
 	// Use this for initialization
 	void Start () {
-        
-	}
+        myRigid = GetComponent<Rigidbody>();
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
 		if(state == fState.toPlayer)
         {
-            //veloY -= Time.deltaTime*4;
-            
-            //this.transform.Translate(Vector3.forward);
-            //this.transform.Translate(Vector3.up*veloY);
-               
-            this.transform.Translate( (direction) *Time.deltaTime);
+            veloY -= Time.deltaTime*4;
+            if( transform.position.x != holder.transform.position.x ||
+                transform.position.y != holder.transform.position.y ||
+                transform.position.z != holder.transform.position.z )
+            {
+                transform.Translate(transform.forward);
+                transform.Translate(transform.up * veloY);
+            }
+           
             
         }
     }
@@ -44,7 +49,8 @@ public class Fish : MonoBehaviour {
             case 1:
                 break;
             case 2:
-                state = fState.hold;
+               
+                changeState(3);
                 Player p = player.GetComponent<Player>();
                 this.gameObject.transform.parent = p.model.transform;
                 p.holdingFish = true;
@@ -71,11 +77,11 @@ public class Fish : MonoBehaviour {
             case 0: state = fState.swim;     break;
 
             case 1: state = fState.baited;   break;
-
+               
             case 2:
                 state = fState.toPlayer;
-                direction = holder.transform.position - transform.position;
-                //veloY = 1;
+                this.transform.LookAt(holder.transform);
+                veloY = 1;
                 break;
 
             case 3: state = fState.hold;     break;
