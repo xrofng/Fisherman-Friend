@@ -14,20 +14,33 @@ public class Player : MonoBehaviour {
     public Fish mainFish;
     public Fish subFish;
     public Fish baitedFish;
-
-    public Transform model;
+    
     private Vector3 lookTo;
     public Transform fishPoint_finder;
     public Transform fishPoint;
 
     private PortRoyal portroyal;
+    private BoxCollider myCollider;
 
+    public Transform[] part;
+    public enum ePart
+    {
+        body, leftArm,rightArm
+
+    }
+    Transform getPart(ePart p)
+    {
+        int index = (int)p;
+        return part[index];
+    }
     public enum eState
     {
         ground,
         air,
         water,
-        fishing
+        fishing,
+        waitForFish
+
     }
     public eState state;
     // Use this for initialization
@@ -39,7 +52,8 @@ public class Player : MonoBehaviour {
         jumpForce = PortRoyal.sJumpForce;
         rigid = GetComponent<Rigidbody>();
         rigid.mass = PortRoyal.sCharMass;
-        //model.transform.Rotate(0, 180, 0, Space.World);
+        myCollider = GetComponent<BoxCollider>();
+        myCollider.size = getPart(ePart.body).transform.localScale;
     }
 
     // Update is called once per frame
@@ -86,7 +100,7 @@ public class Player : MonoBehaviour {
         
         if (playerDirection.sqrMagnitude > 0.0f)
         {
-            model.transform.rotation = Quaternion.LookRotation(playerDirection, Vector3.up);
+            getPart(ePart.body).transform.rotation = Quaternion.LookRotation(playerDirection, Vector3.up);
         }
 
         string jump_b = "Jump" + player;
@@ -135,14 +149,17 @@ public class Player : MonoBehaviour {
                 case eState.ground:
                     if (nearCoast == true && !holdingFish)
                     {
-                        baitedFish = Instantiate(portroyal.randomFish(), fishPoint.position, model.transform.rotation);
-                        baitedFish.holder = this.gameObject;
+                        baitedFish = Instantiate(portroyal.randomFish(), fishPoint.position, getPart(ePart.body).transform.rotation);
+                        baitedFish.setHolder(this.gameObject);
                         state = eState.fishing;
                         baitedFish.changeState(1);
                     }
                     break;
                 case eState.fishing:
                     baitedFish.MashForCatch();
+                    
+                    break;
+                case eState.waitForFish:
                     break;
             }
         }
@@ -173,6 +190,7 @@ public class Player : MonoBehaviour {
     }
     public void changeState(eState staTE)
     {
+
         switch (staTE)
         {
             case eState.ground:  state = eState.ground; break;
@@ -182,12 +200,43 @@ public class Player : MonoBehaviour {
             case eState.water:  state = eState.water;  break;
 
             case eState.fishing: state = eState.fishing; break;
+
+            case eState.waitForFish: state = eState.waitForFish; break;
         }
 
     }
+    void fishCollideInteraction(GameObject g)
+    {
+        Fish f = g.GetComponent<Fish>(); 
+        switch ((int)f.state)
+        {
+            case 0:
+                break;
+
+            case 1:
+                break;
+            case 2:
+                f.changeState(3);
+
+                f.gameObject.transform.parent = getPart(ePart.rightArm).transform;
+                f.snapTransform();
+
+                holdingFish = true;
+                state = eState.ground;
+                f.removeRigidBody();
+                break;
+
+            case 3:
+                break;
+        }
+    }
     void OnCollisionEnter(Collision other)
     {
-        
+        if (other.gameObject.tag == "Fish")
+        {
+            print("F");
+            fishCollideInteraction(other.gameObject);
+        }
     }
     
 }

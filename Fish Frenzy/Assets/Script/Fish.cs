@@ -13,53 +13,30 @@ public class Fish : MonoBehaviour {
     public fState state;
     public GameObject holder;
     public int mashCountDown;
+    public Vector3 direction;
+   
 
-    public Transform snap;
-    public float veloY;
-    public Rigidbody myRigid;
+    public float jumpForce;
+    public float jumpSpeed;
+    public float fishMass;
+    //snap
+    public Vector3 holdPosition;
+    public Vector3 holdRotation;
+
+    private Rigidbody myRigid;
 	// Use this for initialization
 	void Start () {
-        myRigid = GetComponent<Rigidbody>();
+        
 
     }
 	
 	// Update is called once per frame
 	void Update () {
-		if(state == fState.toPlayer)
-        {
-            veloY -= Time.deltaTime*4;
-            if( transform.position.x != holder.transform.position.x ||
-                transform.position.y != holder.transform.position.y ||
-                transform.position.z != holder.transform.position.z )
-            {
-                transform.Translate(transform.forward);
-                transform.Translate(transform.up * veloY);
-            }
-           
-            
-        }
+	
     }
     public void playerCollideInteraction(GameObject player)
     {
-        switch ((int)state)
-        {
-            case 0:
-                break;
-
-            case 1:
-                break;
-            case 2:
-               
-                changeState(3);
-                Player p = player.GetComponent<Player>();
-                this.gameObject.transform.parent = p.model.transform;
-                p.holdingFish = true;
-                p.state = 0;
-                break;
-
-            case 3:
-                break;
-        }
+        
     }
     public void MashForCatch()
     {
@@ -80,8 +57,8 @@ public class Fish : MonoBehaviour {
                
             case 2:
                 state = fState.toPlayer;
-                this.transform.LookAt(holder.transform);
-                veloY = 1;
+                direction = holder.transform.position - transform.position;
+                FishJump(fishMass, jumpForce, direction,jumpSpeed);
                 break;
 
             case 3: state = fState.hold;     break;
@@ -91,11 +68,32 @@ public class Fish : MonoBehaviour {
 
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Fisherman")
-        {
-            playerCollideInteraction(other.gameObject);
-        }
+      
     }
-    
-   
+    public void snapTransform()
+    {
+        transform.localPosition = holdPosition;
+        transform.localEulerAngles = holdRotation;
+    }
+    public void setHolder(GameObject g)
+    {
+        holder = g;
+    }
+    public void FishJump(float m, float f, Vector3 d,float speed)
+    {
+        
+        gameObject.AddComponent<Rigidbody>();
+        myRigid = GetComponent<Rigidbody>();
+        myRigid.mass = m;
+        d.y = f;
+        print(d);
+        myRigid.AddForce(d*speed);
+      
+    }
+
+    public void removeRigidBody()
+    {
+        Destroy(myRigid);
+    }
+
 }

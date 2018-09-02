@@ -21,9 +21,8 @@ GameObject:
   - component: {fileID: 4902902917251884}
   - component: {fileID: 33191206228385178}
   - component: {fileID: 23139421662241446}
-  - component: {fileID: 65346812437744350}
   - component: {fileID: 114463855234569208}
-  - component: {fileID: 54269912845736890}
+  - component: {fileID: 65486132237681078}
   m_Layer: 10
   m_Name: SecondFishCreated
   m_TagString: Fish
@@ -38,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1775009926975410}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.8278126, y: 3.09, z: -3.69}
+  m_LocalPosition: {x: -2.139812, y: 4.04, z: -12.711324}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 0}
@@ -83,22 +82,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1775009926975410}
   m_Mesh: {fileID: 4300000, guid: 26fb55e8ae34728499f6f45cd0527c73, type: 3}
---- !u!54 &54269912845736890
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1775009926975410}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
---- !u!65 &65346812437744350
+--- !u!65 &65486132237681078
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -108,8 +92,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.34644294, y: 0.36187065, z: 0.15361115}
-  m_Center: {x: -0.017995827, y: 0, z: 0}
+  m_Size: {x: 1.0574602, y: 0.97157073, z: 0.5073158}
+  m_Center: {x: 0, y: 0, z: 0.17922404}
 --- !u!114 &114463855234569208
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -121,7 +105,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21300686d0b82e2468e9faf58577675f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: 0
+  state: 2
   holder: {fileID: 0}
   mashCountDown: 10
-  veloY: 0
+  direction: {x: 0, y: 0, z: 0}
+  jumpForce: 5
+  jumpSpeed: 40
+  fishMass: 1
+  holdPosition: {x: 0, y: 0, z: 0}
+  holdRotation: {x: 0, y: 270, z: 0}
