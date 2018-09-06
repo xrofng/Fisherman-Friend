@@ -6,6 +6,7 @@ public class Player : MonoBehaviour {
     private int player;
     public Vector3 speed;
     public Vector3 jumpForce;
+    public Vector3 jumpForce_II;
     public static float fixedFPS_DT;
     private Rigidbody rigid;
     public bool nearCoast;
@@ -107,7 +108,8 @@ public class Player : MonoBehaviour {
         if (Input.GetButtonDown(jump_b))
         {
             rigid.velocity = Vector3.zero;
-            rigid.AddForce(jumpForce);
+            //rigid.AddForce(jumpForce);
+            rigid.velocity = jumpForce_II;
         }
     }
 
@@ -220,10 +222,11 @@ public class Player : MonoBehaviour {
 
                 f.gameObject.transform.parent = getPart(ePart.rightArm).transform;
                 f.snapTransform();
+                f.removeRigidBody();
 
                 holdingFish = true;
                 state = eState.ground;
-                f.removeRigidBody();
+                rigid.velocity = Vector3.zero;
                 break;
 
             case 3:
@@ -234,7 +237,6 @@ public class Player : MonoBehaviour {
     {
         if (other.gameObject.tag == "Fish")
         {
-            print("F");
             fishCollideInteraction(other.gameObject);
         }
     }

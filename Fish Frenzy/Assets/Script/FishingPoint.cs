@@ -28,11 +28,9 @@ public class FishingPoint : MonoBehaviour {
             if(c.gameObject.tag != "Sea")
             {
                 collidedObjects.Clear();
-                print(lis);
                 return false;
             }
         }
-        print(lis);
         collidedObjects.Clear();
         return true;
     }

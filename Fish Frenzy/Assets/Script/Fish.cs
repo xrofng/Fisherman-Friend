@@ -86,7 +86,6 @@ public class Fish : MonoBehaviour {
         myRigid = GetComponent<Rigidbody>();
         myRigid.mass = m;
         d.y = f;
-        print(d);
         myRigid.AddForce(d*speed);
       
     }
