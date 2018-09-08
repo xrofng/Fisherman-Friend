@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 4902902917251884}
   - component: {fileID: 33191206228385178}
   - component: {fileID: 23139421662241446}
-  - component: {fileID: 114463855234569208}
   - component: {fileID: 65486132237681078}
+  - component: {fileID: 114463855234569208}
   m_Layer: 10
   m_Name: SecondFishCreated
   m_TagString: Fish
@@ -109,7 +109,7 @@ MonoBehaviour:
   holder: {fileID: 0}
   mashCountDown: 10
   direction: {x: 0, y: 0, z: 0}
-  jumpForce: 5
+  jumpForce: 10
   jumpSpeed: 40
   fishMass: 1
   holdPosition: {x: 0, y: 0, z: 0}

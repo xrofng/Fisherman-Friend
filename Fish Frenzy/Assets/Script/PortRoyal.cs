@@ -13,6 +13,7 @@ public class PortRoyal : MonoBehaviour {
     public bool debugMode;
 
     public Fish[] fishPool;
+    public Player[] player;
    
     // Use this for initialization
     void Start () {
@@ -24,8 +25,9 @@ public class PortRoyal : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        changePlayer();
+
+    }
 
     public Fish getFish(int number)
     {
@@ -41,6 +43,27 @@ public class PortRoyal : MonoBehaviour {
         return Random.Range(0, fishPool.Length);
         
    
+    }
+    void changePlayer()
+    {
+        KeyCode k = KeyCode.Alpha1;
+        for(int i = 0; i < 4; i++)
+        {
+            if (Input.GetKeyDown(k)) {
+
+                GameObject oldOne = GameObject.Find("Player1");
+                GameObject g = player[i].gameObject;
+                oldOne.name = g.name;
+                g.name = "Player1";
+                for(int j = 0; j < 4; j++)
+                {
+                    player[j].player = player[j].gameObject.name[6] - 48;
+                }
+            }
+            k++;
+        }
+        
+
     }
 
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
-    private int player;
+    public int player;
     public Vector3 speed;
     public Vector3 jumpForce;
     public Vector3 jumpForce_II;
@@ -108,8 +108,7 @@ public class Player : MonoBehaviour {
         if (Input.GetButtonDown(jump_b))
         {
             rigid.velocity = Vector3.zero;
-            //rigid.AddForce(jumpForce);
-            rigid.velocity = jumpForce_II;
+            rigid.velocity = jumpForce;
         }
     }
 
@@ -171,7 +170,17 @@ public class Player : MonoBehaviour {
         string switc = "Switch" + player;
         if (Input.GetButtonDown(switc))
         {
-         
+            baitedFish = subFish;
+            subFish = mainFish;
+            subFish.gameObject.SetActive(false);
+            mainFish = baitedFish;
+            baitedFish = null;
+            holdingFish = false;
+            if (mainFish != null)
+            {
+                holdingFish = true;
+                mainFish.gameObject.SetActive(true);
+            }
         }
     }
     void checkInput()
@@ -224,6 +233,9 @@ public class Player : MonoBehaviour {
                 f.snapTransform();
                 f.removeRigidBody();
 
+                mainFish = f;
+                baitedFish = null;
+
                 holdingFish = true;
                 state = eState.ground;
                 rigid.velocity = Vector3.zero;
@@ -240,5 +252,5 @@ public class Player : MonoBehaviour {
             fishCollideInteraction(other.gameObject);
         }
     }
-    
+
 }

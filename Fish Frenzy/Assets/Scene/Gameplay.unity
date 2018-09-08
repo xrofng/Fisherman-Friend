@@ -231,12 +231,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: {x: 5, y: 0, z: 5}
-  jumpForce: {x: 0, y: 500, z: 0}
+  jumpForce: {x: 0, y: 10, z: 0}
   characterMass: 1
   debugMode: 1
   fishPool:
   - {fileID: 114032208439797046, guid: a76e16c1b514c814abdc81fa08d90a53, type: 2}
   - {fileID: 114463855234569208, guid: bbd551698286aa5418657360b09c126d, type: 2}
+  player:
+  - {fileID: 1610217268}
+  - {fileID: 787410450}
+  - {fileID: 1845246687}
+  - {fileID: 1318802304}
 --- !u!1001 &160176167
 Prefab:
   m_ObjectHideFlags: 0
@@ -1014,6 +1019,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f80dc1eff9501934d8a3a0f6c97f9283, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: 0
   speed: {x: 0, y: 0, z: 0}
   jumpForce: {x: 0, y: 0, z: 0}
   jumpForce_II: {x: 0, y: 0, z: 0}
@@ -1563,6 +1569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f80dc1eff9501934d8a3a0f6c97f9283, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: 0
   speed: {x: 0, y: 0, z: 0}
   jumpForce: {x: 0, y: 0, z: 0}
   jumpForce_II: {x: 0, y: 0, z: 0}
@@ -2079,6 +2086,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f80dc1eff9501934d8a3a0f6c97f9283, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: 0
   speed: {x: 0, y: 0, z: 0}
   jumpForce: {x: 0, y: 0, z: 0}
   jumpForce_II: {x: 0, y: 2, z: 0}
@@ -2640,6 +2648,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f80dc1eff9501934d8a3a0f6c97f9283, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: 0
   speed: {x: 0, y: 0, z: 0}
   jumpForce: {x: 0, y: 0, z: 0}
   jumpForce_II: {x: 0, y: 0, z: 0}

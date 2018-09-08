@@ -40,28 +40,33 @@ public class Fish : MonoBehaviour {
     }
     public void MashForCatch()
     {
-        mashCountDown -= 1;
-        if (mashCountDown <= 0)
+        if (mashCountDown > 0)
         {
-            changeState(2);
+            mashCountDown -= 1;
+            if (mashCountDown <= 0)
+            {
+                changeState(2);
+            }
         }
-       
+   
+
     }
     public void changeState(int i)
     {
-       switch (i)
+       
+        switch (i)
         {
-            case 0: state = fState.swim;     break;
+            case 0: state = fState.swim; break;
 
-            case 1: state = fState.baited;   break;
-               
+            case 1: state = fState.baited; break;
+
             case 2:
                 state = fState.toPlayer;
                 direction = holder.transform.position - transform.position;
-                FishJump(fishMass, jumpForce, direction,jumpSpeed);
+                FishJump(fishMass, jumpForce, direction, jumpSpeed);
                 break;
 
-            case 3: state = fState.hold;     break;
+            case 3: state = fState.hold; break;
         }
 
     }
