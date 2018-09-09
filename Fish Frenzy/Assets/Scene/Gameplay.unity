@@ -1034,6 +1034,7 @@ MonoBehaviour:
   - {fileID: 1339542795}
   - {fileID: 954836739}
   - {fileID: 1145582332}
+  tree: {fileID: 0}
   state: 0
 --- !u!54 &787410451
 Rigidbody:
@@ -1584,6 +1585,7 @@ MonoBehaviour:
   - {fileID: 500371341}
   - {fileID: 1389925225}
   - {fileID: 1742913496}
+  tree: {fileID: 0}
   state: 0
 --- !u!54 &1318802305
 Rigidbody:
@@ -2101,6 +2103,7 @@ MonoBehaviour:
   - {fileID: 1049850624}
   - {fileID: 2004142764}
   - {fileID: 1698604829}
+  tree: {fileID: 0}
   state: 0
 --- !u!1 &1698604828
 GameObject:
@@ -2173,7 +2176,7 @@ SphereCollider:
   m_GameObject: {fileID: 1698604828}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -2663,6 +2666,7 @@ MonoBehaviour:
   - {fileID: 1785565859}
   - {fileID: 1549444488}
   - {fileID: 1758918530}
+  tree: {fileID: 0}
   state: 0
 --- !u!54 &1845246688
 Rigidbody:
@@ -2764,7 +2768,7 @@ SphereCollider:
   m_GameObject: {fileID: 2004142763}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}

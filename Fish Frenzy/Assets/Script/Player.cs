@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
     public int player;
+    public int dPercent;
+
     public Vector3 speed;
     public Vector3 jumpForce;
     public Vector3 jumpForce_II;
@@ -24,6 +26,7 @@ public class Player : MonoBehaviour {
     private BoxCollider myCollider;
 
     public Transform[] part;
+    public Collider tree;
     public enum ePart
     {
         body, leftArm,rightArm
@@ -47,6 +50,7 @@ public class Player : MonoBehaviour {
     // Use this for initialization
     void Start() {
         player = gameObject.name[6] - 48;
+        gameObject.layer = LayerMask.NameToLayer(gameObject.name);
         fixedFPS_DT = 0.016f;
         portroyal = FindObjectOfType<PortRoyal>();
         speed = PortRoyal.sCharacterSpeed;
@@ -66,6 +70,8 @@ public class Player : MonoBehaviour {
                 coastCheck();
                 switchFish();
                 startFishing();
+                throwFish();
+                slapFish();
                 checkInput();
                 break;
             case eState.fishing:
@@ -111,7 +117,10 @@ public class Player : MonoBehaviour {
             rigid.velocity = jumpForce;
         }
     }
-
+    bool isOwnerFish(Fish f)
+    {
+        return this.gameObject.name == f.holder.gameObject.name;
+    }
  
     void coastCheck()
     {
@@ -152,6 +161,7 @@ public class Player : MonoBehaviour {
                     {
                         baitedFish = Instantiate(portroyal.randomFish(), fishPoint.position, getPart(ePart.body).transform.rotation);
                         baitedFish.setHolder(this.gameObject);
+                        
                         state = eState.fishing;
                         baitedFish.changeState(1);
                     }
@@ -183,9 +193,27 @@ public class Player : MonoBehaviour {
             }
         }
     }
+    void throwFish()
+    {
+        string thro = "Throw" + player;
+        if (Input.GetButtonDown(thro))
+        {
+            mainFish.transform.position = getPart(ePart.body).transform.position;
+            mainFish.transform.rotation = getPart(ePart.body).transform.rotation;
+            // in dev duration = 7
+            mainFish.FishThrow( 7 );
+            mainFish.changeState(4);
+            mainFish = null;
+            holdingFish = false;
+        }
+    }
+    void slapFish()
+    {
+
+    }
     void checkInput()
     {
-        string[] button = { "Fishing", "Switch", "Jump" };
+        string[] button = { "Fishing", "Switch", "Jump","Slap","Throw" };
         int numPlayer = 4;
         for (int i = 0; i < button.Length; i++)
         {
@@ -195,6 +223,7 @@ public class Player : MonoBehaviour {
                 if (Input.GetButtonDown(bitton))
                 {
                     print(bitton);
+                   
                 }
             }
         }
@@ -216,6 +245,12 @@ public class Player : MonoBehaviour {
         }
 
     }
+    void recieveDamage(float damage)
+    {
+        dPercent += (int)damage;
+        print(dPercent);
+        rigid.AddForce(transform.forward * -1 * damage * 100);
+    }
     void fishCollideInteraction(GameObject g)
     {
         Fish f = g.GetComponent<Fish>(); 
@@ -232,16 +267,30 @@ public class Player : MonoBehaviour {
                 f.gameObject.transform.parent = getPart(ePart.rightArm).transform;
                 f.snapTransform();
                 f.removeRigidBody();
-
+                f.changeState(3);
+                string flayer = "Fish" + player; f.gameObject.layer = LayerMask.NameToLayer(flayer);
                 mainFish = f;
                 baitedFish = null;
-
+               
                 holdingFish = true;
+              
                 state = eState.ground;
                 rigid.velocity = Vector3.zero;
                 break;
 
             case 3:
+                break;
+
+            case 4:
+                if( !isOwnerFish(f))
+                {
+                    print(player);
+                    f.removeRigidBody();
+                    rigid.velocity = Vector3.zero;
+                    recieveDamage(f.throwAttack);
+                    f.gameObject.AddComponent<Rigidbody>();
+                }
+               
                 break;
         }
     }
@@ -249,6 +298,7 @@ public class Player : MonoBehaviour {
     {
         if (other.gameObject.tag == "Fish")
         {
+            
             fishCollideInteraction(other.gameObject);
         }
     }

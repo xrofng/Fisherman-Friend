@@ -8,14 +8,19 @@ public class Fish : MonoBehaviour {
         swim=0,
         baited,
         toPlayer,
-        hold
+        hold,
+        threw
     }
     public fState state;
     public GameObject holder;
     public int mashCountDown;
-    public Vector3 direction;
-   
+    public float attack;
+    public float deHydration;
+    public float attackSpeed;
+    public float weight;
+    public float throwAttack;
 
+    public Vector3 direction;
     public float jumpForce;
     public float jumpSpeed;
     public float fishMass;
@@ -24,9 +29,10 @@ public class Fish : MonoBehaviour {
     public Vector3 holdRotation;
 
     private Rigidbody myRigid;
-	// Use this for initialization
-	void Start () {
-        
+    private BoxCollider myCollider;
+    // Use this for initialization
+    void Start () {
+        myCollider = GetComponent<BoxCollider>();
 
     }
 	
@@ -67,13 +73,9 @@ public class Fish : MonoBehaviour {
                 break;
 
             case 3: state = fState.hold; break;
+            case 4: state = fState.threw; break;
         }
 
-    }
-
-    void OnCollisionEnter(Collision other)
-    {
-      
     }
     public void snapTransform()
     {
@@ -94,10 +96,30 @@ public class Fish : MonoBehaviour {
         myRigid.AddForce(d*speed);
       
     }
+    public void FishThrow(float duration)
+    {
+        transform.parent = null;
+        gameObject.AddComponent<Rigidbody>();
+        myRigid = GetComponent<Rigidbody>();
+        myRigid.useGravity = false;
+        myRigid.velocity = transform.forward * -50;
+        // in dev damage = duration
+        throwAttack = duration;
+
+    }
 
     public void removeRigidBody()
     {
         Destroy(myRigid);
     }
-
+    public BoxCollider getCollider()
+    {
+        return myCollider;
+    }
+ 
+    void OnCollisionEnter(Collision collision)
+    {
+   
+        
+    }
 }
