@@ -11,6 +11,13 @@ public class PortRoyal : MonoBehaviour {
     public float characterMass;
     public static bool sDebugMode;
     public bool debugMode;
+    public static float sJumpFaster;
+    public float jumpFaster;
+    public static float sFallFaster;
+    public float fallFaster;
+    public static float sMaxHoldToThrow;
+    public float maxHoldToThrow;
+
 
     public Fish[] fishPool;
     public Player[] player;
@@ -21,6 +28,9 @@ public class PortRoyal : MonoBehaviour {
         sJumpForce = jumpForce;
         sCharMass = characterMass;
         sDebugMode = debugMode;
+        sFallFaster = fallFaster;
+        sJumpFaster = jumpFaster;
+        sMaxHoldToThrow = maxHoldToThrow;
     }
 	
 	// Update is called once per frame

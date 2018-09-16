@@ -17,7 +17,7 @@ public static class sClass {
         }
         return 0;
     }
-    public static   bool intervalCheck(float f, float inte, float rval, bool outOf)
+    public static bool intervalCheck(float f, float inte, float rval, bool outOf)
     {
         if (outOf)
         {
@@ -36,5 +36,7 @@ public static class sClass {
         }
         return false;
     }
+
+  
 }
 

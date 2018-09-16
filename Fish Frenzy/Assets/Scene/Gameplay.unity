@@ -152,7 +152,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 0f74119e82d3b3a4d9b2842dbaa2a6ee, type: 2}
+  - {fileID: 2100000, guid: 3957ac3e69cf0544aaf8a59cc3d52fc2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -231,9 +231,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: {x: 5, y: 0, z: 5}
-  jumpForce: {x: 0, y: 10, z: 0}
+  jumpForce: {x: 0, y: 30, z: 0}
   characterMass: 1
   debugMode: 1
+  jumpFaster: 3
+  fallFaster: 2
+  maxHoldToThrow: 2
   fishPool:
   - {fileID: 114032208439797046, guid: a76e16c1b514c814abdc81fa08d90a53, type: 2}
   - {fileID: 114463855234569208, guid: bbd551698286aa5418657360b09c126d, type: 2}
@@ -759,13 +762,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 643753444}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -1.41, y: -0.9, z: 4.37}
+  m_LocalRotation: {x: -0, y: -0, z: 0.66473985, w: 0.747075}
+  m_LocalPosition: {x: -1, y: -1.2, z: 4.37}
   m_LocalScale: {x: 1.23347, y: 5.55, z: 1.92045}
   m_Children: []
   m_Father: {fileID: 1259504508}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 83.325005}
 --- !u!23 &643753446
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1020,9 +1023,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: 0
+  dPercent: 0
   speed: {x: 0, y: 0, z: 0}
   jumpForce: {x: 0, y: 0, z: 0}
-  jumpForce_II: {x: 0, y: 0, z: 0}
+  jumpFaster: 0
+  fallFaster: 0
   nearCoast: 0
   holdingFish: 0
   mainFish: {fileID: 0}
@@ -1058,7 +1063,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 787410448}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12, y: 3.38, z: 6}
+  m_LocalPosition: {x: 0.52, y: 1.46, z: -12.51}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1339542795}
@@ -1428,7 +1433,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 420f6d3178765b74092ccb7aaf749063, type: 2}
+  - {fileID: 2100000, guid: ff059fc016fcf8d4a88162b27e334cba, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1526,6 +1531,8 @@ Transform:
   - {fileID: 45669853}
   - {fileID: 643753445}
   - {fileID: 1196174493}
+  - {fileID: 1719511133}
+  - {fileID: 1546814112}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1571,9 +1578,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: 0
+  dPercent: 0
   speed: {x: 0, y: 0, z: 0}
   jumpForce: {x: 0, y: 0, z: 0}
-  jumpForce_II: {x: 0, y: 0, z: 0}
+  jumpFaster: 0
+  fallFaster: 0
   nearCoast: 0
   holdingFish: 0
   mainFish: {fileID: 0}
@@ -1609,7 +1618,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1318802302}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12, y: 3.38, z: -10}
+  m_LocalPosition: {x: 6.02, y: 1.46, z: -5.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 500371341}
@@ -1936,6 +1945,88 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1401846772}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1546814111
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1546814112}
+  - component: {fileID: 1546814115}
+  - component: {fileID: 1546814114}
+  - component: {fileID: 1546814113}
+  m_Layer: 0
+  m_Name: Cube (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1546814112
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1546814111}
+  m_LocalRotation: {x: 0.50308084, y: 0.5653928, z: 0.43449816, w: 0.48831546}
+  m_LocalPosition: {x: -3.6, y: -1.1999998, z: 0.6}
+  m_LocalScale: {x: 1.2334704, y: 5.5500016, z: 1.92045}
+  m_Children: []
+  m_Father: {fileID: 1259504508}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 98.367004, z: 83.325005}
+--- !u!23 &1546814113
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1546814111}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 0f74119e82d3b3a4d9b2842dbaa2a6ee, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!65 &1546814114
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1546814111}
+  m_Material: {fileID: 13400000, guid: 41daae6f88b9ece488a088ea7a97620b, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &1546814115
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1546814111}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1549444487
 GameObject:
   m_ObjectHideFlags: 0
@@ -2055,7 +2146,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1610217262}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10, y: 3.38, z: 6}
+  m_LocalPosition: {x: -2.25, y: 1.46, z: -12.51}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1049850624}
@@ -2089,9 +2180,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: 0
+  dPercent: 0
   speed: {x: 0, y: 0, z: 0}
   jumpForce: {x: 0, y: 0, z: 0}
-  jumpForce_II: {x: 0, y: 2, z: 0}
+  jumpFaster: 0
+  fallFaster: 0
   nearCoast: 0
   holdingFish: 0
   mainFish: {fileID: 0}
@@ -2187,6 +2280,88 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1698604828}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1719511132
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1719511133}
+  - component: {fileID: 1719511136}
+  - component: {fileID: 1719511135}
+  - component: {fileID: 1719511134}
+  m_Layer: 0
+  m_Name: Cube (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1719511133
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1719511132}
+  m_LocalRotation: {x: -0, y: -0, z: 0.78049046, w: 0.6251678}
+  m_LocalPosition: {x: -6.3, y: -1.1, z: 4.37}
+  m_LocalScale: {x: 1.2334704, y: 5.5500016, z: 1.92045}
+  m_Children: []
+  m_Father: {fileID: 1259504508}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 102.61101}
+--- !u!23 &1719511134
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1719511132}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 0f74119e82d3b3a4d9b2842dbaa2a6ee, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!65 &1719511135
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1719511132}
+  m_Material: {fileID: 13400000, guid: 41daae6f88b9ece488a088ea7a97620b, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &1719511136
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1719511132}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1724606432
 GameObject:
   m_ObjectHideFlags: 0
@@ -2652,9 +2827,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: 0
+  dPercent: 0
   speed: {x: 0, y: 0, z: 0}
   jumpForce: {x: 0, y: 0, z: 0}
-  jumpForce_II: {x: 0, y: 0, z: 0}
+  jumpFaster: 0
+  fallFaster: 0
   nearCoast: 0
   holdingFish: 0
   mainFish: {fileID: 0}
@@ -2690,7 +2867,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1845246685}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10, y: 3.38, z: -10}
+  m_LocalPosition: {x: 3.03, y: 1.46, z: -5.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1785565859}

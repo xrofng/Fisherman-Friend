@@ -9,7 +9,8 @@ public class Fish : MonoBehaviour {
         baited,
         toPlayer,
         hold,
-        threw
+        threw,
+        ground
     }
     public fState state;
     public GameObject holder;
@@ -19,6 +20,7 @@ public class Fish : MonoBehaviour {
     public float attackSpeed;
     public float weight;
     public float throwAttack;
+    public bool damageDealed;
 
     public Vector3 direction;
     public float jumpForce;
@@ -74,8 +76,19 @@ public class Fish : MonoBehaviour {
 
             case 3: state = fState.hold; break;
             case 4: state = fState.threw; break;
+            case 5: state = fState.ground; break;
         }
 
+    }
+    public void fishBounce()
+    {
+        StartCoroutine("ieFishBounce");
+    }
+    private IEnumerator  ieFishBounce()
+    {
+        yield return new WaitForSeconds(0.0f);
+        myRigid = gameObject.AddComponent<Rigidbody>();
+        myRigid.AddForce(Vector3.up * 3,ForceMode.Impulse);
     }
     public void snapTransform()
     {
@@ -101,11 +114,10 @@ public class Fish : MonoBehaviour {
         transform.parent = null;
         gameObject.AddComponent<Rigidbody>();
         myRigid = GetComponent<Rigidbody>();
-        myRigid.useGravity = false;
-        myRigid.velocity = transform.forward * -50;
-        // in dev damage = duration
-        throwAttack = duration;
-
+        float scaleToDuration = duration / PortRoyal.sMaxHoldToThrow;
+        myRigid.velocity = transform.forward * -(50 * scaleToDuration);
+       
+        throwAttack = attack * scaleToDuration;
     }
 
     public void removeRigidBody()
