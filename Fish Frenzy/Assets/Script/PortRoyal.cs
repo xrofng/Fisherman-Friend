@@ -11,13 +11,16 @@ public class PortRoyal : MonoBehaviour {
     public float characterMass;
     public static bool sDebugMode;
     public bool debugMode;
+
     public static float sJumpFaster;
     public float jumpFaster;
     public static float sFallFaster;
     public float fallFaster;
+
     public static float sMaxHoldToThrow;
     public float maxHoldToThrow;
-
+    public static float sAimRadius;
+    public float aimRadius;
 
     public Fish[] fishPool;
     public Player[] player;
@@ -31,12 +34,12 @@ public class PortRoyal : MonoBehaviour {
         sFallFaster = fallFaster;
         sJumpFaster = jumpFaster;
         sMaxHoldToThrow = maxHoldToThrow;
+        sAimRadius = aimRadius;
     }
 	
 	// Update is called once per frame
 	void Update () {
         changePlayer();
-
     }
 
     public Fish getFish(int number)
@@ -51,8 +54,6 @@ public class PortRoyal : MonoBehaviour {
     public int randomFishIndex()
     {
         return Random.Range(0, fishPool.Length);
-        
-   
     }
     void changePlayer()
     {
@@ -72,8 +73,6 @@ public class PortRoyal : MonoBehaviour {
             }
             k++;
         }
-        
-
     }
 
 }

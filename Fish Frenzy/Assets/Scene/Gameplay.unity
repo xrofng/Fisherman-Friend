@@ -235,8 +235,9 @@ MonoBehaviour:
   characterMass: 1
   debugMode: 1
   jumpFaster: 3
-  fallFaster: 2
+  fallFaster: 3
   maxHoldToThrow: 2
+  aimRadius: 50
   fishPool:
   - {fileID: 114032208439797046, guid: a76e16c1b514c814abdc81fa08d90a53, type: 2}
   - {fileID: 114463855234569208, guid: bbd551698286aa5418657360b09c126d, type: 2}
@@ -1028,6 +1029,7 @@ MonoBehaviour:
   jumpForce: {x: 0, y: 0, z: 0}
   jumpFaster: 0
   fallFaster: 0
+  aimRadius: 0
   nearCoast: 0
   holdingFish: 0
   mainFish: {fileID: 0}
@@ -1583,6 +1585,7 @@ MonoBehaviour:
   jumpForce: {x: 0, y: 0, z: 0}
   jumpFaster: 0
   fallFaster: 0
+  aimRadius: 0
   nearCoast: 0
   holdingFish: 0
   mainFish: {fileID: 0}
@@ -2185,6 +2188,7 @@ MonoBehaviour:
   jumpForce: {x: 0, y: 0, z: 0}
   jumpFaster: 0
   fallFaster: 0
+  aimRadius: 0
   nearCoast: 0
   holdingFish: 0
   mainFish: {fileID: 0}
@@ -2832,6 +2836,7 @@ MonoBehaviour:
   jumpForce: {x: 0, y: 0, z: 0}
   jumpFaster: 0
   fallFaster: 0
+  aimRadius: 0
   nearCoast: 0
   holdingFish: 0
   mainFish: {fileID: 0}

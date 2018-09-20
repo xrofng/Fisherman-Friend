@@ -11,7 +11,10 @@ public class Player : MonoBehaviour {
     public float jumpFaster;
     public float fallFaster;
     private float holdToThrow;
+    public float aimRadius;
+    private bool aiming;
     private bool freezeMovement;
+
     public static float fixedFPS_DT;
     private Rigidbody rigid;
     public bool nearCoast;
@@ -28,6 +31,7 @@ public class Player : MonoBehaviour {
     private PortRoyal portroyal;
     private BoxCollider myCollider;
 
+    
     public Transform[] part;
     public Collider tree;
     public enum ePart
@@ -39,6 +43,13 @@ public class Player : MonoBehaviour {
     {
         int index = (int)p;
         return part[index];
+    }
+    public Vector3 playerForward
+    {
+        get
+        {
+            return -getPart(ePart.body).forward;
+        }
     }
     public enum eState
     {
@@ -60,6 +71,7 @@ public class Player : MonoBehaviour {
         jumpForce = PortRoyal.sJumpForce;
         fallFaster = PortRoyal.sFallFaster;
         jumpFaster = PortRoyal.sJumpFaster;
+        aimRadius = PortRoyal.sAimRadius;
         rigid = GetComponent<Rigidbody>();
         rigid.mass = PortRoyal.sCharMass;
         myCollider = GetComponent<BoxCollider>();
@@ -83,17 +95,15 @@ public class Player : MonoBehaviour {
                 startFishing();
                 break;
         }
-        
     }
     void FixedUpdate() {
 
     }
    
-    void move() {
-
+    void move()
+    {
         string hori = "Hori" + player;
         string verti = "Verti" + player;
-
         Vector3 mov = new Vector3(Input.GetAxisRaw(hori) * speed.x, 0.0f, Input.GetAxisRaw(verti) * speed.z);
         mov = mov * Time.deltaTime;
         if (!freezeMovement)
@@ -113,7 +123,7 @@ public class Player : MonoBehaviour {
             }
         }
         
-        if (playerDirection.sqrMagnitude > 0.0f)
+        if (playerDirection.sqrMagnitude > 0.0f && !aiming)
         {
             getPart(ePart.body).transform.rotation = Quaternion.LookRotation(playerDirection, Vector3.up);
         }
@@ -127,7 +137,7 @@ public class Player : MonoBehaviour {
         }
         if (rigid.velocity.y < 0)
         {
-            rigid.velocity += Vector3.up * Physics.gravity.y * fallFaster * Time.deltaTime ;
+            rigid.velocity += Vector3.up * Physics.gravity.y * fallFaster * Time.deltaTime;
             rigid.drag = 0;
         }
     }
@@ -221,6 +231,32 @@ public class Player : MonoBehaviour {
         else if (Input.GetButton(thro))
         {
             holdToThrow += Time.deltaTime;
+            //aim assist
+           for(int i = 0; i < 4; i++)
+            {
+                float[] angle = { 1000, 1000, 1000, 1000 };
+                Vector3[] direction = new Vector3[4];
+                aiming = false;
+                if (i+1 != player)
+                {
+                    Player target = portroyal.player[i];
+                     direction[i] = target.transform.position - this.transform.position;
+                    angle[i] = Vector3.Angle(direction[i], playerForward);
+                    bool found=false;
+                    if(angle[i] < aimRadius*0.5f )
+                    {
+                        found = true;
+                        print(target.gameObject.name);
+                    }
+                    if (found)
+                    {
+                        aiming = true;
+                        int index = sClass.findMinOfArray(angle);
+                        getPart(ePart.body).transform.rotation = Quaternion.LookRotation(direction[index], Vector3.up);
+                        print(found);
+                    }
+                }
+            }
         }
         else if (Input.GetButtonUp(thro))
         {
@@ -233,9 +269,10 @@ public class Player : MonoBehaviour {
             mainFish = null;
             holdingFish = false;
             freezeMovement = false;
-            
+            aiming = false;
         }
     }
+
     void slapFish()
     {
 
