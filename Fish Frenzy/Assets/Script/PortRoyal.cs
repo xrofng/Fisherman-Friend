@@ -21,10 +21,15 @@ public class PortRoyal : MonoBehaviour {
     public float maxHoldToThrow;
     public static float sAimRadius;
     public float aimRadius;
+    public static float sRespawnTime;
+    public float respawnTime;
+    
+    public Transform deathRealm;
 
     public Fish[] fishPool;
     public Player[] player;
-   
+    public Transform[] spawnPoint;
+    public Camera mainCamera;
     // Use this for initialization
     void Start () {
         sCharacterSpeed = speed;
@@ -35,13 +40,18 @@ public class PortRoyal : MonoBehaviour {
         sJumpFaster = jumpFaster;
         sMaxHoldToThrow = maxHoldToThrow;
         sAimRadius = aimRadius;
+        sRespawnTime = respawnTime;
     }
 	
 	// Update is called once per frame
 	void Update () {
         changePlayer();
     }
-
+    public Vector3 randomSpawnPosition()
+    {
+        return spawnPoint[Random.Range(0, spawnPoint.Length)].position;
+    }
+    
     public Fish getFish(int number)
     {
         return fishPool[number];
@@ -60,8 +70,8 @@ public class PortRoyal : MonoBehaviour {
         KeyCode k = KeyCode.Alpha1;
         for(int i = 0; i < 4; i++)
         {
-            if (Input.GetKeyDown(k)) {
-
+            if (Input.GetKeyDown(k))
+            {
                 GameObject oldOne = GameObject.Find("Player1");
                 GameObject g = player[i].gameObject;
                 oldOne.name = g.name;

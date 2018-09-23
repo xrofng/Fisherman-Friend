@@ -35,7 +35,6 @@ public class Fish : MonoBehaviour {
     // Use this for initialization
     void Start () {
         myCollider = GetComponent<BoxCollider>();
-
     }
 	
 	// Update is called once per frame
@@ -46,7 +45,7 @@ public class Fish : MonoBehaviour {
     {
         
     }
-    public void MashForCatch()
+    public bool MashForCatch()
     {
         if (mashCountDown > 0)
         {
@@ -54,8 +53,10 @@ public class Fish : MonoBehaviour {
             if (mashCountDown <= 0)
             {
                 changeState(2);
+                return true;
             }
         }
+        return false;
    
 
     }

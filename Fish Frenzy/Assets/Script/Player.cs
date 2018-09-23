@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour {
     public int player;
     public int dPercent;
-
+    public bool death;
     public Vector3 speed;
     public Vector3 jumpForce;
     public float jumpFaster;
@@ -97,7 +97,6 @@ public class Player : MonoBehaviour {
         }
     }
     void FixedUpdate() {
-
     }
    
     void move()
@@ -150,6 +149,7 @@ public class Player : MonoBehaviour {
     {
         RaycastHit hit;
         nearCoast = false;
+       
         // Does the ray intersect any objects excluding the player layer
         if (Physics.Raycast(fishPoint_finder.position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity))
         {
@@ -159,11 +159,11 @@ public class Player : MonoBehaviour {
                 lineColor = Color.blue;
                 nearCoast = true;
                 fishPoint.position = hit.point + Vector3.down;
-                fishPoint.gameObject.SetActive(true);
+                GUIManager.Instance.UpdateFishButtonIndicator(player, fishPoint.position,true);
             }
             else
             {
-                fishPoint.gameObject.SetActive(false);
+                GUIManager.Instance.UpdateFishButtonIndicator(player, fishPoint.position, false);
             }
             Debug.DrawRay(fishPoint_finder.position, transform.TransformDirection(Vector3.down) * hit.distance, lineColor);
         }
@@ -171,6 +171,7 @@ public class Player : MonoBehaviour {
         {
             Debug.DrawRay(fishPoint_finder.position, transform.TransformDirection(Vector3.down) * 1000, Color.white);
         }
+        
     }
    
     void startFishing()
@@ -186,16 +187,19 @@ public class Player : MonoBehaviour {
                         baitedFish = Instantiate(portroyal.randomFish(), fishPoint.position, getPart(ePart.body).transform.rotation);
                         baitedFish.gameObject.layer = LayerMask.NameToLayer("FishO" + player); 
                         baitedFish.setHolder(this.gameObject);
-                        
-                        state = eState.fishing;
+                        GUIManager.Instance.UpdateMashFishingButtonIndicator(player, fishPoint.position, true);
+                        changeState(eState.fishing);
                         baitedFish.changeState(1);
                     }
                     break;
                 case eState.fishing:
-                    baitedFish.MashForCatch();
-                    
+                    if(baitedFish.MashForCatch())
+                    {
+                        changeState(eState.waitForFish);
+                    }
                     break;
                 case eState.waitForFish:
+                   
                     break;
             }
         }
@@ -306,7 +310,7 @@ public class Player : MonoBehaviour {
 
             case eState.fishing: state = eState.fishing; break;
 
-            case eState.waitForFish: state = eState.waitForFish; break;
+            case eState.waitForFish: GUIManager.Instance.UpdateMashFishingButtonIndicator(player, fishPoint.position, false);  state = eState.waitForFish; break;
         }
 
     }
@@ -355,6 +359,15 @@ public class Player : MonoBehaviour {
                 break;
         }
     }
+    IEnumerator respawn(float waitBeforeRespawn)
+    {
+       
+        yield return new WaitForSeconds(waitBeforeRespawn);
+        rigid.velocity = Vector3.zero;
+        this.transform.position = portroyal.randomSpawnPosition();
+        this.death = false;
+
+    }
     void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.tag == "Fish")
@@ -363,4 +376,14 @@ public class Player : MonoBehaviour {
         }
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "StageEdge")
+        {
+            this.death = true;
+            this.transform.position = portroyal.deathRealm.position;
+            StartCoroutine(respawn(PortRoyal.sRespawnTime));
+        }
+    }
+     
 }

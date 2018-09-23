@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MultiPlayerCamera : MonoBehaviour {
-    public List<Transform> targets;
+    public List<Player> targets;
+    public Transform stage;
     public Vector3 offset;
     // Use this for initialization
     private float smoothTime;
@@ -39,10 +40,13 @@ public class MultiPlayerCamera : MonoBehaviour {
     }
     Bounds GetEncapsulatingBounds()
     {
-        bound = new Bounds(targets[0].position, Vector3.zero);
+        bound = new Bounds();
         for (int i = 0; i < targets.Count; i++)
         {
-            bound.Encapsulate(targets[i].position);
+            if (!targets[i].death)
+            {
+                bound.Encapsulate(targets[i].gameObject.transform.position);
+            }
         }
         return bound;
     }
@@ -55,7 +59,7 @@ public class MultiPlayerCamera : MonoBehaviour {
     {
         if(targets.Count == 1)
         {
-            return targets[0].position;
+            return targets[0].gameObject.transform.position;
         }
   
         return GetEncapsulatingBounds().center;
