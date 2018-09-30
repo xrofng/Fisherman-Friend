@@ -318,7 +318,7 @@ public class Player : MonoBehaviour {
     {
         dPercent += (int)damage;
         fish.damageDealed = true;
-        rigid.AddExplosionForce(dPercent*50, fish.transform.position, 1.0f, 5.0f,ForceMode.Force);
+        rigid.AddExplosionForce(dPercent*50, fish.transform.position, 1.0f, 5.0f,ForceMode.Impulse);
     }
     void fishCollideInteraction(GameObject g)
     {
