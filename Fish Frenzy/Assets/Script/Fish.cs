@@ -21,6 +21,10 @@ public class Fish : MonoBehaviour {
     public float weight;
     public float throwAttack;
     public bool damageDealed;
+    public Vector3 hitboxSize;
+    public Vector3 hitboxCenter;
+
+
 
     public Vector3 direction;
     public float jumpForce;
@@ -57,16 +61,12 @@ public class Fish : MonoBehaviour {
             }
         }
         return false;
-   
-
     }
+
     public void changeState(fState pState)
     {
-        
         OnStateChange(pState);
         state = pState;
-       
-
     }
 
     void OnStateChange(fState pState)

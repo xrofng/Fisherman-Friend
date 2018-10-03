@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public class ReadOnlyAttribute : PropertyAttribute { }
+
 public static class sClass {
 
     // Use this for initialization

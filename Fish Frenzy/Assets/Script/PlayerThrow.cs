@@ -31,11 +31,11 @@ public class PlayerThrow : PlayerAbility {
     void Update () {
         if(_player.state == Player.eState.ground)
         {
-            throwFish();
+            ThrowFish();
         }
     }
 
-    void throwFish()
+    void ThrowFish()
     {
         string thro = "Throw" + _player.playerID;
         if (_player.mainFish == null)
@@ -53,32 +53,7 @@ public class PlayerThrow : PlayerAbility {
         {
             holdToThrow += Time.deltaTime;
 
-            //aim assist
-            //for(int i = 0; i < 4; i++)
-            // {
-            //     float[] angle = { 1000, 1000, 1000, 1000 };
-            //     Vector3[] direction = new Vector3[4];
-            //     aiming = false;
-            //     if (i+1 != player)
-            //     {
-            //         Player target = portroyal.player[i];
-            //          direction[i] = target.transform.position - this.transform.position;
-            //         angle[i] = Vector3.Angle(direction[i], playerForward);
-            //         bool found=false;
-            //         if(angle[i] < aimRadius*0.5f )
-            //         {
-            //             found = true;
-            //             print(target.gameObject.name);
-            //         }
-            //         if (found)
-            //         {
-            //             aiming = true;
-            //             int index = sClass.findMinOfArray(angle);
-            //             getPart(ePart.body).transform.rotation = Quaternion.LookRotation(direction[index], Vector3.up);
-            //             print(found);
-            //         }
-            //     }
-            // }
+            //AimAssist();
         }
         else if (Input.GetButtonUp(thro))
         {
@@ -96,5 +71,35 @@ public class PlayerThrow : PlayerAbility {
             _aimArrow.gameObject.SetActive(false);
             aiming = false;
         }
+    }
+
+    void AimAssist()
+    {
+        //aim assist
+        //for(int i = 0; i < 4; i++)
+        // {
+        //     float[] angle = { 1000, 1000, 1000, 1000 };
+        //     Vector3[] direction = new Vector3[4];
+        //     aiming = false;
+        //     if (i+1 != player)
+        //     {
+        //         Player target = portroyal.player[i];
+        //          direction[i] = target.transform.position - this.transform.position;
+        //         angle[i] = Vector3.Angle(direction[i], playerForward);
+        //         bool found=false;
+        //         if(angle[i] < aimRadius*0.5f )
+        //         {
+        //             found = true;
+        //             print(target.gameObject.name);
+        //         }
+        //         if (found)
+        //         {
+        //             aiming = true;
+        //             int index = sClass.findMinOfArray(angle);
+        //             getPart(ePart.body).transform.rotation = Quaternion.LookRotation(direction[index], Vector3.up);
+        //             print(found);
+        //         }
+        //     }
+        // }
     }
 }

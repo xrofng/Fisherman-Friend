@@ -21,6 +21,7 @@ public class Player : MonoBehaviour {
         get { return GetComponent<PlayerThrow>().aiming; }
     }
 
+
     public bool holdingFish;
     public Fish mainFish;
     public Fish subFish;
@@ -31,14 +32,20 @@ public class Player : MonoBehaviour {
     public Transform fishPoint;
     
     private BoxCollider myCollider;
+    private PlayerInvincibility playerInvincibility;
 
-    
+    public bool IsInvincible
+    {
+        get
+        {
+            return playerInvincibility.IsInvincible;
+        }
+    }
     public Transform[] part;
     public Collider tree;
     public enum ePart
     {
         body, leftArm,rightArm
-
     }
     public Transform getPart(ePart p)
     {
@@ -82,6 +89,7 @@ public class Player : MonoBehaviour {
         rigid.mass = PortRoyal.Instance.characterMass;
         myCollider = GetComponent<BoxCollider>();
         myCollider.size = getPart(ePart.body).transform.localScale;
+        playerInvincibility = GetComponent<PlayerInvincibility>();
     }
 
     // Update is called once per frame
@@ -95,7 +103,7 @@ public class Player : MonoBehaviour {
                 startFishing();
 
                 slapFish();
-                checkInput();
+                //checkInput();
                 break;
             case eState.fishing:
                 startFishing();
@@ -104,7 +112,7 @@ public class Player : MonoBehaviour {
         if(playerID == 2 && rigid.velocity!=Vector3.zero)
         {
 
-            print(rigid.velocity);
+           // print(rigid.velocity);
         }
     }
     void FixedUpdate() {
@@ -292,12 +300,11 @@ public class Player : MonoBehaviour {
         }
 
     }
-    void recieveDamage(float damage , Fish fish)
+    public void recieveDamage(float damage , Transform center)
     {
         dPercent += (int)damage;
-        fish.damageDealed = true;
-        rigid.AddExplosionForce(dPercent*50, fish.transform.position, 1.0f, 5.0f,ForceMode.Impulse);
-       
+        rigid.AddExplosionForce(dPercent*50, center.position, 1.0f, 5.0f,ForceMode.Impulse);
+        playerInvincibility.startInvincible();
     }
     void fishCollideInteraction(GameObject g)
     {
@@ -330,7 +337,8 @@ public class Player : MonoBehaviour {
                 {
                     rigid.velocity = Vector3.zero;
                     f.removeRigidBody();
-                    recieveDamage(f.throwAttack, f );
+                    f.damageDealed  = true;
+                    recieveDamage(f.throwAttack, f.transform );
                     f.fishBounce();
                 }
                 break;

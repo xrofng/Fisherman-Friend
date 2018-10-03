@@ -62,7 +62,7 @@ public class MaterialManager : PersistentSingleton<MaterialManager>
             {
                 // Try again, looking for inactive GameObjects
                 MaterialSwapper[] mSwapInactive = GetComponentsInChildren<MaterialSwapper>(true);
-                changeMaterial(mSwap,tempId);
+                changeMaterial(mSwapInactive, tempId);
             }
             return create ;
         }
