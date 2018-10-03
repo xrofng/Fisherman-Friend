@@ -53,7 +53,7 @@ public class GUIManager : Singleton<GUIManager>
     protected override void Awake()
     {
         base.Awake();
-        portroyal = FindObjectOfType<PortRoyal>();
+        portroyal = PortRoyal.Instance;
         if (Joystick != null)
         {
             _initialJoystickAlpha = Joystick.alpha;

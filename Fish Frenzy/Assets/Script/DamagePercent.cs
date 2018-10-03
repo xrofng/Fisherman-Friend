@@ -5,13 +5,12 @@ using UnityEngine.UI;
 
 public class DamagePercent : MonoBehaviour {
     public List<Text> text_percent;
-    private PortRoyal portroyal;
+
     public int superRed_P = 300;
     public int halfYellow_P = 60;
     public int lowWhite = 0;
 	// Use this for initialization
 	void Start () {
-        portroyal = FindObjectOfType<PortRoyal>();
 	}
 	
 	// Update is called once per frame

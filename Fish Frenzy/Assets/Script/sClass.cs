@@ -51,5 +51,18 @@ public static class sClass {
         }
         return index;
     }
+    public enum vectorComponent
+    {
+        x=0,
+        y,
+        z,
+    }
+    public static Vector3 setVector3(Vector3 original , vectorComponent vc, float value)
+    {
+        Vector3 changed = original;
+        changed[(int)vc] = value;
+        Debug.Log(changed);
+        return changed;
+    }
 }
 

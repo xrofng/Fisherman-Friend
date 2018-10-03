@@ -3,21 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
-    public int player;
+    public int playerID;
     public int dPercent;
     public bool death;
     public Vector3 speed;
     public Vector3 jumpForce;
     public float jumpFaster;
     public float fallFaster;
-    private float holdToThrow;
-    public float aimRadius;
-    private bool aiming;
-    private bool freezeMovement;
+   
+    public bool freezeMovement;
 
     public static float fixedFPS_DT;
     private Rigidbody rigid;
     public bool nearCoast;
+    private bool aiming
+    {
+        get { return GetComponent<PlayerThrow>().aiming; }
+    }
 
     public bool holdingFish;
     public Fish mainFish;
@@ -27,8 +29,7 @@ public class Player : MonoBehaviour {
     private Vector3 lookTo;
     public Transform fishPoint_finder;
     public Transform fishPoint;
-
-    private PortRoyal portroyal;
+    
     private BoxCollider myCollider;
 
     
@@ -39,7 +40,7 @@ public class Player : MonoBehaviour {
         body, leftArm,rightArm
 
     }
-    Transform getPart(ePart p)
+    public Transform getPart(ePart p)
     {
         int index = (int)p;
         return part[index];
@@ -63,17 +64,22 @@ public class Player : MonoBehaviour {
     public eState state;
     // Use this for initialization
     void Start() {
-        player = gameObject.name[6] - 48;
-        this.gameObject.layer = LayerMask.NameToLayer("Player"+player);
+        
+        
+    }
+
+    public  void Initialization()
+    {
+        playerID = gameObject.name[6] - 48;
+        this.gameObject.layer = LayerMask.NameToLayer("Player" + playerID);
         fixedFPS_DT = 0.016f;
-        portroyal = FindObjectOfType<PortRoyal>();
-        speed = PortRoyal.sCharacterSpeed;
-        jumpForce = PortRoyal.sJumpForce;
-        fallFaster = PortRoyal.sFallFaster;
-        jumpFaster = PortRoyal.sJumpFaster;
-        aimRadius = PortRoyal.sAimRadius;
+        speed = PortRoyal.Instance.speed;
+        jumpForce = PortRoyal.Instance.jumpForce;
+        fallFaster = PortRoyal.Instance.fallFaster;
+        jumpFaster = PortRoyal.Instance.jumpFaster;
+
         rigid = GetComponent<Rigidbody>();
-        rigid.mass = PortRoyal.sCharMass;
+        rigid.mass = PortRoyal.Instance.characterMass;
         myCollider = GetComponent<BoxCollider>();
         myCollider.size = getPart(ePart.body).transform.localScale;
     }
@@ -87,7 +93,7 @@ public class Player : MonoBehaviour {
                 coastCheck();
                 switchFish();
                 startFishing();
-                throwFish();
+
                 slapFish();
                 checkInput();
                 break;
@@ -95,14 +101,19 @@ public class Player : MonoBehaviour {
                 startFishing();
                 break;
         }
+        if(playerID == 2 && rigid.velocity!=Vector3.zero)
+        {
+
+            print(rigid.velocity);
+        }
     }
     void FixedUpdate() {
     }
    
     void move()
     {
-        string hori = "Hori" + player;
-        string verti = "Verti" + player;
+        string hori = "Hori" + playerID;
+        string verti = "Verti" + playerID;
         Vector3 mov = new Vector3(Input.GetAxisRaw(hori) * speed.x, 0.0f, Input.GetAxisRaw(verti) * speed.z);
         mov = mov * Time.deltaTime;
         if (!freezeMovement)
@@ -127,7 +138,7 @@ public class Player : MonoBehaviour {
             getPart(ePart.body).transform.rotation = Quaternion.LookRotation(playerDirection, Vector3.up);
         }
 
-        string jump_b = "Jump" + player;
+        string jump_b = "Jump" + playerID;
         if (Input.GetButtonDown(jump_b) && rigid.velocity.y<=0)
         {
             rigid.velocity = Vector3.zero;
@@ -144,7 +155,27 @@ public class Player : MonoBehaviour {
     {
         return this.gameObject.name == f.holder.gameObject.name;
     }
- 
+    
+    public void SetTransformAsPart(ePart transPart, ePart rotatPart)
+    {
+        mainFish.transform.position = getPart(transPart).transform.position;
+        mainFish.transform.rotation = getPart(rotatPart).transform.rotation;
+    }
+
+    public void SetHoldingFish(bool b)
+    {
+        holdingFish = b;
+    }
+
+    public void SetFishCollidePlayer(Fish fish , Player player, bool collide)
+    {
+        string layerN = "FishO";
+        if (!collide)
+        {
+            layerN = "Fish";
+        }
+        fish.gameObject.layer = LayerMask.NameToLayer(layerN + playerID);
+    }
     void coastCheck()
     {
         RaycastHit hit;
@@ -159,11 +190,11 @@ public class Player : MonoBehaviour {
                 lineColor = Color.blue;
                 nearCoast = true;
                 fishPoint.position = hit.point + Vector3.down;
-                GUIManager.Instance.UpdateFishButtonIndicator(player, fishPoint.position,true);
+                GUIManager.Instance.UpdateFishButtonIndicator(playerID, fishPoint.position,true);
             }
             else
             {
-                GUIManager.Instance.UpdateFishButtonIndicator(player, fishPoint.position, false);
+                GUIManager.Instance.UpdateFishButtonIndicator(playerID, fishPoint.position, false);
             }
             Debug.DrawRay(fishPoint_finder.position, transform.TransformDirection(Vector3.down) * hit.distance, lineColor);
         }
@@ -176,7 +207,7 @@ public class Player : MonoBehaviour {
    
     void startFishing()
     {
-        string fishi = "Fishing" + player;
+        string fishi = "Fishing" + playerID;
         if (Input.GetButtonDown(fishi))
         {
             switch (state)
@@ -184,12 +215,12 @@ public class Player : MonoBehaviour {
                 case eState.ground:
                     if (nearCoast == true && !holdingFish)
                     {
-                        baitedFish = Instantiate(portroyal.randomFish(), fishPoint.position, getPart(ePart.body).transform.rotation);
-                        baitedFish.gameObject.layer = LayerMask.NameToLayer("FishO" + player); 
+                        baitedFish = Instantiate(PortRoyal.Instance.randomFish(), fishPoint.position, getPart(ePart.body).transform.rotation);
+                        SetFishCollidePlayer(baitedFish, this, true);
                         baitedFish.setHolder(this.gameObject);
-                        GUIManager.Instance.UpdateMashFishingButtonIndicator(player, fishPoint.position, true);
+                        GUIManager.Instance.UpdateMashFishingButtonIndicator(playerID, fishPoint.position, true);
                         changeState(eState.fishing);
-                        baitedFish.changeState(1);
+                        baitedFish.changeState(Fish.fState.baited);
                     }
                     break;
                 case eState.fishing:
@@ -206,7 +237,7 @@ public class Player : MonoBehaviour {
     }
     void switchFish()
     {
-        string switc = "Switch" + player;
+        string switc = "Switch" + playerID;
         if (Input.GetButtonDown(switc))
         {
             baitedFish = subFish;
@@ -222,60 +253,7 @@ public class Player : MonoBehaviour {
             }
         }
     }
-    void throwFish()
-    {
-        string thro = "Throw" + player;
-        if (Input.GetButtonDown(thro))
-        {
-            holdToThrow = 0;
-            mainFish.transform.position = getPart(ePart.rightArm).transform.position;
-            mainFish.transform.rotation = getPart(ePart.body).transform.rotation;
-            freezeMovement = true;
-        }
-        else if (Input.GetButton(thro))
-        {
-            holdToThrow += Time.deltaTime;
-            //aim assist
-           for(int i = 0; i < 4; i++)
-            {
-                float[] angle = { 1000, 1000, 1000, 1000 };
-                Vector3[] direction = new Vector3[4];
-                aiming = false;
-                if (i+1 != player)
-                {
-                    Player target = portroyal.player[i];
-                     direction[i] = target.transform.position - this.transform.position;
-                    angle[i] = Vector3.Angle(direction[i], playerForward);
-                    bool found=false;
-                    if(angle[i] < aimRadius*0.5f )
-                    {
-                        found = true;
-                        print(target.gameObject.name);
-                    }
-                    if (found)
-                    {
-                        aiming = true;
-                        int index = sClass.findMinOfArray(angle);
-                        getPart(ePart.body).transform.rotation = Quaternion.LookRotation(direction[index], Vector3.up);
-                        print(found);
-                    }
-                }
-            }
-        }
-        else if (Input.GetButtonUp(thro))
-        {
-            mainFish.transform.position = getPart(ePart.body).transform.position;
-            mainFish.transform.rotation = getPart(ePart.body).transform.rotation;
-            holdToThrow = Mathf.Clamp(holdToThrow, 0.5f, PortRoyal.sMaxHoldToThrow);
-            mainFish.gameObject.layer = LayerMask.NameToLayer("Fish" + player);
-            mainFish.FishThrow( holdToThrow);
-            mainFish.changeState(4);
-            mainFish = null;
-            holdingFish = false;
-            freezeMovement = false;
-            aiming = false;
-        }
-    }
+    
 
     void slapFish()
     {
@@ -310,7 +288,7 @@ public class Player : MonoBehaviour {
 
             case eState.fishing: state = eState.fishing; break;
 
-            case eState.waitForFish: GUIManager.Instance.UpdateMashFishingButtonIndicator(player, fishPoint.position, false);  state = eState.waitForFish; break;
+            case eState.waitForFish: GUIManager.Instance.UpdateMashFishingButtonIndicator(playerID, fishPoint.position, false);  state = eState.waitForFish; break;
         }
 
     }
@@ -319,6 +297,7 @@ public class Player : MonoBehaviour {
         dPercent += (int)damage;
         fish.damageDealed = true;
         rigid.AddExplosionForce(dPercent*50, fish.transform.position, 1.0f, 5.0f,ForceMode.Impulse);
+       
     }
     void fishCollideInteraction(GameObject g)
     {
@@ -331,7 +310,7 @@ public class Player : MonoBehaviour {
             case 1:
                 break;
             case 2:
-                f.changeState(3);
+                f.changeState(Fish.fState.hold);
                 f.gameObject.transform.parent = getPart(ePart.rightArm).transform;
                 f.snapTransform();
                 f.removeRigidBody();
@@ -364,8 +343,9 @@ public class Player : MonoBehaviour {
        
         yield return new WaitForSeconds(waitBeforeRespawn);
         rigid.velocity = Vector3.zero;
-        this.transform.position = portroyal.randomSpawnPosition();
+        this.transform.position = PortRoyal.Instance.randomSpawnPosition();
         this.death = false;
+        this.dPercent = 0;
 
     }
     void OnCollisionEnter(Collision other)
@@ -381,8 +361,8 @@ public class Player : MonoBehaviour {
         if (other.gameObject.tag == "StageEdge")
         {
             this.death = true;
-            this.transform.position = portroyal.deathRealm.position;
-            StartCoroutine(respawn(PortRoyal.sRespawnTime));
+            this.transform.position = PortRoyal.Instance.deathRealm.position;
+            StartCoroutine(respawn(PortRoyal.Instance.respawnTime));
         }
     }
      

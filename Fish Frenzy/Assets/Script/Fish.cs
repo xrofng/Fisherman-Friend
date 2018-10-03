@@ -52,7 +52,7 @@ public class Fish : MonoBehaviour {
             mashCountDown -= 1;
             if (mashCountDown <= 0)
             {
-                changeState(2);
+                changeState(fState.toPlayer);
                 return true;
             }
         }
@@ -60,27 +60,24 @@ public class Fish : MonoBehaviour {
    
 
     }
-    public void changeState(int i)
+    public void changeState(fState pState)
     {
+        
+        OnStateChange(pState);
+        state = pState;
        
-        switch (i)
-        {
-            case 0: state = fState.swim; break;
-
-            case 1: state = fState.baited; break;
-
-            case 2:
-                state = fState.toPlayer;
-                direction = holder.transform.position - transform.position;
-                FishJump(fishMass, jumpForce, direction, jumpSpeed);
-                break;
-
-            case 3: state = fState.hold; break;
-            case 4: state = fState.threw; break;
-            case 5: state = fState.ground; break;
-        }
 
     }
+
+    void OnStateChange(fState pState)
+    {
+        if (pState == fState.toPlayer)
+        {
+            direction = holder.transform.position - transform.position;
+            FishJump(fishMass, jumpForce, direction, jumpSpeed);
+        }
+    }
+
     public void fishBounce()
     {
         StartCoroutine("ieFishBounce");
@@ -115,7 +112,7 @@ public class Fish : MonoBehaviour {
         transform.parent = null;
         gameObject.AddComponent<Rigidbody>();
         myRigid = GetComponent<Rigidbody>();
-        float scaleToDuration = duration / PortRoyal.sMaxHoldToThrow;
+        float scaleToDuration = duration / PortRoyal.Instance.maxHoldToThrow;
         myRigid.velocity = transform.forward * -(50 * scaleToDuration);
        
         throwAttack = attack * scaleToDuration;

@@ -16,7 +16,15 @@ public class MultiPlayerCamera : MonoBehaviour {
     Bounds bound;
     void Start () {
         cam = GetComponent<Camera>();
-        
+        for (int i = 0; i < 4; i++)
+        {
+            targets.Add(PortRoyal.Instance.player[i]);
+        }
+
+    }
+    public void Initialization()
+    {
+       
     }
 	void LateUpdate()
     {

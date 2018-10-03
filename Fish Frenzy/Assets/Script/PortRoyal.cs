@@ -2,54 +2,59 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PortRoyal : MonoBehaviour {
-    public static Vector3 sCharacterSpeed;
+public class PortRoyal : PersistentSingleton<PortRoyal>
+{
+
     public Vector3 speed;
-    public static Vector3 sJumpForce;
+
     public Vector3 jumpForce;
-    public static float sCharMass;
+
     public float characterMass;
-    public static bool sDebugMode;
+
     public bool debugMode;
 
-    public static float sJumpFaster;
-    public float jumpFaster;
-    public static float sFallFaster;
-    public float fallFaster;
 
-    public static float sMaxHoldToThrow;
+    public float jumpFaster;
+
+    public float fallFaster;
+    
     public float maxHoldToThrow;
-    public static float sAimRadius;
+
     public float aimRadius;
-    public static float sRespawnTime;
+
     public float respawnTime;
     
     public Transform deathRealm;
 
     public Fish[] fishPool;
     public Player[] player;
+    public Color[] playerColor;
+    public Material[] playerMaterial;
     public Transform[] spawnPoint;
     public Camera mainCamera;
+    public MultiPlayerCamera multiPCamera;
+
     // Use this for initialization
-    void Start () {
-        sCharacterSpeed = speed;
-        sJumpForce = jumpForce;
-        sCharMass = characterMass;
-        sDebugMode = debugMode;
-        sFallFaster = fallFaster;
-        sJumpFaster = jumpFaster;
-        sMaxHoldToThrow = maxHoldToThrow;
-        sAimRadius = aimRadius;
-        sRespawnTime = respawnTime;
+    void Start ()
+    { 
+
     }
 	
 	// Update is called once per frame
 	void Update () {
         changePlayer();
     }
+    public int randomSpawnPosIndex()
+    {
+        return Random.Range(0, spawnPoint.Length);
+    }
     public Vector3 randomSpawnPosition()
     {
-        return spawnPoint[Random.Range(0, spawnPoint.Length)].position;
+        return spawnPoint[randomSpawnPosIndex()].position;
+    }
+    public Vector3 getSpwanPositionAtIndex(int index)
+    {
+        return spawnPoint[index].position;
     }
     
     public Fish getFish(int number)
@@ -78,7 +83,7 @@ public class PortRoyal : MonoBehaviour {
                 g.name = "Player1";
                 for(int j = 0; j < 4; j++)
                 {
-                    player[j].player = player[j].gameObject.name[6] - 48;
+                    player[j].playerID = player[j].gameObject.name[6] - 48;
                 }
             }
             k++;
