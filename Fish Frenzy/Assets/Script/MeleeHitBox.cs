@@ -24,7 +24,8 @@ public class MeleeHitBox : MonoBehaviour
     public Vector2 DamageCausedKnockbackForce = new Vector2(10, 2);
     /// The duration of the invincibility frames after the hit (in seconds)
     public float InvincibilityDuration = 0.5f;
-
+    /// The duration of the invincibility frames after the hit (in frames)
+    public int InvincibilityFrame = 50;
 
     [Header("Feedback")]
     /// the duration of freeze frames on hit (leave it at 0 to ignore)
@@ -141,6 +142,12 @@ public class MeleeHitBox : MonoBehaviour
             return;
         }
 
+        // if the object we're colliding is owner,  we do nothing and exit
+        if (collider.gameObject == OwnerPlayer)
+        {
+            return;
+        }
+
         // if the object we're colliding with is part of our ignore list, we do nothing and exit
         if (_ignoredGameObjects.Contains(collider.gameObject))
         {
@@ -150,10 +157,10 @@ public class MeleeHitBox : MonoBehaviour
         //// if what we're colliding with isn't part of the target layers, we do nothing and exit
         //if (collider.gameObject.layer != TargetLayerMask)
         //{
-            
+
         //    return;
         //}
-
+        
         _player = collider.gameObject.GetComponent<Player>();
 
         // if what we're colliding with player
@@ -161,9 +168,11 @@ public class MeleeHitBox : MonoBehaviour
         {
             if (!_player.IsInvincible)
             {
-                OnCollideWithPlayer(_player);
+                Vector3 explosionCenter = this.transform.position -_player.transform.position;
+                Vector3 normalizedCenter = Vector3.Normalize(explosionCenter) * 1f;
+                Vector3 center = _player.transform.position + normalizedCenter;
+                OnCollideWithPlayer(_player , center);
             }
-           
         }
 
         // if what we're colliding with can't be damaged
@@ -173,13 +182,14 @@ public class MeleeHitBox : MonoBehaviour
         }
     }
 
+  
     /// <summary>
     /// Describes what happens when colliding with a player object
     /// </summary>
     /// <param name="health">Health.</param>
-    protected virtual void OnCollideWithPlayer(Player player)
+    protected virtual void OnCollideWithPlayer(Player player , Vector3 explosionCenter)
     {
-        _player.recieveDamage(DamageCaused, this.OwnerPlayer.mainFish.transform);
+        _player.recieveDamage(DamageCaused, explosionCenter , InvincibilityFrame);
     }
 
     /// <summary>

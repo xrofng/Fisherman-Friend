@@ -18,7 +18,7 @@ public class Player : MonoBehaviour {
     public bool nearCoast;
     private bool aiming
     {
-        get { return GetComponent<PlayerThrow>().aiming; }
+        get { return _cPlayerThrow.aiming; }
     }
 
 
@@ -32,13 +32,14 @@ public class Player : MonoBehaviour {
     public Transform fishPoint;
     
     private BoxCollider myCollider;
-    private PlayerInvincibility playerInvincibility;
-
+    private PlayerInvincibility _cPlayerInvincibility;
+    private PlayerThrow _cPlayerThrow;
+    public GameObject knockBackOrigin;
     public bool IsInvincible
     {
         get
         {
-            return playerInvincibility.IsInvincible;
+            return _cPlayerInvincibility.IsInvincible;
         }
     }
     public Transform[] part;
@@ -66,7 +67,6 @@ public class Player : MonoBehaviour {
         water,
         fishing,
         waitForFish
-
     }
     public eState state;
     // Use this for initialization
@@ -89,7 +89,8 @@ public class Player : MonoBehaviour {
         rigid.mass = PortRoyal.Instance.characterMass;
         myCollider = GetComponent<BoxCollider>();
         myCollider.size = getPart(ePart.body).transform.localScale;
-        playerInvincibility = GetComponent<PlayerInvincibility>();
+        _cPlayerInvincibility = GetComponent<PlayerInvincibility>();
+        _cPlayerThrow = GetComponent<PlayerThrow>();
     }
 
     // Update is called once per frame
@@ -300,12 +301,19 @@ public class Player : MonoBehaviour {
         }
 
     }
-    public void recieveDamage(float damage , Transform center)
+
+    public void recieveDamage(float damage , Transform center , int recoveryFrame)
+    {
+        recieveDamage(damage, center.position , recoveryFrame);
+    }
+    public void recieveDamage(float damage, Vector3 center, int recoveryFrame)
     {
         dPercent += (int)damage;
-        rigid.AddExplosionForce(dPercent*50, center.position, 1.0f, 5.0f,ForceMode.Impulse);
-        playerInvincibility.startInvincible();
+        //Instantiate(knockBackOrigin, center ,Quaternion.identity);
+        rigid.AddExplosionForce(dPercent, center, 1.0f, 5.0f, ForceMode.Impulse);
+        _cPlayerInvincibility.startInvincible(recoveryFrame);
     }
+
     void fishCollideInteraction(GameObject g)
     {
         Fish f = g.GetComponent<Fish>(); 
@@ -338,7 +346,7 @@ public class Player : MonoBehaviour {
                     rigid.velocity = Vector3.zero;
                     f.removeRigidBody();
                     f.damageDealed  = true;
-                    recieveDamage(f.throwAttack, f.transform );
+                    recieveDamage(f.throwAttack, f.transform , f.t_invicibilityFrame);
                     f.fishBounce();
                 }
                 break;
@@ -373,5 +381,7 @@ public class Player : MonoBehaviour {
             StartCoroutine(respawn(PortRoyal.Instance.respawnTime));
         }
     }
-     
+
+
+   
 }

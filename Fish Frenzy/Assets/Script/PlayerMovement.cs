@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : PlayerAbility {
-    
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    protected override void Start () {
 		
 	}
 	

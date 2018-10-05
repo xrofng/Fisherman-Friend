@@ -15,7 +15,7 @@ public class PlayerInvincibility : PlayerAbility {
             isInvincible = value;
         }
     }
-    public  int invisibilityFrame = 5;
+    public  int invisibilityFrame = 50;
 
     [ReadOnly]
     bool isInvincible;
@@ -30,8 +30,9 @@ public class PlayerInvincibility : PlayerAbility {
 		
 	}
 
-    public void startInvincible()
+    public void startInvincible(int inviFrame)
     {
+        invisibilityFrame = inviFrame;
         StartCoroutine(invokeInvinceible(invisibilityFrame));
     }
 
@@ -45,6 +46,14 @@ public class PlayerInvincibility : PlayerAbility {
             frameCount++;
         }
         IsInvincible = false;
+    }
 
+    void OnDrawGizmos()
+    {
+        // Draw a yellow sphere at the transform's position
+        Color _gizmoColor = Color.grey;
+        _gizmoColor.a = 0.5f;
+        Gizmos.color = _gizmoColor;
+        Gizmos.DrawCube(transform.position, transform.localScale);
     }
 }

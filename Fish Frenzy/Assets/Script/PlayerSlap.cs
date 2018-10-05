@@ -6,6 +6,7 @@ public class PlayerSlap : PlayerAbility {
 
     public MeleeHitBox hitBox;
     protected bool attacking;
+
     public bool Attacking
     {
         get
@@ -49,12 +50,14 @@ public class PlayerSlap : PlayerAbility {
         }
         if (Input.GetButtonDown(slap))
         {
+            // Assing fish stat to hitbox
             //hitBox.center = _player.mainFish.hitboxCenter;
             //hitBox.size = _player.mainFish.hitboxSize;
+            hitBox.InvincibilityFrame = _player.mainFish.s_invicibilityFrame;
             hitBox.DamageCaused = _player.mainFish.attack;
             if (!Attacking)
             {
-                StartCoroutine(HitBoxEnable(2));
+                StartCoroutine(HitBoxEnable(_player.mainFish.hitBoxStayFrame));
             }
         }
         else if (Input.GetButton(slap))
@@ -67,10 +70,15 @@ public class PlayerSlap : PlayerAbility {
         }
     }
 
-    IEnumerator HitBoxEnable(float time)
+    IEnumerator HitBoxEnable(int frameDuration)
     {
         Attacking = true;
-        yield return new WaitForSeconds(time);
+        int frameCount = 0;
+        while (frameCount < frameDuration)
+        {
+            yield return new WaitForEndOfFrame();
+            frameCount++;
+        }
         Attacking = false;
 
     }

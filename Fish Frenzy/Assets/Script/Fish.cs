@@ -12,24 +12,35 @@ public class Fish : MonoBehaviour {
         threw,
         ground
     }
+    [Header("Info")]
     public fState state;
     public GameObject holder;
-    public int mashCountDown;
-    public float attack;
-    public float deHydration;
-    public float attackSpeed;
-    public float weight;
-    public float throwAttack;
     public bool damageDealed;
+
+    [Header("Fishing")]
+    public float deHydration;
+    public float weight;
+    public int mashCountDown;
+    protected Vector3 direction;
+    public float jumpForce;
+    public float jumpSpeed;
+    public float fishMass;
+    [Header("Throw")]
+    public float throwAttack;
+    public int t_invicibilityFrame = 50;
+    
+
+    [Header("Slap")]
+    public float attack;
+    public float attackSpeed;
+    public int hitBoxStayFrame = 4;
+    public int s_invicibilityFrame = 50;
     public Vector3 hitboxSize;
     public Vector3 hitboxCenter;
 
 
 
-    public Vector3 direction;
-    public float jumpForce;
-    public float jumpSpeed;
-    public float fishMass;
+    [Header("Snap")]
     //snap
     public Vector3 holdPosition;
     public Vector3 holdRotation;
