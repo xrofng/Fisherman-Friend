@@ -1,0 +1,363 @@
+fileFormatVersion: 2
+guid: 60cf2b54863cf114395f55ced55e264a
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Barrel
+    100002: box
+    100004: Bridge
+    100006: CoconutTree
+    100008: CoconutTree1
+    100010: fence
+    100012: Island
+    100014: Nail_1
+    100016: Nail_2
+    100018: pCube16
+    100020: pCube17
+    100022: pCube18
+    100024: pCube19
+    100026: pCube2
+    100028: pCube20
+    100030: pCube3
+    100032: pCylinder1
+    100034: pCylinder2
+    100036: pCylinder3
+    100038: pCylinder4
+    100040: pCylinder5
+    100042: pCylinder5 1
+    100044: pCylinder6
+    100046: pPlane1
+    100048: pPlane1 1
+    100050: pPlane2
+    100052: pPlane3
+    100054: pPlane4
+    100056: pPlane5
+    100058: pPlane6
+    100060: pPlane7
+    100062: pSphere1
+    100064: pSphere1 1
+    100066: pSphere2
+    100068: pSphere2 1
+    100070: pSphere3
+    100072: pSphere3 1
+    100074: Rock
+    100076: Rock01
+    100078: Rock02
+    100080: Rock03
+    100082: Rock04_1
+    100084: Rock05_1
+    100086: Rock05_2
+    100088: Rock05_3
+    100090: Rock06_1
+    100092: Rock06_2
+    100094: Rock06_3
+    100096: Rock_4_2
+    100098: //RootNode
+    100100: Teasure
+    100102: Wood_1
+    100104: Wood_2
+    100106: Wood_3
+    100108: Wood_4
+    100110: Wood_5
+    100112: Wood_6
+    100114: Wood_7
+    100116: Wood_8
+    400000: Barrel
+    400002: box
+    400004: Bridge
+    400006: CoconutTree
+    400008: CoconutTree1
+    400010: fence
+    400012: Island
+    400014: Nail_1
+    400016: Nail_2
+    400018: pCube16
+    400020: pCube17
+    400022: pCube18
+    400024: pCube19
+    400026: pCube2
+    400028: pCube20
+    400030: pCube3
+    400032: pCylinder1
+    400034: pCylinder2
+    400036: pCylinder3
+    400038: pCylinder4
+    400040: pCylinder5
+    400042: pCylinder5 1
+    400044: pCylinder6
+    400046: pPlane1
+    400048: pPlane1 1
+    400050: pPlane2
+    400052: pPlane3
+    400054: pPlane4
+    400056: pPlane5
+    400058: pPlane6
+    400060: pPlane7
+    400062: pSphere1
+    400064: pSphere1 1
+    400066: pSphere2
+    400068: pSphere2 1
+    400070: pSphere3
+    400072: pSphere3 1
+    400074: Rock
+    400076: Rock01
+    400078: Rock02
+    400080: Rock03
+    400082: Rock04_1
+    400084: Rock05_1
+    400086: Rock05_2
+    400088: Rock05_3
+    400090: Rock06_1
+    400092: Rock06_2
+    400094: Rock06_3
+    400096: Rock_4_2
+    400098: //RootNode
+    400100: Teasure
+    400102: Wood_1
+    400104: Wood_2
+    400106: Wood_3
+    400108: Wood_4
+    400110: Wood_5
+    400112: Wood_6
+    400114: Wood_7
+    400116: Wood_8
+    2100000: lambert1
+    2300000: Barrel
+    2300002: box
+    2300004: Island
+    2300006: Nail_1
+    2300008: Nail_2
+    2300010: pCube16
+    2300012: pCube17
+    2300014: pCube18
+    2300016: pCube19
+    2300018: pCube2
+    2300020: pCube20
+    2300022: pCube3
+    2300024: pCylinder1
+    2300026: pCylinder2
+    2300028: pCylinder3
+    2300030: pCylinder4
+    2300032: pCylinder5
+    2300034: pCylinder5 1
+    2300036: pCylinder6
+    2300038: pPlane1
+    2300040: pPlane1 1
+    2300042: pPlane2
+    2300044: pPlane3
+    2300046: pPlane4
+    2300048: pPlane5
+    2300050: pPlane6
+    2300052: pPlane7
+    2300054: pSphere1
+    2300056: pSphere1 1
+    2300058: pSphere2
+    2300060: pSphere2 1
+    2300062: pSphere3
+    2300064: pSphere3 1
+    2300066: Rock01
+    2300068: Rock02
+    2300070: Rock03
+    2300072: Rock04_1
+    2300074: Rock05_1
+    2300076: Rock05_2
+    2300078: Rock05_3
+    2300080: Rock06_1
+    2300082: Rock06_2
+    2300084: Rock06_3
+    2300086: Rock_4_2
+    2300088: Wood_1
+    2300090: Wood_2
+    2300092: Wood_3
+    2300094: Wood_4
+    2300096: Wood_5
+    2300098: Wood_6
+    2300100: Wood_7
+    2300102: Wood_8
+    3300000: Barrel
+    3300002: box
+    3300004: Island
+    3300006: Nail_1
+    3300008: Nail_2
+    3300010: pCube16
+    3300012: pCube17
+    3300014: pCube18
+    3300016: pCube19
+    3300018: pCube2
+    3300020: pCube20
+    3300022: pCube3
+    3300024: pCylinder1
+    3300026: pCylinder2
+    3300028: pCylinder3
+    3300030: pCylinder4
+    3300032: pCylinder5
+    3300034: pCylinder5 1
+    3300036: pCylinder6
+    3300038: pPlane1
+    3300040: pPlane1 1
+    3300042: pPlane2
+    3300044: pPlane3
+    3300046: pPlane4
+    3300048: pPlane5
+    3300050: pPlane6
+    3300052: pPlane7
+    3300054: pSphere1
+    3300056: pSphere1 1
+    3300058: pSphere2
+    3300060: pSphere2 1
+    3300062: pSphere3
+    3300064: pSphere3 1
+    3300066: Rock01
+    3300068: Rock02
+    3300070: Rock03
+    3300072: Rock04_1
+    3300074: Rock05_1
+    3300076: Rock05_2
+    3300078: Rock05_3
+    3300080: Rock06_1
+    3300082: Rock06_2
+    3300084: Rock06_3
+    3300086: Rock_4_2
+    3300088: Wood_1
+    3300090: Wood_2
+    3300092: Wood_3
+    3300094: Wood_4
+    3300096: Wood_5
+    3300098: Wood_6
+    3300100: Wood_7
+    3300102: Wood_8
+    4300000: box
+    4300002: Island
+    4300004: Barrel
+    4300006: pCylinder5
+    4300008: pSphere3
+    4300010: pSphere2
+    4300012: pSphere1
+    4300014: pPlane1
+    4300016: pPlane2
+    4300018: pPlane3
+    4300020: pPlane4
+    4300022: pPlane5
+    4300024: pPlane6
+    4300026: pPlane7
+    4300028: Wood_6
+    4300030: Wood_5
+    4300032: Wood_1
+    4300034: Wood_2
+    4300036: Wood_3
+    4300038: Wood_4
+    4300040: Nail_1
+    4300042: Nail_2
+    4300044: Wood_8
+    4300046: pCube3
+    4300048: pCylinder4
+    4300050: Wood_7
+    4300052: pCube2
+    4300054: pCylinder3
+    4300056: pCylinder2
+    4300058: pCylinder1
+    4300060: Rock02
+    4300062: Rock01
+    4300064: Rock03
+    4300066: Rock04_1
+    4300068: Rock_4_2
+    4300070: Rock05_1
+    4300072: Rock05_2
+    4300074: Rock05_3
+    4300076: Rock06_1
+    4300078: Rock06_2
+    4300080: Rock06_3
+    4300082: pCylinder5
+    4300084: pSphere3
+    4300086: pSphere2
+    4300088: pSphere1
+    4300090: pPlane1
+    4300092: pCube20
+    4300094: pCube19
+    4300096: pCylinder6
+    4300098: pCube17
+    4300100: pCube16
+    4300102: pCube18
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
