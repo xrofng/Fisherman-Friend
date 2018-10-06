@@ -345,7 +345,7 @@ GameObject:
   - component: {fileID: 121652656}
   m_Layer: 0
   m_Name: Hidden Grass
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -821,7 +821,6 @@ GameObject:
   - component: {fileID: 225139479}
   - component: {fileID: 225139481}
   - component: {fileID: 225139480}
-  - component: {fileID: 225139483}
   - component: {fileID: 225139482}
   m_Layer: 0
   m_Name: Rock04_1
@@ -889,20 +888,6 @@ MeshFilter:
   m_GameObject: {fileID: 225139478}
   m_Mesh: {fileID: 4300066, guid: 60cf2b54863cf114395f55ced55e264a, type: 3}
 --- !u!64 &225139482
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 225139478}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300066, guid: 60cf2b54863cf114395f55ced55e264a, type: 3}
---- !u!64 &225139483
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1343,7 +1328,7 @@ GameObject:
   - component: {fileID: 383470448}
   m_Layer: 0
   m_Name: Rock06_3
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1717,7 +1702,7 @@ GameObject:
   - component: {fileID: 488779598}
   - component: {fileID: 488779600}
   - component: {fileID: 488779599}
-  - component: {fileID: 488779602}
+  - component: {fileID: 488779601}
   m_Layer: 0
   m_Name: Rock_4_2
   m_TagString: Untagged
@@ -1783,7 +1768,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 488779597}
   m_Mesh: {fileID: 4300068, guid: 60cf2b54863cf114395f55ced55e264a, type: 3}
---- !u!64 &488779602
+--- !u!64 &488779601
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1808,11 +1793,10 @@ GameObject:
   - component: {fileID: 510536282}
   - component: {fileID: 510536284}
   - component: {fileID: 510536283}
-  - component: {fileID: 510536286}
   - component: {fileID: 510536285}
   m_Layer: 0
   m_Name: Rock05_2
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1876,20 +1860,6 @@ MeshFilter:
   m_GameObject: {fileID: 510536281}
   m_Mesh: {fileID: 4300072, guid: 60cf2b54863cf114395f55ced55e264a, type: 3}
 --- !u!64 &510536285
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 510536281}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300072, guid: 60cf2b54863cf114395f55ced55e264a, type: 3}
---- !u!64 &510536286
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2133,11 +2103,10 @@ GameObject:
   - component: {fileID: 612806252}
   - component: {fileID: 612806254}
   - component: {fileID: 612806253}
-  - component: {fileID: 612806256}
   - component: {fileID: 612806255}
   m_Layer: 0
   m_Name: Rock02
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2201,20 +2170,6 @@ MeshFilter:
   m_GameObject: {fileID: 612806251}
   m_Mesh: {fileID: 4300060, guid: 60cf2b54863cf114395f55ced55e264a, type: 3}
 --- !u!64 &612806255
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 612806251}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300060, guid: 60cf2b54863cf114395f55ced55e264a, type: 3}
---- !u!64 &612806256
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2486,7 +2441,7 @@ GameObject:
   - component: {fileID: 675567041}
   m_Layer: 0
   m_Name: pCylinder4
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3145,7 +3100,7 @@ GameObject:
   - component: {fileID: 842579047}
   m_Layer: 0
   m_Name: pCylinder1
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3504,7 +3459,7 @@ GameObject:
   - component: {fileID: 953941544}
   m_Layer: 0
   m_Name: pCube3
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3620,7 +3575,7 @@ GameObject:
   - component: {fileID: 964712352}
   m_Layer: 0
   m_Name: Wood_8
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4138,7 +4093,7 @@ GameObject:
   - component: {fileID: 1169088807}
   m_Layer: 0
   m_Name: Island
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4691,11 +4646,10 @@ GameObject:
   - component: {fileID: 1263888827}
   - component: {fileID: 1263888829}
   - component: {fileID: 1263888828}
-  - component: {fileID: 1263888831}
   - component: {fileID: 1263888830}
   m_Layer: 0
   m_Name: Rock03
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4759,20 +4713,6 @@ MeshFilter:
   m_GameObject: {fileID: 1263888826}
   m_Mesh: {fileID: 4300064, guid: 60cf2b54863cf114395f55ced55e264a, type: 3}
 --- !u!64 &1263888830
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1263888826}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300064, guid: 60cf2b54863cf114395f55ced55e264a, type: 3}
---- !u!64 &1263888831
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5061,11 +5001,10 @@ GameObject:
   - component: {fileID: 1377995611}
   - component: {fileID: 1377995613}
   - component: {fileID: 1377995612}
-  - component: {fileID: 1377995615}
   - component: {fileID: 1377995614}
   m_Layer: 0
   m_Name: Rock05_3
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5129,20 +5068,6 @@ MeshFilter:
   m_GameObject: {fileID: 1377995610}
   m_Mesh: {fileID: 4300074, guid: 60cf2b54863cf114395f55ced55e264a, type: 3}
 --- !u!64 &1377995614
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1377995610}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300074, guid: 60cf2b54863cf114395f55ced55e264a, type: 3}
---- !u!64 &1377995615
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5723,7 +5648,7 @@ GameObject:
   - component: {fileID: 1547869098}
   m_Layer: 0
   m_Name: pCylinder3
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6944,7 +6869,7 @@ GameObject:
   - component: {fileID: 1740970761}
   m_Layer: 0
   m_Name: pCylinder2
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7392,7 +7317,7 @@ GameObject:
   - component: {fileID: 1879891254}
   m_Layer: 0
   m_Name: pCube2
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7806,7 +7731,7 @@ GameObject:
   - component: {fileID: 1987345297}
   m_Layer: 0
   m_Name: Wood_7
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8076,11 +8001,10 @@ GameObject:
   - component: {fileID: 2019573654}
   - component: {fileID: 2019573656}
   - component: {fileID: 2019573655}
-  - component: {fileID: 2019573658}
   - component: {fileID: 2019573657}
   m_Layer: 0
   m_Name: Rock06_2
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8144,20 +8068,6 @@ MeshFilter:
   m_GameObject: {fileID: 2019573653}
   m_Mesh: {fileID: 4300078, guid: 60cf2b54863cf114395f55ced55e264a, type: 3}
 --- !u!64 &2019573657
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2019573653}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300078, guid: 60cf2b54863cf114395f55ced55e264a, type: 3}
---- !u!64 &2019573658
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8276,7 +8186,7 @@ GameObject:
   - component: {fileID: 2102202118}
   m_Layer: 0
   m_Name: box
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

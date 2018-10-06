@@ -32,6 +32,8 @@ public class Player : MonoBehaviour {
     private BoxCollider myCollider;
     private PlayerInvincibility _cPlayerInvincibility;
     private PlayerThrow _cPlayerThrow;
+    private PlayerState _cPlayerState;
+
     public GameObject knockBackOrigin;
     public bool IsInvincible
     {
@@ -87,6 +89,7 @@ public class Player : MonoBehaviour {
         myCollider = GetComponent<BoxCollider>();
         _cPlayerInvincibility = GetComponent<PlayerInvincibility>();
         _cPlayerThrow = GetComponent<PlayerThrow>();
+        _cPlayerState = GetComponent<PlayerState>();
     }
 
     // Update is called once per frame
@@ -188,7 +191,7 @@ public class Player : MonoBehaviour {
         if (Physics.Raycast(fishPoint_finder.position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity))
         {
             Color lineColor = Color.yellow;
-            if (hit.transform.gameObject.tag == "Sea" && !holdingFish)
+            if (hit.transform.gameObject.tag == "Sea" && !holdingFish && _cPlayerState.IsGrounded)
             {
                 lineColor = Color.blue;
                 nearCoast = true;
@@ -372,6 +375,10 @@ public class Player : MonoBehaviour {
         }
     }
 
+    public Vector3 getLowestPlayerPoint()
+    {
+        return new Vector3(transform.position.x, transform.position.y - myCollider.size.y / 2.0f, transform.position.z);
+    }
 
    
 }
