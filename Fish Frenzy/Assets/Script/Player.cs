@@ -16,12 +16,10 @@ public class Player : MonoBehaviour {
     public static float fixedFPS_DT;
     private Rigidbody rigid;
     public bool nearCoast;
-    private bool aiming
+    private bool Aiming
     {
         get { return _cPlayerThrow.aiming; }
     }
-
-
     public bool holdingFish;
     public Fish mainFish;
     public Fish subFish;
@@ -102,8 +100,6 @@ public class Player : MonoBehaviour {
                 coastCheck();
                 switchFish();
                 startFishing();
-
-                slapFish();
                 //checkInput();
                 break;
             case eState.fishing:
@@ -142,7 +138,7 @@ public class Player : MonoBehaviour {
             }
         }
         
-        if (playerDirection.sqrMagnitude > 0.0f && !aiming)
+        if (playerDirection.sqrMagnitude > 0.0f && !Aiming)
         {
             getPart(ePart.body).transform.rotation = Quaternion.LookRotation(playerDirection, Vector3.up);
         }
@@ -263,11 +259,7 @@ public class Player : MonoBehaviour {
         }
     }
     
-
-    void slapFish()
-    {
-
-    }
+    
     void checkInput()
     {
         string[] button = { "Fishing", "Switch", "Jump","Slap","Throw" };
