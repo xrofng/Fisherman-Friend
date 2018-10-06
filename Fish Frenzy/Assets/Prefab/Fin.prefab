@@ -1,0 +1,129 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1084543465503074}
+  m_IsPrefabAsset: 1
+--- !u!1 &1084543465503074
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4091126483944140}
+  - component: {fileID: 33171957351679118}
+  - component: {fileID: 23395711450003670}
+  - component: {fileID: 65742944566635140}
+  - component: {fileID: 114734779961065246}
+  m_Layer: 10
+  m_Name: Fin
+  m_TagString: Fish
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4091126483944140
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1084543465503074}
+  m_LocalRotation: {x: -0.26392242, y: -0.94362533, z: 0.0035256306, w: 0.19975908}
+  m_LocalPosition: {x: 8.2, y: -3, z: 43.2}
+  m_LocalScale: {x: 3.3620281, y: 11.606623, z: -1.3182765}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -5.669, y: 562.378, z: 30.129002}
+--- !u!23 &23395711450003670
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1084543465503074}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 2100000, guid: fdf25c85e5990ac44967faffd591c0e8, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &33171957351679118
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1084543465503074}
+  m_Mesh: {fileID: 4300000, guid: 26fb55e8ae34728499f6f45cd0527c73, type: 3}
+--- !u!65 &65742944566635140
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1084543465503074}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0574602, y: 0.97157073, z: 0.5073158}
+  m_Center: {x: 0, y: 0, z: 0.17922404}
+--- !u!114 &114734779961065246
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1084543465503074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21300686d0b82e2468e9faf58577675f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+  holder: {fileID: 0}
+  damageDealed: 0
+  deHydration: 0
+  weight: 0
+  mashCountDown: 5
+  jumpForce: 10
+  jumpSpeed: 40
+  fishMass: 1
+  throwAttack: 0
+  t_invicibilityFrame: 50
+  attack: 7
+  attackSpeed: 0
+  hitBoxStayFrame: 4
+  s_invicibilityFrame: 50
+  hitboxSize: {x: 0, y: 0, z: 0}
+  hitboxCenter: {x: 0, y: 0, z: 0}
+  holdPosition: {x: 0, y: 0, z: 0}
+  holdRotation: {x: 0, y: 270, z: 0}
