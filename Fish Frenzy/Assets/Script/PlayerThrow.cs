@@ -8,7 +8,7 @@ public class PlayerThrow : PlayerAbility {
     private float holdToThrow;
     public RectTransform aimArrow;
     protected RectTransform _aimArrow;
-
+    public Vector3 arrowPositioningOffset = new Vector3(0, -0.0038f, -0.0279f);
     private float aimRadius;
     public bool aiming;
 
@@ -22,8 +22,11 @@ public class PlayerThrow : PlayerAbility {
     protected override void Initialization()
     {
         base.Initialization();
-        _aimArrow = Instantiate(aimArrow, _player.getPart(Player.ePart.body));
+        _aimArrow = Instantiate(aimArrow);
+        _aimArrow.transform.parent = _player.getPart(Player.ePart.body);
+        _aimArrow.localPosition = Vector3.zero + arrowPositioningOffset; 
         _aimArrow.GetComponent<Image>().color = PortRoyal.Instance.playerColor[_player.playerID-1];
+
         aimRadius = PortRoyal.Instance.aimRadius;
     }
 

@@ -41,7 +41,6 @@ public class Player : MonoBehaviour {
         }
     }
     public Transform[] part;
-    public Collider tree;
     public enum ePart
     {
         body, leftArm,rightArm
@@ -86,7 +85,6 @@ public class Player : MonoBehaviour {
         rigid = GetComponent<Rigidbody>();
         rigid.mass = PortRoyal.Instance.characterMass;
         myCollider = GetComponent<BoxCollider>();
-        myCollider.size = getPart(ePart.body).transform.localScale;
         _cPlayerInvincibility = GetComponent<PlayerInvincibility>();
         _cPlayerThrow = GetComponent<PlayerThrow>();
     }

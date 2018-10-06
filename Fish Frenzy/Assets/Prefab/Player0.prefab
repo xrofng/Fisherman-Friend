@@ -266,7 +266,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1007233475990320}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.6836562, y: 1.11, z: -13.498202}
+  m_LocalPosition: {x: -19.62, y: 4.66, z: 1.13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4195900167930444}
@@ -902,8 +902,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitBox: {fileID: 114609696277023490}
-  hitBoxStayFrame: 0
-  toRcoveryFrame: 0
 --- !u!114 &114600718071175956
 MonoBehaviour:
   m_ObjectHideFlags: 1

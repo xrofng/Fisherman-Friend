@@ -47,13 +47,4 @@ public class PlayerInvincibility : PlayerAbility {
         }
         IsInvincible = false;
     }
-
-    void OnDrawGizmos()
-    {
-        // Draw a yellow sphere at the transform's position
-        Color _gizmoColor = Color.grey;
-        _gizmoColor.a = 0.5f;
-        Gizmos.color = _gizmoColor;
-        Gizmos.DrawCube(transform.position, transform.localScale);
-    }
 }
