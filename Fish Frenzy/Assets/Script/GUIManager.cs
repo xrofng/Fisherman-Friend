@@ -37,7 +37,7 @@ public class GUIManager : Singleton<GUIManager>
     public List<RectTransform> ButtonIndicators;
     /// players damage percent
     public List<RectTransform> MashButtonIndicators;
-    /// player imgae
+    /// player image
     public List<Image> PlayerImage;
     /// player normal face sprite
     public List<Sprite> NormaleSprite;
@@ -47,6 +47,9 @@ public class GUIManager : Singleton<GUIManager>
     public List<Sprite> DamagedSprite;
     /// list of list of sprite 0=normal 1=death 2=damaged
     protected List<List<Sprite>> PlayerSpriteSet = new List<List<Sprite>>();
+    /// 
+    public int[] currentFaceIndex = new int[4];
+    public int[] previousFaceIndex = new int[4];
 
     /// main game manager
     private PortRoyal portroyal;
@@ -73,6 +76,7 @@ public class GUIManager : Singleton<GUIManager>
         {
             _initialButtonsAlpha = Buttons.alpha;
         }
+        SetUpSpriteSet();
     }
 
     /// <summary>
@@ -117,25 +121,50 @@ public class GUIManager : Singleton<GUIManager>
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="playerID"></param>
-    public virtual void UpdateDamagePercent()
+    public virtual void SetUpSpriteSet()
     {
-        for(int playerID = 0; playerID < 4; playerID++)
-        {
-            PercentText[playerID].text = portroyal.player[playerID].dPercent + "%";
-        }      
-        //PercentText[playerID].color = colorScale(portroyal.player[i].dPercent, lowWhite, superRed_P);
+        PlayerSpriteSet.Add(NormaleSprite);
+        PlayerSpriteSet.Add(DeathSprite);
+        PlayerSpriteSet.Add(DamagedSprite);
     }
 
     public virtual void UpdateFaceSprite()
     {
         for (int playerID = 0; playerID < 4; playerID++)
         {
+            Player _player = portroyal.player[playerID];
+            if (_player._cPlayerState.IsDeath)
+            {
+                currentFaceIndex[playerID] = 1;
+            }
+            else if (_player._cPlayerState.IsDamaged)
+            {
+                currentFaceIndex[playerID] = 2;
+            }
+            else
+            {
+                currentFaceIndex[playerID] = 0;
+            }
+            if (currentFaceIndex[playerID] != previousFaceIndex[playerID])
+            {
+                PlayerImage[playerID].sprite = PlayerSpriteSet[currentFaceIndex[playerID]][playerID];
+                previousFaceIndex[playerID] = currentFaceIndex[playerID];
+            }
+           
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="playerID"></param>
+    public virtual void UpdateDamagePercent()
+    {
+        for (int playerID = 0; playerID < 4; playerID++)
+        {
             PercentText[playerID].text = portroyal.player[playerID].dPercent + "%";
         }
+        //PercentText[playerID].color = colorScale(portroyal.player[i].dPercent, lowWhite, superRed_P);
     }
 
     /// <summary>

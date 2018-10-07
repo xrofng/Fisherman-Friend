@@ -19,6 +19,8 @@ public class PlayerState : PlayerAbility
     public bool IsGrounded { get; set; }
     /// Is the character daeth ? 
     public bool IsDeath { get; set; }
+    /// Is the character get hurt recently
+    public bool IsDamaged { get; set; }
     /// Is the character swim ? 
     public bool IsSwiming { get; set; }
     /// Is the character attacking ? 
@@ -89,5 +91,23 @@ public class PlayerState : PlayerAbility
             }
         }
         IsCollidingBelow = hitBelow;
+    }
+
+    public void ToggleIsDamage()
+    {
+        StartCoroutine(ToggleIsDamageForFrame(5));
+    }
+
+    IEnumerator ToggleIsDamageForFrame(int frameDuration)
+    {
+        IsDamaged = true;
+        int frameCount = 0;
+        while (frameCount < frameDuration)
+        {
+            yield return new WaitForEndOfFrame();
+            frameCount += 1;
+        }
+        IsDamaged = false;
+        
     }
 }

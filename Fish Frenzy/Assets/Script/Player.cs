@@ -315,6 +315,7 @@ public class Player : MonoBehaviour {
         AddKnockBackForce(damage, damageDealerPos , knockBackForce);
         //rigid.AddExplosionForce(dPercent, center, 1.0f, 5.0f, ForceMode.Impulse);
         _cPlayerInvincibility.startInvincible(recoveryFrame);
+        _cPlayerState.ToggleIsDamage();
     }
    
     public void AddKnockBackForce( float damge ,Vector3 forceSourcePos, Vector2 knockBackForce)
