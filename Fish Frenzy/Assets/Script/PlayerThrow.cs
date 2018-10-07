@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class PlayerThrow : PlayerAbility {
 
     private float holdToThrow;
+    public float forwardMultiplier = 50.0f;
+    public float upMultiplier = 5.0f;
     public RectTransform aimArrow;
     protected RectTransform _aimArrow;
     public Vector3 arrowPositioningOffset = new Vector3(0, -0.0038f, -0.0279f);
@@ -60,13 +62,14 @@ public class PlayerThrow : PlayerAbility {
         }
         else if (Input.GetButtonUp(thro))
         {
+            _player.mainFish.lastHoldPoition = _player.mainFish.transform.position;
             _player.SetTransformAsPart(Player.ePart.body, Player.ePart.body);
 
             holdToThrow = Mathf.Clamp(holdToThrow, 0.5f, PortRoyal.Instance.maxHoldToThrow);
 
             _player.SetFishCollidePlayer(_player.mainFish, _player, false);
 
-            _player.mainFish.FishThrow(holdToThrow);
+            _player.mainFish.FishThrow(holdToThrow ,forwardMultiplier,upMultiplier );
             _player.mainFish.changeState(Fish.fState.threw);
             _player.mainFish = null;
             _player.SetHoldingFish(false);

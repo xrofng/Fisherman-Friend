@@ -51,7 +51,7 @@ public class MultiPlayerCamera : MonoBehaviour {
         bound = new Bounds();
         for (int i = 0; i < targets.Count; i++)
         {
-            if (!targets[i].death)
+            if (!targets[i].Death)
             {
                 bound.Encapsulate(targets[i].gameObject.transform.position);
             }
