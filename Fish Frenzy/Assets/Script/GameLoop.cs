@@ -12,7 +12,7 @@ public class GameLoop : PersistentSingleton<GameLoop>
     }
     public GameState state = GameState.beforeStart;
     public float Round_Time_Limit = 360;
-    public float startCountDown = 5;
+    public float startCountDown = 4.5f;
     private float timeCountDown;
     public GameObject playerPrefab;
     private MaterialManager materialManager;

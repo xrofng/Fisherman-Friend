@@ -171,10 +171,14 @@ public class Player : MonoBehaviour {
         return this.gameObject.name == f.holder.gameObject.name;
     }
     
-    public void SetTransformAsPart(ePart transPart, ePart rotatPart)
+    public void SetMainFishTransformAsPart(ePart transPart, ePart rotatPart , bool flipY)
     {
         mainFish.transform.position = getPart(transPart).transform.position;
         mainFish.transform.rotation = getPart(rotatPart).transform.rotation;
+        if (flipY)
+        {
+            mainFish.transform.Rotate(0, 180, 0);
+        }
     }
 
     public void SetHoldingFish(bool b)

@@ -69,7 +69,19 @@ public static class sClass {
     {
         Vector3 changed = original;
         changed[(int)vc] = value;
-        Debug.Log(changed);
+        return changed;
+    }
+    public enum quaternionComponent
+    {
+        x = 0,
+        y,
+        z,
+        w,
+    }
+    public static Quaternion setQuaternion(Quaternion original, quaternionComponent qc, float value)
+    {
+        Quaternion changed = original;
+        changed[(int)qc] = value;
         return changed;
     }
 }
