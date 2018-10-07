@@ -154,7 +154,7 @@ public class Player : MonoBehaviour {
         }
 
         string jump_b = "Jump" + playerID;
-        if (Input.GetButtonDown(jump_b) && rigid.velocity.y<=0)
+        if (Input.GetButtonDown(jump_b) && rigid.velocity.y<=0  && ( _cPlayerState.IsGrounded || _cPlayerState.IsSwiming ) )
         {
             rigid.velocity = Vector3.zero;
             rigid.AddForce(jumpForce, ForceMode.Impulse);
@@ -315,6 +315,7 @@ public class Player : MonoBehaviour {
         AddKnockBackForce(damage, damageDealerPos , knockBackForce);
         //rigid.AddExplosionForce(dPercent, center, 1.0f, 5.0f, ForceMode.Impulse);
         _cPlayerInvincibility.startInvincible(recoveryFrame);
+        _cPlayerState.ToggleIsDamage();
     }
    
     public void AddKnockBackForce( float damge ,Vector3 forceSourcePos, Vector2 knockBackForce)

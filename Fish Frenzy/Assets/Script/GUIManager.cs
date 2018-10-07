@@ -25,6 +25,10 @@ public class GUIManager : Singleton<GUIManager>
     public Text PointsText;
     /// the level display
     public Text LevelText;
+    /// the big display in the middle of scene
+    public Text GrandText;
+    /// players round time left
+    public Text TimeText;
 
     [Header("Player UI")]
     /// players damage percent
@@ -33,9 +37,19 @@ public class GUIManager : Singleton<GUIManager>
     public List<RectTransform> ButtonIndicators;
     /// players damage percent
     public List<RectTransform> MashButtonIndicators;
-
-    /// players round time left
-    public Text TimeText;
+    /// player image
+    public List<Image> PlayerImage;
+    /// player normal face sprite
+    public List<Sprite> NormaleSprite;
+    /// player death face sprite
+    public List<Sprite> DeathSprite;
+    /// player damaged face sprite
+    public List<Sprite> DamagedSprite;
+    /// list of list of sprite 0=normal 1=death 2=damaged
+    protected List<List<Sprite>> PlayerSpriteSet = new List<List<Sprite>>();
+    /// 
+    public int[] currentFaceIndex = new int[4];
+    public int[] previousFaceIndex = new int[4];
 
     /// main game manager
     private PortRoyal portroyal;
@@ -62,6 +76,7 @@ public class GUIManager : Singleton<GUIManager>
         {
             _initialButtonsAlpha = Buttons.alpha;
         }
+        SetUpSpriteSet();
     }
 
     /// <summary>
@@ -74,10 +89,18 @@ public class GUIManager : Singleton<GUIManager>
 
     protected virtual void Update()
     {
-        UpdateDamagePercent();
-        UpdateGameTime();
-    }
+        if (GameLoop.Instance.state == GameLoop.GameState.playing)
+        {
+            UpdateDamagePercent();
+            UpdateGameTime();
+            UpdateFaceSprite();
+        }
+        if (GameLoop.Instance.state == GameLoop.GameState.beforeStart)
+        {
+            UpdateGrandText();
 
+        }
+    }
     /// <summary>
     /// Sets the HUD active or inactive
     /// </summary>
@@ -98,17 +121,65 @@ public class GUIManager : Singleton<GUIManager>
         }
     }
 
+    public virtual void SetUpSpriteSet()
+    {
+        PlayerSpriteSet.Add(NormaleSprite);
+        PlayerSpriteSet.Add(DeathSprite);
+        PlayerSpriteSet.Add(DamagedSprite);
+    }
+
+    public virtual void UpdateFaceSprite()
+    {
+        for (int playerID = 0; playerID < 4; playerID++)
+        {
+            Player _player = portroyal.player[playerID];
+            if (_player._cPlayerState.IsDeath)
+            {
+                currentFaceIndex[playerID] = 1;
+            }
+            else if (_player._cPlayerState.IsDamaged)
+            {
+                currentFaceIndex[playerID] = 2;
+            }
+            else
+            {
+                currentFaceIndex[playerID] = 0;
+            }
+            if (currentFaceIndex[playerID] != previousFaceIndex[playerID])
+            {
+                PlayerImage[playerID].sprite = PlayerSpriteSet[currentFaceIndex[playerID]][playerID];
+                previousFaceIndex[playerID] = currentFaceIndex[playerID];
+            }
+           
+        }
+    }
+
     /// <summary>
     /// 
     /// </summary>
     /// <param name="playerID"></param>
     public virtual void UpdateDamagePercent()
     {
-        for(int playerID = 0; playerID < 4; playerID++)
+        for (int playerID = 0; playerID < 4; playerID++)
         {
             PercentText[playerID].text = portroyal.player[playerID].dPercent + "%";
-        }      
+        }
         //PercentText[playerID].color = colorScale(portroyal.player[i].dPercent, lowWhite, superRed_P);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public virtual void UpdateGrandText()
+    {
+        if (GameLoop.Instance.startCountDown <= 1)
+        {
+            GrandText.text = "GO";
+        }
+        else if(GameLoop.Instance.startCountDown<=4)
+        {
+            GrandText.text = (int)GameLoop.Instance.startCountDown + "";
+        }
     }
 
     /// <summary>
@@ -117,7 +188,9 @@ public class GUIManager : Singleton<GUIManager>
     /// <param name="playerID"></param>
     public virtual void UpdateGameTime()
     {
-        TimeText.text = (int)GameLoop.Instance.Time_Minute + ":" + (int)GameLoop.Instance.Time_Second;
+        int second = (int)GameLoop.Instance.Time_Second;
+        int minute = (int)GameLoop.Instance.Time_Minute;
+        TimeText.text = minute.ToString("00") + ":" + second.ToString("00");
     }
 
 
@@ -130,6 +203,7 @@ public class GUIManager : Singleton<GUIManager>
         }
         ButtonIndicators[playerID - 1].position = portroyal.mainCamera.WorldToScreenPoint(fishingPosition);
     }
+
     public virtual void UpdateMashFishingButtonIndicator(int playerID, Vector3 fishingPosition, bool isActive)
     {
         UpdateFishButtonIndicator(playerID, fishingPosition, false);

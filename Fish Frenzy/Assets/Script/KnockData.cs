@@ -10,11 +10,10 @@ public class KnockData : PersistentSingleton<KnockData> {
         small,
         medium,
         far,
-        notMuchFar,
-        veryFar
+        veryFar,
     }
     [Header("Force Applied for each level")]
-    [Help(" 0:very small\n 1:small \n 2:medium \n 3:far \n 4:not Much Far \n 5:very far")]
+    [Help(" 0:very small\n 1:small \n 2:medium \n 3:far \n 4:very far \n 5:FIND ONE PIECE")]
     public bool ___;
 
     public enum xyComponent

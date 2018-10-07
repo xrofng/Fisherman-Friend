@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MultiPlayerCamera : MonoBehaviour {
+public class MultiPlayerCamera : PersistentSingleton<MultiPlayerCamera> {
     public List<Player> targets;
     public Transform stage;
     public Vector3 offset;
@@ -16,15 +16,15 @@ public class MultiPlayerCamera : MonoBehaviour {
     Bounds bound;
     void Start () {
         cam = GetComponent<Camera>();
-        for (int i = 0; i < 4; i++)
-        {
-            targets.Add(PortRoyal.Instance.player[i]);
-        }
+        
 
     }
     public void Initialization()
     {
-       
+        for (int i = 0; i < 4; i++)
+        {
+            targets.Add(PortRoyal.Instance.player[i]);
+        }
     }
 	void LateUpdate()
     {
