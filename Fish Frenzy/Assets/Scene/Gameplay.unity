@@ -617,7 +617,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 157027390}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.9, y: 6.15, z: -1.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -744,11 +744,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ___: 0
   force:
-  - {x: 4, y: 4}
-  - {x: 8, y: 8}
-  - {x: 12, y: 12}
-  - {x: 16, y: 16}
-  - {x: 20, y: 20}
+  - {x: 6, y: 6}
+  - {x: 10, y: 10}
+  - {x: 14, y: 14}
+  - {x: 18, y: 18}
+  - {x: 22, y: 22}
   - {x: 24, y: 24}
   Apply: 0
   slapDamage:
@@ -2154,7 +2154,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 611046852}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.83, y: 6.15, z: -11.95}
+  m_LocalPosition: {x: -5.83, y: 6.15, z: -11.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1938088594}

@@ -154,7 +154,7 @@ public class Player : MonoBehaviour {
         }
 
         string jump_b = "Jump" + playerID;
-        if (Input.GetButtonDown(jump_b) && rigid.velocity.y<=0)
+        if (Input.GetButtonDown(jump_b) && rigid.velocity.y<=0  && ( _cPlayerState.IsGrounded || _cPlayerState.IsSwiming ) )
         {
             rigid.velocity = Vector3.zero;
             rigid.AddForce(jumpForce, ForceMode.Impulse);

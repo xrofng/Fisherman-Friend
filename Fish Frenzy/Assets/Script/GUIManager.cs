@@ -117,7 +117,10 @@ public class GUIManager : Singleton<GUIManager>
     /// <param name="playerID"></param>
     public virtual void UpdateGameTime()
     {
-        TimeText.text = (int)GameLoop.Instance.Time_Minute + ":" + (int)GameLoop.Instance.Time_Second;
+        int second = (int)GameLoop.Instance.Time_Second;
+        int minute = (int)GameLoop.Instance.Time_Minute;
+        TimeText.text = minute.ToString("00") + ":" + second.ToString("00");
+      
     }
 
 
