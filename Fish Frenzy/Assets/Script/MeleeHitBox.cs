@@ -168,10 +168,7 @@ public class MeleeHitBox : MonoBehaviour
         {
             if (!_player.IsInvincible)
             {
-                Vector3 explosionCenter = this.transform.position -_player.transform.position;
-                Vector3 normalizedCenter = Vector3.Normalize(explosionCenter) * 1f;
-                Vector3 center = _player.transform.position + normalizedCenter;
-                OnCollideWithPlayer(_player , center);
+                OnCollideWithPlayer(_player , this.Owner.transform.position);
             }
         }
 
@@ -187,9 +184,10 @@ public class MeleeHitBox : MonoBehaviour
     /// Describes what happens when colliding with a player object
     /// </summary>
     /// <param name="health">Health.</param>
-    protected virtual void OnCollideWithPlayer(Player player , Vector3 explosionCenter)
+    protected virtual void OnCollideWithPlayer(Player player , Vector3 damageDealerPos)
     {
-        _player.recieveDamage(DamageCaused, explosionCenter , InvincibilityFrame);
+        
+        _player.recieveDamage(DamageCaused, damageDealerPos, InvincibilityFrame , KnockData.Instance.getSlapKnockForce((int)DamageCaused, _player.dPercent));
     }
 
     /// <summary>

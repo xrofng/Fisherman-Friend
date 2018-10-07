@@ -17,6 +17,10 @@ public class PlayerState : PlayerAbility
 
     /// Is the character grounded ? 
     public bool IsGrounded { get { return IsCollidingBelow; } }
+    /// Is the character daeth ? 
+    public bool IsDeath { get; set; }
+    /// Is the character attacking ? 
+    public bool IsAttacking { get { return _player._cPlayerSlap.Attacking;  }  }
     /// is the character falling right now ?
     public bool IsFalling { get; set; }
     /// is the character falling right now ?
@@ -72,6 +76,5 @@ public class PlayerState : PlayerAbility
             }
         }
         IsCollidingBelow = hitBelow;
-        Debug.Log(IsCollidingBelow);
     }
 }

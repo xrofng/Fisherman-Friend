@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
+    public float testForce;
+    public float upLaunchingMultiplier;
     public int playerID;
     public int dPercent;
-    public bool death;
+    /// Is the character daeth ? 
+    public bool Death { get { return _cPlayerState.IsDeath; } set { _cPlayerState.IsDeath = value; } }
     public Vector3 speed;
     public Vector3 jumpForce;
     public float jumpFaster;
     public float fallFaster;
-   
+
     public bool freezeMovement;
 
     public static float fixedFPS_DT;
@@ -24,15 +27,21 @@ public class Player : MonoBehaviour {
     public Fish mainFish;
     public Fish subFish;
     public Fish baitedFish;
-    
+
     private Vector3 lookTo;
     public Transform fishPoint_finder;
     public Transform fishPoint;
-    
+
+    // Other Component
     private BoxCollider myCollider;
-    private PlayerInvincibility _cPlayerInvincibility;
-    private PlayerThrow _cPlayerThrow;
-    private PlayerState _cPlayerState;
+    [HideInInspector]
+    public PlayerInvincibility _cPlayerInvincibility;
+    [HideInInspector]
+    public PlayerThrow _cPlayerThrow;
+    [HideInInspector]
+    public PlayerState _cPlayerState;
+    [HideInInspector]
+    public PlayerSlap _cPlayerSlap;
 
     public GameObject knockBackOrigin;
     public bool IsInvincible
@@ -45,7 +54,7 @@ public class Player : MonoBehaviour {
     public Transform[] part;
     public enum ePart
     {
-        body, leftArm,rightArm
+        body, leftArm, rightArm
     }
     public Transform getPart(ePart p)
     {
@@ -70,11 +79,11 @@ public class Player : MonoBehaviour {
     public eState state;
     // Use this for initialization
     void Start() {
-        
-        
+
+
     }
 
-    public  void Initialization()
+    public void Initialization()
     {
         playerID = gameObject.name[6] - 48;
         this.gameObject.layer = LayerMask.NameToLayer("Player" + playerID);
@@ -90,6 +99,7 @@ public class Player : MonoBehaviour {
         _cPlayerInvincibility = GetComponent<PlayerInvincibility>();
         _cPlayerThrow = GetComponent<PlayerThrow>();
         _cPlayerState = GetComponent<PlayerState>();
+        _cPlayerSlap = GetComponent<PlayerSlap>();
     }
 
     // Update is called once per frame
@@ -107,22 +117,21 @@ public class Player : MonoBehaviour {
                 startFishing();
                 break;
         }
-        if(playerID == 2 && rigid.velocity!=Vector3.zero)
+        if (playerID == 2 && rigid.velocity != Vector3.zero)
         {
-
-           // print(rigid.velocity);
+            // print(rigid.velocity);
         }
     }
     void FixedUpdate() {
     }
-   
+
     void move()
     {
         string hori = "Hori" + playerID;
         string verti = "Verti" + playerID;
         Vector3 mov = new Vector3(Input.GetAxisRaw(hori) * speed.x, 0.0f, Input.GetAxisRaw(verti) * speed.z);
         mov = mov * Time.deltaTime;
-        if (!freezeMovement)
+        if (!freezeMovement && !_cPlayerState.IsAttacking)
         {
             this.transform.Translate(mov);
         }
@@ -191,7 +200,7 @@ public class Player : MonoBehaviour {
         if (Physics.Raycast(fishPoint_finder.position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity))
         {
             Color lineColor = Color.yellow;
-            if (hit.transform.gameObject.tag == "Sea" && !holdingFish && _cPlayerState.IsGrounded)
+            if (hit.transform.gameObject.tag == "Sea" && !holdingFish && _cPlayerState.IsGrounded && !_cPlayerState.IsDeath )
             {
                 lineColor = Color.blue;
                 nearCoast = true;
@@ -241,14 +250,17 @@ public class Player : MonoBehaviour {
             }
         }
     }
+
     void switchFish()
     {
         string switc = "Switch" + playerID;
         if (Input.GetButtonDown(switc))
         {
+            
             baitedFish = subFish;
             subFish = mainFish;
-            subFish.gameObject.SetActive(false);
+            if (subFish != null) { subFish.gameObject.SetActive(false); }
+            
             mainFish = baitedFish;
             baitedFish = null;
             holdingFish = false;
@@ -295,16 +307,22 @@ public class Player : MonoBehaviour {
 
     }
 
-    public void recieveDamage(float damage , Transform center , int recoveryFrame)
+    public void recieveDamage(float damage , Vector3 damageDealerPos , int recoveryFrame , Vector2 knockBackForce)
     {
-        recieveDamage(damage, center.position , recoveryFrame);
-    }
-    public void recieveDamage(float damage, Vector3 center, int recoveryFrame)
-    {
+      
         dPercent += (int)damage;
         //Instantiate(knockBackOrigin, center ,Quaternion.identity);
-        rigid.AddExplosionForce(dPercent, center, 1.0f, 5.0f, ForceMode.Impulse);
+        AddKnockBackForce(damage, damageDealerPos , knockBackForce);
+        //rigid.AddExplosionForce(dPercent, center, 1.0f, 5.0f, ForceMode.Impulse);
         _cPlayerInvincibility.startInvincible(recoveryFrame);
+    }
+   
+    public void AddKnockBackForce( float damge ,Vector3 forceSourcePos, Vector2 knockBackForce)
+    {
+        Vector3 knockBackDirection = this.transform.position - forceSourcePos;
+        Vector3 nKnockBackDirection = Vector3.Normalize(knockBackDirection);
+        Vector3 upLaunching = Vector3.up * knockBackForce.y;
+        rigid.AddForce(nKnockBackDirection * knockBackForce.x + upLaunching, ForceMode.Impulse);
     }
 
     void fishCollideInteraction(GameObject g)
@@ -339,7 +357,7 @@ public class Player : MonoBehaviour {
                     rigid.velocity = Vector3.zero;
                     f.removeRigidBody();
                     f.damageDealed  = true;
-                    recieveDamage(f.throwAttack, f.transform , f.t_invicibilityFrame);
+                    recieveDamage(f.throwAttack, f.lastHoldPoition , f.t_invicibilityFrame , KnockData.Instance.getThrowKnockForce(f.chargePercent, dPercent));
                     f.fishBounce();
                 }
                 break;
@@ -353,7 +371,7 @@ public class Player : MonoBehaviour {
         yield return new WaitForSeconds(waitBeforeRespawn);
         rigid.velocity = Vector3.zero;
         this.transform.position = PortRoyal.Instance.randomSpawnPosition();
-        this.death = false;
+        Death = false;
         this.dPercent = 0;
 
     }
@@ -369,7 +387,7 @@ public class Player : MonoBehaviour {
     {
         if (other.gameObject.tag == "StageEdge")
         {
-            this.death = true;
+            Death = true;
             this.transform.position = PortRoyal.Instance.deathRealm.position;
             StartCoroutine(respawn(PortRoyal.Instance.respawnTime));
         }

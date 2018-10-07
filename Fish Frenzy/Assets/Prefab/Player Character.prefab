@@ -668,7 +668,7 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1963919485596112}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1264,9 +1264,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f80dc1eff9501934d8a3a0f6c97f9283, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerID: 0
+  testForce: 15
+  upLaunchingMultiplier: 15
+  playerID: 1
   dPercent: 0
-  death: 0
   speed: {x: 0, y: 0, z: 0}
   jumpForce: {x: 0, y: 0, z: 0}
   jumpFaster: 0
@@ -1309,6 +1310,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d092fa8b9fac35847a0cdd2526dfef78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forwardMultiplier: 50
+  upMultiplier: 5
   aimArrow: {fileID: 224909657352017220, guid: ddfce157df41df84786792d3614b5580, type: 2}
   arrowPositioningOffset: {x: 0, y: -0.0038, z: -0.0279}
   aiming: 0
@@ -1336,6 +1339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitBox: {fileID: 114615818652274720}
+  upMultiplier: 50
 --- !u!114 &114548550272195836
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1381,7 +1385,7 @@ MonoBehaviour:
   InvincibilityDuration: 0.5
   InvincibilityFrame: 50
   FreezeFramesOnHitDuration: 0
-  Owner: {fileID: 0}
+  Owner: {fileID: 1772084717566622}
 --- !u!114 &114726509031761906
 MonoBehaviour:
   m_ObjectHideFlags: 1

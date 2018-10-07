@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerSlap : PlayerAbility {
 
     public MeleeHitBox hitBox;
+    public float upMultiplier;
     protected bool attacking;
 
     public bool Attacking
@@ -39,6 +40,7 @@ public class PlayerSlap : PlayerAbility {
         {
             SlapFish();
         }
+        
     }
 
     // Update is called once per frame
