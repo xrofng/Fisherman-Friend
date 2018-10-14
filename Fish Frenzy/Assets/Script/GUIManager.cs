@@ -37,6 +37,8 @@ public class GUIManager : Singleton<GUIManager>
     public List<RectTransform> ButtonIndicators;
     /// players damage percent
     public List<RectTransform> MashButtonIndicators;
+    /// Indicator position from fish
+    public Vector3 IndicatorOffset;
     /// player image
     public List<Image> PlayerImage;
     /// player normal face sprite
@@ -212,7 +214,7 @@ public class GUIManager : Singleton<GUIManager>
         {
             return;
         }
-        MashButtonIndicators[playerID - 1].position = portroyal.mainCamera.WorldToScreenPoint(fishingPosition);
+        MashButtonIndicators[playerID - 1].position = portroyal.mainCamera.WorldToScreenPoint(fishingPosition) + IndicatorOffset;
     }
 
     /// <summary>

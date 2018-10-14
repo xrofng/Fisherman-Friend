@@ -50,7 +50,7 @@ public class PlayerThrow : PlayerAbility {
         if (Input.GetButtonDown(thro))
         {
             holdToThrow = 0;
-            _player.SetTransformAsPart(Player.ePart.rightArm, Player.ePart.body);
+            _player.SetMainFishTransformAsPart(Player.ePart.rightArm, Player.ePart.body , true);
             _player.freezeMovement = true;
             _aimArrow.gameObject.SetActive(true);
         }
@@ -63,7 +63,7 @@ public class PlayerThrow : PlayerAbility {
         else if (Input.GetButtonUp(thro))
         {
             _player.mainFish.lastHoldPoition = _player.mainFish.transform.position;
-            _player.SetTransformAsPart(Player.ePart.body, Player.ePart.body);
+            _player.SetMainFishTransformAsPart(Player.ePart.body, Player.ePart.body , true);
 
             holdToThrow = Mathf.Clamp(holdToThrow, 0.5f, PortRoyal.Instance.maxHoldToThrow);
 

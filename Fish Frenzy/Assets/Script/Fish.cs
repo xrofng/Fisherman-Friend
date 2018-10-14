@@ -20,11 +20,11 @@ public class Fish : MonoBehaviour {
     [Header("Fishing")]
     public float deHydration;
     public float weight;
-    public int mashCountDown;
+    public int mashCountDown = 2;
     protected Vector3 direction;
-    public float jumpForce;
-    public float jumpSpeed;
-    public float fishMass;
+    public float jumpForce = 10;
+    public float jumpSpeed = 40;
+    public float fishMass =1;
     [Header("Throw")]
     public float throwAttack;
     public int t_invicibilityFrame = 50;
@@ -126,7 +126,7 @@ public class Fish : MonoBehaviour {
         myRigid = GetComponent<Rigidbody>();
         float scaleToDuration = duration / PortRoyal.Instance.maxHoldToThrow;
         chargePercent =  (int)(scaleToDuration * 100.0f);
-        myRigid.velocity = transform.forward * -(forwardMultiplier * scaleToDuration) + (transform.up* upMultiplier);
+        myRigid.velocity = -transform.forward * -(forwardMultiplier * scaleToDuration) + (transform.up* upMultiplier);
         throwAttack = attack * scaleToDuration;
     }
 

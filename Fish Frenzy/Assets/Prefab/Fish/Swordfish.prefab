@@ -113,10 +113,10 @@ MonoBehaviour:
   damageDealed: 0
   deHydration: 0
   weight: 0
-  mashCountDown: 0
-  jumpForce: 0
-  jumpSpeed: 0
-  fishMass: 0
+  mashCountDown: 6
+  jumpForce: 10
+  jumpSpeed: 40
+  fishMass: 1
   throwAttack: 0
   t_invicibilityFrame: 50
   lastHoldPoition: {x: 0, y: 0, z: 0}
@@ -127,5 +127,5 @@ MonoBehaviour:
   s_invicibilityFrame: 50
   hitboxSize: {x: 0, y: 0, z: 0}
   hitboxCenter: {x: 0, y: 0, z: 0}
-  holdPosition: {x: 0, y: 0, z: 0}
-  holdRotation: {x: 0, y: 0, z: 0}
+  holdPosition: {x: 0, y: 0, z: -0.0183}
+  holdRotation: {x: 0, y: 180, z: 0}
