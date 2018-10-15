@@ -233,6 +233,7 @@ public class Player : MonoBehaviour {
                     if (nearCoast == true && !holdingFish)
                     {
                         baitedFish = Instantiate(PortRoyal.Instance.randomFish(), fishPoint.position, getPart(ePart.body).transform.rotation);
+                        baitedFish.GetComponent<MeshRenderer>().enabled = false;
                         SetFishCollidePlayer(baitedFish, this, true);
                         baitedFish.setHolder(this.gameObject);
                         GUIManager.Instance.UpdateMashFishingButtonIndicator(playerID, fishPoint.position, true);
@@ -243,6 +244,7 @@ public class Player : MonoBehaviour {
                 case eState.fishing:
                     if(baitedFish.MashForCatch())
                     {
+                        baitedFish.GetComponent<MeshRenderer>().enabled = true;
                         changeState(eState.waitForFish);
                     }
                     break;
