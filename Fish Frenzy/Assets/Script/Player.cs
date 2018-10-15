@@ -111,7 +111,7 @@ public class Player : MonoBehaviour {
                 coastCheck();
                 switchFish();
                 startFishing();
-                //checkInput();
+                checkInput();
                 break;
             case eState.fishing:
                 startFishing();
@@ -154,7 +154,7 @@ public class Player : MonoBehaviour {
         }
 
         string jump_b = "Jump" + playerID;
-        if (Input.GetButtonDown(jump_b) && rigid.velocity.y<=0  && ( _cPlayerState.IsGrounded || _cPlayerState.IsSwiming ) )
+        if (Input.GetButtonDown(jump_b)   && ( _cPlayerState.IsGrounded || _cPlayerState.IsSwiming ) )
         {
             rigid.velocity = Vector3.zero;
             rigid.AddForce(jumpForce, ForceMode.Impulse);
@@ -375,6 +375,7 @@ public class Player : MonoBehaviour {
        
         yield return new WaitForSeconds(waitBeforeRespawn);
         rigid.velocity = Vector3.zero;
+        freezeMovement = false;
         this.transform.position = PortRoyal.Instance.randomSpawnPosition();
         Death = false;
         this.dPercent = 0;

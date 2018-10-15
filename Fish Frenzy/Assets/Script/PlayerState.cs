@@ -95,7 +95,7 @@ public class PlayerState : PlayerAbility
 
     public void ToggleIsDamage()
     {
-        StartCoroutine(ToggleIsDamageForFrame(5));
+        StartCoroutine(ToggleIsDamageForFrame(10));
     }
 
     IEnumerator ToggleIsDamageForFrame(int frameDuration)
