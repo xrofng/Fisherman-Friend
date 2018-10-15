@@ -111,15 +111,11 @@ public class Player : MonoBehaviour {
                 coastCheck();
                 switchFish();
                 startFishing();
-                checkInput();
+               // checkInput();
                 break;
             case eState.fishing:
                 startFishing();
                 break;
-        }
-        if (playerID == 2 && rigid.velocity != Vector3.zero)
-        {
-            // print(rigid.velocity);
         }
     }
     void FixedUpdate() {
@@ -181,9 +177,11 @@ public class Player : MonoBehaviour {
         }
     }
 
-    public void SetHoldingFish(bool b)
+    public void SetHoldFish(bool b)
     {
+        _cPlayerThrow.ChangeToUnAim();
         holdingFish = b;
+        mainFish = null;
     }
 
     public void SetFishCollidePlayer(Fish fish , Player player, bool collide)
@@ -263,7 +261,7 @@ public class Player : MonoBehaviour {
             
             baitedFish = subFish;
             subFish = mainFish;
-            if (subFish != null) { subFish.gameObject.SetActive(false); }
+            if (subFish != null) { subFish.KeepFish(true); }
             
             mainFish = baitedFish;
             baitedFish = null;
@@ -271,7 +269,7 @@ public class Player : MonoBehaviour {
             if (mainFish != null)
             {
                 holdingFish = true;
-                mainFish.gameObject.SetActive(true);
+                mainFish.KeepFish(false);
             }
         }
     }

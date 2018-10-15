@@ -25,7 +25,7 @@ public class PlayerThrow : PlayerAbility {
     {
         base.Initialization();
         _aimArrow = Instantiate(aimArrow);
-        _aimArrow.transform.parent = _player.getPart(Player.ePart.body);
+        _aimArrow.transform.SetParent( _player.getPart(Player.ePart.body) );
         _aimArrow.localPosition = Vector3.zero + arrowPositioningOffset; 
         _aimArrow.GetComponent<Image>().color = PortRoyal.Instance.playerColor[_player.playerID-1];
 
@@ -71,12 +71,16 @@ public class PlayerThrow : PlayerAbility {
 
             _player.mainFish.FishThrow(holdToThrow ,forwardMultiplier,upMultiplier );
             _player.mainFish.changeState(Fish.fState.threw);
-            _player.mainFish = null;
-            _player.SetHoldingFish(false);
-            _player.freezeMovement = false;
-            _aimArrow.gameObject.SetActive(false);
-            aiming = false;
+            _player.SetHoldFish(false);
+            
         }
+    }
+
+    public void ChangeToUnAim()
+    {
+        _player.freezeMovement = false;
+        _aimArrow.gameObject.SetActive(false);
+        aiming = false;
     }
 
     void AimAssist()

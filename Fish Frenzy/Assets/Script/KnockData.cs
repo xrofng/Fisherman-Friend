@@ -42,7 +42,10 @@ public class KnockData : PersistentSingleton<KnockData> {
         twoZeroZero,
         threeZeroZero
     }
+
     [Space(2)]
+    [Header("% to reach each level of knocking")]
+    public float[] percentList = { 0, 25, 50, 75, 100, 150, 200, 300, 1000 };
     [Header("Knock Level due to %")]
     [Help("0:At 0 %\n1:At 25 %\n2:At 50 %\n3:At 75 %\n4:At 100 %\n5:At 150 %\n6:At 200 %\n7:At 300 % ++")]
     public bool Knock;
@@ -57,7 +60,8 @@ public class KnockData : PersistentSingleton<KnockData> {
     public KnockScale[] ThrowScale_tier3;
     public KnockScale[] ThrowScale_tier4;
     protected List<KnockScale[]> ThrowScaleList = new List<KnockScale[]>();
-    protected float[] percentList = { 0, 25, 50, 75, 100, 150, 200, 300, 1000 };
+
+
     // Use this for initialization
     void Start () {
         SlapScaleList.Add(SlapScale_tier1);

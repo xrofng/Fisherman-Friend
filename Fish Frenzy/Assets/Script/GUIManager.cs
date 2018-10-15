@@ -49,9 +49,12 @@ public class GUIManager : Singleton<GUIManager>
     public List<Sprite> DamagedSprite;
     /// list of list of sprite 0=normal 1=death 2=damaged
     protected List<List<Sprite>> PlayerSpriteSet = new List<List<Sprite>>();
+    /// time left image
+    public List<Image> DurabilityImage;
+
     /// 
-    public int[] currentFaceIndex = new int[4];
-    public int[] previousFaceIndex = new int[4];
+    protected int[] currentFaceIndex = new int[4];
+    protected int[] previousFaceIndex = new int[4];
 
     /// main game manager
     private PortRoyal portroyal;
@@ -86,16 +89,27 @@ public class GUIManager : Singleton<GUIManager>
     /// </summary>
     protected virtual void Start()
     {
-        
+        for (int playerID = 0; playerID < 4; playerID++)
+        {
+            float a = DurabilityImage[playerID].color.a;
+            Color pColor= PortRoyal.Instance.playerColor[playerID];
+            DurabilityImage[playerID].color = new Color(pColor.r, pColor.g, pColor.b, a);
+        }
     }
 
     protected virtual void Update()
     {
         if (GameLoop.Instance.state == GameLoop.GameState.playing)
         {
-            UpdateDamagePercent();
+            for (int playerID = 0; playerID < 4; playerID++)
+            {
+                UpdateDamagePercent(playerID);
+                UpdateFaceSprite(playerID);
+                UpdateFishDurability(playerID);
+            }
+               
             UpdateGameTime();
-            UpdateFaceSprite();
+            
         }
         if (GameLoop.Instance.state == GameLoop.GameState.beforeStart)
         {
@@ -130,29 +144,25 @@ public class GUIManager : Singleton<GUIManager>
         PlayerSpriteSet.Add(DamagedSprite);
     }
 
-    public virtual void UpdateFaceSprite()
+    public virtual void UpdateFaceSprite(int playerID)
     {
-        for (int playerID = 0; playerID < 4; playerID++)
+        Player _player = portroyal.player[playerID];
+        if (_player._cPlayerState.IsDeath)
         {
-            Player _player = portroyal.player[playerID];
-            if (_player._cPlayerState.IsDeath)
-            {
-                currentFaceIndex[playerID] = 1;
-            }
-            else if (_player._cPlayerState.IsDamaged)
-            {
-                currentFaceIndex[playerID] = 2;
-            }
-            else
-            {
-                currentFaceIndex[playerID] = 0;
-            }
-            if (currentFaceIndex[playerID] != previousFaceIndex[playerID])
-            {
-                PlayerImage[playerID].sprite = PlayerSpriteSet[currentFaceIndex[playerID]][playerID];
-                previousFaceIndex[playerID] = currentFaceIndex[playerID];
-            }
-           
+            currentFaceIndex[playerID] = 1;
+        }
+        else if (_player._cPlayerState.IsDamaged)
+        {
+            currentFaceIndex[playerID] = 2;
+        }
+        else
+        {
+            currentFaceIndex[playerID] = 0;
+        }
+        if (currentFaceIndex[playerID] != previousFaceIndex[playerID])
+        {
+            PlayerImage[playerID].sprite = PlayerSpriteSet[currentFaceIndex[playerID]][playerID];
+            previousFaceIndex[playerID] = currentFaceIndex[playerID];
         }
     }
 
@@ -160,13 +170,24 @@ public class GUIManager : Singleton<GUIManager>
     /// 
     /// </summary>
     /// <param name="playerID"></param>
-    public virtual void UpdateDamagePercent()
+    public virtual void UpdateDamagePercent(int playerID)
     {
-        for (int playerID = 0; playerID < 4; playerID++)
+         PercentText[playerID].text = portroyal.player[playerID].dPercent + "%";
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="playerID"></param>
+    public virtual void UpdateFishDurability(int playerID)
+    {
+        Player _player = portroyal.player[playerID];
+        if (_player.holdingFish)
         {
-            PercentText[playerID].text = portroyal.player[playerID].dPercent + "%";
+            DurabilityImage[playerID].fillAmount = _player.mainFish.GetDurabilityRation;
+            return;
         }
-        //PercentText[playerID].color = colorScale(portroyal.player[i].dPercent, lowWhite, superRed_P);
+        DurabilityImage[playerID].fillAmount = 0;
     }
 
     /// <summary>

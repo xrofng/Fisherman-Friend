@@ -23,7 +23,9 @@ public class PortRoyal : PersistentSingleton<PortRoyal>
     public float aimRadius;
 
     public float respawnTime;
-    
+
+    public Vector2 FishJumpToWaterMultiplier;
+
     public Transform deathRealm;
 
     public Fish[] fishPool;
@@ -31,6 +33,7 @@ public class PortRoyal : PersistentSingleton<PortRoyal>
     public Color[] playerColor;
     public Material[] playerMaterial;
     public Transform[] spawnPoint;
+    public Transform underWater;
     public Camera mainCamera;
     public MultiPlayerCamera multiPCamera;
 
