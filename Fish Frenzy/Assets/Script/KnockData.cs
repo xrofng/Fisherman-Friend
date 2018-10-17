@@ -46,6 +46,7 @@ public class KnockData : PersistentSingleton<KnockData> {
     [Space(2)]
     [Header("% to reach each level of knocking")]
     public float[] percentList = { 0, 25, 50, 75, 100, 150, 200, 300, 1000 };
+    public Color[] colorLevel  = new Color[8];
     [Header("Knock Level due to %")]
     [Help("0:At 0 %\n1:At 25 %\n2:At 50 %\n3:At 75 %\n4:At 100 %\n5:At 150 %\n6:At 200 %\n7:At 300 % ++")]
     public bool Knock;

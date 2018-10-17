@@ -28,8 +28,6 @@ public class PlayerThrow : PlayerAbility {
         _aimArrow.transform.SetParent( _player.getPart(Player.ePart.body) );
         _aimArrow.localPosition = Vector3.zero + arrowPositioningOffset; 
         _aimArrow.GetComponent<Image>().color = PortRoyal.Instance.playerColor[_player.playerID-1];
-
-        aimRadius = PortRoyal.Instance.aimRadius;
     }
 
         // Update is called once per frame
@@ -51,7 +49,7 @@ public class PlayerThrow : PlayerAbility {
         {
             holdToThrow = 0;
             _player.SetMainFishTransformAsPart(Player.ePart.rightArm, Player.ePart.body , true);
-            _player.freezeMovement = true;
+            _player.FreezingMovement = true;
             _aimArrow.gameObject.SetActive(true);
         }
         else if (Input.GetButton(thro))
@@ -65,7 +63,7 @@ public class PlayerThrow : PlayerAbility {
             _player.mainFish.lastHoldPoition = _player.mainFish.transform.position;
             _player.SetMainFishTransformAsPart(Player.ePart.body, Player.ePart.body , true);
 
-            holdToThrow = Mathf.Clamp(holdToThrow, 0.5f, PortRoyal.Instance.maxHoldToThrow);
+           
 
             _player.SetFishCollidePlayer(_player.mainFish, _player, false);
 
@@ -78,7 +76,7 @@ public class PlayerThrow : PlayerAbility {
 
     public void ChangeToUnAim()
     {
-        _player.freezeMovement = false;
+        _player.FreezingMovement = false;
         _aimArrow.gameObject.SetActive(false);
         aiming = false;
     }

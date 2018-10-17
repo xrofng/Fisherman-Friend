@@ -4,24 +4,12 @@ using UnityEngine;
 
 public class PortRoyal : PersistentSingleton<PortRoyal>
 {
-
-    public Vector3 speed;
-
-    public Vector3 jumpForce;
+    
 
     public float characterMass;
 
     public bool debugMode;
-
-
-    public float jumpFaster;
-
-    public float fallFaster;
     
-    public float maxHoldToThrow;
-
-    public float aimRadius;
-
     public float respawnTime;
 
     public Vector2 FishJumpToWaterMultiplier;

@@ -7,7 +7,19 @@ using UnityEngine;
 public class PlayerAbility : MonoBehaviour
 {
     protected Player _player;
-    // Use this for initialization
+
+    public Rigidbody _pRigid
+    {
+        get { return _player.rigid; }
+
+    }
+
+    public PlayerState _pState
+    {
+        get { return _player._cPlayerState; }
+
+    }
+
     /// <summary>
     /// On Start(), we call the ability's intialization
     /// </summary>
@@ -23,4 +35,6 @@ public class PlayerAbility : MonoBehaviour
     {
         _player = GetComponent<Player>();
     }
+
+
 }

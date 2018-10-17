@@ -42,6 +42,7 @@ public class Fish : MonoBehaviour {
     protected float jumpSpeed = 40;
     protected float fishMass =1;
     [Header("Throw")]
+    public float maxHolding = 5;
     public float throwAttack;
     public int t_invicibilityFrame = 50;
     public Vector3 lastHoldPoition;
@@ -200,10 +201,11 @@ public class Fish : MonoBehaviour {
 
     public void FishThrow(float duration , float forwardMultiplier , float upMultiplier)
     {
+        duration = Mathf.Clamp(duration, 0.5f, maxHolding);
         transform.parent = null;
         gameObject.AddComponent<Rigidbody>();
         myRigid = GetComponent<Rigidbody>();
-        float scaleToDuration = duration / PortRoyal.Instance.maxHoldToThrow;
+        float scaleToDuration = duration / maxHolding;
         chargePercent =  (int)(scaleToDuration * 100.0f);
         myRigid.velocity = -transform.forward * -(forwardMultiplier * scaleToDuration) + (transform.up* upMultiplier);
         throwAttack = attack * scaleToDuration;
