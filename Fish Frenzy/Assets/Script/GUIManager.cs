@@ -184,7 +184,7 @@ public class GUIManager : Singleton<GUIManager>
         Player _player = portroyal.player[playerID];
         if (_player.holdingFish)
         {
-            DurabilityImage[playerID].fillAmount = _player.mainFish.GetDurabilityRation;
+            DurabilityImage[playerID].fillAmount = _player.mainFish.GetDurabilityRatio;
             return;
         }
         DurabilityImage[playerID].fillAmount = 0;
