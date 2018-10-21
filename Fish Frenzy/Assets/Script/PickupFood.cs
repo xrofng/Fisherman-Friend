@@ -2,20 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickupFish : Pickup {
+public class PickupFood : Pickup {
 
     public bool allowToPick = false;
-    private Fish _fish;
-    private Fish FishRef
+
+    private Food _food;
+    private Food FoodRef
     {
         get
         {
-            if (!_fish) { _fish = this.gameObject.GetComponent<Fish>(); }
-            return _fish;
+            if (!_food) { _food = this.gameObject.GetComponent<Food>(); }
+            return _food;
         }
     }
-    string[] pickupButton = {  "Slap", "Throw" };
-    
+
+    string[] pickupButton = { "Slap", "Throw" };
 
     protected override void Pick(Collider othercollider)
     {
@@ -27,23 +28,19 @@ public class PickupFish : Pickup {
                 _player = othercollider.GetComponent<Player>();
                 if (_player.GetOneButtonsPress(pickupButton))
                 {
-                    _player._cPlayerSlap.IgnoreInputFor(8);
-                    _player._cPlayerThrow.IgnoreInputFor(8);
-                    _player.HoldThatFish(FishRef);
+                    //_player._cPlayerSlap.IgnoreInputFor(8);
+                    //_player._cPlayerThrow.IgnoreInputFor(8);
+                    _player.dPercent -= FoodRef.restorePercent;
+                    Destroy(FoodRef.gameObject);
                 }
             }
-            
+
         }
     }
 
     public void SetAllowToPick(bool b)
     {
         allowToPick = b;
-        FishRef.MyCollider.isTrigger = b;
     }
-
-    // Update is called once per frame
-    void Update () {
-		
-	}
+    
 }

@@ -134,4 +134,20 @@ public class KnockData : PersistentSingleton<KnockData> {
         return force[(int)knockLevel];
     }
 
+    public Color GetColor(int percent)
+    {
+        int colorIndex = 0;
+        for(int i=0;i<percentList.Length;i++)
+        {
+            if (percent >= percentList[i])
+            {
+                colorIndex = i; 
+            }
+            if(percent < percentList[i])
+            {
+                return colorLevel[colorIndex];
+            }
+        }
+       return colorLevel[colorIndex];
+    }
 }
