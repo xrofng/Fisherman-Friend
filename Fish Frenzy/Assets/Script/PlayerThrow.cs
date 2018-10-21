@@ -11,6 +11,7 @@ public class PlayerThrow : PlayerAbility {
     public RectTransform aimArrow;
     protected RectTransform _aimArrow;
     public Vector3 arrowPositioningOffset = new Vector3(0, -0.0038f, -0.0279f);
+    
     private float aimRadius;
     public bool aiming;
 
@@ -45,25 +46,24 @@ public class PlayerThrow : PlayerAbility {
         {
             return;
         }
-        if (Input.GetButtonDown(thro))
+        if (Input.GetButtonDown(thro) && !IgnoreInput)
         {
             holdToThrow = 0;
             _player.SetMainFishTransformAsPart(Player.ePart.rightArm, Player.ePart.body , true);
+            _player.mainFish.SnapAimingTransform();
             _player.FreezingMovement = true;
             _aimArrow.gameObject.SetActive(true);
         }
-        else if (Input.GetButton(thro))
+        else if (Input.GetButton(thro) && !IgnoreInput)
         {
             holdToThrow += Time.deltaTime;
 
             //AimAssist();
         }
-        else if (Input.GetButtonUp(thro))
+        else if (Input.GetButtonUp(thro) && !IgnoreInput)
         {
             _player.mainFish.lastHoldPoition = _player.mainFish.transform.position;
             _player.SetMainFishTransformAsPart(Player.ePart.body, Player.ePart.body , true);
-
-           
 
             _player.SetFishCollidePlayer(_player.mainFish, _player, false);
 

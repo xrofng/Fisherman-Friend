@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 23865638686869896}
   - component: {fileID: 65091180547714986}
   - component: {fileID: 114991169637547864}
+  - component: {fileID: 114472043294426846}
   m_Layer: 0
   m_Name: GenericFish
   m_TagString: Fish
@@ -97,6 +98,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.009027121, y: 0.01741625, z: 0.009684276}
   m_Center: {x: 0, y: 0.0024872406, z: 0.00012247544}
+--- !u!114 &114472043294426846
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1724100121020078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3701a61f4a003047afca7f5c500f5ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Effect: {fileID: 0}
+  PickSfx: {fileID: 0}
+  DisableObjectOnPick: 0
+  allowToPick: 0
 --- !u!114 &114991169637547864
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -112,7 +128,7 @@ MonoBehaviour:
   state: 0
   holder: {fileID: 0}
   damageDealed: 0
-  durability: 7
+  durability: 10
   weight: 0
   mashCountDown: 1
   maxHolding: 5
@@ -128,3 +144,4 @@ MonoBehaviour:
   hitboxCenter: {x: 0, y: 0, z: 0}
   holdPosition: {x: 0.00006958129, y: 0.00963, z: -0.01432}
   holdRotation: {x: -35, y: 180, z: 0}
+  aimPositioningOffset: {x: 0, y: 0, z: 0}

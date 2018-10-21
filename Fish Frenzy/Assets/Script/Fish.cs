@@ -62,18 +62,21 @@ public class Fish : MonoBehaviour {
     //snap
     public Vector3 holdPosition;
     public Vector3 holdRotation;
+    public Vector3 aimPositioningOffset;
 
     private Rigidbody myRigid;
     private BoxCollider myCollider;
+    public BoxCollider MyCollider { get { return myCollider; } }
+    private PickupFish _pickupFish;
     // Use this for initialization
     void Start () {
         myCollider = GetComponent<BoxCollider>();
+        _pickupFish = GetComponent<PickupFish>();
         dehydration = durability;
     }
 	
 	// Update is called once per frame
 	void Update () {
-
         Dehydrate();
         GoInDeepWater();
         CheckGround();
@@ -87,6 +90,7 @@ public class Fish : MonoBehaviour {
     {
         if(state != fState.ground)
         {
+            transform.parent = null;
             GetPlayerHolder.SetHoldFish(false);
         }
     }
@@ -169,19 +173,21 @@ public class Fish : MonoBehaviour {
     private IEnumerator  ieFishBounce()
     {
         yield return new WaitForSeconds(0.0f);
-        gameObject.layer = LayerMask.NameToLayer("Fish");
-        state = fState.ground;
         myRigid = gameObject.AddComponent<Rigidbody>();
         myRigid.AddForce(Vector3.up * 3,ForceMode.Impulse);
     }
 
 
-    public void snapTransform()
+    public void SnapTransform()
     {
         transform.localPosition = holdPosition;
         transform.localEulerAngles = holdRotation;
     }
 
+    public void SnapAimingTransform()
+    {
+        transform.position += aimPositioningOffset;
+    }
 
     public void setHolder(GameObject g)
     {
@@ -204,7 +210,7 @@ public class Fish : MonoBehaviour {
         {
             GetPlayerHolder.SetMainFishTransformAsPart(Player.ePart.body, Player.ePart.body, false);
         }
-        transform.parent = null;
+        
         Vector3 nearest = FindNearestWater();
         nearest = new Vector3(nearest.x, this.transform.position.y, nearest.z);
         transform.LookAt(nearest);
@@ -226,7 +232,7 @@ public class Fish : MonoBehaviour {
         throwAttack = attack * scaleToDuration;
     }
 
-    public void removeRigidBody()
+    public void RemoveRigidBody()
     {
         Destroy(myRigid);
     }
@@ -240,6 +246,7 @@ public class Fish : MonoBehaviour {
         RaycastHit hit;
         int rayFrequnecy = 8;
         int maxRadiusT = 8;
+        int radiusLambda = 2;
         Vector3 positionCheck = this.transform.position;
 
         for(int i = 1; i < maxRadiusT; i++)
@@ -249,7 +256,7 @@ public class Fish : MonoBehaviour {
             float radius =  Random.Range(0,361) * Mathf.PI / 180.0f;
             for (int j = 0; j < rayFrequnecy; j++)
             {
-                positionCheck = new Vector3(transform.position.x + Mathf.Cos(radius) * (i*2), transform.position.y, transform.position.z + Mathf.Sin(radius) * (i * 2));
+                positionCheck = new Vector3(transform.position.x + Mathf.Cos(radius) * (i*2), transform.position.y, transform.position.z + Mathf.Sin(radius) * (i * radiusLambda));
                 radius += radiusPerLine;
 
                 // Does the ray intersect any objects excluding the player layer
@@ -265,13 +272,13 @@ public class Fish : MonoBehaviour {
             }
             rayFrequnecy *= 2;
         }
-        Debug.LogWarning("Don't found sea in this max radius");
+        Debug.LogWarning("Don't found sea in this max radius =" + maxRadiusT + " Distance = " + radiusLambda);
         return Vector3.zero;
     }
 
     public Vector3 getLowestFishPoint()
     {
-        return new Vector3(transform.position.x, transform.position.y - myCollider.size.y / 2.0f, transform.position.z);
+        return new Vector3(transform.position.x, transform.position.y - myCollider.center.y/2.0f - myCollider.size.y / 2.0f, transform.position.z);
     }
 
     void CheckGround()
@@ -279,17 +286,24 @@ public class Fish : MonoBehaviour {
         if( state == fState.threw)
         {
             RaycastHit hit;
-            if (Physics.Raycast(getLowestFishPoint(), transform.TransformDirection(Vector3.down), out hit, 1.0f))
+            if (Physics.Raycast(getLowestFishPoint(), transform.TransformDirection(Vector3.down), out hit, 0.5f))
             {
                 Color lineColor = Color.yellow;
                 if (hit.transform.gameObject.tag == "Ground")
                 {
                     gameObject.layer = LayerMask.NameToLayer("Fish");
                     state = fState.ground;
+                    SetToGround(true);
+                    RemoveRigidBody();
                 }
             }
         }
         
+    }
+
+    public void SetToGround(bool b)
+    {
+        _pickupFish.SetAllowToPick(b);
     }
 
     void OnCollisionEnter(Collision other)

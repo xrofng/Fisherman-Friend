@@ -7,6 +7,8 @@ using UnityEngine;
 public class PlayerAbility : MonoBehaviour
 {
     protected Player _player;
+    protected bool ignoreInput;
+    public bool IgnoreInput { get { return ignoreInput; } }
 
     public Rigidbody _pRigid
     {
@@ -36,5 +38,22 @@ public class PlayerAbility : MonoBehaviour
         _player = GetComponent<Player>();
     }
 
+    public void IgnoreInputFor(int ignoreFrame)
+    {
+        StartCoroutine(InvokeIgnoreInput(ignoreFrame));
+    }
+    
+
+    IEnumerator InvokeIgnoreInput(int frameDuration)
+    {
+        int frameCount = 0;
+        ignoreInput = true;
+        while (frameCount < frameDuration)
+        {
+            yield return new WaitForEndOfFrame();
+            frameCount++;
+        }
+        ignoreInput = false;
+    }
 
 }

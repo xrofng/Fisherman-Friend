@@ -175,6 +175,18 @@ public class Player : MonoBehaviour {
         }
     }
     
+    public bool GetOneButtonsPress(string[] button)
+    {
+        for (int i = 0; i < button.Length; i++)
+        {
+            string but = button[i] + "" + playerID;
+            if (Input.GetButtonDown(but))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     
     void checkInput()
     {
@@ -239,16 +251,7 @@ public class Player : MonoBehaviour {
             case Fish.fState.baited:
                 break;
             case Fish.fState.toPlayer:
-                f.changeState(Fish.fState.hold);
-                f.gameObject.transform.parent = getPart(ePart.rightArm).transform;
-                f.snapTransform();
-                f.removeRigidBody();
-                
-                mainFish = f;
-                baitedFish = null;
-                holdingFish = true;
-                _cPlayerFishing.SetFishing(false);
-                rigid.velocity = Vector3.zero;
+                HoldThatFish(f);
 
                 break;
 
@@ -259,7 +262,7 @@ public class Player : MonoBehaviour {
                 if( !isOwnerFish(f) &&!f.damageDealed)
                 {
                     rigid.velocity = Vector3.zero;
-                    f.removeRigidBody();
+                    f.RemoveRigidBody();
                     f.damageDealed  = true;
                     recieveDamage(f.throwAttack, f.lastHoldPoition , f.t_invicibilityFrame , KnockData.Instance.getThrowKnockForce(f.chargePercent, dPercent));
                     f.fishBounce();
@@ -269,6 +272,22 @@ public class Player : MonoBehaviour {
                 break;
         }
     }
+
+    public void HoldThatFish(Fish f)
+    {
+        f.changeState(Fish.fState.hold);
+        f.gameObject.transform.parent = getPart(ePart.rightArm).transform;
+        f.SnapTransform();
+        f.RemoveRigidBody();
+        f.SetToGround(false);
+        SetFishCollidePlayer(f, this, true);
+        mainFish = f;
+        baitedFish = null;
+        holdingFish = true;
+        _cPlayerFishing.SetFishing(false);
+        rigid.velocity = Vector3.zero;
+    }
+
     IEnumerator respawn(float waitBeforeRespawn)
     {
        
