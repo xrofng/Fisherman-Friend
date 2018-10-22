@@ -230,8 +230,14 @@ public class Player : MonoBehaviour {
         _cPlayerFishing.SetFishing(false);
         _cPlayerInvincibility.startInvincible(recoveryFrame);
         _cPlayerState.ToggleIsDamage();
+        DamagePercentClamp();
     }
    
+    public void DamagePercentClamp()
+    {
+        dPercent = Mathf.Clamp(dPercent, 0, 999);
+    }
+
     public void AddKnockBackForce( float damge ,Vector3 forceSourcePos, Vector2 knockBackForce)
     {
         Vector3 knockBackDirection = this.transform.position - forceSourcePos;

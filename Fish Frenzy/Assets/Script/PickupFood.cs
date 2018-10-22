@@ -31,6 +31,7 @@ public class PickupFood : Pickup {
                     //_player._cPlayerSlap.IgnoreInputFor(8);
                     //_player._cPlayerThrow.IgnoreInputFor(8);
                     _player.dPercent -= FoodRef.restorePercent;
+                    _player.DamagePercentClamp();
                     Destroy(FoodRef.gameObject);
                 }
             }

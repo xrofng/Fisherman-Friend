@@ -240,6 +240,7 @@ GameObject:
   - component: {fileID: 114855017045284262}
   - component: {fileID: 114987401676803428}
   - component: {fileID: 114503340345768140}
+  - component: {fileID: 135834132460704302}
   m_Layer: 0
   m_Name: Player0
   m_TagString: Fisherman
@@ -456,7 +457,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1772084717566622}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.04, y: 6.05, z: 7.15}
+  m_LocalPosition: {x: -18.347294, y: 7.573601, z: -0.18246794}
   m_LocalScale: {x: 52, y: 52, z: 52}
   m_Children:
   - {fileID: 4329996527145336}
@@ -1242,7 +1243,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.02, y: 0.044, z: 0.02}
-  m_Center: {x: 0, y: 0.012, z: 0}
+  m_Center: {x: 0, y: 0.023, z: 0}
 --- !u!65 &65939392005068664
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -1269,7 +1270,7 @@ MonoBehaviour:
   testForce: 15
   upLaunchingMultiplier: 15
   playerID: 1
-  dPercent: 0
+  dPercent: 999
   holdingFish: 0
   mainFish: {fileID: 0}
   subFish: {fileID: 0}
@@ -1512,6 +1513,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &135834132460704302
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1772084717566622}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.01
+  m_Center: {x: 0, y: 0.001, z: 0}
 --- !u!135 &135851326913618402
 SphereCollider:
   m_ObjectHideFlags: 1

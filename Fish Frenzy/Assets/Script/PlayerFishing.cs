@@ -94,10 +94,6 @@ public class PlayerFishing : PlayerAbility
             }
             Debug.DrawRay(fishPoint_finder.position, transform.TransformDirection(Vector3.down) * hit.distance, lineColor);
         }
-        else
-        {
-            Debug.DrawRay(fishPoint_finder.position, transform.TransformDirection(Vector3.down) * 1000, Color.white);
-        }
     }
 
     public void SetFishing(bool b)
