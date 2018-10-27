@@ -38,6 +38,10 @@ public class PlayerSlap : PlayerAbility {
     {
         if (_player.state == Player.eState.ground)
         {
+            if (_player.IgnoreInputForAbilities || IgnoreInput)
+            {
+                return;
+            }
             SlapFish();
         }
         
@@ -50,7 +54,7 @@ public class PlayerSlap : PlayerAbility {
         {
             return;
         }
-        if (Input.GetButtonDown(slap) && !IgnoreInput && !_player.IgnoreInputForAbilities)
+        if (Input.GetButtonDown(slap) )
         {
             //Assign fish stat to hitbox
             //hitBox.center = _player.mainFish.hitboxCenter;
@@ -61,14 +65,6 @@ public class PlayerSlap : PlayerAbility {
             {
                 StartCoroutine(HitBoxEnable(_player.mainFish.hitBoxStayFrame));
             }
-        }
-        else if (Input.GetButton(slap))
-        {
-           
-        }
-        else if (Input.GetButtonUp(slap))
-        {
-            
         }
     }
 

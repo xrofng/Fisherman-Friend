@@ -91,7 +91,7 @@ public class Fish : MonoBehaviour {
         if(state != fState.ground)
         {
             transform.parent = null;
-            GetPlayerHolder.SetHoldFish(false);
+            GetPlayerHolder._cPlayerFishInteraction.SetHoldFish(false);
         }
     }
 
@@ -208,7 +208,7 @@ public class Fish : MonoBehaviour {
     {
         if(state == fState.hold)
         {
-            GetPlayerHolder.SetMainFishTransformAsPart(Player.ePart.body, Player.ePart.body, false);
+            GetPlayerHolder._cPlayerFishInteraction.SetMainFishTransformAsPart(Player.ePart.body, Player.ePart.body, false);
         }
         
         Vector3 nearest = FindNearestWater();

@@ -20,7 +20,7 @@ public class Player : MonoBehaviour {
     }
 
     /// <summary>
-    /// Ignore input for ability if this list is not empty.
+    /// Ignore input for all ability if this list is not empty.
     /// </summary>
     private List<object> abilityInputIntercepter = new List<object>();
 
@@ -56,6 +56,10 @@ public class Player : MonoBehaviour {
     public PlayerFishing _cPlayerFishing;
     [HideInInspector]
     public PlayerMovement _cPlayerMovement;
+    [HideInInspector]
+    public PlayerSwitchFish _cPlayerSwitch;
+    [HideInInspector]
+    public PlayerFishInteraction _cPlayerFishInteraction;
 
     public GameObject knockBackOrigin;
     public bool IsInvincible
@@ -113,6 +117,9 @@ public class Player : MonoBehaviour {
         _cPlayerSlap = GetComponent<PlayerSlap>();
         _cPlayerFishing = GetComponent<PlayerFishing>();
         _cPlayerMovement = GetComponent<PlayerMovement>();
+        _cPlayerFishInteraction = GetComponent<PlayerFishInteraction>();
+        _cPlayerSwitch = GetComponent<PlayerSwitchFish>();
+            
     }
 
     // Update is called once per frame
@@ -120,7 +127,6 @@ public class Player : MonoBehaviour {
         switch (state)
         {
             case eState.ground:
-                switchFish();
                // checkInput();
                 break;
             case eState.fishing:
@@ -131,61 +137,9 @@ public class Player : MonoBehaviour {
     }
 
     
-    bool isOwnerFish(Fish f)
-    {
-        return this.gameObject.name == f.holder.gameObject.name;
-    }
+   
     
-    public void SetMainFishTransformAsPart(ePart transPart, ePart rotatPart , bool flipY)
-    {
-        mainFish.transform.position = getPart(transPart).transform.position;
-        mainFish.transform.rotation = getPart(rotatPart).transform.rotation;
-        if (flipY)
-        {
-            mainFish.transform.Rotate(0, 180, 0);
-        }
-    }
-
-    public void SetHoldFish(bool b)
-    {
-        _cPlayerThrow.ChangeToUnAim();
-        holdingFish = b;
-        mainFish = null;
-    }
-
-
-    public void SetFishCollidePlayer(Fish fish, Player player, bool collide)
-    {
-        string layerN = "FishO";
-        if (!collide)
-        {
-            layerN = "Fish";
-        }
-        fish.gameObject.layer = LayerMask.NameToLayer(layerN + playerID);
-    }
-
-
-    void switchFish()
-    {
-        string switc = "Switch" + playerID;
-        if (Input.GetButtonDown(switc))
-        {
-            
-            baitedFish = subFish;
-            subFish = mainFish;
-            if (subFish != null) { subFish.KeepFish(true); }
-            
-            mainFish = baitedFish;
-            baitedFish = null;
-            holdingFish = false;
-            if (mainFish != null)
-            {
-                holdingFish = true;
-                mainFish.KeepFish(false);
-            }
-        }
-    }
-    
+   
     public bool GetOneButtonsPress(string[] button)
     {
         for (int i = 0; i < button.Length; i++)
@@ -215,20 +169,9 @@ public class Player : MonoBehaviour {
             }
         }
     }
-    public void changeState(eState staTE)
+    public void ChangeState(eState staTE)
     {
-        switch (staTE)
-        {
-            case eState.ground:  state = eState.ground; break;
-
-            case eState.air:  state = eState.air; break;
-
-            case eState.water:  state = eState.water;  break;
-
-            case eState.fishing: state = eState.fishing; break;
-
-            case eState.waitForFish:   state = eState.waitForFish; break;
-        }
+        state = staTE;
     }
 
     public void recieveDamage(float damage , Vector3 damageDealerPos , int recoveryFrame , Vector2 knockBackForce)
@@ -273,53 +216,7 @@ public class Player : MonoBehaviour {
         rigid.AddForce(nKnockBackDirection * knockBackForce.x + upLaunching, ForceMode.Impulse);
     }
 
-    void fishCollideInteraction(GameObject g)
-    {
-        Fish f = g.GetComponent<Fish>(); 
-        switch (f.state)
-        {
-            case Fish.fState.swim:
-                break;
-
-            case Fish.fState.baited:
-                break;
-            case Fish.fState.toPlayer:
-                HoldThatFish(f);
-
-                break;
-
-            case Fish.fState.hold:
-                break;
-
-            case Fish.fState.threw:
-                if( !isOwnerFish(f) &&!f.damageDealed)
-                {
-                    rigid.velocity = Vector3.zero;
-                    f.RemoveRigidBody();
-                    f.damageDealed  = true;
-                    recieveDamage(f.throwAttack, f.lastHoldPoition , f.t_invicibilityFrame , KnockData.Instance.getThrowKnockForce(f.chargePercent, dPercent));
-                    f.fishBounce();
-                }
-                break;
-            case Fish.fState.ground:
-                break;
-        }
-    }
-
-    public void HoldThatFish(Fish f)
-    {
-        f.changeState(Fish.fState.hold);
-        f.gameObject.transform.parent = getPart(ePart.rightArm).transform;
-        f.SnapTransform();
-        f.RemoveRigidBody();
-        f.SetToGround(false);
-        SetFishCollidePlayer(f, this, true);
-        mainFish = f;
-        baitedFish = null;
-        holdingFish = true;
-        _cPlayerFishing.SetFishing(false);
-        rigid.velocity = Vector3.zero;
-    }
+   
 
     IEnumerator respawn(float waitBeforeRespawn)
     {
@@ -336,7 +233,7 @@ public class Player : MonoBehaviour {
     {
         if (other.gameObject.tag == "Fish")
         {
-            fishCollideInteraction(other.gameObject);
+            _cPlayerFishInteraction.FishCollideInteraction(other.gameObject);
         }
     }
 

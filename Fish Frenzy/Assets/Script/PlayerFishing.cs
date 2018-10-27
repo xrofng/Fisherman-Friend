@@ -49,7 +49,7 @@ public class PlayerFishing : PlayerAbility
                         _player.baitedFish = Instantiate(PortRoyal.Instance.randomFish(), fishPoint.position, _player.getPart(Player.ePart.body).transform.rotation);
                         Fish baitedFish = _player.baitedFish;
                         baitedFish.GetComponent<MeshRenderer>().enabled = false;
-                        _player.SetFishCollidePlayer(baitedFish, _player, true);
+                        GetCrossZComponent<PlayerFishInteraction>().SetFishCollidePlayer(baitedFish, _player, true);
                         baitedFish.setHolder(this.gameObject);
                         SetFishing(true);
                         baitedFish.changeState(Fish.fState.baited);
@@ -59,7 +59,7 @@ public class PlayerFishing : PlayerAbility
                     if (_player.baitedFish.MashForCatch())
                     {
                         _player.baitedFish.GetComponent<MeshRenderer>().enabled = true;
-                        _player.changeState(Player.eState.waitForFish);
+                        _player.ChangeState(Player.eState.waitForFish);
                         GUIManager.Instance.UpdateMashFishingButtonIndicator(_player.playerID, fishPoint.position, false);
                     }
                     break;
@@ -79,9 +79,9 @@ public class PlayerFishing : PlayerAbility
         if (Physics.Raycast(fishPoint_finder.position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity))
         {
             Color lineColor = Color.yellow;
-            if (hit.transform.gameObject.tag == "Sea" && !_player.holdingFish && 
-                _player._cPlayerState.IsGrounded && 
-                !_player._cPlayerState.IsDeath)
+            if (hit.transform.gameObject.tag == "Sea" && !_player.holdingFish &&
+               GetCrossZComponent<PlayerState>().IsGrounded && 
+               !GetCrossZComponent<PlayerState>().IsDeath)
             {
                 lineColor = Color.blue;
                 nearCoast = true;
@@ -101,9 +101,9 @@ public class PlayerFishing : PlayerAbility
         GUIManager.Instance.UpdateMashFishingButtonIndicator(_player.playerID, fishPoint.position, b);
         if (b)
         {
-            _player.changeState(Player.eState.fishing);
+            _player.ChangeState(Player.eState.fishing);
             return;
         }
-        _player.changeState(Player.eState.ground);
+        _player.ChangeState(Player.eState.ground);
     }
 }

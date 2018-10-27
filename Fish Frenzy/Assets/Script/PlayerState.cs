@@ -24,7 +24,7 @@ public class PlayerState : PlayerAbility
     /// Is the character swim ? 
     public bool IsSwiming { get; set; }
     /// Is the character attacking ? 
-    public bool IsAttacking { get { return _player._cPlayerSlap.Attacking;  }  }
+    public bool IsAttacking { get { return GetCrossZComponent<PlayerSlap>().Attacking;  }  }
     /// is the character falling right now ?
     public bool IsFalling { get; set; }
     /// is the character falling right now ?

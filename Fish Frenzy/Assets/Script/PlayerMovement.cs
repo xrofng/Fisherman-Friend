@@ -28,6 +28,10 @@ public class PlayerMovement : PlayerAbility {
     {
         if (_player.state == Player.eState.ground)
         {
+            if (_player.IgnoreInputForAbilities || IgnoreInput)
+            {
+                return;
+            }
             Move();
             Jump();
         }
@@ -39,8 +43,7 @@ public class PlayerMovement : PlayerAbility {
         string verti = "Verti" + _player.playerID;
         Vector3 mov = new Vector3(Input.GetAxisRaw(hori) * speed.x, 0.0f, Input.GetAxisRaw(verti) * speed.z);
         mov = mov * Time.deltaTime;
-        print(_player.IgnoreInputForAbilities);
-        if (!freezeMovement && !_player._cPlayerState.IsAttacking && !_player.IgnoreInputForAbilities)
+        if (!freezeMovement && !GetCrossZComponent<PlayerState>().IsAttacking)
         {
             this.transform.Translate(mov);
         }
@@ -68,7 +71,7 @@ public class PlayerMovement : PlayerAbility {
     void Jump()
     {
         string jump_b = "Jump" + _player.playerID;
-        if (Input.GetButtonDown(jump_b) && !_player.IgnoreInputForAbilities && (_pState.IsGrounded || _pState.IsSwiming))
+        if (Input.GetButtonDown(jump_b) && (GetCrossZComponent<PlayerState>().IsGrounded || GetCrossZComponent<PlayerState>().IsSwiming))
         {
             _pRigid.velocity = Vector3.zero;
             _pRigid.AddForce(jumpForce, ForceMode.Impulse);

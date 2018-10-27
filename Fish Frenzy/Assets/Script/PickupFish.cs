@@ -29,7 +29,7 @@ public class PickupFish : Pickup {
                 {
                     _player._cPlayerSlap.IgnoreInputFor(8);
                     _player._cPlayerThrow.IgnoreInputFor(8);
-                    _player.HoldThatFish(FishRef);
+                    _player._cPlayerFishInteraction.HoldThatFish(FishRef);
                 }
             }
             

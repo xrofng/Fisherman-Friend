@@ -35,6 +35,10 @@ public class PlayerThrow : PlayerAbility {
     void Update () {
         if(_player.state == Player.eState.ground)
         {
+            if (_player.IgnoreInputForAbilities || IgnoreInput)
+            {
+                return;
+            }
             ThrowFish();
         }
     }
@@ -46,30 +50,30 @@ public class PlayerThrow : PlayerAbility {
         {
             return;
         }
-        if (Input.GetButtonDown(thro) && !IgnoreInput && !_player.IgnoreInputForAbilities)
+        if (Input.GetButtonDown(thro))
         {
             holdToThrow = 0;
-            _player.SetMainFishTransformAsPart(Player.ePart.rightArm, Player.ePart.body , true);
+            GetCrossZComponent<PlayerFishInteraction>().SetMainFishTransformAsPart(Player.ePart.rightArm, Player.ePart.body , true);
             _player.mainFish.SnapAimingTransform();
             _player.FreezingMovement = true;
             _aimArrow.gameObject.SetActive(true);
         }
-        else if (Input.GetButton(thro) && !IgnoreInput && !_player.IgnoreInputForAbilities)
+        else if (Input.GetButton(thro))
         {
             holdToThrow += Time.deltaTime;
 
             //AimAssist();
         }
-        else if (Input.GetButtonUp(thro) && !IgnoreInput && !_player.IgnoreInputForAbilities)
+        else if (Input.GetButtonUp(thro))
         {
             _player.mainFish.lastHoldPoition = _player.mainFish.transform.position;
-            _player.SetMainFishTransformAsPart(Player.ePart.body, Player.ePart.body , true);
+            GetCrossZComponent<PlayerFishInteraction>().SetMainFishTransformAsPart(Player.ePart.body, Player.ePart.body , true);
 
-            _player.SetFishCollidePlayer(_player.mainFish, _player, false);
+            GetCrossZComponent<PlayerFishInteraction>().SetFishCollidePlayer(_player.mainFish, _player, false);
 
             _player.mainFish.FishThrow(holdToThrow ,forwardMultiplier,upMultiplier );
             _player.mainFish.changeState(Fish.fState.threw);
-            _player.SetHoldFish(false);
+            GetCrossZComponent<PlayerFishInteraction>().SetHoldFish(false);
             
         }
     }
