@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeHitBox : MonoBehaviour
+public class DamageOnHit : MonoBehaviour
 {
     /// the possible ways to add knockback : noKnockback, which won't do nothing, set force, or add force
     public enum KnockbackStyles { NoKnockback, SetForce, AddForce }
@@ -30,21 +30,8 @@ public class MeleeHitBox : MonoBehaviour
     [Header("Feedback")]
     /// the duration of freeze frames on hit (leave it at 0 to ignore)
     public float FreezeFramesOnHitDuration = 0f;
-
-    /// the owner of the MeleeHitBox zone
-    public GameObject Owner;
-    protected Player ownerPlayer;
-    public Player OwnerPlayer
-    {
-        get
-        {
-            if(ownerPlayer == null)
-            {
-                ownerPlayer = Owner.gameObject.GetComponent<Player>();
-            }
-            return ownerPlayer;
-        }
-    }
+    /// the frames of player freeze frames on hit (leave it at 0 to ignore)
+    public int FreezeFramesOnHit = 0;
 
     // storage		
     protected Vector2 _lastPosition, _velocity, _knockbackForce;
@@ -62,12 +49,19 @@ public class MeleeHitBox : MonoBehaviour
     /// </summary>
     protected virtual void Awake()
     {
+        Initialization();
+    }
+
+    /// <summary>
+    /// Initialization
+    /// </summary>
+    protected virtual void Initialization()
+    {
         _ignoredGameObjects = new List<GameObject>();
         _boxCollider = GetComponent<BoxCollider>();
         _circleCollider = GetComponent<SphereCollider>();
         _gizmosColor = Color.red;
         _gizmosColor.a = 0.25f;
-
     }
 
     /// <summary>
@@ -121,29 +115,21 @@ public class MeleeHitBox : MonoBehaviour
         _lastPosition = transform.position;
     }
 
-    /// <summary>
-    /// When a collision with the player is triggered, we give damage to the player and knock it back
-    /// </summary>
-    /// <param name="collider">what's colliding with the object.</param>
-    public virtual void OnTriggerStay(Collider collider)
-    {
-        Colliding(collider);
-    }
+  
 
     public virtual void OnTriggerEnter(Collider collider)
-    {;
+    {
+        ;
         Colliding(collider);
     }
 
+    /// <summary>
+    /// Overidding this
+    /// </summary>
+    /// <param name="collider"></param>
     protected virtual void Colliding(Collider collider)
     {
         if (!this.isActiveAndEnabled)
-        {
-            return;
-        }
-
-        // if the object we're colliding is owner,  we do nothing and exit
-        if (collider.gameObject == OwnerPlayer)
         {
             return;
         }
@@ -161,14 +147,22 @@ public class MeleeHitBox : MonoBehaviour
         //    return;
         //}
         
+
+
         _player = collider.gameObject.GetComponent<Player>();
+
+        if (FreezeFramesOnHitDuration > 0)
+        {
+            //StartCoroutine(FreezePlayer(_player,FreezeFramesOnHitDuration));
+            // MMEventManager.TriggerEvent(new MMFreezeFrameEvent(FreezeFramesOnHitDuration));
+        }
 
         // if what we're colliding with player
         if (_player != null)
         {
             if (!_player.IsInvincible)
             {
-                OnCollideWithPlayer(_player , this.Owner.transform.position);
+                
             }
         }
 
@@ -179,15 +173,14 @@ public class MeleeHitBox : MonoBehaviour
         }
     }
 
-  
+
     /// <summary>
     /// Describes what happens when colliding with a player object
     /// </summary>
     /// <param name="health">Health.</param>
-    protected virtual void OnCollideWithPlayer(Player player , Vector3 damageDealerPos)
+    protected virtual void OnCollideWithPlayer(Player player, Vector3 damageDealerPos)
     {
-        
-        _player.recieveDamage(DamageCaused, damageDealerPos, InvincibilityFrame , KnockData.Instance.getSlapKnockForce((int)DamageCaused, _player.dPercent));
+
     }
 
     /// <summary>
@@ -215,4 +208,6 @@ public class MeleeHitBox : MonoBehaviour
             Gizmos.DrawSphere((Vector3)this.transform.position + _circleCollider.center, _circleCollider.radius);
         }
     }
+
+    
 }

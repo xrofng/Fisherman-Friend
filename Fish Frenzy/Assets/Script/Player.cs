@@ -18,6 +18,17 @@ public class Player : MonoBehaviour {
     {
         get { return _cPlayerThrow.aiming; }
     }
+
+    /// <summary>
+    /// Ignore input for ability if this list is not empty.
+    /// </summary>
+    private List<object> abilityInputIntercepter = new List<object>();
+
+    public bool IgnoreInputForAbilities
+    {
+        get { return abilityInputIntercepter.Count > 0; }
+    }
+
     public bool FreezingMovement
     {
         get { return _cPlayerMovement.freezeMovement; }
@@ -206,7 +217,6 @@ public class Player : MonoBehaviour {
     }
     public void changeState(eState staTE)
     {
-
         switch (staTE)
         {
             case eState.ground:  state = eState.ground; break;
@@ -219,7 +229,6 @@ public class Player : MonoBehaviour {
 
             case eState.waitForFish:   state = eState.waitForFish; break;
         }
-
     }
 
     public void recieveDamage(float damage , Vector3 damageDealerPos , int recoveryFrame , Vector2 knockBackForce)
@@ -232,7 +241,25 @@ public class Player : MonoBehaviour {
         _cPlayerState.ToggleIsDamage();
         DamagePercentClamp();
     }
-   
+
+    public void recieveDamage(object intercepter,float damage, Vector3 damageDealerPos, int recoveryFrame, Vector2 knockBackForce)
+    {
+        StartCoroutine(IgnoreAbilityInput(intercepter, recoveryFrame));
+        recieveDamage(damage, damageDealerPos, recoveryFrame, knockBackForce);
+    }
+
+    IEnumerator IgnoreAbilityInput(object intercepter , int FreezeFramesOnHitDuration  )
+    {
+        AddAbilityInputIntercepter(intercepter);
+        int frameCount = 0;
+        while (frameCount < FreezeFramesOnHitDuration)
+        {
+            yield return new WaitForEndOfFrame();
+            frameCount++;
+        }
+        RemoveAbilityInputIntercepter(intercepter);
+    }
+
     public void DamagePercentClamp()
     {
         dPercent = Mathf.Clamp(dPercent, 0, 999);
@@ -328,5 +355,14 @@ public class Player : MonoBehaviour {
         return new Vector3(transform.position.x, transform.position.y - myCollider.size.y / 2.0f, transform.position.z);
     }
 
-   
+    public virtual void AddAbilityInputIntercepter(object intercepter)
+    {
+        abilityInputIntercepter.Add(intercepter);
+    }
+
+    public virtual void RemoveAbilityInputIntercepter(object intercepter)
+    {
+        abilityInputIntercepter.Remove(intercepter);
+    }
+
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerSlap : PlayerAbility {
 
-    public MeleeHitBox hitBox;
+    public HitBoxMelee hitBox;
     public float upMultiplier;
     protected bool attacking;
 
@@ -50,9 +50,9 @@ public class PlayerSlap : PlayerAbility {
         {
             return;
         }
-        if (Input.GetButtonDown(slap) && !IgnoreInput)
+        if (Input.GetButtonDown(slap) && !IgnoreInput && !_player.IgnoreInputForAbilities)
         {
-            // Assing fish stat to hitbox
+            //Assign fish stat to hitbox
             //hitBox.center = _player.mainFish.hitboxCenter;
             //hitBox.size = _player.mainFish.hitboxSize;
             hitBox.InvincibilityFrame = _player.mainFish.s_invicibilityFrame;

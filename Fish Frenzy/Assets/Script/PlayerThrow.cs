@@ -10,7 +10,7 @@ public class PlayerThrow : PlayerAbility {
     public float upMultiplier = 5.0f;
     public RectTransform aimArrow;
     protected RectTransform _aimArrow;
-    public Vector3 arrowPositioningOffset = new Vector3(0, -0.0038f, -0.0279f);
+    public Vector3 arrowPositioningOffset = new Vector3(0, -0.002f, -0.0279f);
     
     private float aimRadius;
     public bool aiming;
@@ -27,7 +27,7 @@ public class PlayerThrow : PlayerAbility {
         base.Initialization();
         _aimArrow = Instantiate(aimArrow);
         _aimArrow.transform.SetParent( _player.getPart(Player.ePart.body) );
-        _aimArrow.localPosition = Vector3.zero + arrowPositioningOffset; 
+        _aimArrow.localPosition = Vector3.zero + arrowPositioningOffset;
         _aimArrow.GetComponent<Image>().color = PortRoyal.Instance.playerColor[_player.playerID-1];
     }
 
@@ -46,7 +46,7 @@ public class PlayerThrow : PlayerAbility {
         {
             return;
         }
-        if (Input.GetButtonDown(thro) && !IgnoreInput)
+        if (Input.GetButtonDown(thro) && !IgnoreInput && !_player.IgnoreInputForAbilities)
         {
             holdToThrow = 0;
             _player.SetMainFishTransformAsPart(Player.ePart.rightArm, Player.ePart.body , true);
@@ -54,13 +54,13 @@ public class PlayerThrow : PlayerAbility {
             _player.FreezingMovement = true;
             _aimArrow.gameObject.SetActive(true);
         }
-        else if (Input.GetButton(thro) && !IgnoreInput)
+        else if (Input.GetButton(thro) && !IgnoreInput && !_player.IgnoreInputForAbilities)
         {
             holdToThrow += Time.deltaTime;
 
             //AimAssist();
         }
-        else if (Input.GetButtonUp(thro) && !IgnoreInput)
+        else if (Input.GetButtonUp(thro) && !IgnoreInput && !_player.IgnoreInputForAbilities)
         {
             _player.mainFish.lastHoldPoition = _player.mainFish.transform.position;
             _player.SetMainFishTransformAsPart(Player.ePart.body, Player.ePart.body , true);
