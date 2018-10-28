@@ -134,12 +134,9 @@ public class Player : MonoBehaviour {
         }
     }
     void FixedUpdate() {
-    }
 
+    }
     
-   
-    
-   
     public bool GetOneButtonsPress(string[] button)
     {
         for (int i = 0; i < button.Length; i++)

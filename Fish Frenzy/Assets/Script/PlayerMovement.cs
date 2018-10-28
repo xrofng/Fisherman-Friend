@@ -10,7 +10,6 @@ public class PlayerMovement : PlayerAbility {
 
     public bool freezeMovement;
 
-
     private Vector3 lookTo;
     // Use this for initialization
     protected override void Start()
@@ -30,10 +29,12 @@ public class PlayerMovement : PlayerAbility {
         {
             if (_player.IgnoreInputForAbilities || IgnoreInput)
             {
-                return;
+
+            }else
+            {
+                Move();
+                Jump();
             }
-            Move();
-            Jump();
         }
     }
 
@@ -64,23 +65,35 @@ public class PlayerMovement : PlayerAbility {
         {
             _player.getPart(Player.ePart.body).transform.rotation = Quaternion.LookRotation(playerDirection, Vector3.up);
         }
-
-        
     }
 
     void Jump()
     {
         string jump_b = "Jump" + _player.playerID;
-        if (Input.GetButtonDown(jump_b) && (GetCrossZComponent<PlayerState>().IsGrounded || GetCrossZComponent<PlayerState>().IsSwiming))
+        if (Input.GetButtonDown(jump_b))
         {
-            _pRigid.velocity = Vector3.zero;
-            _pRigid.AddForce(jumpForce, ForceMode.Impulse);
-            _pRigid.drag = jumpFaster;
+            if ( GetCrossZComponent<PlayerState>().IsSwiming)
+            {
+                StartJumping(jumpForce * 0.7f);
+            }
+            if (GetCrossZComponent<PlayerState>().IsGrounded)
+            {
+                StartJumping(jumpForce);
+            }
         }
+
         if (_pRigid.velocity.y < 0)
         {
             _pRigid.velocity += Vector3.up * Physics.gravity.y * fallFaster * Time.deltaTime;
             _pRigid.drag = 0;
         }
+    }
+
+    public void StartJumping(Vector3 force)
+    {
+        _pRigid.velocity = Vector3.zero;
+        _pRigid.AddForce(force, ForceMode.Impulse);
+        GetCrossZComponent<PlayerState>().IsJumping = true;
+        _pRigid.drag = jumpFaster;
     }
 }

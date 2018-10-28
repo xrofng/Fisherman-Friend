@@ -119,8 +119,12 @@ public class DamageOnHit : MonoBehaviour
 
     public virtual void OnTriggerEnter(Collider collider)
     {
-        ;
         Colliding(collider);
+    }
+
+    public virtual void OnTriggerExit(Collider collider)
+    {
+
     }
 
     /// <summary>
@@ -192,22 +196,7 @@ public class DamageOnHit : MonoBehaviour
     }
 
 
-    protected virtual void OnDrawGizmos()
-    {
-        Gizmos.color = _gizmosColor;
 
-        if ((_boxCollider != null) && _boxCollider.enabled)
-        {
-            _gizmoSize.x = _boxCollider.bounds.size.x;
-            _gizmoSize.y = _boxCollider.bounds.size.y;
-            _gizmoSize.z = 1f;
-            Gizmos.DrawCube(_boxCollider.bounds.center, _gizmoSize);
-        }
-        if (_circleCollider != null && _circleCollider.enabled)
-        {
-            Gizmos.DrawSphere((Vector3)this.transform.position + _circleCollider.center, _circleCollider.radius);
-        }
-    }
 
     
 }

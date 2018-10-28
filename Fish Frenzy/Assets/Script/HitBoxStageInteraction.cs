@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(StageInteraction))]
 public class HitBoxStageInteraction : DamageOnHit
 {
+    public bool ignoreInvicibility;
+    protected StageInteraction stageInteraction;
     /// <summary>
     /// Initialization
     /// </summary>
@@ -15,6 +18,7 @@ public class HitBoxStageInteraction : DamageOnHit
     protected override void Initialization()
     {
         base.Initialization();
+        stageInteraction = GetComponent<StageInteraction>();
     }
 
     protected override void Colliding(Collider collider)
@@ -36,24 +40,12 @@ public class HitBoxStageInteraction : DamageOnHit
 
         //    return;
         //}
-
         _player = collider.gameObject.GetComponent<Player>();
 
         // if what we're colliding with player
         if (_player != null)
         {
-            if (!_player.IsInvincible)
-            {
-                if (FreezeFramesOnHit > 0)
-                {
-                    StartCoroutine(FreezePlayer(_player,FreezeFramesOnHit));
-                }
-                else
-                {
-                    OnCollideWithPlayer(_player, this.transform.position);
-
-                }
-            }
+            OnCollideWithPlayer(_player, this.transform.position);
         }
 
         // if what we're colliding with can't be damaged
@@ -70,10 +62,29 @@ public class HitBoxStageInteraction : DamageOnHit
     /// <param name="health">Health.</param>
     protected override void OnCollideWithPlayer(Player player, Vector3 damageDealerPos)
     {
-        _player.recieveDamage(this,DamageCaused, damageDealerPos, InvincibilityFrame, KnockData.Instance.getSlapKnockForce((int)DamageCaused, _player.dPercent));
+        stageInteraction.OnPlayerCollide(player);
     }
 
-    IEnumerator FreezePlayer(Player player,int FreezeFramesOnHitDuration)
+    public void CauseDamage()
+    {
+        // skip if player invincible and this stage interaction care about invincibility
+        if (!ignoreInvicibility && _player.IsInvincible)
+        {
+            return;
+        }
+
+        // don't care about invincibility
+        if (FreezeFramesOnHit > 0)
+        {
+            StartCoroutine(ieFreezePlayer(_player, FreezeFramesOnHit));
+        }
+        else
+        {
+            _player.recieveDamage(this, DamageCaused, this.transform.position, InvincibilityFrame, KnockData.Instance.getSlapKnockForce((int)DamageCaused, _player.dPercent));
+        }
+    }
+
+    IEnumerator ieFreezePlayer(Player player,int FreezeFramesOnHitDuration)
     {
         player.AddAbilityInputIntercepter(this);
         player.FreezingMovement = true;
@@ -85,6 +96,6 @@ public class HitBoxStageInteraction : DamageOnHit
         }
         player.FreezingMovement = false;
         player.RemoveAbilityInputIntercepter(this);
-        OnCollideWithPlayer(_player, this.transform.position);
+        player.recieveDamage(this, DamageCaused, this.transform.position, InvincibilityFrame, KnockData.Instance.getSlapKnockForce((int)DamageCaused, player.dPercent));
     }
 }

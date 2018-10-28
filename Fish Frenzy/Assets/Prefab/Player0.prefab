@@ -241,6 +241,8 @@ GameObject:
   - component: {fileID: 114987401676803428}
   - component: {fileID: 114503340345768140}
   - component: {fileID: 135834132460704302}
+  - component: {fileID: 114595214027402424}
+  - component: {fileID: 114424651482138474}
   m_Layer: 0
   m_Name: Player0
   m_TagString: Fisherman
@@ -1282,6 +1284,8 @@ MonoBehaviour:
   _cPlayerSlap: {fileID: 0}
   _cPlayerFishing: {fileID: 0}
   _cPlayerMovement: {fileID: 0}
+  _cPlayerSwitch: {fileID: 0}
+  _cPlayerFishInteraction: {fileID: 0}
   knockBackOrigin: {fileID: 1741521758649520, guid: 5f192c056a302e9418bd3b64d9801479,
     type: 2}
   part:
@@ -1342,6 +1346,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitBox: {fileID: 114615818652274720}
   upMultiplier: 50
+--- !u!114 &114424651482138474
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1772084717566622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d88d245f2ee85a40a91d865a1caf733, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114503340345768140
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1382,6 +1397,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   materialSetIndex: 0
+--- !u!114 &114595214027402424
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1772084717566622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 230eea1cfe0e9b14b98c9784298bc22f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114615818652274720
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1403,6 +1429,7 @@ MonoBehaviour:
   InvincibilityDuration: 0.5
   InvincibilityFrame: 50
   FreezeFramesOnHitDuration: 0
+  FreezeFramesOnHit: 0
   Owner: {fileID: 1772084717566622}
 --- !u!114 &114726509031761906
 MonoBehaviour:
