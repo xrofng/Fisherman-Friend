@@ -9,8 +9,8 @@ public class Player : MonoBehaviour {
     public int dPercent;
     /// Is the character daeth ? 
     public bool Death { get { return _cPlayerState.IsDeath; } set { _cPlayerState.IsDeath = value; } }
-    
 
+    public SpriteRenderer playerIndicator; 
     public static float fixedFPS_DT;
     
 
@@ -106,7 +106,8 @@ public class Player : MonoBehaviour {
         playerID = gameObject.name[6] - 48;
         this.gameObject.layer = LayerMask.NameToLayer("Player" + playerID);
         fixedFPS_DT = 0.016f;
-       
+
+        playerIndicator.sprite = PortRoyal.Instance.playerIndicator[playerID-1];
 
         rigid = GetComponent<Rigidbody>();
         rigid.mass = PortRoyal.Instance.characterMass;
