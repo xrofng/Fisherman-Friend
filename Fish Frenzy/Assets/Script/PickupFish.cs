@@ -25,14 +25,13 @@ public class PickupFish : Pickup {
             if (othercollider.GetComponent<Player>())
             {
                 _player = othercollider.GetComponent<Player>();
-                if (_player.GetOneButtonsPress(pickupButton))
+                if (_player.GetOneButtonsPress(pickupButton) && !_player.holdingFish)
                 {
                     _player._cPlayerSlap.IgnoreInputFor(8);
                     _player._cPlayerThrow.IgnoreInputFor(8);
                     _player._cPlayerFishInteraction.HoldThatFish(FishRef);
                 }
             }
-            
         }
     }
 

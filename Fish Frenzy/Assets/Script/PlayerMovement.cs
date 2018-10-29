@@ -10,7 +10,7 @@ public class PlayerMovement : PlayerAbility {
 
     public bool freezeMovement;
 
-    private Vector3 lookTo;
+    public Vector3 lookTo;
     // Use this for initialization
     protected override void Start()
     {
@@ -20,6 +20,13 @@ public class PlayerMovement : PlayerAbility {
     protected override void Initialization()
     {
         base.Initialization();
+    }
+
+    void OnDrawGizmos()
+    {
+        // Draw a yellow sphere at the transform's position
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere( transform.position-lookTo * 3, 0.5f);
     }
 
     // Update is called once per frame
@@ -95,5 +102,45 @@ public class PlayerMovement : PlayerAbility {
         _pRigid.AddForce(force, ForceMode.Impulse);
         GetCrossZComponent<PlayerState>().IsJumping = true;
         _pRigid.drag = jumpFaster;
+    }
+
+    public float GetTurningDegree()
+    {
+        float cos = -lookTo.x;
+        float sin = -lookTo.z;
+        float tan = Mathf.Abs(cos / sin);
+
+        float Deg = Mathf.Atan(tan) * Mathf.Rad2Deg;
+
+        Deg = ComputeDegree(Deg, cos, sin);
+        return Deg;
+    }
+
+    float ComputeDegree(float oDegree, float cos, float sin)
+    {
+        //Find Quadrant
+        if (cos == 0 && sin == 0)
+        {
+        }
+        /* check for point on x-axis */
+        else if (sin == 0)
+        {
+            return (cos > 0) ? 0 : 180;
+        }
+        /* check for point on y-axis */
+        else if (cos == 0)
+        {
+            return (sin > 0) ? 90 : 270;
+        }
+        /* check for quardrant */
+        int Q = 1;
+        Q = (cos > 0 && sin > 0) ? 1 : Q;
+        Q = (cos < 0 && sin > 0) ? 2 : Q;
+        Q = (cos < 0 && sin < 0) ? 3 : Q;
+        Q = (cos > 0 && sin < 0) ? 4 : Q;
+
+        float d = oDegree + 90 * (Q - 1);
+        d = (Q == 1) ? 90 - d : d;
+        return d;
     }
 }

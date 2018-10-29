@@ -41,6 +41,7 @@ public class Fish : MonoBehaviour {
     protected float jumpForce = 10;
     protected float jumpSpeed = 40;
     protected float fishMass =1;
+    public float rayDistance = 0.01f;
     [Header("Throw")]
     public float maxHolding = 5;
     public float throwAttack;
@@ -79,8 +80,9 @@ public class Fish : MonoBehaviour {
 	void Update () {
         Dehydrate();
         GoInDeepWater();
-        CheckGround();
+        CheckJustGround();
     }
+
     public void playerCollideInteraction(GameObject player)
     {
         
@@ -278,18 +280,18 @@ public class Fish : MonoBehaviour {
 
     public Vector3 getLowestFishPoint()
     {
-        return new Vector3(transform.position.x, transform.position.y - myCollider.center.y/2.0f - myCollider.size.y / 2.0f, transform.position.z);
+        return new Vector3(transform.position.x, transform.position.y - (transform.localScale.y * myCollider.size.y) / 2.0f, transform.position.z);
     }
 
-    void CheckGround()
+    void CheckJustGround()
     {
         if( state == fState.threw)
         {
             RaycastHit hit;
-            if (Physics.Raycast(getLowestFishPoint(), transform.TransformDirection(Vector3.down), out hit, 0.5f))
+            Color lineColor = Color.black;
+            if (Physics.Raycast(getLowestFishPoint(), transform.TransformDirection(Vector3.down), out hit, rayDistance ))
             {
-                Color lineColor = Color.yellow;
-                if (hit.transform.gameObject.tag == "Ground")
+                if (hit.transform.gameObject.tag == "Ground" && myRigid.velocity.y > 0)
                 {
                     gameObject.layer = LayerMask.NameToLayer("Fish");
                     state = fState.ground;
@@ -298,7 +300,6 @@ public class Fish : MonoBehaviour {
                 }
             }
         }
-        
     }
 
     public void SetToGround(bool b)
