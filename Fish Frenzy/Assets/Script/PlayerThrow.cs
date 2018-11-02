@@ -23,6 +23,9 @@ public class PlayerThrow : PlayerAbility {
     private List<float> lowDetected = new List<float>();
     public float additionOverUp = 0.25f;
 
+    private List<float> degreeList = new List<float>();
+    public int assistDirection = 16;
+
     // Use this for initialization
     protected override void Start () {
         
@@ -134,9 +137,48 @@ public class PlayerThrow : PlayerAbility {
 
     void AimAssist()
     {
-        print(GetCrossZComponent<PlayerMovement>().GetTurningDegree());
+        float turningDegree = GetCrossZComponent<PlayerMovement>().GetTurningDegree();
+
+        int numLine = 17;
+        float[] circleDegree = new float[numLine];
+        float degGap = 360.0f / (numLine - 1);
+        for (int i = 0; i < numLine; i++)
+        {
+            circleDegree[i] = degGap * i;
+        }
+        for (int i = 0; i < numLine-1; i++)
+        {
+            if (turningDegree >= circleDegree[i] && turningDegree < circleDegree[i + 1])
+            {
+                _player.getPart(Player.ePart.body).transform.eulerAngles = new Vector3(0,HardCodeDegreeConvert( circleDegree[i]), 0);
+            }
+        }
     }
 
+    float HardCodeDegreeConvert(float original)
+    {
+        if (original == 00.0f ) { return 270.0f; }
+        if (original == 22.5f ) { return 247.5f; }
+        if (original == 45.0f ) { return 225.0f; }
+        if (original == 67.5f ) { return 202.5f; }
+        if (original == 90.0f ) { return 180.0f; }
+        if (original == 112.5f) { return 157.5f; }
+        if (original == 135.0f) { return 135.0f; }
+        if (original == 157.5f) { return 112.5f; }
+
+        if (original == 180.0f) { return 90.0f;  }
+        if (original == 202.5f) { return 67.5f;  }
+        if (original == 225.0f) { return 45.0f;  }
+        if (original == 247.5f) { return 22.5f;  }
+        if (original == 270.0f) { return 0.00f;  }
+
+        if (original == 292.5f) { return 337.5f; }
+        if (original == 315.0f) { return 315.0f; }
+        if (original == 337.5f) { return 292.5f; }
+        if (original == 360.0f) { return 270.0f; }
+
+        return original;
+    }
     
     //void AimAssist()
     //{

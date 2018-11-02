@@ -139,8 +139,13 @@ public class PlayerMovement : PlayerAbility {
         Q = (cos < 0 && sin < 0) ? 3 : Q;
         Q = (cos > 0 && sin < 0) ? 4 : Q;
 
-        float d = oDegree + 90 * (Q - 1);
+        float d = oDegree +( 90 * (Q - 1));
         d = (Q == 1) ? 90 - d : d;
+        if (Q == 3)
+        {
+            float changer = (225.0f - d) * 2.0f;
+            d = d + changer;
+        }
         return d;
     }
 }

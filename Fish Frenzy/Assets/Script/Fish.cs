@@ -291,7 +291,7 @@ public class Fish : MonoBehaviour {
             Color lineColor = Color.black;
             if (Physics.Raycast(getLowestFishPoint(), transform.TransformDirection(Vector3.down), out hit, rayDistance ))
             {
-                if (hit.transform.gameObject.tag == "Ground" && myRigid.velocity.y > 0)
+                if (hit.transform.gameObject.tag == "Ground" && myRigid.velocity.y < 0)
                 {
                     gameObject.layer = LayerMask.NameToLayer("Fish");
                     state = fState.ground;

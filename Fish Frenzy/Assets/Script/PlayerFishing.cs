@@ -64,7 +64,6 @@ public class PlayerFishing : PlayerAbility
                     }
                     break;
                 case Player.eState.waitForFish:
-
                     break;
             }
         }
