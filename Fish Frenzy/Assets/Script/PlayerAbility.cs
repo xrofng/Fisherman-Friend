@@ -8,17 +8,17 @@ public class PlayerAbility : MonoBehaviour
 {
     protected Player _player;
 
+    // private ignore Input for specific ability
+    protected bool ignoreInput;
+    public bool IgnoreInput { get { return ignoreInput; } }
+
     public Rigidbody _pRigid
     {
         get { return _player.rigid; }
 
     }
 
-    public PlayerState _pState
-    {
-        get { return _player._cPlayerState; }
-
-    }
+   
 
     /// <summary>
     /// On Start(), we call the ability's intialization
@@ -36,5 +36,35 @@ public class PlayerAbility : MonoBehaviour
         _player = GetComponent<Player>();
     }
 
+    public void IgnoreInputFor(int ignoreFrame)
+    {
+        StartCoroutine(InvokeIgnoreInput(ignoreFrame));
+    }
+    
 
+    IEnumerator InvokeIgnoreInput(int frameDuration)
+    {
+        int frameCount = 0;
+        ignoreInput = true;
+        while (frameCount < frameDuration)
+        {
+            yield return new WaitForEndOfFrame();
+            frameCount++;
+        }
+        ignoreInput = false;
+    }
+    
+    public T GetCrossZComponent<T>() where T : PlayerAbility
+    {
+        if (typeof(T) == typeof(PlayerMovement)) { return _player._cPlayerMovement as T; }
+        if (typeof(T) == typeof(PlayerThrow)) { return _player._cPlayerThrow as T; }
+        if (typeof(T) == typeof(PlayerFishing)) { return _player._cPlayerFishing as T; }
+        if (typeof(T) == typeof(PlayerSlap)) { return _player._cPlayerSlap as T; }
+        if (typeof(T) == typeof(PlayerSwitchFish)) { return _player._cPlayerSwitch as T; }
+        if (typeof(T) == typeof(PlayerInvincibility)) { return _player._cPlayerInvincibility as T; }
+        if (typeof(T) == typeof(PlayerState)) { return _player._cPlayerState as T; }
+        if (typeof(T) == typeof(PlayerFishInteraction)) { return _player._cPlayerFishInteraction as T; }
+        return this as T;
+
+    }
 }

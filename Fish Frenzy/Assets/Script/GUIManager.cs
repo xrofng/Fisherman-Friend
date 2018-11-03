@@ -172,7 +172,8 @@ public class GUIManager : Singleton<GUIManager>
     /// <param name="playerID"></param>
     public virtual void UpdateDamagePercent(int playerID)
     {
-         PercentText[playerID].text = portroyal.player[playerID].dPercent + "%";
+        PercentText[playerID].text = portroyal.player[playerID].dPercent + "%";
+        PercentText[playerID].color = KnockData.Instance.GetColor(portroyal.player[playerID].dPercent);
     }
 
     /// <summary>

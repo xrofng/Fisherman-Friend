@@ -19,6 +19,7 @@ public class PortRoyal : PersistentSingleton<PortRoyal>
     public Fish[] fishPool;
     public Player[] player;
     public Color[] playerColor;
+    public Sprite[] playerIndicator;
     public Material[] playerMaterial;
     public Transform[] spawnPoint;
     public Transform underWater;

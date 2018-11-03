@@ -9,8 +9,8 @@ public class Player : MonoBehaviour {
     public int dPercent;
     /// Is the character daeth ? 
     public bool Death { get { return _cPlayerState.IsDeath; } set { _cPlayerState.IsDeath = value; } }
-    
 
+    public SpriteRenderer playerIndicator; 
     public static float fixedFPS_DT;
     
 
@@ -18,6 +18,17 @@ public class Player : MonoBehaviour {
     {
         get { return _cPlayerThrow.aiming; }
     }
+
+    /// <summary>
+    /// Ignore input for all ability if this list is not empty.
+    /// </summary>
+    private List<object> abilityInputIntercepter = new List<object>();
+
+    public bool IgnoreInputForAbilities
+    {
+        get { return abilityInputIntercepter.Count > 0; }
+    }
+
     public bool FreezingMovement
     {
         get { return _cPlayerMovement.freezeMovement; }
@@ -45,6 +56,10 @@ public class Player : MonoBehaviour {
     public PlayerFishing _cPlayerFishing;
     [HideInInspector]
     public PlayerMovement _cPlayerMovement;
+    [HideInInspector]
+    public PlayerSwitchFish _cPlayerSwitch;
+    [HideInInspector]
+    public PlayerFishInteraction _cPlayerFishInteraction;
 
     public GameObject knockBackOrigin;
     public bool IsInvincible
@@ -91,7 +106,8 @@ public class Player : MonoBehaviour {
         playerID = gameObject.name[6] - 48;
         this.gameObject.layer = LayerMask.NameToLayer("Player" + playerID);
         fixedFPS_DT = 0.016f;
-       
+
+        playerIndicator.sprite = PortRoyal.Instance.playerIndicator[playerID-1];
 
         rigid = GetComponent<Rigidbody>();
         rigid.mass = PortRoyal.Instance.characterMass;
@@ -102,6 +118,9 @@ public class Player : MonoBehaviour {
         _cPlayerSlap = GetComponent<PlayerSlap>();
         _cPlayerFishing = GetComponent<PlayerFishing>();
         _cPlayerMovement = GetComponent<PlayerMovement>();
+        _cPlayerFishInteraction = GetComponent<PlayerFishInteraction>();
+        _cPlayerSwitch = GetComponent<PlayerSwitchFish>();
+            
     }
 
     // Update is called once per frame
@@ -109,7 +128,6 @@ public class Player : MonoBehaviour {
         switch (state)
         {
             case eState.ground:
-                switchFish();
                // checkInput();
                 break;
             case eState.fishing:
@@ -117,64 +135,21 @@ public class Player : MonoBehaviour {
         }
     }
     void FixedUpdate() {
-    }
 
-    
-    bool isOwnerFish(Fish f)
-    {
-        return this.gameObject.name == f.holder.gameObject.name;
     }
     
-    public void SetMainFishTransformAsPart(ePart transPart, ePart rotatPart , bool flipY)
+    public bool GetOneButtonsPress(string[] button)
     {
-        mainFish.transform.position = getPart(transPart).transform.position;
-        mainFish.transform.rotation = getPart(rotatPart).transform.rotation;
-        if (flipY)
+        for (int i = 0; i < button.Length; i++)
         {
-            mainFish.transform.Rotate(0, 180, 0);
-        }
-    }
-
-    public void SetHoldFish(bool b)
-    {
-        _cPlayerThrow.ChangeToUnAim();
-        holdingFish = b;
-        mainFish = null;
-    }
-
-
-    public void SetFishCollidePlayer(Fish fish, Player player, bool collide)
-    {
-        string layerN = "FishO";
-        if (!collide)
-        {
-            layerN = "Fish";
-        }
-        fish.gameObject.layer = LayerMask.NameToLayer(layerN + playerID);
-    }
-
-
-    void switchFish()
-    {
-        string switc = "Switch" + playerID;
-        if (Input.GetButtonDown(switc))
-        {
-            
-            baitedFish = subFish;
-            subFish = mainFish;
-            if (subFish != null) { subFish.KeepFish(true); }
-            
-            mainFish = baitedFish;
-            baitedFish = null;
-            holdingFish = false;
-            if (mainFish != null)
+            string but = button[i] + "" + playerID;
+            if (Input.GetButtonDown(but))
             {
-                holdingFish = true;
-                mainFish.KeepFish(false);
+                return true;
             }
         }
+        return false;
     }
-    
     
     void checkInput()
     {
@@ -192,22 +167,9 @@ public class Player : MonoBehaviour {
             }
         }
     }
-    public void changeState(eState staTE)
+    public void ChangeState(eState staTE)
     {
-
-        switch (staTE)
-        {
-            case eState.ground:  state = eState.ground; break;
-
-            case eState.air:  state = eState.air; break;
-
-            case eState.water:  state = eState.water;  break;
-
-            case eState.fishing: state = eState.fishing; break;
-
-            case eState.waitForFish:   state = eState.waitForFish; break;
-        }
-
+        state = staTE;
     }
 
     public void recieveDamage(float damage , Vector3 damageDealerPos , int recoveryFrame , Vector2 knockBackForce)
@@ -218,8 +180,32 @@ public class Player : MonoBehaviour {
         _cPlayerFishing.SetFishing(false);
         _cPlayerInvincibility.startInvincible(recoveryFrame);
         _cPlayerState.ToggleIsDamage();
+        DamagePercentClamp();
     }
-   
+
+    public void recieveDamage(object intercepter,float damage, Vector3 damageDealerPos, int recoveryFrame, Vector2 knockBackForce)
+    {
+        StartCoroutine(IgnoreAbilityInput(intercepter, recoveryFrame));
+        recieveDamage(damage, damageDealerPos, recoveryFrame, knockBackForce);
+    }
+
+    IEnumerator IgnoreAbilityInput(object intercepter , int FreezeFramesOnHitDuration  )
+    {
+        AddAbilityInputIntercepter(intercepter);
+        int frameCount = 0;
+        while (frameCount < FreezeFramesOnHitDuration)
+        {
+            yield return new WaitForEndOfFrame();
+            frameCount++;
+        }
+        RemoveAbilityInputIntercepter(intercepter);
+    }
+
+    public void DamagePercentClamp()
+    {
+        dPercent = Mathf.Clamp(dPercent, 0, 999);
+    }
+
     public void AddKnockBackForce( float damge ,Vector3 forceSourcePos, Vector2 knockBackForce)
     {
         Vector3 knockBackDirection = this.transform.position - forceSourcePos;
@@ -228,47 +214,8 @@ public class Player : MonoBehaviour {
         rigid.AddForce(nKnockBackDirection * knockBackForce.x + upLaunching, ForceMode.Impulse);
     }
 
-    void fishCollideInteraction(GameObject g)
-    {
-        Fish f = g.GetComponent<Fish>(); 
-        switch (f.state)
-        {
-            case Fish.fState.swim:
-                break;
+   
 
-            case Fish.fState.baited:
-                break;
-            case Fish.fState.toPlayer:
-                f.changeState(Fish.fState.hold);
-                f.gameObject.transform.parent = getPart(ePart.rightArm).transform;
-                f.snapTransform();
-                f.removeRigidBody();
-                
-                mainFish = f;
-                baitedFish = null;
-                holdingFish = true;
-                _cPlayerFishing.SetFishing(false);
-                rigid.velocity = Vector3.zero;
-
-                break;
-
-            case Fish.fState.hold:
-                break;
-
-            case Fish.fState.threw:
-                if( !isOwnerFish(f) &&!f.damageDealed)
-                {
-                    rigid.velocity = Vector3.zero;
-                    f.removeRigidBody();
-                    f.damageDealed  = true;
-                    recieveDamage(f.throwAttack, f.lastHoldPoition , f.t_invicibilityFrame , KnockData.Instance.getThrowKnockForce(f.chargePercent, dPercent));
-                    f.fishBounce();
-                }
-                break;
-            case Fish.fState.ground:
-                break;
-        }
-    }
     IEnumerator respawn(float waitBeforeRespawn)
     {
        
@@ -284,7 +231,7 @@ public class Player : MonoBehaviour {
     {
         if (other.gameObject.tag == "Fish")
         {
-            fishCollideInteraction(other.gameObject);
+            _cPlayerFishInteraction.FishCollideInteraction(other.gameObject);
         }
     }
 
@@ -303,5 +250,14 @@ public class Player : MonoBehaviour {
         return new Vector3(transform.position.x, transform.position.y - myCollider.size.y / 2.0f, transform.position.z);
     }
 
-   
+    public virtual void AddAbilityInputIntercepter(object intercepter)
+    {
+        abilityInputIntercepter.Add(intercepter);
+    }
+
+    public virtual void RemoveAbilityInputIntercepter(object intercepter)
+    {
+        abilityInputIntercepter.Remove(intercepter);
+    }
+
 }
