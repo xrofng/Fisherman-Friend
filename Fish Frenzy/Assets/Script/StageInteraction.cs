@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StageInteraction : MonoBehaviour
+public class StageInteraction : Creature
 {
     public int damage=15;
     public int invicibilityFrame = 20;
@@ -19,6 +19,10 @@ public class StageInteraction : MonoBehaviour
     protected virtual void Start()
     {
         Initialization();
+    }
+    protected virtual void Update()
+    {
+
     }
 
     /// <summary>

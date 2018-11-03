@@ -19,7 +19,7 @@ public class SI_JellyFish : StageInteraction {
     }
 
     // Update is called once per frame
-    void Update () {
+    protected override void Update () {
 		
 	}
 
