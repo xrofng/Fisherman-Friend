@@ -26,11 +26,12 @@ public class PickupFood : Pickup {
             if (othercollider.GetComponent<Player>())
             {
                 _player = othercollider.GetComponent<Player>();
-                if (_player.GetOneButtonsPress(pickupButton))
+                if (_player.GetOneButtonsPress(pickupButton) )
                 {
                     //_player._cPlayerSlap.IgnoreInputFor(8);
                     //_player._cPlayerThrow.IgnoreInputFor(8);
                     _player.dPercent -= FoodRef.restorePercent;
+                    _player.DamagePercentClamp();
                     Destroy(FoodRef.gameObject);
                 }
             }

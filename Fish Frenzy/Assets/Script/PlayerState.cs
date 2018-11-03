@@ -24,7 +24,7 @@ public class PlayerState : PlayerAbility
     /// Is the character swim ? 
     public bool IsSwiming { get; set; }
     /// Is the character attacking ? 
-    public bool IsAttacking { get { return _player._cPlayerSlap.Attacking;  }  }
+    public bool IsAttacking { get { return GetCrossZComponent<PlayerSlap>().Attacking;  }  }
     /// is the character falling right now ?
     public bool IsFalling { get; set; }
     /// is the character falling right now ?
@@ -35,8 +35,8 @@ public class PlayerState : PlayerAbility
     public bool WasTouchingTheCeilingLastFrame { get; set; }
     /// did the character just become grounded ?
     public bool JustGotGrounded { get; set; }
+    
 
-    private List<string> tagOfBelow = new List<string>();
     protected override void Start()
     {
         Initialization();
@@ -56,14 +56,13 @@ public class PlayerState : PlayerAbility
         IsCollidingAbove = false;
      
         IsFalling = true;
-        IsJumping = false;
         IsGrounded = false;
         IsSwiming = false;
     }
     // Update is called once per frame
     void Update () {
         CheckGround();
-	}
+    }
 
     /// <summary>
     /// Every frame, we cast a number of rays below our character to check for platform collisions
@@ -74,23 +73,41 @@ public class PlayerState : PlayerAbility
         bool hitBelow = false;
         Reset();
         // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(_player.getLowestPlayerPoint(), transform.TransformDirection(Vector3.down), out hit, 1.0f))
+        if (Physics.Raycast(_player.getLowestPlayerPoint(), transform.TransformDirection(Vector3.down), out hit, 0.5f))
         {
             Color lineColor = Color.yellow;
             if(hit.transform != null)
             {
                 hitBelow = true;
             }
-            if (hit.transform.gameObject.tag == "Ground")
+
+            // Both Tag share same Action
+            if(hit.transform.gameObject.tag == "Sea" ||
+                hit.transform.gameObject.tag == "Ground")
             {
-                IsGrounded = true;
+                CheckFinishJumping();
             }
+
+            // Each Tag has different Action
             if (hit.transform.gameObject.tag == "Sea")
             {
                 IsSwiming = true;
             }
+            if (hit.transform.gameObject.tag == "Ground")
+            {
+                IsGrounded = true;
+            }
+            
         }
         IsCollidingBelow = hitBelow;
+    }
+
+    public void CheckFinishJumping(){
+        
+        if (IsJumping && _pRigid.velocity.y <= 0)
+        {
+            IsJumping = false;
+        }
     }
 
     public void ToggleIsDamage()
@@ -108,6 +125,6 @@ public class PlayerState : PlayerAbility
             frameCount += 1;
         }
         IsDamaged = false;
-        
     }
+
 }

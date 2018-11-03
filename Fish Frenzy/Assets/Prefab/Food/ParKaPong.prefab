@@ -21,11 +21,13 @@ GameObject:
   - component: {fileID: 4962880353740746}
   - component: {fileID: 33425353327477010}
   - component: {fileID: 23086997889461736}
-  - component: {fileID: 114168613627144810}
-  - component: {fileID: 65805445128477756}
-  m_Layer: 0
-  m_Name: DarkMatterMenu
-  m_TagString: Fish
+  - component: {fileID: 114339696076522196}
+  - component: {fileID: 114158502160717092}
+  - component: {fileID: 65582842310750060}
+  - component: {fileID: 54548444948297462}
+  m_Layer: 23
+  m_Name: ParKaPong
+  m_TagString: Food
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37,8 +39,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1630705323932942}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.519, y: 5.65, z: 4.7999}
-  m_LocalScale: {x: 0.023803528, y: 0.040145297, z: 0.019470764}
+  m_LocalPosition: {x: -23.84, y: 20.54, z: 0.75}
+  m_LocalScale: {x: 1.3178307, y: 0.71590877, z: 1.0779564}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -58,7 +60,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 8a4d2fe163bb0cc469e35164817f37dd, type: 2}
+  - {fileID: 2100000, guid: 0a884ae75d16a124e9a4a447cbc0eed3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -84,20 +86,35 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1630705323932942}
-  m_Mesh: {fileID: 4300000, guid: 6e654008c0c551d41b2f83f329e79d6f, type: 3}
---- !u!65 &65805445128477756
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &54548444948297462
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1630705323932942}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &65582842310750060
 BoxCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1630705323932942}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 107.45576, y: 92.60698, z: 97.15201}
-  m_Center: {x: 5.607952, y: -10.13249, z: 7.2943916}
---- !u!114 &114168613627144810
+  m_Size: {x: 1.0000001, y: 2, z: 1.0000002}
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &114158502160717092
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,10 +122,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1630705323932942}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3701a61f4a003047afca7f5c500f5ae, type: 3}
+  m_Script: {fileID: 11500000, guid: 7267c619ac4c9714c8d9252d7e5659fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Effect: {fileID: 0}
   PickSfx: {fileID: 0}
   DisableObjectOnPick: 0
-  allowToPick: 0
+  allowToPick: 1
+--- !u!114 &114339696076522196
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1630705323932942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 616fb1a68979bb245ba223a3f97690c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  restorePercent: 10

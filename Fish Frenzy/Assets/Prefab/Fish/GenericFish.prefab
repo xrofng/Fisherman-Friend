@@ -128,9 +128,10 @@ MonoBehaviour:
   state: 0
   holder: {fileID: 0}
   damageDealed: 0
-  durability: 10
+  durability: 30
   weight: 0
   mashCountDown: 1
+  rayDistance: 0.1
   maxHolding: 5
   throwAttack: 0
   t_invicibilityFrame: 50
