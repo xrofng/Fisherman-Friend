@@ -65,6 +65,7 @@ public class HitBoxMelee : DamageOnHit
         {
             if (!_player.IsInvincible)
             {
+                print("isin");
                 OnCollideWithPlayer(_player , this.Owner.transform.position);
             }
         }
@@ -88,6 +89,13 @@ public class HitBoxMelee : DamageOnHit
             return;
         }
 
+        // Check player will be ignored from recently collide
+        if (_ignoredGameObjects.Contains(player.gameObject))
+        {
+            return;
+        }
+        AddIgnoreGameObject(player.gameObject);
+
         // don't care about invincibility
         if (FreezeFramesOnHit > 0)
         {
@@ -101,6 +109,7 @@ public class HitBoxMelee : DamageOnHit
     void OnEnemyHit(Vector3 damageDealerPos)
     {
         ownerPlayer._cPlayerSlap.PlaySlapSFX();
+        print(Time.frameCount);
         _player.recieveDamage(DamageCaused, damageDealerPos, InvincibilityFrame, KnockData.Instance.getSlapKnockForce((int)DamageCaused, _player.dPercent));
     }
 

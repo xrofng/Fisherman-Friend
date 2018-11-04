@@ -5,7 +5,7 @@ using UnityEngine;
 public class FishSpecialMelee : FishSpecial {
 
     protected HitBoxMelee playerHitBox;
-    public int invicibilityFrame = 20;
+    public int invicibilityFrame = 50;
     public int freezeFrame = 10;
     public int damage = 50;
 
