@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerSlap : PlayerAbility {
 
     public HitBoxMelee hitBox;
+    public Animation slapTrail;
     //public ParticleSystem slapParticle;
     public float upMultiplier;
     protected bool attacking;
@@ -21,7 +22,9 @@ public class PlayerSlap : PlayerAbility {
         set
         {
             attacking = value;
+            slapTrail.gameObject.SetActive(value);
             hitBox.gameObject.SetActive(value);
+            slapTrail.Play();
         }
     }
 

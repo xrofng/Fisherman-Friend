@@ -2724,7 +2724,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.009090991, y: 0.008795306, z: 0.010433737}
+  m_Size: {x: 0.02, y: 0.008795306, z: 0.010433737}
   m_Center: {x: 0.00005907285, y: -0.002001271, z: 0.024520287}
 --- !u!114 &114205477957910750
 MonoBehaviour:
@@ -2764,7 +2764,7 @@ MonoBehaviour:
   invicibilityFrame: 20
   IgnorePlayerFrame: 20
   reachDistance: 2
-  showRay: 0
+  showRay: 1
   path_objs:
   - {fileID: 0}
   - {fileID: 0}
