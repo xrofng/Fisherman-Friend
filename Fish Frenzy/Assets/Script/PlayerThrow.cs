@@ -15,9 +15,8 @@ public class PlayerThrow : PlayerAbility {
     public Transform aimArrow;
     protected Transform _aimArrow;
     public Vector3 arrowPositioningOffset = new Vector3(0, -0.002f, -0.0279f);
-    /// <summary>
-    /// The number of rays cast vertically to check for floor. Must be 2 or higher.
-    /// </summary> 
+
+    [Header("16 Aim Arrow")]
     public int NumberOfVerticalRays = 100;
     public float rayDistanceFrequent = 0.1f;
     private List<float> lowDetected = new List<float>();
@@ -25,6 +24,9 @@ public class PlayerThrow : PlayerAbility {
 
     private List<float> degreeList = new List<float>();
     public int assistDirection = 16;
+
+    [Header("SFX")]
+    public AudioClip sfx_Throw;
 
     // Use this for initialization
     protected override void Start () {
@@ -80,6 +82,8 @@ public class PlayerThrow : PlayerAbility {
         }
         else if (Input.GetButtonUp(thro))
         {
+            PlayThrowSFX();
+
             _player.mainFish.lastHoldPoition = _player.mainFish.transform.position;
             GetCrossZComponent<PlayerFishInteraction>().SetMainFishTransformAsPart(Player.ePart.body, Player.ePart.body , true);
 
@@ -89,6 +93,18 @@ public class PlayerThrow : PlayerAbility {
             _player.mainFish.changeState(Fish.fState.threw);
             GetCrossZComponent<PlayerFishInteraction>().SetHoldFish(false);
             
+        }
+    }
+
+    public void PlayThrowSFX()
+    {
+        if (_player.mainFish.sfx_Throw)
+        {
+            PlaySFX(_player.mainFish.sfx_Throw);
+        }
+        else
+        {
+            PlaySFX(sfx_Throw);
         }
     }
 

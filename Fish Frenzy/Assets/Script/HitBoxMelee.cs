@@ -83,6 +83,7 @@ public class HitBoxMelee : DamageOnHit
     /// <param name="health">Health.</param>
     protected override void OnCollideWithPlayer(Player player , Vector3 damageDealerPos)
     {
+        ownerPlayer._cPlayerSlap.PlaySlapSFX();
         _player.recieveDamage(DamageCaused, damageDealerPos, InvincibilityFrame , KnockData.Instance.getSlapKnockForce((int)DamageCaused, _player.dPercent));
     }
 

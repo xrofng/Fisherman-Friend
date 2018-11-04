@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fish : MonoBehaviour {
+public class Fish : Creature {
     public enum fState
     {
         swim=0,
@@ -57,8 +57,6 @@ public class Fish : MonoBehaviour {
     public Vector3 hitboxSize;
     public Vector3 hitboxCenter;
 
-
-
     [Header("Snap")]
     //snap
     public Vector3 holdPosition;
@@ -69,18 +67,31 @@ public class Fish : MonoBehaviour {
     private BoxCollider myCollider;
     public BoxCollider MyCollider { get { return myCollider; } }
     private PickupFish _pickupFish;
+
+    [Header("SFX")]
+    public AudioClip sfx_WaterJump;
+    public AudioClip sfx_Slap;
+    public AudioClip sfx_Throw;
+
     // Use this for initialization
     void Start () {
+        Initialization();
+    }
+
+    void Initialization()
+    {
         myCollider = GetComponent<BoxCollider>();
+        _SFX = GetComponent<AudioSource>();
         _pickupFish = GetComponent<PickupFish>();
         dehydration = durability;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
         Dehydrate();
         GoInDeepWater();
         CheckJustGround();
+        CheckWater();
     }
 
     public void playerCollideInteraction(GameObject player)
@@ -131,12 +142,14 @@ public class Fish : MonoBehaviour {
         return false;
     }
 
+ 
+
     void GoInDeepWater()
     {
         if (transform.position.y <= PortRoyal.Instance.underWater.position.y)
         {
             Destroy(this.gameObject);
-        }
+        }        
     }
 
     public void KeepFish(bool keep)
@@ -288,7 +301,6 @@ public class Fish : MonoBehaviour {
         if( state == fState.threw)
         {
             RaycastHit hit;
-            Color lineColor = Color.black;
             if (Physics.Raycast(getLowestFishPoint(), transform.TransformDirection(Vector3.down), out hit, rayDistance ))
             {
                 if (hit.transform.gameObject.tag == "Ground" && myRigid.velocity.y < 0)
@@ -300,18 +312,26 @@ public class Fish : MonoBehaviour {
                 }
             }
         }
+        
+    }
+
+    void CheckWater()
+    {
+        if (state == fState.threw || state == fState.dehydrate)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(getLowestFishPoint(), transform.TransformDirection(Vector3.down), out hit, rayDistance))
+            {
+                if (hit.transform.gameObject.tag == "Sea" && myRigid.velocity.y < 0)
+                {
+                    PlaySFX(sfx_WaterJump);
+                }
+            }
+        }
     }
 
     public void SetToGround(bool b)
     {
         _pickupFish.SetAllowToPick(b);
     }
-
-    void OnCollisionEnter(Collision other)
-    {
-       
-
-    }
-
-
 }

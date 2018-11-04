@@ -78,6 +78,7 @@ public class PlayerFishing : PlayerAbility
             frameCount += 1;
         }
         PlaySFX(sfx_WaterTouch);
+
         _player.baitedFish = Instantiate(PortRoyal.Instance.randomFish(), fishPoint.position, _player.getPart(Player.ePart.body).transform.rotation);
         Fish baitedFish = _player.baitedFish;
         baitedFish.GetComponent<MeshRenderer>().enabled = false;

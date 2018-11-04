@@ -23,6 +23,8 @@ public class PlayerState : PlayerAbility
     public bool IsDamaged { get; set; }
     /// Is the character swim ? 
     public bool IsSwiming { get; set; }
+    protected bool prevIsSwiming;
+
     /// Is the character attacking ? 
     public bool IsAttacking { get { return GetCrossZComponent<PlayerSlap>().Attacking;  }  }
     /// is the character falling right now ?
@@ -35,7 +37,9 @@ public class PlayerState : PlayerAbility
     public bool WasTouchingTheCeilingLastFrame { get; set; }
     /// did the character just become grounded ?
     public bool JustGotGrounded { get; set; }
-    
+
+    [Header("SFX")]
+    public AudioClip sfx_WaterJump;
 
     protected override void Start()
     {
@@ -70,6 +74,9 @@ public class PlayerState : PlayerAbility
     {
         RaycastHit hit;
         bool hitBelow = false;
+
+        UpdatePrevState();
+
         Reset();
         // Does the ray intersect any objects excluding the player layer
         if (Physics.Raycast(_player.getLowestPlayerPoint(), transform.TransformDirection(Vector3.down), out hit, 0.5f))
@@ -90,7 +97,12 @@ public class PlayerState : PlayerAbility
             // Each Tag has different Action
             if (hit.transform.gameObject.tag == "Sea")
             {
+                if (!prevIsSwiming)
+                {
+                    PlaySFX(sfx_WaterJump);
+                }
                 IsSwiming = true;
+
             }
             if (hit.transform.gameObject.tag == "Ground")
             {
@@ -107,6 +119,11 @@ public class PlayerState : PlayerAbility
         {
             IsJumping = false;
         }
+    }
+
+    void UpdatePrevState()
+    {
+        prevIsSwiming = IsSwiming; ;
     }
 
     public void ToggleIsDamage()

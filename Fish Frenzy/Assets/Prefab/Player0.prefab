@@ -1452,6 +1452,7 @@ MonoBehaviour:
   rayDistanceFrequent: 0.1
   additionOverUp: 0.25
   assistDirection: 16
+  sfx_Throw: {fileID: 8300000, guid: 43523274498e82f4e990bf7dcc388f27, type: 3}
 --- !u!114 &114239399286365258
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1477,7 +1478,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitBox: {fileID: 114615818652274720}
   upMultiplier: 50
-  slapSFX: {fileID: 0}
+  sfx_Slap: {fileID: 8300000, guid: 76d3523a591904046bc04aace0181371, type: 3}
 --- !u!114 &114424651482138474
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1599,6 +1600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07a3823ef5840314282e84e65e949035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sfx_WaterJump: {fileID: 8300000, guid: 8ddf30244bfadbe40a9fb00dec90be75, type: 3}
 --- !u!114 &114987401676803428
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1613,8 +1615,9 @@ MonoBehaviour:
   nearCoast: 0
   fishPoint: {fileID: 4112076903700368}
   fishPoint_finder: {fileID: 4859448276318428}
-  sfx_RodSwing: {fileID: 0}
-  sfx_WaterTouch: {fileID: 0}
+  delayFrame: 20
+  sfx_RodSwing: {fileID: 8300000, guid: 02d1c2c2a3bc49a4a8ed40d4b8f86659, type: 3}
+  sfx_WaterTouch: {fileID: 8300000, guid: 6aec0d02799124641afcab3ffbd21b78, type: 3}
 --- !u!135 &135230811270597292
 SphereCollider:
   m_ObjectHideFlags: 1

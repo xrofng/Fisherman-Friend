@@ -8,6 +8,8 @@ public class Creature : MonoBehaviour {
     private CapsuleCollider myCollider;
     private Animation myAnimation;
 
+    protected AudioSource _SFX;
+
     public Rigidbody _rigidbody
     {
         get
@@ -43,5 +45,12 @@ public class Creature : MonoBehaviour {
             }
             return myAnimation;
         }
+    }
+
+    protected virtual void PlaySFX(AudioClip SFXclip)
+    {
+        if (_SFX.isPlaying) { return; }
+        _SFX.clip = SFXclip;
+        _SFX.Play();
     }
 }

@@ -9,7 +9,8 @@ public class PlayerSlap : PlayerAbility {
     public float upMultiplier;
     protected bool attacking;
 
-    public AudioClip slapSFX;
+    [Header("SFX")]
+    public AudioClip sfx_Slap;
 
     public bool Attacking
     {
@@ -80,7 +81,17 @@ public class PlayerSlap : PlayerAbility {
         //}
     }
 
-  
+   public void PlaySlapSFX()
+    {
+        if (_player.mainFish.sfx_Throw)
+        {
+            PlaySFX(_player.mainFish.sfx_Slap);
+        }
+        else
+        {
+            PlaySFX(sfx_Slap);
+        }
+    }
 
     IEnumerator HitBoxEnable(int frameDuration)
     {
