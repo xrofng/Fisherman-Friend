@@ -38,7 +38,7 @@ public class PickupFish : Pickup {
     public void SetAllowToPick(bool b)
     {
         allowToPick = b;
-        FishRef.MyCollider.isTrigger = b;
+        FishRef.GetCollider<BoxCollider>().isTrigger = b;
     }
 
     // Update is called once per frame

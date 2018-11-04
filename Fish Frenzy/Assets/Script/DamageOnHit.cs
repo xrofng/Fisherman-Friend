@@ -41,8 +41,8 @@ public class DamageOnHit : MonoBehaviour
     protected Color _gizmosColor;
     protected Vector3 _gizmoSize;
 
-    protected SphereCollider _circleCollider;
-    protected BoxCollider _boxCollider;
+
+    protected Collider _Collider;
 
     /// <summary>
     /// Initialization
@@ -58,8 +58,6 @@ public class DamageOnHit : MonoBehaviour
     protected virtual void Initialization()
     {
         _ignoredGameObjects = new List<GameObject>();
-        _boxCollider = GetComponent<BoxCollider>();
-        _circleCollider = GetComponent<SphereCollider>();
         _gizmosColor = Color.red;
         _gizmosColor.a = 0.25f;
     }
@@ -195,8 +193,19 @@ public class DamageOnHit : MonoBehaviour
         //SelfDamage(DamageTakenEveryTime + DamageTakenNonDamageable);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public T GetCollider<T>() where T : Collider
+    {
+        if (!_Collider)
+        {
+            _Collider = GetComponent<T>() as T;
+        }
+        return _Collider as T;
+    }
 
 
-
-    
 }

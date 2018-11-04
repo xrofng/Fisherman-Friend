@@ -73,6 +73,7 @@ public class PlayerAbility : MonoBehaviour
         if (typeof(T) == typeof(PlayerInvincibility)) { return _player._cPlayerInvincibility as T; }
         if (typeof(T) == typeof(PlayerState)) { return _player._cPlayerState as T; }
         if (typeof(T) == typeof(PlayerFishInteraction)) { return _player._cPlayerFishInteraction as T; }
+        if (typeof(T) == typeof(PlayerFishSpecial)) { return _player._cPlayerFishSpecial as T; }
         return this as T;
 
     }

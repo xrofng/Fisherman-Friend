@@ -2,15 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSlap : PlayerAbility {
+public class PlayerFishSpecial : PlayerAbility
+{
+    public enum SpecialType
+    {
+        Melee = 0,
+        Range,
+        Other
+    }
+    public SpecialType type;
 
-    public HitBoxMelee hitBox;
-    public Animation slapTrail;
-    //public ParticleSystem slapParticle;
+
+    public HitBoxMelee specialHitBox;
+    public Animation specialTrail;
     protected bool attacking;
 
     [Header("SFX")]
-    public AudioClip sfx_Slap;
+    public AudioClip sfx_Special;
 
     public bool Attacking
     {
@@ -21,9 +29,9 @@ public class PlayerSlap : PlayerAbility {
         set
         {
             attacking = value;
-            slapTrail.gameObject.SetActive(value);
-            hitBox.GetCollider<BoxCollider>().enabled = value;
-            slapTrail.Play();
+            specialTrail.gameObject.SetActive(value);
+            specialHitBox.GetCollider<MeshCollider>().enabled = value;  
+            specialTrail.Play();
         }
     }
 
@@ -35,8 +43,8 @@ public class PlayerSlap : PlayerAbility {
     protected override void Initialization()
     {
         base.Initialization();
-        hitBox.gameObject.layer = LayerMask.NameToLayer("Fish" + _player.playerID);
-        
+        specialHitBox.gameObject.layer = LayerMask.NameToLayer("Fish" + _player.playerID);
+
     }
 
     // Update is called once per frame
@@ -48,50 +56,39 @@ public class PlayerSlap : PlayerAbility {
             {
                 return;
             }
-            SlapFish();
+            SpecialFish();
         }
-        
+
     }
 
     // Update is called once per frame
-    void SlapFish() {
-        string slap = "Slap" + _player.playerID;
+    void SpecialFish()
+    {
+        string special = "Fishing" + _player.playerID;
         if (_player.mainFish == null)
         {
             return;
         }
-        if (Input.GetButtonDown(slap) )
-        {
-            //Assign fish stat to hitbox
-            //hitBox.center = _player.mainFish.hitboxCenter;
-            //hitBox.size = _player.mainFish.hitboxSize;
-            hitBox.InvincibilityFrame = _player.mainFish.s_invicibilityFrame;
-            hitBox.DamageCaused = _player.mainFish.attack;
+        if (Input.GetButtonDown(special))
+        { 
+            specialHitBox.InvincibilityFrame = _player.mainFish.s_invicibilityFrame;
+            specialHitBox.DamageCaused = _player.mainFish.attack;
             if (!Attacking)
             {
-                RunParticle();
                 StartCoroutine(HitBoxEnable(_player.mainFish.hitBoxStayFrame));
             }
         }
     }
 
-    void RunParticle()
+    public void PlaySlapSFX()
     {
-        //if (slapParticle)
-        //{
-        //    slapParticle.Play();
-        //}
-    }
-
-   public void PlaySlapSFX()
-    {
-        if (_player.mainFish.sfx_Slap)
+        if (_player.mainFish.sfx_Special)
         {
-            PlaySFX(_player.mainFish.sfx_Slap);
+            PlaySFX(_player.mainFish.sfx_Special);
         }
         else
         {
-            PlaySFX(sfx_Slap);
+            PlaySFX(sfx_Special);
         }
     }
 

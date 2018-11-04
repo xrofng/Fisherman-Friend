@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Creature : MonoBehaviour {
+    public enum ColliderType
+    {
+        Box,
+        Capsule
+    }
 
-    private Rigidbody myRigid;
-    private CapsuleCollider myCollider;
-    private Animation myAnimation;
+    protected Rigidbody myRigid;
+    protected Collider myCollider;
+    protected Animation myAnimation;
 
     protected AudioSource _SFX;
 
@@ -22,13 +27,13 @@ public class Creature : MonoBehaviour {
             return myRigid;
         }
     }
-    public CapsuleCollider _collider
+    public Collider _collider
     {
         get
         {
             if (!myCollider)
             {
-                myCollider = GetComponent<CapsuleCollider>();
+                myCollider = GetComponent<Collider>();
 
             }
             return myCollider;
@@ -52,5 +57,14 @@ public class Creature : MonoBehaviour {
         if (_SFX.isPlaying) { return; }
         _SFX.clip = SFXclip;
         _SFX.Play();
+    }
+
+    public T GetCollider<T>() where T : Collider
+    {
+        if (!myCollider)
+        {
+            myCollider = GetComponent<T>() as T;
+        }
+        return myCollider as T;
     }
 }

@@ -224,7 +224,7 @@ MonoBehaviour:
   state: 0
   holder: {fileID: 0}
   damageDealed: 0
-  durability: 7
+  durability: 20
   weight: 0
   mashCountDown: 3
   rayDistance: 0.1
@@ -245,3 +245,4 @@ MonoBehaviour:
   sfx_WaterJump: {fileID: 8300000, guid: 391886dd2fd156a44873b2eeeb6d6248, type: 3}
   sfx_Slap: {fileID: 0}
   sfx_Throw: {fileID: 0}
+  sfx_Special: {fileID: 0}

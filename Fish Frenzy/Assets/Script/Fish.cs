@@ -62,16 +62,15 @@ public class Fish : Creature {
     public Vector3 holdPosition;
     public Vector3 holdRotation;
     public Vector3 aimPositioningOffset;
-
-    private Rigidbody myRigid;
-    private BoxCollider myCollider;
-    public BoxCollider MyCollider { get { return myCollider; } }
+    
+    public Collider MyCollider { get { return myCollider; } }
     private PickupFish _pickupFish;
 
     [Header("SFX")]
     public AudioClip sfx_WaterJump;
     public AudioClip sfx_Slap;
     public AudioClip sfx_Throw;
+    public AudioClip sfx_Special;
 
     // Use this for initialization
     void Start () {
@@ -80,7 +79,6 @@ public class Fish : Creature {
 
     void Initialization()
     {
-        myCollider = GetComponent<BoxCollider>();
         _SFX = GetComponent<AudioSource>();
         _pickupFish = GetComponent<PickupFish>();
         dehydration = durability;
@@ -251,10 +249,7 @@ public class Fish : Creature {
     {
         Destroy(myRigid);
     }
-    public BoxCollider getCollider()
-    {
-        return myCollider;
-    }
+   
  
     Vector3 FindNearestWater()
     {
@@ -293,7 +288,7 @@ public class Fish : Creature {
 
     public Vector3 getLowestFishPoint()
     {
-        return new Vector3(transform.position.x, transform.position.y - (transform.localScale.y * myCollider.size.y) / 2.0f, transform.position.z);
+        return new Vector3(transform.position.x, transform.position.y - (transform.localScale.y *  GetCollider<BoxCollider>().size.y) / 2.0f, transform.position.z);
     }
 
     void CheckJustGround()
