@@ -4,8 +4,43 @@ using UnityEngine;
 
 public class SI_Shark : StageInteraction
 {
-    public Vector3 bounceForce = new Vector3(0, 5, 0);
+    
+
+    [Header("Path Edit")]
+    public float reachDistance = 2.0f;
+    public bool showRay = true;
+    public List<Transform> path_objs = new List<Transform>();
+    Transform[] theArray;
+    public Transform PathSet;
+
+    [Header("Bloodthirst")]
+    public bool randomStartWayPoint = true;
+    public bool randomClockWise = true;
+    protected int CurrentWayPointID;
+    protected int NearestWayPointID;
+    public float BloodThirstSpeed;
+    public float NormalSwimSpeed;
     public int BiteFrame = 10;
+    public float speed
+    {
+        get
+        {
+            if (DetectedPlayer)
+            {
+                return BloodThirstSpeed;
+            }
+            return NormalSwimSpeed;
+        }
+    }
+    public float rotationSpeed = 5.0f;
+    public int cClockwise = 1;
+
+    List<GameObject> detects = new List<GameObject>();
+    List<int> wayIDs = new List<int>();
+    public bool DetectedPlayer = false;
+
+    public Color rayColor = Color.red;
+
     // Use this for initialization
     protected override void Start()
     {
@@ -17,16 +52,24 @@ public class SI_Shark : StageInteraction
         base.Initialization();
         hitBox.FreezeFramesOnHit = BiteFrame;
 
-        last_posiion = transform.position;
+        if (randomStartWayPoint)
+        {
 
-        CurrentWayPointID = Random.Range(0, path_objs.Count);
-        transform.position = path_objs[CurrentWayPointID].position;
+            CurrentWayPointID = Random.Range(0, path_objs.Count);
+            transform.position = path_objs[CurrentWayPointID].position;
+        }
+        if (randomClockWise)
+        {
+            cClockwise = Random.Range(0, 2); 
+            if(cClockwise == 0) { cClockwise = -1; }
+        }
     }
 
     // Update is called once per frame
     protected override void Update()
     {
         Move();
+        PlayerDetection();
     }
 
     public override void OnPlayerCollide(Player _player)
@@ -39,13 +82,7 @@ public class SI_Shark : StageInteraction
         AddIgnorePlayerID(_player.playerID);
         hitBox.CauseDamage();
     }
-    public Color rayColor = Color.red;
 
-    [Header("Path Edit")]
-    public float reachDistance = 2.0f;
-    public List<Transform> path_objs = new List<Transform>();
-    Transform[] theArray;
-    public Transform PathSet;
     // Draw Path
     void OnDrawGizmos()
     {
@@ -64,6 +101,7 @@ public class SI_Shark : StageInteraction
         for (int i = 0; i < path_objs.Count; i++)
         {
             Vector3 pos = path_objs[i].position;
+            if (!showRay) { return; }
             if (i == 0)
             {
                 Gizmos.DrawSphere(pos, reachDistance);
@@ -78,22 +116,12 @@ public class SI_Shark : StageInteraction
             }
         }
     }
-
-    [Header("Move")]
-    public int CurrentWayPointID;
-    public float walkSpeed;
-    public float rotationSpeed = 5.0f;
-    private bool prevIsGround = false;
-
-    Vector3 last_posiion;
-    Vector3 current_posiion;
-
-    // Update is called once per frame
+    
     void Move()
     {
         Vector3 targetPos = path_objs[CurrentWayPointID].position;
 
-        transform.position = Vector3.MoveTowards(transform.position, targetPos, walkSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
         Quaternion rotation = Quaternion.LookRotation(targetPos - transform.position);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
 
@@ -101,21 +129,125 @@ public class SI_Shark : StageInteraction
         //transform.LookAt(targetPos, Vector3.up);
         if (distance <= reachDistance)
         {
-            CurrentWayPointID += 1;
+            CurrentWayPointID += cClockwise;
         }
         if (CurrentWayPointID >= path_objs.Count)
         {
             CurrentWayPointID = 0;
         }
+        if (CurrentWayPointID <0)
+        {
+            CurrentWayPointID = path_objs.Count-1;
+        }
     }
 
-    public Vector3 getLowestPlayerPoint()
-    {
-        return new Vector3(transform.position.x, transform.position.y + _collider.center.y + _collider.height / 2.0f, transform.position.z);
-    }
     void PlayBiteAnimation()
     {
         _animation.clip = _animation.GetClip("Bite");
         _animation.Play();
+    }
+
+    int NextWayPointID(int current)
+    {
+        int next = current + 1;
+        if (next >= path_objs.Count)
+        {
+            next = 0;
+        }
+        return next;
+    }
+    void PlayerDetection()
+    {
+        detects.Clear();
+        wayIDs.Clear();
+
+        for (int i = 0; i < path_objs.Count; i++)
+        {
+            RaycastHit hit;
+            Vector3 begin = path_objs[i].position;
+            Vector3 target = path_objs[NextWayPointID(i)].position;
+
+            float distance = Vector3.Distance( target , begin);
+            Vector3 direction = Vector3.Normalize( target - begin);
+
+            Vector3 side1 = path_objs[i].TransformDirection(Vector3.up);
+            Vector3 side2 = target - begin;
+            Vector3 perp  = Vector3.Normalize( Vector3.Cross(side1, side2));
+
+            // Does the ray intersect any objects excluding the player layer
+            int frequent = 16;
+            int h = 10;
+            Vector3 perpOffset = ( perp*h) / frequent;
+            
+            for (int j = -frequent / 2; j < frequent - (frequent/2); j++)
+            {
+                Vector3 rayStart = begin + (perpOffset * j);
+                if (Physics.Raycast(rayStart, direction, out hit, distance))
+                {
+                   
+                    if (hit.collider.gameObject.GetComponent<Player>())
+                    {
+                        DebugRay(rayStart, direction * distance, Color.red);
+                        if (!detects.Contains(hit.collider.gameObject))
+                        {
+                            detects.Add(hit.collider.gameObject);
+                            wayIDs.Add(i);
+                        }
+                    }
+                }
+                else
+                {
+                    DebugRay(rayStart, direction * distance, Color.blue);
+                }
+            }
+        }
+        
+        if (detects.Count > 0)
+        {
+            HeadToNearestPlayer(detects, wayIDs);
+            DetectedPlayer = true;
+        }
+        else
+        {
+            DetectedPlayer = false;
+        }
+    }
+
+    void HeadToNearestPlayer(List<GameObject> players, List<int> wayIDs)
+    {
+        float nearestDistance = float.MaxValue;
+        NearestWayPointID = int.MaxValue;
+        for(int i = 0; i < players.Count; i++)
+        {
+            float distance = (CurrentWayPointID - wayIDs[i])/2.0f;
+            if (distance < nearestDistance)
+            {
+                nearestDistance = distance;
+                NearestWayPointID = wayIDs[i];
+            }
+        }
+        
+        int MeasureDistance = CurrentWayPointID;
+        int StepRound = int.MaxValue;
+        for (int i =0; i < path_objs.Count; i++)
+        {
+            if (MeasureDistance == NearestWayPointID)
+            {
+                StepRound = i;
+                break;
+            }
+            MeasureDistance += cClockwise;
+        }
+        
+        if (StepRound > path_objs.Count / 2.0f)
+        {
+            cClockwise *= -1;
+        }
+    }
+
+    void DebugRay(Vector3 start, Vector3 dir, Color col)
+    {
+        if (!showRay) { return; }
+        Debug.DrawRay(start, dir, col);
     }
 }
