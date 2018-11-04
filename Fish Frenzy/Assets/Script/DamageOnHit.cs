@@ -43,6 +43,7 @@ public class DamageOnHit : MonoBehaviour
 
 
     protected Collider _Collider;
+    protected MeshRenderer _MeshRenderer;
 
     /// <summary>
     /// Initialization
@@ -207,5 +208,13 @@ public class DamageOnHit : MonoBehaviour
         return _Collider as T;
     }
 
+    public MeshRenderer GetMeshRenderer()
+    {
+        if (!_MeshRenderer)
+        {
+            _MeshRenderer = GetComponent<MeshRenderer>();
+        }
+        return _MeshRenderer;
+    }
 
 }

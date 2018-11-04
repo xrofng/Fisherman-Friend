@@ -100,5 +100,12 @@ public class PlayerFishInteraction : PlayerAbility {
         _player.holdingFish = true;
         GetCrossZComponent<PlayerFishing>().SetFishing(false);
         _player.rigid.velocity = Vector3.zero;
+
+
+        if (f.gameObject.GetComponent<FishSpecialMelee>())
+        {
+            f.gameObject.GetComponent<FishSpecialMelee>().SetUpSpecialMelee();
+        }
+        
     }
 }

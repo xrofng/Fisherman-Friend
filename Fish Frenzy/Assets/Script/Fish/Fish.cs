@@ -19,7 +19,7 @@ public class Fish : Creature {
     public fState state;
     public GameObject holder;
     private Player _playerHolder;
-    protected Player GetPlayerHolder
+    public Player GetPlayerHolder
     {
         get
         {
@@ -56,6 +56,7 @@ public class Fish : Creature {
     public int s_invicibilityFrame = 50;
     public Vector3 hitboxSize;
     public Vector3 hitboxCenter;
+    
 
     [Header("Snap")]
     //snap

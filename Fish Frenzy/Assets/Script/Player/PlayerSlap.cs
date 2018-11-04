@@ -12,6 +12,9 @@ public class PlayerSlap : PlayerAbility {
     [Header("SFX")]
     public AudioClip sfx_Slap;
 
+    [Header("Debug")]
+    public bool showHitBox;
+
     public bool Attacking
     {
         get
@@ -23,6 +26,10 @@ public class PlayerSlap : PlayerAbility {
             attacking = value;
             slapTrail.gameObject.SetActive(value);
             hitBox.GetCollider<BoxCollider>().enabled = value;
+            if (showHitBox)
+            {
+                hitBox.GetMeshRenderer().enabled = value;
+            }
             slapTrail.Play();
         }
     }

@@ -4,21 +4,17 @@ using UnityEngine;
 
 public class PlayerFishSpecial : PlayerAbility
 {
-    public enum SpecialType
-    {
-        Melee = 0,
-        Range,
-        Other
-    }
-    public SpecialType type;
-
-
+    [Header("Melee")]
+    public Transform hitBoxParent;
     public HitBoxMelee specialHitBox;
     public Animation specialTrail;
     protected bool attacking;
 
     [Header("SFX")]
     public AudioClip sfx_Special;
+
+    [Header("Debug")]
+    public bool showHitBox;
 
     public bool Attacking
     {
@@ -32,6 +28,10 @@ public class PlayerFishSpecial : PlayerAbility
             specialTrail.gameObject.SetActive(value);
             specialHitBox.GetCollider<MeshCollider>().enabled = value;  
             specialTrail.Play();
+            if (showHitBox)
+            {
+                specialHitBox.GetMeshRenderer().enabled = value;
+            }
         }
     }
 
@@ -43,8 +43,6 @@ public class PlayerFishSpecial : PlayerAbility
     protected override void Initialization()
     {
         base.Initialization();
-        specialHitBox.gameObject.layer = LayerMask.NameToLayer("Fish" + _player.playerID);
-
     }
 
     // Update is called once per frame
@@ -65,18 +63,20 @@ public class PlayerFishSpecial : PlayerAbility
     void SpecialFish()
     {
         string special = "Fishing" + _player.playerID;
-        if (_player.mainFish == null)
+        if (_player.mainFish == null || !_player.mainFish.GetComponent<FishSpecial>())
         {
             return;
         }
         if (Input.GetButtonDown(special))
-        { 
-            specialHitBox.InvincibilityFrame = _player.mainFish.s_invicibilityFrame;
-            specialHitBox.DamageCaused = _player.mainFish.attack;
-            if (!Attacking)
+        {
+            if (_player.mainFish.GetComponent<FishSpecialMelee>())
             {
-                StartCoroutine(HitBoxEnable(_player.mainFish.hitBoxStayFrame));
+                if (!Attacking)
+                {
+                    StartCoroutine(HitBoxEnable(_player.mainFish.hitBoxStayFrame));
+                }
             }
+           
         }
     }
 
