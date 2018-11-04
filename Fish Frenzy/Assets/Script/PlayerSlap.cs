@@ -5,8 +5,11 @@ using UnityEngine;
 public class PlayerSlap : PlayerAbility {
 
     public HitBoxMelee hitBox;
+    //public ParticleSystem slapParticle;
     public float upMultiplier;
     protected bool attacking;
+
+    public AudioClip slapSFX;
 
     public bool Attacking
     {
@@ -63,10 +66,21 @@ public class PlayerSlap : PlayerAbility {
             hitBox.DamageCaused = _player.mainFish.attack;
             if (!Attacking)
             {
+                RunParticle();
                 StartCoroutine(HitBoxEnable(_player.mainFish.hitBoxStayFrame));
             }
         }
     }
+
+    void RunParticle()
+    {
+        //if (slapParticle)
+        //{
+        //    slapParticle.Play();
+        //}
+    }
+
+  
 
     IEnumerator HitBoxEnable(int frameDuration)
     {

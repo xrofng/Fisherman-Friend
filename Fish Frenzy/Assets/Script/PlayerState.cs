@@ -46,7 +46,6 @@ public class PlayerState : PlayerAbility
     {
         base.Initialization();
         Reset();
-
     }
   
     public virtual void Reset()

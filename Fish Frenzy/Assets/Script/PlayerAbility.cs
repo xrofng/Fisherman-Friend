@@ -18,7 +18,14 @@ public class PlayerAbility : MonoBehaviour
 
     }
 
-   
+    protected AudioSource _SFX;
+
+    protected virtual void PlaySFX(AudioClip SFXclip)
+    {
+        _SFX.clip = SFXclip;
+        _SFX.Play();
+    }
+
 
     /// <summary>
     /// On Start(), we call the ability's intialization
@@ -34,6 +41,7 @@ public class PlayerAbility : MonoBehaviour
     protected virtual void Initialization()
     {
         _player = GetComponent<Player>();
+        _SFX = GetComponent<AudioSource>();
     }
 
     public void IgnoreInputFor(int ignoreFrame)

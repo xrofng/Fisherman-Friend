@@ -92,7 +92,8 @@ public class Player : MonoBehaviour {
         air,
         water,
         fishing,
-        waitForFish
+        waitForFish,
+        rodSwinging
     }
     public eState state;
     // Use this for initialization
