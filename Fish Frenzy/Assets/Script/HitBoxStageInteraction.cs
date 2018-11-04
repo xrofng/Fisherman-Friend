@@ -62,6 +62,14 @@ public class HitBoxStageInteraction : DamageOnHit
     /// <param name="health">Health.</param>
     protected override void OnCollideWithPlayer(Player player, Vector3 damageDealerPos)
     {
+        // Check player will be ignored from recently collide
+        if (_ignoredGameObjects.Contains(player.gameObject))
+        {
+            print("Ignore");
+            return;
+        }
+        AddIgnoreGameObject(player.gameObject);
+
         stageInteraction.OnPlayerCollide(player);
     }
 

@@ -7,11 +7,9 @@ public class StageInteraction : Creature
     public int damage=15;
     public int invicibilityFrame = 20;
 
-    public int IgnorePlayerFrame = 20;
+    public int ignorePlayerFrame = 20;
 
     protected HitBoxStageInteraction hitBox;
-
-    protected List<int> IgnorePlayerWithID = new List<int>();
 
     /// <summary>
     /// On Start(), we call the ability's intialization
@@ -32,24 +30,9 @@ public class StageInteraction : Creature
     {
         hitBox = GetComponent<HitBoxStageInteraction>();
         hitBox.InvincibilityFrame = invicibilityFrame;
+        hitBox.IgnorePlayerFrame = ignorePlayerFrame;
         hitBox.DamageCaused = damage;
         gameObject.layer = LayerMask.NameToLayer("StageInteraction");
-    }
-
-    public void AddIgnorePlayerID (int id) {
-        StartCoroutine(ieAddIgnorePlayerID(id));
-	}
-
-    IEnumerator ieAddIgnorePlayerID(int id)
-    {
-        IgnorePlayerWithID.Add(id);
-        int frameCount = 0;
-        while (frameCount < IgnorePlayerFrame)
-        {
-            yield return new WaitForEndOfFrame();
-            frameCount++;
-        }
-        IgnorePlayerWithID.Remove(id);
     }
 
     /// <summary>
