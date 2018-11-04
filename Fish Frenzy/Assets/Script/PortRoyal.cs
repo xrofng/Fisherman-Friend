@@ -26,10 +26,13 @@ public class PortRoyal : PersistentSingleton<PortRoyal>
     public Camera mainCamera;
     public MultiPlayerCamera multiPCamera;
 
+    [Header("Debug")]
+    public bool FixedFish = false;
+    public Fish TestingFish;
     // Use this for initialization
     void Start ()
     { 
-
+        
     }
 	
 	// Update is called once per frame
@@ -55,6 +58,10 @@ public class PortRoyal : PersistentSingleton<PortRoyal>
     }
     public Fish randomFish()
     {
+        if (FixedFish)
+        {
+            return TestingFish;
+        }
         int fishIndex = randomFishIndex(); 
         return getFish(fishIndex);
     }

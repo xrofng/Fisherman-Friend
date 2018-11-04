@@ -301,6 +301,7 @@ GameObject:
   - component: {fileID: 4495337438111214}
   - component: {fileID: 54994261037933990}
   - component: {fileID: 65939182649794198}
+  - component: {fileID: 135834132460704302}
   - component: {fileID: 82891987289299998}
   - component: {fileID: 114003244571440734}
   - component: {fileID: 114101338137741242}
@@ -309,7 +310,6 @@ GameObject:
   - component: {fileID: 114855017045284262}
   - component: {fileID: 114987401676803428}
   - component: {fileID: 114503340345768140}
-  - component: {fileID: 135834132460704302}
   - component: {fileID: 114595214027402424}
   - component: {fileID: 114424651482138474}
   - component: {fileID: 114774604422167298}
@@ -319,7 +319,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1897208035339344
 GameObject:
   m_ObjectHideFlags: 1
@@ -1556,6 +1556,7 @@ MonoBehaviour:
   hitBox: {fileID: 114953142525818080}
   slapTrail: {fileID: 111026550664272548}
   sfx_Slap: {fileID: 8300000, guid: 76d3523a591904046bc04aace0181371, type: 3}
+  showHitBox: 0
 --- !u!114 &114424651482138474
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1658,6 +1659,7 @@ MonoBehaviour:
   specialHitBox: {fileID: 0}
   specialTrail: {fileID: 0}
   sfx_Special: {fileID: 0}
+  showHitBox: 0
 --- !u!114 &114855017045284262
 MonoBehaviour:
   m_ObjectHideFlags: 1

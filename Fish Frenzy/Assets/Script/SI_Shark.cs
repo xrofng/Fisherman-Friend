@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class SI_Shark : StageInteraction
 {
-    
-
     [Header("Path Edit")]
     public float reachDistance = 2.0f;
-    public bool showRay = true;
+    
     public List<Transform> path_objs = new List<Transform>();
     Transform[] theArray;
     public Transform PathSet;
@@ -39,7 +37,10 @@ public class SI_Shark : StageInteraction
     List<int> wayIDs = new List<int>();
     public bool DetectedPlayer = false;
 
+    [Header("Debug")]
+    public bool showRay = true;
     public Color rayColor = Color.red;
+
 
     // Use this for initialization
     protected override void Start()
