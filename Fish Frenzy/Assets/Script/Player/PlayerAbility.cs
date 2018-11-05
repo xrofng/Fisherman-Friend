@@ -18,7 +18,15 @@ public class PlayerAbility : MonoBehaviour
 
     }
 
-   
+    protected AudioSource _SFX;
+
+    protected virtual void PlaySFX(AudioClip SFXclip)
+    {
+        if (_SFX.isPlaying) { return; }
+        _SFX.clip = SFXclip;
+        _SFX.Play();
+    }
+
 
     /// <summary>
     /// On Start(), we call the ability's intialization
@@ -34,6 +42,7 @@ public class PlayerAbility : MonoBehaviour
     protected virtual void Initialization()
     {
         _player = GetComponent<Player>();
+        _SFX = GetComponent<AudioSource>();
     }
 
     public void IgnoreInputFor(int ignoreFrame)
@@ -64,6 +73,7 @@ public class PlayerAbility : MonoBehaviour
         if (typeof(T) == typeof(PlayerInvincibility)) { return _player._cPlayerInvincibility as T; }
         if (typeof(T) == typeof(PlayerState)) { return _player._cPlayerState as T; }
         if (typeof(T) == typeof(PlayerFishInteraction)) { return _player._cPlayerFishInteraction as T; }
+        if (typeof(T) == typeof(PlayerFishSpecial)) { return _player._cPlayerFishSpecial as T; }
         return this as T;
 
     }

@@ -19,7 +19,7 @@ public class SI_JellyFish : StageInteraction {
     }
 
     // Update is called once per frame
-    void Update () {
+    protected override void Update () {
 		
 	}
 
@@ -27,13 +27,6 @@ public class SI_JellyFish : StageInteraction {
 
     public override void OnPlayerCollide(Player _player)
     {
-        // Check player will be ignored from recently collide
-        if (IgnorePlayerWithID.Contains(_player.playerID))
-        {
-            return;
-        }
-        AddIgnorePlayerID(_player.playerID);
-        
         if (_player._cPlayerState.IsJumping)
         {
             _player._cPlayerMovement.StartJumping(bounceForce);

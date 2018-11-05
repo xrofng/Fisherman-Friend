@@ -5,8 +5,15 @@ using UnityEngine;
 public class PlayerSlap : PlayerAbility {
 
     public HitBoxMelee hitBox;
-    public float upMultiplier;
+    public Animation slapTrail;
+    //public ParticleSystem slapParticle;
     protected bool attacking;
+
+    [Header("SFX")]
+    public AudioClip sfx_Slap;
+
+    [Header("Debug")]
+    public bool showHitBox;
 
     public bool Attacking
     {
@@ -17,7 +24,13 @@ public class PlayerSlap : PlayerAbility {
         set
         {
             attacking = value;
-            hitBox.gameObject.SetActive(value);
+            slapTrail.gameObject.SetActive(value);
+            hitBox.GetCollider<BoxCollider>().enabled = value;
+            if (showHitBox)
+            {
+                hitBox.GetMeshRenderer().enabled = value;
+            }
+            slapTrail.Play();
         }
     }
 
@@ -63,8 +76,29 @@ public class PlayerSlap : PlayerAbility {
             hitBox.DamageCaused = _player.mainFish.attack;
             if (!Attacking)
             {
+                RunParticle();
                 StartCoroutine(HitBoxEnable(_player.mainFish.hitBoxStayFrame));
             }
+        }
+    }
+
+    void RunParticle()
+    {
+        //if (slapParticle)
+        //{
+        //    slapParticle.Play();
+        //}
+    }
+
+   public void PlaySlapSFX()
+    {
+        if (_player.mainFish.sfx_Slap)
+        {
+            PlaySFX(_player.mainFish.sfx_Slap);
+        }
+        else
+        {
+            PlaySFX(sfx_Slap);
         }
     }
 

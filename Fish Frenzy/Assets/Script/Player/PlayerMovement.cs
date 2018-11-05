@@ -11,6 +11,9 @@ public class PlayerMovement : PlayerAbility {
     public bool freezeMovement;
 
     public Vector3 lookTo;
+
+    
+
     // Use this for initialization
     protected override void Start()
     {

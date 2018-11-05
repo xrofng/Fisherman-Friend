@@ -46,6 +46,9 @@ public class MaterialManager : PersistentSingleton<MaterialManager>
     public GameObject InstantiatePlayer(GameObject go , int tempId)
     {
         GameObject create = Instantiate(go);
+        
+            create.SetActive(true);
+        
         if (go.GetComponent<Player>())
         {
            

@@ -32,6 +32,8 @@ public class DamageOnHit : MonoBehaviour
     public float FreezeFramesOnHitDuration = 0f;
     /// the frames of player freeze frames on hit (leave it at 0 to ignore)
     public int FreezeFramesOnHit = 0;
+    /// the frames of player will be ignored from colliing this
+    public int IgnorePlayerFrame = 20;
 
     // storage		
     protected Vector2 _lastPosition, _velocity, _knockbackForce;
@@ -41,8 +43,9 @@ public class DamageOnHit : MonoBehaviour
     protected Color _gizmosColor;
     protected Vector3 _gizmoSize;
 
-    protected SphereCollider _circleCollider;
-    protected BoxCollider _boxCollider;
+
+    protected Collider _Collider;
+    protected MeshRenderer _MeshRenderer;
 
     /// <summary>
     /// Initialization
@@ -58,8 +61,6 @@ public class DamageOnHit : MonoBehaviour
     protected virtual void Initialization()
     {
         _ignoredGameObjects = new List<GameObject>();
-        _boxCollider = GetComponent<BoxCollider>();
-        _circleCollider = GetComponent<SphereCollider>();
         _gizmosColor = Color.red;
         _gizmosColor.a = 0.25f;
     }
@@ -87,6 +88,27 @@ public class DamageOnHit : MonoBehaviour
     public virtual void IgnoreGameObject(GameObject newIgnoredGameObject)
     {
         _ignoredGameObjects.Add(newIgnoredGameObject);
+    }
+
+    /// <summary>
+    /// Adds the gameobject set in parameters to the ignore list
+    /// </summary>
+    /// <param name="newIgnoredGameObject">New ignored game object.</param>
+    public virtual void AddIgnoreGameObject(GameObject newIgnoredGameObject)
+    {
+        StartCoroutine(ieAddIgnoreGameObject(newIgnoredGameObject));
+    }
+
+    IEnumerator ieAddIgnoreGameObject(GameObject newIgnoredGameObject)
+    {
+        _ignoredGameObjects.Add(newIgnoredGameObject);
+        int frameCount = 0;
+        while (frameCount < IgnorePlayerFrame)
+        {
+            yield return new WaitForEndOfFrame();
+            frameCount++;
+        }
+        _ignoredGameObjects.Remove(newIgnoredGameObject);
     }
 
     /// <summary>
@@ -195,8 +217,27 @@ public class DamageOnHit : MonoBehaviour
         //SelfDamage(DamageTakenEveryTime + DamageTakenNonDamageable);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public T GetCollider<T>() where T : Collider
+    {
+        if (!_Collider)
+        {
+            _Collider = GetComponent<T>() as T;
+        }
+        return _Collider as T;
+    }
 
+    public MeshRenderer GetMeshRenderer()
+    {
+        if (!_MeshRenderer)
+        {
+            _MeshRenderer = GetComponent<MeshRenderer>();
+        }
+        return _MeshRenderer;
+    }
 
-
-    
 }

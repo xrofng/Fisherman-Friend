@@ -60,6 +60,9 @@ public class Player : MonoBehaviour {
     public PlayerSwitchFish _cPlayerSwitch;
     [HideInInspector]
     public PlayerFishInteraction _cPlayerFishInteraction;
+    [HideInInspector]
+    public PlayerFishSpecial _cPlayerFishSpecial;
+    
 
     public GameObject knockBackOrigin;
     public bool IsInvincible
@@ -92,7 +95,8 @@ public class Player : MonoBehaviour {
         air,
         water,
         fishing,
-        waitForFish
+        waitForFish,
+        rodSwinging
     }
     public eState state;
     // Use this for initialization
@@ -120,7 +124,8 @@ public class Player : MonoBehaviour {
         _cPlayerMovement = GetComponent<PlayerMovement>();
         _cPlayerFishInteraction = GetComponent<PlayerFishInteraction>();
         _cPlayerSwitch = GetComponent<PlayerSwitchFish>();
-            
+        _cPlayerFishSpecial = GetComponent<PlayerFishSpecial>();
+
     }
 
     // Update is called once per frame

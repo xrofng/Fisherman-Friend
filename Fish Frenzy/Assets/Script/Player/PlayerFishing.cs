@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class PlayerFishing : PlayerAbility
 {
-
-
     public bool nearCoast;
 
     public Transform fishPoint;
     public Transform fishPoint_finder;
+    public int delayFrame;
+
+    [Header("SFX")]
+    public AudioClip sfx_RodSwing;
+    public AudioClip sfx_WaterTouch;
     // Use this for initialization
     protected override void Start()
     {
@@ -46,13 +49,9 @@ public class PlayerFishing : PlayerAbility
                 case Player.eState.ground:
                     if (nearCoast == true && !_player.holdingFish)
                     {
-                        _player.baitedFish = Instantiate(PortRoyal.Instance.randomFish(), fishPoint.position, _player.getPart(Player.ePart.body).transform.rotation);
-                        Fish baitedFish = _player.baitedFish;
-                        baitedFish.GetComponent<MeshRenderer>().enabled = false;
-                        GetCrossZComponent<PlayerFishInteraction>().SetFishCollidePlayer(baitedFish, _player, true);
-                        baitedFish.setHolder(this.gameObject);
-                        SetFishing(true);
-                        baitedFish.changeState(Fish.fState.baited);
+                        GUIManager.Instance.UpdateFishButtonIndicator(_player.playerID, fishPoint.position, false);
+                        _player.ChangeState(Player.eState.rodSwinging);
+                        StartCoroutine(StartFishing(delayFrame));
                     }
                     break;
                 case Player.eState.fishing:
@@ -67,6 +66,26 @@ public class PlayerFishing : PlayerAbility
                     break;
             }
         }
+    }
+
+    IEnumerator StartFishing(int frameDuration)
+    {
+        PlaySFX(sfx_RodSwing);
+        int frameCount = 0;
+        while (frameCount < frameDuration)
+        {
+            yield return new WaitForEndOfFrame();
+            frameCount += 1;
+        }
+        PlaySFX(sfx_WaterTouch);
+
+        _player.baitedFish = Instantiate(PortRoyal.Instance.randomFish(), fishPoint.position, _player.getPart(Player.ePart.body).transform.rotation);
+        Fish baitedFish = _player.baitedFish;
+        baitedFish.GetComponent<MeshRenderer>().enabled = false;
+        GetCrossZComponent<PlayerFishInteraction>().SetFishCollidePlayer(baitedFish, _player, true);
+        baitedFish.setHolder(this.gameObject);
+        SetFishing(true);
+        baitedFish.changeState(Fish.fState.baited);
     }
 
     void coastCheck()

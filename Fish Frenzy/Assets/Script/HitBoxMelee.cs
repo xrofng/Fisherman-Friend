@@ -65,6 +65,7 @@ public class HitBoxMelee : DamageOnHit
         {
             if (!_player.IsInvincible)
             {
+                
                 OnCollideWithPlayer(_player , this.Owner.transform.position);
             }
         }
@@ -83,8 +84,51 @@ public class HitBoxMelee : DamageOnHit
     /// <param name="health">Health.</param>
     protected override void OnCollideWithPlayer(Player player , Vector3 damageDealerPos)
     {
-        _player.recieveDamage(DamageCaused, damageDealerPos, InvincibilityFrame , KnockData.Instance.getSlapKnockForce((int)DamageCaused, _player.dPercent));
+        // Check player will be ignored from recently collide
+        if (_ignoredGameObjects.Contains(player.gameObject))
+        {
+            return;
+        }
+        AddIgnoreGameObject(player.gameObject);
+        CauseDamage(damageDealerPos);
     }
 
+    void CauseDamage(Vector3 damageDealerPos)
+    {
+        if (_player.IsInvincible)
+        {
+            return;
+        }
 
+        // don't care about invincibility
+        if (FreezeFramesOnHit > 0)
+        {
+            StartCoroutine(ieFreezePlayer(_player, FreezeFramesOnHit, damageDealerPos));
+        }
+        else
+        {
+            OnEnemyHit(damageDealerPos);
+        }
+    }
+
+    void OnEnemyHit(Vector3 damageDealerPos)
+    {
+        ownerPlayer._cPlayerSlap.PlaySlapSFX();
+        _player.recieveDamage(DamageCaused, damageDealerPos, InvincibilityFrame, KnockData.Instance.getSlapKnockForce((int)DamageCaused, _player.dPercent));
+    }
+
+    IEnumerator ieFreezePlayer(Player player, int FreezeFramesOnHitDuration, Vector3 damageDealerPos)
+    {
+        player.AddAbilityInputIntercepter(this);
+        player.FreezingMovement = true;
+        int frameCount = 0;
+        while (frameCount < FreezeFramesOnHitDuration)
+        {
+            yield return new WaitForEndOfFrame();
+            frameCount++;
+        }
+        player.FreezingMovement = false;
+        player.RemoveAbilityInputIntercepter(this);
+        OnEnemyHit(damageDealerPos);
+    }
 }
