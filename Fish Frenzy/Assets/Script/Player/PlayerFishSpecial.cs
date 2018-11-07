@@ -25,9 +25,10 @@ public class PlayerFishSpecial : PlayerAbility
         set
         {
             attacking = value;
-            specialTrail.gameObject.SetActive(value);
             specialHitBox.GetCollider<MeshCollider>().enabled = value;  
             specialTrail.Play();
+            specialTrail.gameObject.SetActive(value);
+
             if (showHitBox)
             {
                 specialHitBox.GetMeshRenderer().enabled = value;

@@ -75,7 +75,7 @@ public class SI_Shark : StageInteraction
 
     public override void OnPlayerCollide(Player _player)
     {
-        hitBox.CauseDamage();
+        
     }
 
     // Draw Path

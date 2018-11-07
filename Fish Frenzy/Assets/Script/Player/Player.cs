@@ -11,8 +11,7 @@ public class Player : MonoBehaviour {
     public bool Death { get { return _cPlayerState.IsDeath; } set { _cPlayerState.IsDeath = value; } }
 
     public SpriteRenderer playerIndicator; 
-    public static float fixedFPS_DT;
-    
+    public static float fixedFPS_DT;    
 
     public bool Aiming
     {
@@ -172,15 +171,17 @@ public class Player : MonoBehaviour {
             }
         }
     }
+
     public void ChangeState(eState staTE)
     {
         state = staTE;
     }
 
-    public void recieveDamage(float damage , Vector3 damageDealerPos , int recoveryFrame , Vector2 knockBackForce)
+    public void recieveDamage(float damage , Vector3 damageDealerPos , int recoveryFrame)
     {
         dPercent += (int)damage;
         //Instantiate(knockBackOrigin, center ,Quaternion.identity);
+        Vector2 knockBackForce = KnockData.Instance.getSlapKnockForce((int)damage, dPercent);
         AddKnockBackForce(damage, damageDealerPos , knockBackForce);
         _cPlayerFishing.SetFishing(false);
         _cPlayerInvincibility.startInvincible(recoveryFrame);
@@ -188,10 +189,10 @@ public class Player : MonoBehaviour {
         DamagePercentClamp();
     }
 
-    public void recieveDamage(object intercepter,float damage, Vector3 damageDealerPos, int recoveryFrame, Vector2 knockBackForce)
+    public void recieveDamage(object intercepter,float damage, Vector3 damageDealerPos, int recoveryFrame)
     {
         StartCoroutine(IgnoreAbilityInput(intercepter, recoveryFrame));
-        recieveDamage(damage, damageDealerPos, recoveryFrame, knockBackForce);
+        recieveDamage(damage, damageDealerPos, recoveryFrame);
     }
 
     IEnumerator IgnoreAbilityInput(object intercepter , int FreezeFramesOnHitDuration  )
@@ -217,9 +218,7 @@ public class Player : MonoBehaviour {
         Vector3 nKnockBackDirection = Vector3.Normalize(knockBackDirection);
         Vector3 upLaunching = Vector3.up * knockBackForce.y;
         rigid.AddForce(nKnockBackDirection * knockBackForce.x + upLaunching, ForceMode.Impulse);
-    }
-
-   
+    }   
 
     IEnumerator respawn(float waitBeforeRespawn)
     {

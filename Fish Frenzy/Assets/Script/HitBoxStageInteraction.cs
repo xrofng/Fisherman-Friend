@@ -88,7 +88,7 @@ public class HitBoxStageInteraction : DamageOnHit
         }
         else
         {
-            _player.recieveDamage(this, DamageCaused, this.transform.position, InvincibilityFrame, KnockData.Instance.getSlapKnockForce((int)DamageCaused, _player.dPercent));
+            _player.recieveDamage(this, DamageCaused, this.transform.position, InvincibilityFrame);
         }
     }
 
@@ -104,6 +104,6 @@ public class HitBoxStageInteraction : DamageOnHit
         }
         player.FreezingMovement = false;
         player.RemoveAbilityInputIntercepter(this);
-        player.recieveDamage(this, DamageCaused, this.transform.position, InvincibilityFrame, KnockData.Instance.getSlapKnockForce((int)DamageCaused, player.dPercent));
+        player.recieveDamage(this, DamageCaused, this.transform.position, InvincibilityFrame);
     }
 }

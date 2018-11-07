@@ -114,7 +114,7 @@ public class HitBoxMelee : DamageOnHit
     void OnEnemyHit(Vector3 damageDealerPos)
     {
         ownerPlayer._cPlayerSlap.PlaySlapSFX();
-        _player.recieveDamage(DamageCaused, damageDealerPos, InvincibilityFrame, KnockData.Instance.getSlapKnockForce((int)DamageCaused, _player.dPercent));
+        _player.recieveDamage(DamageCaused, damageDealerPos, InvincibilityFrame);
     }
 
     IEnumerator ieFreezePlayer(Player player, int FreezeFramesOnHitDuration, Vector3 damageDealerPos)
