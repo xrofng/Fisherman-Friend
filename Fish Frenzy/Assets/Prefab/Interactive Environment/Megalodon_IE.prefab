@@ -2748,6 +2748,7 @@ MonoBehaviour:
   InvincibilityFrame: 20
   FreezeFramesOnHitDuration: 0
   FreezeFramesOnHit: 20
+  IgnorePlayerFrame: 20
   ignoreInvicibility: 0
 --- !u!114 &114875671262861686
 MonoBehaviour:
@@ -2760,11 +2761,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3da1db6845055e54b9941f11bf846d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 15
+  damage: 999
   invicibilityFrame: 20
-  IgnorePlayerFrame: 20
+  ignorePlayerFrame: 20
   reachDistance: 2
-  showRay: 1
   path_objs:
   - {fileID: 0}
   - {fileID: 0}
@@ -2788,4 +2788,5 @@ MonoBehaviour:
   rotationSpeed: 5
   cClockwise: 1
   DetectedPlayer: 0
+  showRay: 1
   rayColor: {r: 0.77173126, g: 0.504717, b: 1, a: 1}

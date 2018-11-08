@@ -23,8 +23,6 @@ public class SI_JellyFish : StageInteraction {
 		
 	}
 
-
-
     public override void OnPlayerCollide(Player _player)
     {
         if (_player._cPlayerState.IsJumping)
