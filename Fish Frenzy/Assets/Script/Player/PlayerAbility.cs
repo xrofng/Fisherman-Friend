@@ -17,6 +17,11 @@ public class PlayerAbility : MonoBehaviour
         get { return _player.rigid; }
 
     }
+    public PlayerAnimation  _pAnimator
+    {
+        get { return _player.animator; }
+
+    }
 
     protected AudioSource _SFX;
 
@@ -74,7 +79,7 @@ public class PlayerAbility : MonoBehaviour
         if (typeof(T) == typeof(PlayerState)) { return _player._cPlayerState as T; }
         if (typeof(T) == typeof(PlayerFishInteraction)) { return _player._cPlayerFishInteraction as T; }
         if (typeof(T) == typeof(PlayerFishSpecial)) { return _player._cPlayerFishSpecial as T; }
-        return this as T;
 
+        return this as T;
     }
 }

@@ -44,6 +44,8 @@ public class Player : MonoBehaviour {
     public Rigidbody rigid;
     private BoxCollider myCollider;
     [HideInInspector]
+    public PlayerAnimation animator;
+    [HideInInspector]
     public PlayerInvincibility _cPlayerInvincibility;
     [HideInInspector]
     public PlayerThrow _cPlayerThrow;
@@ -115,6 +117,7 @@ public class Player : MonoBehaviour {
         rigid = GetComponent<Rigidbody>();
         rigid.mass = PortRoyal.Instance.characterMass;
         myCollider = GetComponent<BoxCollider>();
+        animator = GetComponent<PlayerAnimation>();
         _cPlayerInvincibility = GetComponent<PlayerInvincibility>();
         _cPlayerThrow = GetComponent<PlayerThrow>();
         _cPlayerState = GetComponent<PlayerState>();
