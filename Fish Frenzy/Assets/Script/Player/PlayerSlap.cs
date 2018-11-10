@@ -74,6 +74,7 @@ public class PlayerSlap : PlayerAbility {
             //hitBox.size = _player.mainFish.hitboxSize;
             hitBox.InvincibilityFrame = _player.mainFish.s_invicibilityFrame;
             hitBox.DamageCaused = _player.mainFish.attack;
+            hitBox._SFXclip = sfx_Slap;
             if (!Attacking)
             {
                 RunParticle();

@@ -73,6 +73,10 @@ public class Fish : Creature {
     public AudioClip sfx_Throw;
     public AudioClip sfx_Special;
 
+
+    [HideInInspector]
+    public FishSpecial _cSpecial;
+
     // Use this for initialization
     void Start () {
         Initialization();
@@ -82,6 +86,7 @@ public class Fish : Creature {
     {
         _SFX = GetComponent<AudioSource>();
         _pickupFish = GetComponent<PickupFish>();
+        _cSpecial = GetComponent<FishSpecial>();
         dehydration = durability;
     }
 

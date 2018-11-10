@@ -7,6 +7,11 @@ public class FishSpecial : MonoBehaviour
 {
     protected Fish _fish;
 
+    protected PlayerFishSpecial _playerFishSpecial
+    {
+        get { return _fish.GetPlayerHolder._cPlayerFishSpecial; }
+    }
+
     // private ignore Input for specific ability
     protected bool ignoreInput;
     public bool IgnoreInput { get { return ignoreInput; } }

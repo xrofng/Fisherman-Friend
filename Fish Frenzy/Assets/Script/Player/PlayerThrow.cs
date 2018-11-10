@@ -66,35 +66,50 @@ public class PlayerThrow : PlayerAbility {
         }
         if (Input.GetButtonDown(thro))
         {
-            holdToThrow = 0;
-            GetCrossZComponent<PlayerFishInteraction>().SetMainFishTransformAsPart(Player.ePart.rightArm, Player.ePart.body , true);
-            _player.mainFish.SnapAimingTransform();
-            _player.FreezingMovement = true;
-            EvaluateAimArrowPosition();
-            _aimArrow.gameObject.SetActive(true);
-            aiming = true;
+            OnButtonDown();
         }
         else if (Input.GetButton(thro))
         {
-            holdToThrow += Time.deltaTime;
-            EvaluateAimArrowPosition();
-            AimAssist();
+            OnButtonHold();
         }
         else if (Input.GetButtonUp(thro))
         {
-            PlayThrowSFX();
-
-            _player.mainFish.lastHoldPoition = _player.mainFish.transform.position;
-            GetCrossZComponent<PlayerFishInteraction>().SetMainFishTransformAsPart(Player.ePart.body, Player.ePart.body , true);
-
-            GetCrossZComponent<PlayerFishInteraction>().SetFishCollidePlayer(_player.mainFish, _player, false);
-
-            _player.mainFish.FishThrow(holdToThrow ,forwardMultiplier,upMultiplier );
-            _player.mainFish.changeState(Fish.fState.threw);
-            GetCrossZComponent<PlayerFishInteraction>().SetHoldFish(false);
-            
+            OnButtonUp();
         }
     }
+
+    public void OnButtonDown()
+    {
+        holdToThrow = 0;
+        GetCrossZComponent<PlayerFishInteraction>().SetMainFishTransformAsPart(Player.ePart.rightArm, Player.ePart.body, true);
+        _player.mainFish.SnapAimingTransform();
+        _player.FreezingMovement = true;
+        EvaluateAimArrowPosition();
+        _aimArrow.gameObject.SetActive(true);
+        aiming = true;
+    }
+    public void OnButtonHold()
+    {
+        holdToThrow += Time.deltaTime;
+        EvaluateAimArrowPosition();
+        AimAssist();
+    }
+    public void OnButtonUp()
+    {
+        PlayThrowSFX();
+
+        _player.mainFish.lastHoldPoition = _player.mainFish.transform.position;
+        GetCrossZComponent<PlayerFishInteraction>().SetMainFishTransformAsPart(Player.ePart.body, Player.ePart.body, true);
+
+        GetCrossZComponent<PlayerFishInteraction>().SetFishCollidePlayer(_player.mainFish, _player, false);
+
+        _player.mainFish.FishThrow(holdToThrow, forwardMultiplier, upMultiplier);
+        _player.mainFish.changeState(Fish.fState.threw);
+        GetCrossZComponent<PlayerFishInteraction>().SetHoldFish(false);
+    }
+
+
+
 
     public void PlayThrowSFX()
     {

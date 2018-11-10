@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class HitBoxMelee : DamageOnHit
 {
+    [Header("Utility")]
+    public bool mustHaveOwner;
     /// the owner of the HitBoxMelee zone
+    public bool damageFromOwner = true;
     public GameObject Owner;
     protected Player ownerPlayer;
     public Player OwnerPlayer
@@ -19,6 +22,15 @@ public class HitBoxMelee : DamageOnHit
         }
     }
 
+    [Header("Sound")]
+    protected AudioSource _SFX;
+    public AudioClip _SFXclip;
+    protected virtual void PlaySFX(AudioClip SFXclip)
+    {
+        if (_SFX.isPlaying) { return; }
+        _SFX.clip = SFXclip;
+        _SFX.Play();
+    }
     /// <summary>
     /// Initialization
     /// </summary>
@@ -30,10 +42,21 @@ public class HitBoxMelee : DamageOnHit
     protected override void Initialization()
     {
         base.Initialization();
+        if (!GetComponent<AudioSource>())
+        {
+            this.gameObject.AddComponent<AudioSource>();
+        }
+        _SFX = GetComponent<AudioSource>();
     }
 
     protected override void Colliding(Collider collider)
     {
+        if(mustHaveOwner && !Owner)
+        {
+            return;
+        }
+        
+
         if (!this.isActiveAndEnabled)
         {
             return;
@@ -65,8 +88,13 @@ public class HitBoxMelee : DamageOnHit
         {
             if (!_player.IsInvincible)
             {
-                
-                OnCollideWithPlayer(_player , this.Owner.transform.position);
+                if (damageFromOwner)
+                {
+                    OnCollideWithPlayer(_player, this.Owner.transform.position);
+                }else
+                {
+                    OnCollideWithPlayer(_player, this.transform.position);
+                }
             }
         }
 
@@ -113,7 +141,7 @@ public class HitBoxMelee : DamageOnHit
 
     void OnEnemyHit(Vector3 damageDealerPos)
     {
-        ownerPlayer._cPlayerSlap.PlaySlapSFX();
+        PlaySFX(_SFXclip);
         _player.recieveDamage(DamageCaused, damageDealerPos, InvincibilityFrame);
     }
 

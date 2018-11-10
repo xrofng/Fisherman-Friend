@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114257537931697316}
   - component: {fileID: 114038035492237722}
   - component: {fileID: 82485654958079526}
+  - component: {fileID: 114920496964403372}
   m_Layer: 0
   m_Name: Starfish
   m_TagString: Fish
@@ -246,3 +247,22 @@ MonoBehaviour:
   sfx_Slap: {fileID: 0}
   sfx_Throw: {fileID: 0}
   sfx_Special: {fileID: 0}
+  _cSpecial: {fileID: 0}
+--- !u!114 &114920496964403372
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1352189129146422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fe8cc6af7ab10041bf19d45db384f63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movingobject: {fileID: 114717754795570986, guid: ff305f621d0c71c4598ab42daacd2a38,
+    type: 2}
+  endByFrame: 0
+  throwDurationFrame: 999
+  invicibilityFrame: 50
+  freezeFrame: 0
+  damage: 8

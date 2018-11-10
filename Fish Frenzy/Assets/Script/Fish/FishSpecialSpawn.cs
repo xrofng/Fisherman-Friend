@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FishSpecialMelee : FishSpecial {
+public class FishSpecialSpawn : FishSpecial {
+    public HitBoxMelee projectileHitBox;
 
-    protected HitBoxMelee playerHitBox;
     public int invicibilityFrame = 50;
-    public int hitBoxStayFrame = 4;
     public int freezeFrame = 10;
     public int damage = 50;
+
+    protected PlayerFishSpecial _playerFishSpecial
+    {
+        get { return _fish.GetPlayerHolder._cPlayerFishSpecial; }
+    }
+    
     
     protected Vector3 snapPosition;
     protected Vector3 snapRotation;
@@ -28,11 +33,9 @@ public class FishSpecialMelee : FishSpecial {
         base.Initialization();
     }
 
-
     public void SetUpFishSpecial()
     {
         SetUpSpecialHitBox();
-        SetUpGameVariable();
         SetUpSpecialTrailAnim();
     }
 
@@ -49,7 +52,11 @@ public class FishSpecialMelee : FishSpecial {
         _playerFishSpecial.specialHitBox.Owner = _fish.holder;
 
         Snap(_playerFishSpecial.specialHitBox.transform);
+        
+        SetUpGameVariable();
     }
+
+    
 
     public void SetUpSpecialTrailAnim()
     {
@@ -93,10 +100,10 @@ public class FishSpecialMelee : FishSpecial {
     void SetUpGameVariable()
     {
         _playerFishSpecial.specialHitBox.gameObject.layer = LayerMask.NameToLayer("Fish" + _fish.GetPlayerHolder.playerID);
-        playerHitBox = _playerFishSpecial.specialHitBox;
-        playerHitBox.FreezeFramesOnHit = freezeFrame;
-        playerHitBox.InvincibilityFrame = invicibilityFrame;
-        playerHitBox.DamageCaused = damage;
+        projectileHitBox = _playerFishSpecial.specialHitBox;
+        projectileHitBox.FreezeFramesOnHit = freezeFrame;
+        projectileHitBox.InvincibilityFrame = invicibilityFrame;
+        projectileHitBox.DamageCaused = damage;
     }
 
     protected override void Update()
