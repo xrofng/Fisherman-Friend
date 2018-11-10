@@ -149,10 +149,11 @@ public class GUIManager : Singleton<GUIManager>
             UpdateGameTime();
             
         }
-        if (GameLoop.Instance.state == GameLoop.GameState.beforeStart)
+        if (GameLoop.Instance.state == GameLoop.GameState.beforeStart ||
+            GameLoop.Instance.state == GameLoop.GameState.gameEnd)
         {
             UpdateGrandText();
-
+            UpdateGameTime();
         }
     }
     /// <summary>
@@ -263,6 +264,10 @@ public class GUIManager : Singleton<GUIManager>
         {
             GrandText.text = (int)GameLoop.Instance.startCountDown + "";
         }
+        if (GameLoop.Instance.TimeInSecond <= 0)
+        {
+            GrandText.text = "Game";
+        }
     }
 
     /// <summary>
@@ -271,6 +276,10 @@ public class GUIManager : Singleton<GUIManager>
     /// <param name="playerID"></param>
     public virtual void UpdateGameTime()
     {
+        if(GameLoop.Instance.state == GameLoop.GameState.gameEnd)
+        {
+            return;
+        }
         int second = (int)GameLoop.Instance.Time_Second;
         int minute = (int)GameLoop.Instance.Time_Minute;
         TimeText.text = minute.ToString("00") + ":" + second.ToString("00");
