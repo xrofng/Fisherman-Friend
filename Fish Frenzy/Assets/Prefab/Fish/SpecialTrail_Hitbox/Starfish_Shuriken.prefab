@@ -128,7 +128,7 @@ MonoBehaviour:
   TargetLayerMask:
     serializedVersion: 2
     m_Bits: 0
-  DamageCaused: 10
+  DamageCaused: 8
   DamageCausedKnockbackType: 1
   DamageCausedKnockbackDirection: 0
   DamageCausedKnockbackForce: {x: 10, y: 2}
@@ -140,6 +140,7 @@ MonoBehaviour:
   mustHaveOwner: 1
   damageFromOwner: 0
   Owner: {fileID: 0}
+  _SFXclip: {fileID: 0}
 --- !u!114 &114717754795570986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -153,6 +154,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1
   direction: {x: 0, y: 0, z: 0}
-  moveEnd: 0
   normalTime: 1
   reachDistance: 2
+  rotateSpeed: 20

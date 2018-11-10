@@ -231,7 +231,8 @@ MonoBehaviour:
   sfx_WaterJump: {fileID: 8300000, guid: 391886dd2fd156a44873b2eeeb6d6248, type: 3}
   sfx_Slap: {fileID: 0}
   sfx_Throw: {fileID: 0}
-  sfx_Special: {fileID: 0}
+  sfx_Special: {fileID: 8300000, guid: 76d3523a591904046bc04aace0181371, type: 3}
+  _cSpecial: {fileID: 0}
 --- !u!114 &114467510467294388
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -244,6 +245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   invicibilityFrame: 50
+  hitBoxStayFrame: 4
   freezeFrame: 10
   damage: 50
   hitBoxRef: {fileID: 4352711589645446, guid: 66da22c8c634a2943bd2093bf7467c2b, type: 2}

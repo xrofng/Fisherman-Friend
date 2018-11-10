@@ -19,6 +19,7 @@ public class SI_Shark : StageInteraction
     public float BloodThirstSpeed;
     public float NormalSwimSpeed;
     public int BiteFrame = 10;
+    private bool stopMove = false;
     public float speed
     {
         get
@@ -75,7 +76,21 @@ public class SI_Shark : StageInteraction
 
     public override void OnPlayerCollide(Player _player)
     {
-        
+        StartCoroutine(OneHitKill(_player));
+    }
+
+    IEnumerator OneHitKill(Player _player)
+    {
+        int frameCount = 0;
+        stopMove = true;
+        _player.AddAbilityInputIntercepter(this);
+        while (frameCount < BiteFrame)
+        {
+            yield return new WaitForEndOfFrame();        frameCount++;
+        }
+        stopMove = false;
+        _player.KillPlayer();
+        _player.RemoveAbilityInputIntercepter(this);
     }
 
     // Draw Path
@@ -114,6 +129,10 @@ public class SI_Shark : StageInteraction
     
     void Move()
     {
+        if (stopMove)
+        {
+            return;
+        }
         Vector3 targetPos = path_objs[CurrentWayPointID].position;
 
         transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);

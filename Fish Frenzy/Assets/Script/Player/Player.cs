@@ -246,10 +246,15 @@ public class Player : MonoBehaviour {
     {
         if (other.gameObject.tag == "StageEdge")
         {
-            Death = true;
-            this.transform.position = PortRoyal.Instance.deathRealm.position;
-            StartCoroutine(respawn(PortRoyal.Instance.respawnTime));
+            KillPlayer();
         }
+    }
+
+    public void KillPlayer()
+    {
+        Death = true;
+        this.transform.position = PortRoyal.Instance.deathRealm.position;
+        StartCoroutine(respawn(PortRoyal.Instance.respawnTime));
     }
 
     public Vector3 getLowestPlayerPoint()
