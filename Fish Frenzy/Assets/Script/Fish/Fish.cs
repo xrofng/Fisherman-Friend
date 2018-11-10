@@ -68,11 +68,15 @@ public class Fish : Creature {
     private PickupFish _pickupFish;
 
     [Header("SFX")]
-    public AudioClip sfx_WaterJump;
-    public AudioClip sfx_Slap;
-    public AudioClip sfx_Throw;
-    public AudioClip sfx_Special;
+    public AudioClip sfx_WaterJump;   [Range(0.0f, 1.0f)]    public float volume_wj; 
+    public AudioClip sfx_Slap;[Range(0.0f, 1.0f)]    public float volume_slap;
+    public AudioClip sfx_Throw;[Range(0.0f, 1.0f)]    public float volume_throw;
+    public AudioClip sfx_Special;[Range(0.0f, 1.0f)]    public float volume_special;
 
+    [Header("Picture")]
+    public Sprite fishIcon;
+    public Sprite fishName;
+    public Sprite fishStored;
 
     [HideInInspector]
     public FishSpecial _cSpecial;
