@@ -89,6 +89,7 @@ public class SI_Shark : StageInteraction
             yield return new WaitForEndOfFrame();        frameCount++;
         }
         stopMove = false;
+        MatchResult.Instance.StoreAttacker(_player.playerID, this.gameObject);
         _player.KillPlayer();
         _player.RemoveAbilityInputIntercepter(this);
     }

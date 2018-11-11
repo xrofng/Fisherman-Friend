@@ -180,7 +180,7 @@ public class Player : MonoBehaviour {
         state = staTE;
     }
 
-    public void recieveDamage(float damage , Vector3 damageDealerPos , int recoveryFrame)
+    public void recieveDamage(float damage , GameObject damageDealer, Vector3 damageDealerPos,  int recoveryFrame)
     {
         dPercent += (int)damage;
         //Instantiate(knockBackOrigin, center ,Quaternion.identity);
@@ -189,13 +189,15 @@ public class Player : MonoBehaviour {
         _cPlayerFishing.SetFishing(false);
         _cPlayerInvincibility.startInvincible(recoveryFrame);
         _cPlayerState.ToggleIsDamage();
+        MatchResult.Instance.StoreAttacker(playerID, damageDealer);
+
         DamagePercentClamp();
     }
 
-    public void recieveDamage(object intercepter,float damage, Vector3 damageDealerPos, int recoveryFrame)
+    public void recieveDamage(object intercepter,float damage, GameObject damageDealer, Vector3 damageDealerPos, int recoveryFrame)
     {
         StartCoroutine(IgnoreAbilityInput(intercepter, recoveryFrame));
-        recieveDamage(damage, damageDealerPos, recoveryFrame);
+        recieveDamage(damage, damageDealer, damageDealerPos,recoveryFrame);
     }
 
     IEnumerator IgnoreAbilityInput(object intercepter , int FreezeFramesOnHitDuration  )
@@ -223,15 +225,15 @@ public class Player : MonoBehaviour {
         rigid.AddForce(nKnockBackDirection * knockBackForce.x + upLaunching, ForceMode.Impulse);
     }   
 
-    IEnumerator respawn(float waitBeforeRespawn)
+    IEnumerator Respawn(float waitBeforeRespawn)
     {
-       
         yield return new WaitForSeconds(waitBeforeRespawn);
         rigid.velocity = Vector3.zero;
         this.transform.position = PortRoyal.Instance.randomSpawnPosition();
         Death = false;
         holdingFish = false;
         this.dPercent = 0;
+        MatchResult.Instance.ClearRecentDamager(playerID);
 
     }
     void OnCollisionEnter(Collision other)
@@ -244,7 +246,7 @@ public class Player : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "StageEdge")
+        if (other.gameObject.tag == "StageEdge" && !Death)
         {
             KillPlayer();
         }
@@ -253,8 +255,24 @@ public class Player : MonoBehaviour {
     public void KillPlayer()
     {
         Death = true;
+        GameObject latest= MatchResult.Instance.GetLatestDamager(playerID,false);
+        if (latest)
+        {
+            if (latest.GetComponent<StageInteraction>())
+            {
+                GameObject latestplayer = MatchResult.Instance.GetLatestDamager(playerID, true);
+                MatchResult.Instance.StoreKnocker(playerID, latestplayer);
+            }
+            MatchResult.Instance.StoreKnocker(playerID, latest);
+        }
+        else
+        {
+
+            MatchResult.Instance.StoreKnocker(playerID, this.gameObject);
+        }
+
         this.transform.position = PortRoyal.Instance.deathRealm.position;
-        StartCoroutine(respawn(PortRoyal.Instance.respawnTime));
+        StartCoroutine(Respawn(PortRoyal.Instance.respawnTime));
     }
 
     public Vector3 getLowestPlayerPoint()

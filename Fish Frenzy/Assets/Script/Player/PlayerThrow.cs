@@ -22,7 +22,7 @@ public class PlayerThrow : PlayerAbility {
     private List<float> lowDetected = new List<float>();
     public float additionOverUp = 0.25f;
 
-    private List<float> degreeList = new List<float>();
+    //private List<float> degreeList = new List<float>();
     public int assistDirection = 16;
 
     [Header("SFX")]
@@ -125,7 +125,7 @@ public class PlayerThrow : PlayerAbility {
 
     void EvaluateAimArrowPosition()
     {
-        List<Collider2D> hitColliders = new List<Collider2D>();
+        //List<Collider2D> hitColliders = new List<Collider2D>();
         Vector3 rayPos = transform.position+ Vector3.up;
         lowDetected.Clear();
         

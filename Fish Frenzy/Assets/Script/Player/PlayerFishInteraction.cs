@@ -45,7 +45,7 @@ public class PlayerFishInteraction : PlayerAbility {
                     _player.rigid.velocity = Vector3.zero;
                     f.RemoveRigidBody();
                     f.damageDealed = true;
-                    _player.recieveDamage(f.throwAttack, f.lastHoldPoition, f.t_invicibilityFrame);
+                    _player.recieveDamage(f.throwAttack, f.holder ,f.lastHoldPoition, f.t_invicibilityFrame);
                     f.fishBounce();
                 }
                 break;

@@ -32,9 +32,10 @@ public class GameLoop : PersistentSingleton<GameLoop>
     {
         get { return timeCountDown; }
     }
+
     // Use this for initialization
     void Start () {
-
+        
         materialManager = GetComponent<MaterialManager>();
         timeCountDown = Round_Time_Limit;
 
@@ -93,8 +94,7 @@ public class GameLoop : PersistentSingleton<GameLoop>
             p.gameObject.transform.position = PortRoyal.Instance.getSpwanPositionAtIndex(positionIndex);
             takenPos.Add(positionIndex);
 
-            p.Initialization();
-            
+            p.Initialization();            
         }
     }
 
@@ -106,4 +106,6 @@ public class GameLoop : PersistentSingleton<GameLoop>
         GUIManager.Instance.GrandText.enabled = false;
         MultiPlayerCamera._instance.Initialization();
     }
+
+    
 }

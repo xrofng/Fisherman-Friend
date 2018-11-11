@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PortRoyal : PersistentSingleton<PortRoyal>
 {
-    
+    public int numPlayer = 4;
+    public int maxNumPlayer = 4;
 
     public float characterMass;
 

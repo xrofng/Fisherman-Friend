@@ -25,10 +25,6 @@ public class PlayerAnimation : CharacterAnimation {
 
     protected override void Update()
     {
-        if(this.gameObject.name == "Player1")
-        {
-            print(_currentAnimationState);
-
-        }
+       
     }
 }

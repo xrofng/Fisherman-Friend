@@ -991,6 +991,7 @@ GameObject:
   - component: {fileID: 156079903}
   - component: {fileID: 156079904}
   - component: {fileID: 156079905}
+  - component: {fileID: 156079906}
   m_Layer: 0
   m_Name: PortRoyal
   m_TagString: Untagged
@@ -1022,6 +1023,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96f61a2cd80c4d4393223cc163469f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numPlayer: 4
+  maxNumPlayer: 4
   characterMass: 1
   debugMode: 1
   respawnTime: 5
@@ -1104,6 +1107,19 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 9ca136a73f5606248ba388f2791d0fa9, type: 2}
   - {fileID: 2100000, guid: 9ca136a73f5606248ba388f2791d0fa9, type: 2}
   - {fileID: 2100000, guid: 9ca136a73f5606248ba388f2791d0fa9, type: 2}
+--- !u!114 &156079906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 156079901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb200625eff2454196fe4caa9a5d9e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxNumPlayer: 4
+  numPlayer: 4
 --- !u!1 &157027390
 GameObject:
   m_ObjectHideFlags: 0
