@@ -160,7 +160,7 @@ public class MatchResult : PersistentSingleton<MatchResult>
     }
     public void PrintKnockBy_Name(int playerID)
     {
-        //if (!printLog) { return; }
+        if (!printLog) { return; }
         string s = "P" + playerID + "Knock byN ";
         foreach (string st in KnockByList_Name[playerID ])
         {

@@ -5,11 +5,13 @@ using UnityEngine.UI;
 
 public class ResultPanel : MonoBehaviour
 {
+    public int playerId;
     [HideInInspector]
     public RectTransform myRect;
 
     public Image panel;
     public Image rank;
+    public int matchScore = 0;
 
     public int[] koCount = new int[3];
     public int[] deathCount = new int[3];
@@ -38,10 +40,15 @@ public class ResultPanel : MonoBehaviour
         {
             Debug.LogWarning("player in ko and death is not equal");
         }
+        int totalKo = 0;
+        int totalDeath = 0;
         for (int i = 0; i < death.Length; i++)
         {
+            totalDeath += deathCount[i];
+            totalKo += koCount[i];
             death[i].text += deathCount[i];
             ko[i].text += koCount[i];
         }
+        matchScore = totalKo - totalDeath;
     }
 }

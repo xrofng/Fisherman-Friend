@@ -31,7 +31,7 @@ public class Result : MonoBehaviour
             thisPanel.myRect.anchoredPosition += Vector2.right * offsetX;
             thisPanel.myRect.anchoredPosition += Vector2.right * panelDistance * i;
             thisPanel.panel.sprite = panelSprite[i];
-
+            thisPanel.playerId = i+1;
             playerPanel.Add(thisPanel);
         }
         Destroy(resultPanelRef.gameObject);
@@ -39,6 +39,8 @@ public class Result : MonoBehaviour
         ComputeResultValue();
 
         UpdateAllResultText();
+
+        EvaluateScore();
     }
 
     void ComputeResultValue()
@@ -54,8 +56,26 @@ public class Result : MonoBehaviour
                     PlayerKnockerCheck(pId, knocker);
                 }
                 StageEnviKnockerCheck(pId, knocker);
-
             }
+        }
+    }
+
+    void EvaluateScore()
+    {
+        List<ResultPanel> sortPanel = playerPanel;
+        //sort from max to min
+        sortPanel.Sort(delegate (ResultPanel x, ResultPanel y)
+        {
+            if (y.matchScore.CompareTo(x.matchScore) == 0)
+            {
+                //
+            }
+            return y.matchScore.CompareTo(x.matchScore);
+        });
+        // loop through panel check KnockBy list of each player
+        for (int pId = 0; pId < playerPanel.Count; pId++)
+        {
+            sortPanel[pId].rank.sprite = rankSpriteList[pId];
         }
     }
 
