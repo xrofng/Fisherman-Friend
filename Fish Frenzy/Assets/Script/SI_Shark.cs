@@ -144,17 +144,24 @@ public class SI_Shark : StageInteraction
         //transform.LookAt(targetPos, Vector3.up);
         if (distance <= reachDistance)
         {
-            CurrentWayPointID += cClockwise;
+            ChangeCurrentWayPoint(cClockwise);
         }
+      
+    }
+
+    void ChangeCurrentWayPoint(int changeValue)
+    {
+        CurrentWayPointID += cClockwise;
         if (CurrentWayPointID >= path_objs.Count)
         {
             CurrentWayPointID = 0;
         }
-        if (CurrentWayPointID <0)
+        if (CurrentWayPointID < 0)
         {
-            CurrentWayPointID = path_objs.Count-1;
+            CurrentWayPointID = path_objs.Count - 1;
         }
     }
+
 
     void PlayBiteAnimation()
     {
@@ -191,10 +198,10 @@ public class SI_Shark : StageInteraction
 
             // Does the ray intersect any objects excluding the player layer
             int frequent = 16;
-            int h = 10;
+            int h = 20;
             Vector3 perpOffset = ( perp*h) / frequent;
             
-            for (int j = -frequent / 2; j < frequent - (frequent/2); j++)
+            for (int j = -frequent / 4; j < frequent - (frequent/4); j++)
             {
                 Vector3 rayStart = begin + (perpOffset * j);
                 if (Physics.Raycast(rayStart, direction, out hit, distance))
@@ -208,6 +215,9 @@ public class SI_Shark : StageInteraction
                             detects.Add(hit.collider.gameObject);
                             wayIDs.Add(i);
                         }
+                    }else
+                    {
+                        DebugRay(rayStart, direction * distance, Color.blue);
                     }
                 }
                 else
@@ -220,8 +230,13 @@ public class SI_Shark : StageInteraction
         if (detects.Count > 0)
         {
             HeadToNearestPlayer(detects, wayIDs);
+            if (DetectedPlayer == false)
+            {
+                ChangeCurrentWayPoint(cClockwise);
+            }
             DetectedPlayer = true;
         }
+
         else
         {
             DetectedPlayer = false;

@@ -12,13 +12,13 @@ public class MultiPlayerCamera : PersistentSingleton<MultiPlayerCamera> {
     public float minZoom;
     public float maxZoom;
     public float zoomLimit;
+    public float GizmoRadius;
     private Camera cam;
     Bounds bound;
     void Start () {
         cam = GetComponent<Camera>();
-        
-
     }
+
     public void Initialization()
     {
         for (int i = 0; i < 4; i++)
@@ -40,6 +40,11 @@ public class MultiPlayerCamera : PersistentSingleton<MultiPlayerCamera> {
     {
         Vector3 newPosition = GetCenterPoint() + offset;
         transform.position = Vector3.SmoothDamp(transform.position, newPosition, ref velocity, smoothTime);
+    }
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(GetCenterPoint(), GizmoRadius);
     }
     void Zoom()
     {

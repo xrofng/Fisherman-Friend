@@ -26,8 +26,7 @@ public class PlayerAbility : MonoBehaviour
     protected AudioSource _SFX;
 
     protected virtual void PlaySFX(AudioClip SFXclip)
-    {
-        print(SFXclip.name);
+    { 
         if (_SFX.isPlaying) { return; }
         _SFX.clip = SFXclip;
         _SFX.Play();
