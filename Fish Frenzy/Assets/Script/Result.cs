@@ -68,7 +68,7 @@ public class Result : MonoBehaviour
         {
             if (y.matchScore.CompareTo(x.matchScore) == 0)
             {
-                //
+                // if equal rank cchange TODO
             }
             return y.matchScore.CompareTo(x.matchScore);
         });

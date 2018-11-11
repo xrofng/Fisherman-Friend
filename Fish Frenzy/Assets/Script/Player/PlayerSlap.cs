@@ -101,6 +101,7 @@ public class PlayerSlap : PlayerAbility {
         else
         {
             PlaySFX(sfx_Slap);
+            
         }
     }
 

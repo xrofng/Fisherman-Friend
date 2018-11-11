@@ -37,6 +37,15 @@ public class FishSpecialThrow : FishSpecial {
         movingobject.HitBox.FreezeFramesOnHit = freezeFrame;
         movingobject.HitBox.InvincibilityFrame = invicibilityFrame;
         movingobject.HitBox.DamageCaused = damage;
+        if (_fish.sfx_Special)
+        {
+            movingobject.HitBox._SFXclip = _fish.sfx_Special;
+        }
+        else
+        {
+            movingobject.HitBox._SFXclip = _playerFishSpecial.sfx_Special;
+        }
+        
     }
 
     protected override void Update()
