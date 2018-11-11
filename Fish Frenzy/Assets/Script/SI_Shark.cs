@@ -230,10 +230,10 @@ public class SI_Shark : StageInteraction
         if (detects.Count > 0)
         {
             HeadToNearestPlayer(detects, wayIDs);
-            if (DetectedPlayer == false)
-            {
-                ChangeCurrentWayPoint(cClockwise);
-            }
+            //if (DetectedPlayer == false)
+            //{
+            //    ChangeCurrentWayPoint(cClockwise);
+            //}
             DetectedPlayer = true;
         }
 
