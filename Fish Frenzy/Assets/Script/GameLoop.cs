@@ -14,6 +14,9 @@ public class GameLoop : PersistentSingleton<GameLoop>
     public float Round_Time_Limit = 360;
     public float startCountDown = 4.5f;
     private float timeCountDown;
+    public float timeBeforeChangeScene = 2.5f;
+    public bool timeUp;
+    public bool sceneChanging;
     public GameObject playerPrefab;
     private MaterialManager materialManager;
 
@@ -25,13 +28,16 @@ public class GameLoop : PersistentSingleton<GameLoop>
     {
         get { return timeCountDown % 60; }
     }
+    public float TimeInSecond
+    {
+        get { return timeCountDown; }
+    }
     // Use this for initialization
     void Start () {
 
         materialManager = GetComponent<MaterialManager>();
         timeCountDown = Round_Time_Limit;
 
-        
         StartCoroutine(CountDown(startCountDown));
     }
 	
@@ -41,12 +47,31 @@ public class GameLoop : PersistentSingleton<GameLoop>
         {
             startCountDown -= Time.deltaTime;
         }
-        else if (state == GameState.playing)
+        else if (state == GameState.playing || state == GameState.gameEnd)
         {
             timeCountDown -= Time.deltaTime;
         }
         
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            timeCountDown = 5;
+        }
+        CheckTimeUp();
+    }
 
+    void CheckTimeUp()
+    {
+        if (timeCountDown < -timeBeforeChangeScene && !sceneChanging)
+        {
+            sceneChanging = true;
+            Initiate.Fade("Result", Color.white, 2.0f);
+        }
+        if (timeCountDown <= 0)
+        {
+            state = GameState.gameEnd;
+            GUIManager.Instance.GrandText.enabled = true;
+            timeUp = true;
+        }
     }
 
     void spawnPlayers()

@@ -49,8 +49,18 @@ public class GUIManager : Singleton<GUIManager>
     public List<Sprite> DamagedSprite;
     /// list of list of sprite 0=normal 1=death 2=damaged
     protected List<List<Sprite>> PlayerSpriteSet = new List<List<Sprite>>();
+
+    [Header("Fish UI")]
+    public Sprite transparentSprite;
+    public RectTransform DurabilitySet;
+    public RectTransform IconSet;
+    public RectTransform NameSet;
+    public RectTransform StoreIconSet;
     /// time left image
-    public List<Image> DurabilityImage;
+    private List<Image> DurabilityImage = new List<Image>();
+    private List<Image> IconImage = new List<Image>();
+    private List<Image> NameImage = new List<Image>();
+    private List<Image> StoreIconImage = new List<Image>();
 
     /// 
     protected int[] currentFaceIndex = new int[4];
@@ -72,6 +82,7 @@ public class GUIManager : Singleton<GUIManager>
     protected override void Awake()
     {
         base.Awake();
+        InitImageList();
         portroyal = PortRoyal.Instance;
         if (Joystick != null)
         {
@@ -97,6 +108,32 @@ public class GUIManager : Singleton<GUIManager>
         }
     }
 
+    void InitImageList()
+    {
+        List<List<Image>> ImageList= new List<List<Image>>();
+        List<RectTransform> SetList = new List<RectTransform>();
+
+        ImageList.Add(DurabilityImage);
+        ImageList.Add(IconImage);
+        ImageList.Add(NameImage);
+        ImageList.Add(StoreIconImage);
+        
+
+        SetList.Add(DurabilitySet);
+        SetList.Add(IconSet);
+        SetList.Add(NameSet);
+        SetList.Add(StoreIconSet);
+
+        for (int i = 0; i < SetList.Count; i++)
+        {
+            Image[] imageInSet = SetList[i].gameObject.GetComponentsInChildren<Image>();
+            foreach (Image im in imageInSet)
+            {
+                ImageList[i].Add(im);
+            }
+        }
+    }
+
     protected virtual void Update()
     {
         if (GameLoop.Instance.state == GameLoop.GameState.playing)
@@ -106,15 +143,17 @@ public class GUIManager : Singleton<GUIManager>
                 UpdateDamagePercent(playerID);
                 UpdateFaceSprite(playerID);
                 UpdateFishDurability(playerID);
+                UpdateFishIcon(playerID);
             }
                
             UpdateGameTime();
             
         }
-        if (GameLoop.Instance.state == GameLoop.GameState.beforeStart)
+        if (GameLoop.Instance.state == GameLoop.GameState.beforeStart ||
+            GameLoop.Instance.state == GameLoop.GameState.gameEnd)
         {
             UpdateGrandText();
-
+            UpdateGameTime();
         }
     }
     /// <summary>
@@ -166,6 +205,27 @@ public class GUIManager : Singleton<GUIManager>
         }
     }
 
+    public virtual void UpdateFishIcon(int playerID)
+    {
+        Player _player = portroyal.player[playerID];
+        if (_player.subFish)
+        {
+            StoreIconImage[playerID].sprite = _player.subFish.fishStored;
+        }else
+        {
+            StoreIconImage[playerID].sprite = transparentSprite;
+        }
+        if (!_player.holdingFish)
+        {
+            IconImage[playerID].sprite = transparentSprite;
+            NameImage[playerID].sprite = transparentSprite;           
+            return;
+        }
+        IconImage[playerID].sprite = _player.mainFish.fishIcon;
+        NameImage[playerID].sprite = _player.mainFish.fishName;
+      
+    }
+
     /// <summary>
     /// 
     /// </summary>
@@ -204,6 +264,10 @@ public class GUIManager : Singleton<GUIManager>
         {
             GrandText.text = (int)GameLoop.Instance.startCountDown + "";
         }
+        if (GameLoop.Instance.TimeInSecond <= 0)
+        {
+            GrandText.text = "Game";
+        }
     }
 
     /// <summary>
@@ -212,6 +276,10 @@ public class GUIManager : Singleton<GUIManager>
     /// <param name="playerID"></param>
     public virtual void UpdateGameTime()
     {
+        if(GameLoop.Instance.state == GameLoop.GameState.gameEnd)
+        {
+            return;
+        }
         int second = (int)GameLoop.Instance.Time_Second;
         int minute = (int)GameLoop.Instance.Time_Minute;
         TimeText.text = minute.ToString("00") + ":" + second.ToString("00");
