@@ -103,7 +103,7 @@ public class GUIManager : Singleton<GUIManager>
         for (int playerID = 0; playerID < 4; playerID++)
         {
             float a = DurabilityImage[playerID].color.a;
-            Color pColor= PortRoyal.Instance.playerColor[playerID];
+            Color pColor= PortRoyal.Instance.startupPlayer.playerColor[playerID];
             DurabilityImage[playerID].color = new Color(pColor.r, pColor.g, pColor.b, a);
         }
     }
@@ -185,7 +185,7 @@ public class GUIManager : Singleton<GUIManager>
 
     public virtual void UpdateFaceSprite(int playerID)
     {
-        Player _player = portroyal.player[playerID];
+        Player _player = portroyal.Player[playerID];
         if (_player._cPlayerState.IsDeath)
         {
             currentFaceIndex[playerID] = 1;
@@ -207,7 +207,7 @@ public class GUIManager : Singleton<GUIManager>
 
     public virtual void UpdateFishIcon(int playerID)
     {
-        Player _player = portroyal.player[playerID];
+        Player _player = portroyal.Player[playerID];
         if (_player.subFish)
         {
             StoreIconImage[playerID].sprite = _player.subFish.fishStored;
@@ -232,8 +232,8 @@ public class GUIManager : Singleton<GUIManager>
     /// <param name="playerID"></param>
     public virtual void UpdateDamagePercent(int playerID)
     {
-        PercentText[playerID].text = portroyal.player[playerID].dPercent + "%";
-        PercentText[playerID].color = KnockData.Instance.GetColor(portroyal.player[playerID].dPercent);
+        PercentText[playerID].text = portroyal.Player[playerID].dPercent + "%";
+        PercentText[playerID].color = KnockData.Instance.GetColor(portroyal.Player[playerID].dPercent);
     }
 
     /// <summary>
@@ -242,7 +242,7 @@ public class GUIManager : Singleton<GUIManager>
     /// <param name="playerID"></param>
     public virtual void UpdateFishDurability(int playerID)
     {
-        Player _player = portroyal.player[playerID];
+        Player _player = portroyal.Player[playerID];
         if (_player.holdingFish)
         {
             DurabilityImage[playerID].fillAmount = _player.mainFish.GetDurabilityRatio;

@@ -112,7 +112,7 @@ public class Player : MonoBehaviour {
         this.gameObject.layer = LayerMask.NameToLayer("Player" + playerID);
         fixedFPS_DT = 0.016f;
 
-        playerIndicator.sprite = PortRoyal.Instance.playerIndicator[playerID-1];
+        playerIndicator.sprite = PortRoyal.Instance.startupPlayer.playerIndicator[playerID-1];
 
         rigid = GetComponent<Rigidbody>();
         rigid.mass = PortRoyal.Instance.characterMass;

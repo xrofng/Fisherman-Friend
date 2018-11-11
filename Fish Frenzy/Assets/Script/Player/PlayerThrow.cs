@@ -40,7 +40,7 @@ public class PlayerThrow : PlayerAbility {
         base.Initialization();
         _aimArrow = Instantiate(aimArrow);
         _aimArrow.transform.SetParent( _player.getPart(Player.ePart.body) );
-        _aimArrow.GetComponent<SpriteRenderer>().color = PortRoyal.Instance.playerColor[_player.playerID-1];
+        _aimArrow.GetComponent<SpriteRenderer>().color = PortRoyal.Instance.startupPlayer.playerColor[_player.playerID-1];
         _aimArrow.localPosition =  arrowPositioningOffset;
         _aimArrow.gameObject.SetActive(false);
     }
@@ -221,7 +221,7 @@ public class PlayerThrow : PlayerAbility {
     //        aiming = false;
     //        if (i + 1 != _player.playerID)
     //        {
-    //            Player target = PortRoyal.Instance.player[i];
+    //            Player target = PortRoyal.Instance.Player[i];
     //            direction[i] = target.transform.position - this.transform.position;
     //            angle[i] = Vector3.Angle(direction[i], _player.playerForward);
     //            bool found = false;

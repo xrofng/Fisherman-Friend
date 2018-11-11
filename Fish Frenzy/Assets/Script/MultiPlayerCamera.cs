@@ -23,7 +23,7 @@ public class MultiPlayerCamera : PersistentSingleton<MultiPlayerCamera> {
     {
         for (int i = 0; i < 4; i++)
         {
-            targets.Add(PortRoyal.Instance.player[i]);
+            targets.Add(PortRoyal.Instance.Player[i]);
         }
     }
 	void LateUpdate()

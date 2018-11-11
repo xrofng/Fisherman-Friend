@@ -81,7 +81,7 @@ public class GameLoop : PersistentSingleton<GameLoop>
         for (int i = 0; i < 4; i++)
         {
             Player p = materialManager.InstantiatePlayer(playerPrefab, i).GetComponent<Player>();
-            PortRoyal.Instance.player[i] = p;
+            PortRoyal.Instance.Player[i] = p;
             p.playerID = i + 1;
             p.gameObject.name = "Player" + p.playerID;
             int positionIndex = PortRoyal.Instance.randomSpawnPosIndex();

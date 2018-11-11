@@ -992,6 +992,7 @@ GameObject:
   - component: {fileID: 156079904}
   - component: {fileID: 156079905}
   - component: {fileID: 156079906}
+  - component: {fileID: 156079907}
   m_Layer: 0
   m_Name: PortRoyal
   m_TagString: Untagged
@@ -1036,26 +1037,7 @@ MonoBehaviour:
   - {fileID: 114257537931697316, guid: fe938b2f86a8ac845b2c1d3292925b54, type: 2}
   - {fileID: 114768006698364366, guid: adaf2cead1368e348a86e6f2202a5815, type: 2}
   - {fileID: 114447408894065984, guid: aeccb13bec295bb44bfb133acf6276f3, type: 2}
-  player:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  playerColor:
-  - {r: 1, g: 0.21960784, b: 0.18039216, a: 1}
-  - {r: 0.1764706, g: 0.58431375, b: 1, a: 1}
-  - {r: 1, g: 0.92156863, b: 0.1764706, a: 1}
-  - {r: 0.31764707, g: 0.9372549, b: 0.23921569, a: 1}
-  playerIndicator:
-  - {fileID: 21300000, guid: 2c40fdf4f6fa12a4f98967880d4fa2d2, type: 3}
-  - {fileID: 21300000, guid: eabeeb19614084243a40a6f19184c76a, type: 3}
-  - {fileID: 21300000, guid: 697266a30d6352441b8a9e72f7e441b8, type: 3}
-  - {fileID: 21300000, guid: 3a5feac1c5fc63446a55554b1afd8ace, type: 3}
-  playerMaterial:
-  - {fileID: 2100000, guid: 0a884ae75d16a124e9a4a447cbc0eed3, type: 2}
-  - {fileID: 2100000, guid: 46210caeeb2cf8643a8d26ebcba83c70, type: 2}
-  - {fileID: 2100000, guid: 5a973d9cd19dc86468184f738014d0cd, type: 2}
-  - {fileID: 2100000, guid: eb33ddfa6e883254b9ed65d18c7c39a5, type: 2}
+  startupPlayer: {fileID: 0}
   spawnPoint:
   - {fileID: 1561917423}
   - {fileID: 157027391}
@@ -1118,8 +1100,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eb200625eff2454196fe4caa9a5d9e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  untagAttackerDuration: 5
   maxNumPlayer: 4
   numPlayer: 4
+  printLog: 0
+--- !u!114 &156079907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 156079901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 341ffd61f061d2a44b570125ed4689c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  playerColor:
+  - {r: 1, g: 0.21960784, b: 0.18039216, a: 1}
+  - {r: 0.1764706, g: 0.58431375, b: 1, a: 1}
+  - {r: 1, g: 0.92156863, b: 0.1764706, a: 1}
+  - {r: 0.31764707, g: 0.9372549, b: 0.23921569, a: 1}
+  playerIndicator:
+  - {fileID: 21300000, guid: 2c40fdf4f6fa12a4f98967880d4fa2d2, type: 3}
+  - {fileID: 21300000, guid: eabeeb19614084243a40a6f19184c76a, type: 3}
+  - {fileID: 21300000, guid: 697266a30d6352441b8a9e72f7e441b8, type: 3}
+  - {fileID: 21300000, guid: 3a5feac1c5fc63446a55554b1afd8ace, type: 3}
+  playerMaterial:
+  - {fileID: 2100000, guid: 0a884ae75d16a124e9a4a447cbc0eed3, type: 2}
+  - {fileID: 2100000, guid: 46210caeeb2cf8643a8d26ebcba83c70, type: 2}
+  - {fileID: 2100000, guid: 5a973d9cd19dc86468184f738014d0cd, type: 2}
+  - {fileID: 2100000, guid: eb33ddfa6e883254b9ed65d18c7c39a5, type: 2}
 --- !u!1 &157027390
 GameObject:
   m_ObjectHideFlags: 0
