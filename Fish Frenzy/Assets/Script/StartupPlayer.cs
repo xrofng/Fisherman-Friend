@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StartupPlayer : MonoBehaviour {
+public class StartupPlayer : PersistentSingleton<StartupPlayer> {
 
     public Player[] player = new Player[4];
     public Color[] playerColor = new Color[4];

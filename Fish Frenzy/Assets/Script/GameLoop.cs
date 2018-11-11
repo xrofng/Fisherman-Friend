@@ -55,17 +55,29 @@ public class GameLoop : PersistentSingleton<GameLoop>
         
         if (Input.GetKeyDown(KeyCode.P))
         {
-            timeCountDown = 5;
+            timeCountDown = 1;
         }
         CheckTimeUp();
+    }
+
+    void OnChangeScene()
+    {
+        MatchResult.Instance.KnockerObjToName();
+        MultiPlayerCamera.Instance.enabled = false;
+        PortRoyal.Instance.enabled = false;
+        GUIManager.Instance.enabled = false;
+        GameLoop.Instance.enabled = false;
     }
 
     void CheckTimeUp()
     {
         if (timeCountDown < -timeBeforeChangeScene && !sceneChanging)
         {
-            sceneChanging = true;
+            sceneChanging = true;            
+           
             Initiate.Fade("Result", Color.white, 2.0f);
+            OnChangeScene();
+            
         }
         if (timeCountDown <= 0)
         {

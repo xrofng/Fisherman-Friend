@@ -8,7 +8,23 @@ public class MatchResult : PersistentSingleton<MatchResult>
     public float untagAttackerDuration = 5.0f;
     public int maxNumPlayer = 4;
     public int numPlayer = 4;
-    
+
+    private List<List<string>> knockByList_Name = new List<List<string>>();
+    public List<List<string>> KnockByList_Name
+    {
+        get
+        {
+            if (knockByList_Name.Count == 0)
+            {
+                for (int i = 0; i < numPlayer; i++)
+                {
+                    knockByList_Name.Add(new List<string>());
+                }
+            }
+            return knockByList_Name;
+        }
+    }
+
     private List<List<GameObject>> knockByList = new List<List<GameObject>>();
     public List<List<GameObject>> KnockByList
     {
@@ -71,14 +87,14 @@ public class MatchResult : PersistentSingleton<MatchResult>
         {
             lastAttack.Remove(attacker);
         }
-        
-
     }
+
     public void ClearRecentDamager(int playerID)
     {
         LatestAttackerList[playerID - 1].Clear();
     }
-   public GameObject GetLatestDamager(int playerID, bool onlyEnemyPlayer)
+
+    public GameObject GetLatestDamager(int playerID, bool onlyEnemyPlayer)
     {
         GameObject latest = null;
         foreach (GameObject go in LatestAttackerList[playerID - 1])
@@ -93,6 +109,19 @@ public class MatchResult : PersistentSingleton<MatchResult>
             }          
         }
         return latest;
+    }
+
+    public void KnockerObjToName()
+    {
+        for (int i = 0; i < numPlayer; i++)
+        {
+            foreach (GameObject go in KnockByList[i])
+            {
+                KnockByList_Name[i].Add(go.name);
+            }
+            PrintKnockBy_Name(i);
+        }
+        
     }
 
     // Use this for initialization
@@ -126,6 +155,16 @@ public class MatchResult : PersistentSingleton<MatchResult>
         foreach (GameObject go in KnockByList[playerID-1])
         {
             s += go.name + ">";
+        }
+        print(s);
+    }
+    public void PrintKnockBy_Name(int playerID)
+    {
+        //if (!printLog) { return; }
+        string s = "P" + playerID + "Knock byN ";
+        foreach (string st in KnockByList_Name[playerID ])
+        {
+            s += st + ">";
         }
         print(s);
     }
