@@ -20,8 +20,8 @@ public class PlayerAbility : MonoBehaviour
     public PlayerAnimation  _pAnimator
     {
         get { return _player.animator; }
-
     }
+    public int frameAnimation;
 
     protected AudioSource _SFX;
 
@@ -48,6 +48,27 @@ public class PlayerAbility : MonoBehaviour
     {
         _player = GetComponent<Player>();
         _SFX = GetComponent<AudioSource>();
+    }
+
+
+
+
+    public void ChangeAnimState(PlayerAnimation.State s, int ignoreFrame, bool revert)
+    {
+        StartCoroutine(InvokeChangeAnimState(s,ignoreFrame,revert));
+    }
+
+
+    IEnumerator InvokeChangeAnimState(PlayerAnimation.State s,int frameDuration,bool revert)
+    {
+        int frameCount = 0;
+        _pAnimator.ChangeState((int)s);
+        while (frameCount < frameDuration)
+        {
+            yield return new WaitForEndOfFrame();
+            frameCount++;
+        }
+        if (revert) { _pAnimator.ChangeState((int)PlayerAnimation.State.Idle); }
     }
 
     public void IgnoreInputFor(int ignoreFrame)

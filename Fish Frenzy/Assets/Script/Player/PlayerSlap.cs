@@ -25,6 +25,7 @@ public class PlayerSlap : PlayerAbility {
         {
             attacking = value;
             slapTrail.gameObject.SetActive(value);
+
             hitBox.GetCollider<BoxCollider>().enabled = value;
             if (showHitBox)
             {
@@ -55,9 +56,8 @@ public class PlayerSlap : PlayerAbility {
             {
                 return;
             }
-            SlapFish();
+            SlapFish(); 
         }
-        
     }
 
     // Update is called once per frame
@@ -79,6 +79,7 @@ public class PlayerSlap : PlayerAbility {
             {
                 RunParticle();
                 StartCoroutine(HitBoxEnable(_player.mainFish.hitBoxStayFrame));
+                ChangeAnimState(PlayerAnimation.State.H_Slap, frameAnimation, true);
             }
         }
     }
@@ -113,6 +114,6 @@ public class PlayerSlap : PlayerAbility {
             frameCount++;
         }
         Attacking = false;
-
     }
+
 }

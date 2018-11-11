@@ -8,7 +8,8 @@ public class PlayerAnimation : CharacterAnimation {
     {
         Idle=0,
         Walk,
-        Slap,
+        H_Slap,
+        V_Slap,
         Throw
     };
     protected override void Start()
@@ -24,5 +25,10 @@ public class PlayerAnimation : CharacterAnimation {
 
     protected override void Update()
     {
+        if(this.gameObject.name == "Player1")
+        {
+            print(_currentAnimationState);
+
+        }
     }
 }

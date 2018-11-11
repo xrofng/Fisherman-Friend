@@ -79,7 +79,8 @@ public class PlayerFishSpecial : PlayerAbility
 
         if (Input.GetButtonDown(special))
         {
-            StartCoroutine(SpecialMeleeAttack(FishSpecial<FishSpecialMelee>().hitBoxStayFrame));                
+            StartCoroutine(SpecialMeleeAttack(FishSpecial<FishSpecialMelee>().hitBoxStayFrame));
+            ChangeAnimState(PlayerAnimation.State.V_Slap, frameAnimation, true);             
         }   
     }
 
