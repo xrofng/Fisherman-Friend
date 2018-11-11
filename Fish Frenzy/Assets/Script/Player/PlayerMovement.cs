@@ -69,10 +69,20 @@ public class PlayerMovement : PlayerAbility {
             }
         }
 
-        if (playerDirection.sqrMagnitude > 0.0f && !_player.Aiming)
+        if (GetCrossZComponent<PlayerThrow>().useAimAssist)
         {
-            _player.getPart(Player.ePart.body).transform.rotation = Quaternion.LookRotation(playerDirection, Vector3.up);
+            if (playerDirection.sqrMagnitude > 0.0f && !_player.Aiming)
+            {
+                _player.getPart(Player.ePart.body).transform.rotation = Quaternion.LookRotation(playerDirection, Vector3.up);
+            }
+        }else
+        {
+            if (playerDirection.sqrMagnitude > 0.0f)
+            {
+                _player.getPart(Player.ePart.body).transform.rotation = Quaternion.LookRotation(playerDirection, Vector3.up);
+            }
         }
+        
     }
 
     void Jump()

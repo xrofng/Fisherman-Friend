@@ -17,6 +17,7 @@ public class PlayerThrow : PlayerAbility {
     public Vector3 arrowPositioningOffset = new Vector3(0, -0.002f, -0.0279f);
 
     [Header("16 Aim Arrow")]
+    public bool useAimAssist;
     public int NumberOfVerticalRays = 100;
     public float rayDistanceFrequent = 0.1f;
     private List<float> lowDetected = new List<float>();
@@ -92,7 +93,7 @@ public class PlayerThrow : PlayerAbility {
     {
         holdToThrow += Time.deltaTime;
         EvaluateAimArrowPosition();
-        AimAssist();
+     //   AimAssist();
     }
     public void OnButtonUp()
     {

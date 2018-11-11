@@ -1692,7 +1692,7 @@ MonoBehaviour:
   hitBox: {fileID: 114588015360543092}
   slapTrail: {fileID: 111866780131890462}
   sfx_Slap: {fileID: 8300000, guid: 76d3523a591904046bc04aace0181371, type: 3}
-  showHitBox: 1
+  showHitBox: 0
 --- !u!114 &114120352571177444
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1908,7 +1908,7 @@ MonoBehaviour:
   specialHitBox: {fileID: 0}
   specialTrail: {fileID: 0}
   sfx_Special: {fileID: 8300000, guid: 76d3523a591904046bc04aace0181371, type: 3}
-  showHitBox: 1
+  showHitBox: 0
 --- !u!114 &114977554907942170
 MonoBehaviour:
   m_ObjectHideFlags: 1
