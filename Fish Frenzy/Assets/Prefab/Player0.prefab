@@ -290,7 +290,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1757172497880862
 GameObject:
   m_ObjectHideFlags: 1
@@ -672,7 +672,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1727452470752796}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.5810175, y: 7.561899, z: -4.7001514}
+  m_LocalPosition: {x: -8.11, y: 7.03, z: -3.28}
   m_LocalScale: {x: 52, y: 52, z: 52}
   m_Children:
   - {fileID: 4696772567405072}
@@ -1647,6 +1647,7 @@ MonoBehaviour:
   aiming: 0
   aimArrow: {fileID: 4069011007333360, guid: 761621eb1408f9d469b98c24fa0d3a54, type: 2}
   arrowPositioningOffset: {x: 0, y: -0.002, z: -0.0279}
+  useAimAssist: 0
   NumberOfVerticalRays: 100
   rayDistanceFrequent: 0.1
   additionOverUp: 0.25

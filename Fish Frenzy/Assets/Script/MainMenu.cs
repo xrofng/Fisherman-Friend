@@ -16,6 +16,8 @@ public class MainMenu : MonoBehaviour {
         {
             GetComponent<AudioSource>().Play();
             Initiate.Fade("Gameplay", Color.white, 2.0f);
+            //GameLoop.Instance.Reset();
+
         }
     }
     

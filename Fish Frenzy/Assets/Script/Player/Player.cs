@@ -23,6 +23,21 @@ public class Player : MonoBehaviour {
     /// </summary>
     private List<object> abilityInputIntercepter = new List<object>();
 
+    /// associated input manager
+
+    public JoystickManager _linkedInputManager;
+    public JoystickManager LinkedInputManager
+    {
+        get
+        {
+            if (_linkedInputManager == null)
+            {
+                _linkedInputManager = FindObjectOfType<JoystickManager>();
+            }
+            return _linkedInputManager;
+        }
+    }
+
     public bool IgnoreInputForAbilities
     {
         get { return abilityInputIntercepter.Count > 0; }
@@ -33,6 +48,8 @@ public class Player : MonoBehaviour {
         get { return _cPlayerMovement.freezeMovement; }
         set { _cPlayerMovement.freezeMovement = value; }
     }
+
+
     public bool holdingFish;
     public Fish mainFish;
     public Fish subFish;
@@ -127,7 +144,6 @@ public class Player : MonoBehaviour {
         _cPlayerFishInteraction = GetComponent<PlayerFishInteraction>();
         _cPlayerSwitch = GetComponent<PlayerSwitchFish>();
         _cPlayerFishSpecial = GetComponent<PlayerFishSpecial>();
-
     }
 
     // Update is called once per frame

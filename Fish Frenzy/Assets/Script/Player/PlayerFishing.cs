@@ -42,7 +42,8 @@ public class PlayerFishing : PlayerAbility
     {
         string fishi = "Fishing" + _player.playerID;
 
-        if (Input.GetButtonDown(fishi))
+        //if (Input.GetButtonDown(fishi))
+        if (_pInput.GetButtonDown("Fishing", _player.playerID-1)) 
         {
             switch (_player.state)
             {

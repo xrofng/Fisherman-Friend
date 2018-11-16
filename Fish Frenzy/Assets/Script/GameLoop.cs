@@ -11,7 +11,8 @@ public class GameLoop : PersistentSingleton<GameLoop>
         gameEnd
     }
     public GameState state = GameState.beforeStart;
-    public float Round_Time_Limit = 360;
+    
+    public float Round_Time_Limit = 300;
     public float startCountDown = 4.5f;
     private float timeCountDown;
     public float timeBeforeChangeScene = 2.5f;
@@ -35,15 +36,21 @@ public class GameLoop : PersistentSingleton<GameLoop>
 
     // Use this for initialization
     void Start () {
-        
         materialManager = GetComponent<MaterialManager>();
         timeCountDown = Round_Time_Limit;
 
         StartCoroutine(CountDown(startCountDown));
+
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    public void Reset()
+    {
+    }
+
+    // Update is called once per frame
+    void Update () {
+       
+
         if(state == GameState.beforeStart)
         {
             startCountDown -= Time.deltaTime;

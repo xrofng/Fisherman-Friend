@@ -1062,10 +1062,11 @@ GameObject:
   m_Component:
   - component: {fileID: 156079902}
   - component: {fileID: 156079903}
+  - component: {fileID: 156079907}
   - component: {fileID: 156079904}
   - component: {fileID: 156079905}
   - component: {fileID: 156079906}
-  - component: {fileID: 156079907}
+  - component: {fileID: 156079908}
   m_Layer: 0
   m_Name: PortRoyal
   m_TagString: Untagged
@@ -1139,7 +1140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   Round_Time_Limit: 300
-  startCountDown: 5
+  startCountDown: 0
   timeBeforeChangeScene: 2.5
   timeUp: 0
   sceneChanging: 0
@@ -1215,6 +1216,24 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 46210caeeb2cf8643a8d26ebcba83c70, type: 2}
   - {fileID: 2100000, guid: 5a973d9cd19dc86468184f738014d0cd, type: 2}
   - {fileID: 2100000, guid: eb33ddfa6e883254b9ed65d18c7c39a5, type: 2}
+--- !u!114 &156079908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 156079901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0015841587565c34c9ae64b8181aa2b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Fishing: Fishing
+  Jump: Jump
+  Slap: Slap
+  Throw: Throw
+  Switch: Switch
+  Hori: Hori
+  Verti: Verti
 --- !u!1 &157027390
 GameObject:
   m_ObjectHideFlags: 0
@@ -3596,10 +3615,6 @@ Prefab:
     - target: {fileID: 4776109513001538, guid: 39fef1461dd626e4c869f96b5a2d7e66, type: 2}
       propertyPath: m_RootOrder
       value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 1727452470752796, guid: 39fef1461dd626e4c869f96b5a2d7e66, type: 2}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39fef1461dd626e4c869f96b5a2d7e66, type: 2}

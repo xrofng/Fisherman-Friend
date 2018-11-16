@@ -12,6 +12,12 @@ public class PlayerAbility : MonoBehaviour
     protected bool ignoreInput;
     public bool IgnoreInput { get { return ignoreInput; } }
 
+    public JoystickManager _pInput
+    {
+        get { return _player.LinkedInputManager; }
+
+    }
+
     public Rigidbody _pRigid
     {
         get { return _player.rigid; }
