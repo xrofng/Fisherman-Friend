@@ -93,13 +93,31 @@ public class JoystickManager : Singleton<JoystickManager>
     }
 
     /// <summary>
-    /// 
+    /// swap some input according to Joystick brand(name)
     /// </summary>
     public void RemapButton()
     {
+        for (int i = 0; i < Input.GetJoystickNames().Length ; i++)
+        {
+            string joyName = Input.GetJoystickNames()[i];
+            Debug.Log(i+ joyName);
+            if(joyName == "Wireless Controller")
+            {
 
+            }else
+            if (joyName.Contains("Controller"))
+            {
+                SwapButton(Slap, Fishing, i);
+                SwapButton(Fishing, Jump,i);
+            }
+        }
     }
-
+    void SwapButton(string buttonName1, string buttonName2, int playerID)
+    {
+        KeyCode temp = ButtonList[playerID][buttonName1];
+        ButtonList[playerID][buttonName1] = ButtonList[playerID][buttonName2];
+        ButtonList[playerID][buttonName2] = temp;
+    }
 
     /// <summary>
     /// Print methods for debuging
@@ -115,7 +133,7 @@ public class JoystickManager : Singleton<JoystickManager>
     {
         foreach (string key in Player1Button.Keys)
         {
-            print(ButtonList[playerID][key]);
+            print(playerID+" "+key+"   "+ButtonList[playerID][key]);
         }
     }
 
@@ -144,10 +162,8 @@ public class JoystickManager : Singleton<JoystickManager>
     {
         for (int i = 0; i < buttonName.Length; i++)
         {
-            
             if (Input.GetKeyDown(ButtonList[playerID][buttonName[i]]))
             {
-                print(buttonName[i]);
                 return true;
             }
         }
