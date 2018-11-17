@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+public class Player : Creature {
     public float testForce;
     public float upLaunchingMultiplier;
     public int playerID;
@@ -49,17 +49,16 @@ public class Player : MonoBehaviour {
         set { _cPlayerMovement.freezeMovement = value; }
     }
 
-
     public bool holdingFish;
     public Fish mainFish;
     public Fish subFish;
     public Fish baitedFish;
 
+   
 
     // Other Component
     [HideInInspector]
     public Rigidbody rigid;
-    private BoxCollider myCollider;
     [HideInInspector]
     public PlayerAnimation animator;
     [HideInInspector]
@@ -117,6 +116,9 @@ public class Player : MonoBehaviour {
         rodSwinging
     }
     public eState state;
+
+    [Header("SFX")]
+    public AudioClip sfx_Death;
     // Use this for initialization
     void Start() {
 
@@ -159,24 +161,6 @@ public class Player : MonoBehaviour {
     }
     void FixedUpdate() {
 
-    }
-    
- 
-    void checkInput()
-    {
-        string[] button = { "Fishing", "Switch", "Jump","Slap","Throw" };
-        int numPlayer = 4;
-        for (int i = 0; i < button.Length; i++)
-        {
-            for (int j = 1; j < numPlayer+1; j++)
-            {
-                string bitton = button[i] + j;
-                if (Input.GetButtonDown(bitton))
-                {
-                    print(bitton);
-                }
-            }
-        }
     }
 
     public void ChangeState(eState staTE)
@@ -259,6 +243,7 @@ public class Player : MonoBehaviour {
     public void KillPlayer()
     {
         Death = true;
+        PlaySFX(sfx_Death);
         GameObject latest= MatchResult.Instance.GetLatestDamager(playerID,false);
         if (latest)
         {
@@ -281,7 +266,7 @@ public class Player : MonoBehaviour {
 
     public Vector3 getLowestPlayerPoint()
     {
-        return new Vector3(transform.position.x, transform.position.y - myCollider.size.y / 2.0f, transform.position.z);
+        return new Vector3(transform.position.x, transform.position.y - GetCollider<BoxCollider>().size.y / 2.0f, transform.position.z);
     }
 
     public virtual void AddAbilityInputIntercepter(object intercepter)

@@ -19,6 +19,7 @@ public class GameLoop : PersistentSingleton<GameLoop>
     public bool timeUp;
     public bool sceneChanging;
     public GameObject playerPrefab;
+    public FrenzySpawner FrenzySpawner;
     private MaterialManager materialManager;
 
     public float Time_Minute
@@ -62,7 +63,7 @@ public class GameLoop : PersistentSingleton<GameLoop>
         
         if (Input.GetKeyDown(KeyCode.P))
         {
-            timeCountDown = 1;
+            timeCountDown = 62;
         }
         CheckTimeUp();
     }
@@ -81,10 +82,15 @@ public class GameLoop : PersistentSingleton<GameLoop>
         if (timeCountDown < -timeBeforeChangeScene && !sceneChanging)
         {
             sceneChanging = true;            
-           
+            FrenzySpawner.StartFrenzy(false);
             Initiate.Fade("Result", Color.white, 2.0f);
             OnChangeScene();
             
+        }
+        if (timeCountDown < 60)
+        {
+            FrenzySpawner.StartFrenzy(true);
+
         }
         if (timeCountDown <= 0)
         {

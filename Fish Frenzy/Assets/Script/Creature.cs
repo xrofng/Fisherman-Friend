@@ -12,8 +12,8 @@ public class Creature : MonoBehaviour {
     protected Rigidbody myRigid;
     protected Collider myCollider;
     protected Animation myAnimation;
-
-    protected AudioSource _SFX;
+    protected AudioSource myAudioSource;
+  
 
     public Rigidbody _rigidbody
     {
@@ -51,6 +51,19 @@ public class Creature : MonoBehaviour {
             return myAnimation;
         }
     }
+    public AudioSource _SFX
+    {
+        get
+        {
+            if (!myAudioSource)
+            {
+                myAudioSource = GetComponent<AudioSource>();
+
+            }
+            return myAudioSource;
+        }
+    }
+
 
     protected virtual void PlaySFX(AudioClip SFXclip)
     {
