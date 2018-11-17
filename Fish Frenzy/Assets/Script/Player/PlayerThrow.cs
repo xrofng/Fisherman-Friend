@@ -65,15 +65,15 @@ public class PlayerThrow : PlayerAbility {
         {
             return;
         }
-        if (Input.GetButtonDown(thro))
+        if (_pInput.GetButtonDown(_pInput.Throw, _player.playerID - 1))
         {
             OnButtonDown();
         }
-        else if (Input.GetButton(thro))
+        else if (_pInput.GetButton(_pInput.Throw, _player.playerID - 1))
         {
             OnButtonHold();
         }
-        else if (Input.GetButtonUp(thro))
+        else if (_pInput.GetButtonUp(_pInput.Throw, _player.playerID - 1))
         {
             OnButtonUp();
         }

@@ -67,7 +67,7 @@ public class PlayerSlap : PlayerAbility {
         {
             return;
         }
-        if (Input.GetButtonDown(slap) )
+        if (_pInput.GetButtonDown(_pInput.Slap, _player.playerID - 1))
         {
             //Assign fish stat to hitbox
             //hitBox.center = _player.mainFish.hitboxCenter;

@@ -77,7 +77,7 @@ public class PlayerFishSpecial : PlayerAbility
             return;
         }
 
-        if (Input.GetButtonDown(special))
+        if (_pInput.GetButtonDown(_pInput.Fishing, _player.playerID - 1))
         {
             StartCoroutine(SpecialMeleeAttack(FishSpecial<FishSpecialMelee>().hitBoxStayFrame));
             ChangeAnimState(PlayerAnimation.State.V_Slap, frameAnimation, true);             
@@ -91,15 +91,15 @@ public class PlayerFishSpecial : PlayerAbility
             return;
         }       
 
-        if (Input.GetButtonDown(special))
+        if (_pInput.GetButtonDown(_pInput.Fishing, _player.playerID - 1))
         {
             GetCrossZComponent<PlayerThrow>().OnButtonDown();
         }
-        else if (Input.GetButton(special))
+        else if (_pInput.GetButton(_pInput.Fishing, _player.playerID - 1))
         {
             GetCrossZComponent<PlayerThrow>().OnButtonHold();
         }
-        else if (Input.GetButtonUp(special))
+        else if (_pInput.GetButtonUp(_pInput.Fishing, _player.playerID - 1))
         {
             //PlayThrowSFX();
             

@@ -49,7 +49,7 @@ public class GameLoop : PersistentSingleton<GameLoop>
 
     // Update is called once per frame
     void Update () {
-       
+
 
         if(state == GameState.beforeStart)
         {

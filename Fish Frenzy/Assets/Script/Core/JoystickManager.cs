@@ -77,7 +77,6 @@ public class JoystickManager : Singleton<JoystickManager>
         Player1Button.Add(Switch, KeyCode.Joystick1Button5);
         Player1Button.Add(Hori, KeyCode.Joystick1Button18);
         Player1Button.Add(Verti, KeyCode.Joystick1Button19);
-
         // duplicate input from 1st to other but increase key code by offsetToNextPlayerKeycode
 
         int offsetToNextPlayerKeycode = KeyCode.Joystick2Button0 - KeyCode.Joystick1Button0;
@@ -111,10 +110,62 @@ public class JoystickManager : Singleton<JoystickManager>
 
     public bool GetButtonDown(string buttonName , int playerID)
     {
-        if (Input.GetKeyDown(ButtonList[playerID][buttonName]))
+        return Input.GetKeyDown(ButtonList[playerID][buttonName]);
+    }
+
+    public bool GetButton(string buttonName, int playerID)
+    {
+        return Input.GetKey(ButtonList[playerID][buttonName]);
+    }
+
+    public bool GetButtonUp(string buttonName, int playerID)
+    {
+        return Input.GetKeyUp(ButtonList[playerID][buttonName]);
+    }
+
+    public bool GetOneButtonsDown(string[] buttonName, int playerID)
+    {
+        for (int i = 0; i < buttonName.Length; i++)
         {
-            return true;
+            if (Input.GetKeyDown(ButtonList[playerID][buttonName[i]]))
+            {
+                return true;
+            }
         }
         return false;
+    }
+
+    public float GetAxisRaw(string buttonName, int playerID)
+    {
+        int playerIDfromButton = ((int)ButtonList[playerID][buttonName] - (int)KeyCode.Joystick1Button0 )/ 20;
+        playerIDfromButton += 1;
+        string axisName = null;
+
+        if (buttonName == Hori)
+        {
+            axisName = "Hori" + playerIDfromButton;
+        }
+        else if(buttonName == Verti)
+        {
+            axisName = "Verti" + playerIDfromButton;
+        }
+        return Input.GetAxisRaw(axisName);
+    }
+
+    public float GetAxis(string buttonName, int playerID)
+    {
+        int playerIDfromButton = ((int)ButtonList[playerID][buttonName] - (int)KeyCode.Joystick1Button0) / 20;
+        playerIDfromButton += 1;
+        string axisName = null;
+
+        if (buttonName == Hori)
+        {
+            axisName = "Hori" + playerIDfromButton;
+        }
+        else if (buttonName == Verti)
+        {
+            axisName = "Verti" + playerIDfromButton;
+        }
+        return Input.GetAxis(axisName);
     }
 }

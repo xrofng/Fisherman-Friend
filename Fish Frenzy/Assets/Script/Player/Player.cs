@@ -161,19 +161,7 @@ public class Player : MonoBehaviour {
 
     }
     
-    public bool GetOneButtonsPress(string[] button)
-    {
-        for (int i = 0; i < button.Length; i++)
-        {
-            string but = button[i] + "" + playerID;
-            if (Input.GetButtonDown(but))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-    
+ 
     void checkInput()
     {
         string[] button = { "Fishing", "Switch", "Jump","Slap","Throw" };

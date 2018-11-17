@@ -40,8 +40,6 @@ public class PlayerFishing : PlayerAbility
 
     void Fishing()
     {
-        string fishi = "Fishing" + _player.playerID;
-
         //if (Input.GetButtonDown(fishi))
         if (_pInput.GetButtonDown("Fishing", _player.playerID-1)) 
         {

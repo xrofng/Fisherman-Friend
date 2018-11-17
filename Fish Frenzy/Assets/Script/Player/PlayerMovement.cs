@@ -48,19 +48,23 @@ public class PlayerMovement : PlayerAbility {
 
     void Move()
     {
-        string hori = "Hori" + _player.playerID;
-        string verti = "Verti" + _player.playerID;
-        Vector3 mov = new Vector3(Input.GetAxisRaw(hori) * speed.x, 0.0f, Input.GetAxisRaw(verti) * speed.z);
+        float axisRawX = _pInput.GetAxisRaw(_pInput.Hori, _player.playerID-1);
+        float axisRawY = _pInput.GetAxisRaw(_pInput.Verti, _player.playerID-1);
+        float axisX = _pInput.GetAxis(_pInput.Hori, _player.playerID-1);
+        float axisY = _pInput.GetAxis(_pInput.Verti, _player.playerID-1);
+
+        Vector3 mov = new Vector3(axisRawX * speed.x, 0.0f, axisRawY*speed.z );
+
+        //Vector3 mov = new Vector3(Input.GetAxisRaw(hori) * speed.x, 0.0f, Input.GetAxisRaw(verti) * speed.z);
         mov = mov * Time.deltaTime;
         if (!freezeMovement && !GetCrossZComponent<PlayerState>().IsAttacking)
         {
             this.transform.Translate(mov);
         }
 
-        float axisRawX = Input.GetAxisRaw(hori);
-        float axisRawY = Input.GetAxisRaw(verti);
+        
         Vector3 playerDirection = lookTo;
-        if (sClass.getSign(Input.GetAxis(hori), 0.015f) != 0 || sClass.getSign(Input.GetAxis(verti), 0.015f) != 0)
+        if (sClass.getSign(axisX, 0.015f) != 0 || sClass.getSign(axisY, 0.015f) != 0)
         {
             if (sClass.intervalCheck(axisRawX, -0.9f, 0.9f, true) || sClass.intervalCheck(axisRawY, -0.9f, 0.9f, true))
             {
@@ -88,7 +92,7 @@ public class PlayerMovement : PlayerAbility {
     void Jump()
     {
         string jump_b = "Jump" + _player.playerID;
-        if (Input.GetButtonDown(jump_b))
+        if (_pInput.GetButtonDown(_pInput.Jump, _player.playerID - 1))
         {
             if ( GetCrossZComponent<PlayerState>().IsSwiming)
             {

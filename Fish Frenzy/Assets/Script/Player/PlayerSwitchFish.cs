@@ -34,7 +34,7 @@ public class PlayerSwitchFish : PlayerAbility
     void SwitchFish()
     {
         string switc = "Switch" + _player.playerID;
-        if (Input.GetButtonDown(switc))
+        if (_pInput.GetButtonDown(_pInput.Switch, _player.playerID - 1))
         {
 
             _player.baitedFish = _player.subFish;
