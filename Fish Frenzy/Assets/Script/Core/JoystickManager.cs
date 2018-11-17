@@ -60,6 +60,7 @@ public class JoystickManager : Singleton<JoystickManager>
     protected virtual void Start()
     {
         InitializeInput();
+        RemapButton();
     }
 
     protected virtual void InitializeInput()
@@ -89,10 +90,20 @@ public class JoystickManager : Singleton<JoystickManager>
             }
             ButtonList[i] = newKeyDict;
         }
+    }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    public void RemapButton()
+    {
 
     }
 
+
+    /// <summary>
+    /// Print methods for debuging
+    /// </summary>
     void PrintAllPlayerButton()
     {
         for (int i = 0; i < numPlayer; i++)
@@ -108,6 +119,12 @@ public class JoystickManager : Singleton<JoystickManager>
         }
     }
 
+    /// <summary>
+    /// Get button/axis methods to return activity of button/axis
+    /// </summary>
+    /// <param name="buttonName"></param>
+    /// <param name="playerID"></param>
+    /// <returns></returns>
     public bool GetButtonDown(string buttonName , int playerID)
     {
         return Input.GetKeyDown(ButtonList[playerID][buttonName]);
@@ -127,8 +144,10 @@ public class JoystickManager : Singleton<JoystickManager>
     {
         for (int i = 0; i < buttonName.Length; i++)
         {
+            
             if (Input.GetKeyDown(ButtonList[playerID][buttonName[i]]))
             {
+                print(buttonName[i]);
                 return true;
             }
         }

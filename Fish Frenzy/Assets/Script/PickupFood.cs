@@ -16,8 +16,6 @@ public class PickupFood : Pickup {
         }
     }
 
-    string[] pickupButton = { "Throw", "Slap"};
-
     protected override void Pick(Collider othercollider)
     {
         if (allowToPick)
@@ -26,7 +24,8 @@ public class PickupFood : Pickup {
             if (othercollider.GetComponent<Player>())
             {
                 _player = othercollider.GetComponent<Player>();
-                if (_player.LinkedInputManager.GetOneButtonsDown(pickupButton, _player.playerID) && !_player.holdingFish)
+                string[] pickupButton = { _player.LinkedInputManager.Throw, _player.LinkedInputManager.Slap };
+                if (_player.LinkedInputManager.GetOneButtonsDown(pickupButton, _player.playerID-1) && !_player.holdingFish)
                 {
                     //_player._cPlayerSlap.IgnoreInputFor(8);
                     //_player._cPlayerThrow.IgnoreInputFor(8);
