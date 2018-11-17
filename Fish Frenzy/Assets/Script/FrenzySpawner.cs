@@ -27,7 +27,7 @@ public class FrenzySpawner : MonoBehaviour {
                 float posY = transform.position.y;
                 float posZ = Random.Range(transform.position.z - transform.lossyScale.z / 2.0f, transform.position.z + transform.lossyScale.z / 2.0f);
                 Vector3 spawnPos = new Vector3(posX, posY, posZ);
-                print(CheckGround(spawnPos));
+                // migt fix spawn pos TODO
                 if (!CheckGround(spawnPos)) {
                     return;
                 }

@@ -317,7 +317,6 @@ public class Fish : Creature {
                 }
             }
         }
-        
     }
 
     void CheckWater()

@@ -51,6 +51,8 @@ public class PlayerFishInteraction : PlayerAbility {
                 break;
             case Fish.fState.ground:
                 break;
+            case Fish.fState.fall:
+                break;
         }
     }
 
@@ -94,6 +96,7 @@ public class PlayerFishInteraction : PlayerAbility {
         f.SnapTransform();
         f.RemoveRigidBody();
         f.SetToGround(false);
+        f.setHolder(_player.gameObject);
         SetFishCollidePlayer(f, _player, true);
         _player.mainFish = f;
         _player.baitedFish = null;

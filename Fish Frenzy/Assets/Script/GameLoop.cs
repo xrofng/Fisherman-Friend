@@ -19,6 +19,8 @@ public class GameLoop : PersistentSingleton<GameLoop>
     public bool timeUp;
     public bool sceneChanging;
     public GameObject playerPrefab;
+    public CamTarget playerFollowPrefab;
+    public Transform LevelCenter;
     public FrenzySpawner FrenzySpawner;
     private MaterialManager materialManager;
 
@@ -119,7 +121,13 @@ public class GameLoop : PersistentSingleton<GameLoop>
             p.gameObject.transform.position = PortRoyal.Instance.getSpwanPositionAtIndex(positionIndex);
             takenPos.Add(positionIndex);
 
-            p.Initialization();            
+            p.Initialization();
+
+            CamTarget c = Instantiate(playerFollowPrefab,LevelCenter.position,Quaternion.identity) as CamTarget;
+            c.SetCamTarget(p, true,LevelCenter);
+            c.ToPlayerSpeed = MultiPlayerCamera.Instance.speedToPlayer;
+            c.ToCenterSpeed = MultiPlayerCamera.Instance.speedToCenter;
+            MultiPlayerCamera._instance.AddTarget(c.transform);
         }
     }
 
@@ -129,7 +137,7 @@ public class GameLoop : PersistentSingleton<GameLoop>
         spawnPlayers();
         state = GameState.playing;
         GUIManager.Instance.GrandText.enabled = false;
-        MultiPlayerCamera._instance.Initialization();
+        
     }
 
     

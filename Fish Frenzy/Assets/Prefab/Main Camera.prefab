@@ -103,10 +103,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targets: []
   stage: {fileID: 0}
-  offset: {x: 0, y: 12, z: -30}
+  offset: {x: 0, y: 12, z: -35}
   minZoom: 60
   maxZoom: 10
   zoomLimit: 20
+  GizmoRadius: 0
+  speedToCenter: 7
+  speedToPlayer: 18
 --- !u!124 &124018657193972308
 Behaviour:
   m_ObjectHideFlags: 1
