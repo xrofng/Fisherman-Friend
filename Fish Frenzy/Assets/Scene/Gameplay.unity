@@ -1521,7 +1521,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnTime: {x: 0, y: 0.9}
-  fallSpeed: {x: 5, y: 10}
+  fallSpeed: {x: 50, y: 300}
+  amountRange: {x: 4, y: 7}
   SpawnPoints:
   - {fileID: 1502559715}
   - {fileID: 1847074033}
@@ -1536,6 +1537,7 @@ MonoBehaviour:
   - {fileID: 1036829959}
   - {fileID: 1075305790}
   spawnedPoint: 
+  timeToNextWave: 10
   rayColor: {r: 0.745283, g: 0.6082088, b: 0, a: 1}
   wireSphereRadius: 1
   showRay: 1

@@ -143,7 +143,7 @@ public class Fish : Creature {
             mashCountDown -= 1;
             if (mashCountDown <= 0)
             {
-                changeState(fState.toPlayer);
+                ChangeState(fState.toPlayer);
                 return true;
             }
         }
@@ -172,18 +172,25 @@ public class Fish : Creature {
         }
     }
 
-    public void changeState(fState pState)
+    public void ChangeState(fState pState)
     {
+
         OnStateChange(pState);
         state = pState;
     }
 
-    void OnStateChange(fState pState)
+    void OnStateChange(fState stateChange)
     {
-        if (pState == fState.toPlayer)
+        if (stateChange == fState.toPlayer)
         {
             direction = holder.transform.position - transform.position;
             FishJump(fishMass, jumpForce, direction, jumpSpeed);
+        }
+        else if(stateChange == fState.ground)
+        {
+            gameObject.layer = LayerMask.NameToLayer("Fish");
+            SetToGround(true);
+            RemoveRigidBody();
         }
     }
 
@@ -200,7 +207,6 @@ public class Fish : Creature {
         myRigid.AddForce(Vector3.up * 3,ForceMode.Impulse);
     }
 
-
     public void SnapTransform()
     {
         transform.localPosition = holdPosition;
@@ -216,7 +222,6 @@ public class Fish : Creature {
     {
         holder = g;
     }
-
 
     public void FishJump(float m, float f, Vector3 d,float speed)
     {
@@ -308,14 +313,33 @@ public class Fish : Creature {
             RaycastHit hit;
             if (Physics.Raycast(getLowestFishPoint(), transform.TransformDirection(Vector3.down), out hit, rayDistance ))
             {
-                if (hit.transform.gameObject.tag == "Ground" && myRigid.velocity.y < 0)
+                if (myRigid)
                 {
-                    gameObject.layer = LayerMask.NameToLayer("Fish");
-                    state = fState.ground;
-                    SetToGround(true);
-                    RemoveRigidBody();
+                    if (hit.transform.gameObject.tag == "Ground" && myRigid.velocity.y < 0)
+                    {
+                        ChangeState(fState.ground);
+                    }
+                }else
+                {
+                    if (hit.transform.gameObject.tag == "Ground")
+                    {
+                        ChangeState(fState.ground);
+                    }
                 }
+               
             }
+        }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (state == fState.fall)
+        {
+            if (other.gameObject.tag == "Ground")
+            {
+                ChangeState(fState.ground);
+            }
+           
         }
     }
 

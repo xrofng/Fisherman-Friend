@@ -84,7 +84,7 @@ public class PlayerFishing : PlayerAbility
         GetCrossZComponent<PlayerFishInteraction>().SetFishCollidePlayer(baitedFish, _player, true);
         baitedFish.setHolder(this.gameObject);
         SetFishing(true);
-        baitedFish.changeState(Fish.fState.baited);
+        baitedFish.ChangeState(Fish.fState.baited);
     }
 
     void coastCheck()

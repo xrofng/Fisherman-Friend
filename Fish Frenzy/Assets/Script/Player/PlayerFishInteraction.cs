@@ -91,7 +91,7 @@ public class PlayerFishInteraction : PlayerAbility {
 
     public void HoldThatFish(Fish f)
     {
-        f.changeState(Fish.fState.hold);
+        f.ChangeState(Fish.fState.hold);
         f.gameObject.transform.parent = _player.getPart(Player.ePart.rightArm).transform;
         f.SnapTransform();
         f.RemoveRigidBody();
