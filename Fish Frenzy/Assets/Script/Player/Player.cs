@@ -54,32 +54,32 @@ public class Player : Creature {
     public Fish subFish;
     public Fish baitedFish;
 
-   
+
 
     // Other Component
     [HideInInspector]
     public Rigidbody rigid;
     [HideInInspector]
     public PlayerAnimation animator;
-   // [HideInInspector]
+    [HideInInspector]
     public PlayerInvincibility _cPlayerInvincibility;
-  //  [HideInInspector]
+    [HideInInspector]
     public PlayerThrow _cPlayerThrow;
-    //[HideInInspector]
+    [HideInInspector]
     public PlayerState _cPlayerState;
-  //  [HideInInspector]
+    [HideInInspector]
     public PlayerSlap _cPlayerSlap;
-  //  [HideInInspector]
+    [HideInInspector]
     public PlayerFishing _cPlayerFishing;
-  //  [HideInInspector]
+    [HideInInspector]
     public PlayerMovement _cPlayerMovement;
-  //  [HideInInspector]
+    [HideInInspector]
     public PlayerSwitchFish _cPlayerSwitch;
-  //  [HideInInspector]
+    [HideInInspector]
     public PlayerFishInteraction _cPlayerFishInteraction;
-  //  [HideInInspector]
+    [HideInInspector]
     public PlayerFishSpecial _cPlayerFishSpecial;
-    
+
 
     public GameObject knockBackOrigin;
     public bool IsInvincible
