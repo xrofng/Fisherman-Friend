@@ -43,10 +43,10 @@ public class PlayerSwitchFish : PlayerAbility
 
             _player.mainFish = _player.baitedFish;
             _player.baitedFish = null;
-            _player.holdingFish = false;
+            GetCrossZComponent<PlayerFishInteraction>().SetHoldFish(false);
             if (_player.mainFish != null)
             {
-                _player.holdingFish = true;
+                GetCrossZComponent<PlayerFishInteraction>().SetHoldFish(true);
                 _player.mainFish.KeepFish(false);
             }
         }

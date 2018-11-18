@@ -38,7 +38,9 @@ public class GUIManager : Singleton<GUIManager>
     /// players damage percent
     public List<RectTransform> MashButtonIndicators;
     /// Indicator position from fish
-    public Vector3 IndicatorOffset;
+    public Vector3 FishingIndicatorOffset;
+    /// Indicator position from fish
+    public Vector3 PickUpIndicatorOffset;
     /// player image
     public List<Image> PlayerImage;
     /// player normal face sprite
@@ -304,7 +306,7 @@ public class GUIManager : Singleton<GUIManager>
         {
             return;
         }
-        MashButtonIndicators[playerID - 1].position = portroyal.mainCamera.WorldToScreenPoint(fishingPosition) + IndicatorOffset;
+        MashButtonIndicators[playerID - 1].position = portroyal.mainCamera.WorldToScreenPoint(fishingPosition) + FishingIndicatorOffset;
     }
 
     public virtual void UpdatePickUpButtonIndicator(Vector3 fishPosition , Image buttonImage, bool isActive)
@@ -315,7 +317,7 @@ public class GUIManager : Singleton<GUIManager>
             alphaIncrease *= -1;
         }
         buttonImage.color = sClass.ChangeColorAlpha(buttonImage.color, buttonImage.color.a +alphaIncrease);
-        buttonImage.rectTransform.position = portroyal.mainCamera.WorldToScreenPoint(fishPosition);
+        buttonImage.rectTransform.position = portroyal.mainCamera.WorldToScreenPoint(fishPosition + PickUpIndicatorOffset);
     }
 
     /// <summary>

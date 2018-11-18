@@ -61,23 +61,23 @@ public class Player : Creature {
     public Rigidbody rigid;
     [HideInInspector]
     public PlayerAnimation animator;
-    [HideInInspector]
+   // [HideInInspector]
     public PlayerInvincibility _cPlayerInvincibility;
-    [HideInInspector]
+  //  [HideInInspector]
     public PlayerThrow _cPlayerThrow;
-    [HideInInspector]
+    //[HideInInspector]
     public PlayerState _cPlayerState;
-    [HideInInspector]
+  //  [HideInInspector]
     public PlayerSlap _cPlayerSlap;
-    [HideInInspector]
+  //  [HideInInspector]
     public PlayerFishing _cPlayerFishing;
-    [HideInInspector]
+  //  [HideInInspector]
     public PlayerMovement _cPlayerMovement;
-    [HideInInspector]
+  //  [HideInInspector]
     public PlayerSwitchFish _cPlayerSwitch;
-    [HideInInspector]
+  //  [HideInInspector]
     public PlayerFishInteraction _cPlayerFishInteraction;
-    [HideInInspector]
+  //  [HideInInspector]
     public PlayerFishSpecial _cPlayerFishSpecial;
     
 
@@ -219,7 +219,7 @@ public class Player : Creature {
         rigid.velocity = Vector3.zero;
         this.transform.position = PortRoyal.Instance.randomSpawnPosition();
         Death = false;
-        holdingFish = false;
+        _cPlayerFishInteraction.SetHoldFish(false);
         this.dPercent = 0;
         MatchResult.Instance.ClearRecentDamager(playerID);
 

@@ -142,6 +142,9 @@ public class Pickup : MonoBehaviour {
     /// </summary>
     void OnDestroy()
     {
-        Destroy(_pickUpImage.gameObject);
+        if (_pickUpImage)
+        {
+            Destroy(_pickUpImage.gameObject);
+        }
     }
 }

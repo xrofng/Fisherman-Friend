@@ -4,13 +4,24 @@ using UnityEngine;
 
 public class PlayerAnimation : CharacterAnimation {
 
+    protected Player _player;
+    public Player Player
+    {
+        get
+        {
+            if (!_player) { _player = GetComponent<Player>(); }
+            return _player;
+        }
+    }
+
     public enum State
     {
         Idle=0,
         Walk,
         H_Slap,
         V_Slap,
-        Throw
+        Throw,
+        HoldFish
     };
     protected override void Start()
     {
@@ -25,6 +36,5 @@ public class PlayerAnimation : CharacterAnimation {
 
     protected override void Update()
     {
-       
     }
 }

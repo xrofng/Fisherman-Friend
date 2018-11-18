@@ -79,7 +79,7 @@ public class PlayerSlap : PlayerAbility {
             {
                 RunParticle();
                 StartCoroutine(HitBoxEnable(_player.mainFish.hitBoxStayFrame));
-                ChangeAnimState(PlayerAnimation.State.H_Slap, frameAnimation, true);
+                ChangeAnimState(PlayerAnimation.State.H_Slap, frameAnimation, true , PlayerAnimation.State.HoldFish);
             }
         }
     }
