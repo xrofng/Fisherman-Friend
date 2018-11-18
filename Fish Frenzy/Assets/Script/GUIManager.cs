@@ -307,6 +307,17 @@ public class GUIManager : Singleton<GUIManager>
         MashButtonIndicators[playerID - 1].position = portroyal.mainCamera.WorldToScreenPoint(fishingPosition) + IndicatorOffset;
     }
 
+    public virtual void UpdatePickUpButtonIndicator(Vector3 fishPosition , Image buttonImage, bool isActive)
+    {
+        float alphaIncrease = 0.1f;
+        if (!isActive)
+        {
+            alphaIncrease *= -1;
+        }
+        buttonImage.color = sClass.ChangeColorAlpha(buttonImage.color, buttonImage.color.a +alphaIncrease);
+        buttonImage.rectTransform.position = portroyal.mainCamera.WorldToScreenPoint(fishPosition);
+    }
+
     /// <summary>
     /// Sets the avatar active or inactive
     /// </summary>
@@ -356,5 +367,8 @@ public class GUIManager : Singleton<GUIManager>
         }
     }
 
-
+    public virtual T InstantiateUI<T>(MaskableGraphic g) where T : MaskableGraphic
+    {
+        return Instantiate(g, this.transform) as T;
+    }
 }

@@ -14,8 +14,6 @@ public class PickupFish : Pickup {
             return _fish;
         }
     }
-    
- 
 
     protected override void Pick(Collider othercollider)
     {
@@ -41,6 +39,8 @@ public class PickupFish : Pickup {
         allowToPick = b;
         FishRef.GetCollider<BoxCollider>().isTrigger = b;
     }
+
+    
 
     // Update is called once per frame
     void Update () {
