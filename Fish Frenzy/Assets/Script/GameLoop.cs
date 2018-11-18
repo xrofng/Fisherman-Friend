@@ -73,6 +73,7 @@ public class GameLoop : PersistentSingleton<GameLoop>
         {
             timeCountDown = 62;
         }
+     
         CheckTimeUp();
     }
 
