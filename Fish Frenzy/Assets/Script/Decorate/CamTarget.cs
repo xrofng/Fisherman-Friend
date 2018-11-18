@@ -52,4 +52,14 @@ public class CamTarget : MonoBehaviour {
         levelCenter = center;
         followPlayer = follow;
     }
+
+    [Header("Debug")]
+    public bool showRay = true;
+    public Color rayColor = Color.red;
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = rayColor;
+        Gizmos.DrawWireSphere(transform.position, ReachDistance);
+    }
 }
