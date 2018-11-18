@@ -12,6 +12,12 @@ public class PlayerAbility : MonoBehaviour
     protected bool ignoreInput;
     public bool IgnoreInput { get { return ignoreInput; } }
 
+    public JoystickManager _pInput
+    {
+        get { return _player.LinkedInputManager; }
+
+    }
+
     public Rigidbody _pRigid
     {
         get { return _player.rigid; }
@@ -20,13 +26,13 @@ public class PlayerAbility : MonoBehaviour
     public PlayerAnimation  _pAnimator
     {
         get { return _player.animator; }
-
     }
+    public int frameAnimation;
 
     protected AudioSource _SFX;
 
     protected virtual void PlaySFX(AudioClip SFXclip)
-    {
+    { 
         if (_SFX.isPlaying) { return; }
         _SFX.clip = SFXclip;
         _SFX.Play();
@@ -48,6 +54,27 @@ public class PlayerAbility : MonoBehaviour
     {
         _player = GetComponent<Player>();
         _SFX = GetComponent<AudioSource>();
+    }
+
+
+
+
+    public void ChangeAnimState(PlayerAnimation.State s, int ignoreFrame, bool revert)
+    {
+        StartCoroutine(InvokeChangeAnimState(s,ignoreFrame,revert));
+    }
+
+
+    IEnumerator InvokeChangeAnimState(PlayerAnimation.State s,int frameDuration,bool revert)
+    {
+        int frameCount = 0;
+        _pAnimator.ChangeState((int)s);
+        while (frameCount < frameDuration)
+        {
+            yield return new WaitForEndOfFrame();
+            frameCount++;
+        }
+        if (revert) { _pAnimator.ChangeState((int)PlayerAnimation.State.Idle); }
     }
 
     public void IgnoreInputFor(int ignoreFrame)

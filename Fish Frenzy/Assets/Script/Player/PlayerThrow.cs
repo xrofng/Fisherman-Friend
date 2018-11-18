@@ -17,12 +17,13 @@ public class PlayerThrow : PlayerAbility {
     public Vector3 arrowPositioningOffset = new Vector3(0, -0.002f, -0.0279f);
 
     [Header("16 Aim Arrow")]
+    public bool useAimAssist;
     public int NumberOfVerticalRays = 100;
     public float rayDistanceFrequent = 0.1f;
     private List<float> lowDetected = new List<float>();
     public float additionOverUp = 0.25f;
 
-    private List<float> degreeList = new List<float>();
+    //private List<float> degreeList = new List<float>();
     public int assistDirection = 16;
 
     [Header("SFX")]
@@ -40,7 +41,7 @@ public class PlayerThrow : PlayerAbility {
         base.Initialization();
         _aimArrow = Instantiate(aimArrow);
         _aimArrow.transform.SetParent( _player.getPart(Player.ePart.body) );
-        _aimArrow.GetComponent<SpriteRenderer>().color = PortRoyal.Instance.playerColor[_player.playerID-1];
+        _aimArrow.GetComponent<SpriteRenderer>().color = PortRoyal.Instance.startupPlayer.playerColor[_player.playerID-1];
         _aimArrow.localPosition =  arrowPositioningOffset;
         _aimArrow.gameObject.SetActive(false);
     }
@@ -64,15 +65,15 @@ public class PlayerThrow : PlayerAbility {
         {
             return;
         }
-        if (Input.GetButtonDown(thro))
+        if (_pInput.GetButtonDown(_pInput.Throw, _player.playerID - 1))
         {
             OnButtonDown();
         }
-        else if (Input.GetButton(thro))
+        else if (_pInput.GetButton(_pInput.Throw, _player.playerID - 1))
         {
             OnButtonHold();
         }
-        else if (Input.GetButtonUp(thro))
+        else if (_pInput.GetButtonUp(_pInput.Throw, _player.playerID - 1))
         {
             OnButtonUp();
         }
@@ -92,7 +93,7 @@ public class PlayerThrow : PlayerAbility {
     {
         holdToThrow += Time.deltaTime;
         EvaluateAimArrowPosition();
-        AimAssist();
+     //   AimAssist();
     }
     public void OnButtonUp()
     {
@@ -125,7 +126,7 @@ public class PlayerThrow : PlayerAbility {
 
     void EvaluateAimArrowPosition()
     {
-        List<Collider2D> hitColliders = new List<Collider2D>();
+        //List<Collider2D> hitColliders = new List<Collider2D>();
         Vector3 rayPos = transform.position+ Vector3.up;
         lowDetected.Clear();
         
@@ -221,7 +222,7 @@ public class PlayerThrow : PlayerAbility {
     //        aiming = false;
     //        if (i + 1 != _player.playerID)
     //        {
-    //            Player target = PortRoyal.Instance.player[i];
+    //            Player target = PortRoyal.Instance.Player[i];
     //            direction[i] = target.transform.position - this.transform.position;
     //            angle[i] = Vector3.Angle(direction[i], _player.playerForward);
     //            bool found = false;

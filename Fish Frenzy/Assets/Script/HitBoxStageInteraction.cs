@@ -45,7 +45,7 @@ public class HitBoxStageInteraction : DamageOnHit
         // if what we're colliding with player
         if (_player != null)
         {
-            OnCollideWithPlayer(_player, this.transform.position);
+            OnCollideWithPlayer(_player, this.gameObject);
         }
 
         // if what we're colliding with can't be damaged
@@ -60,7 +60,7 @@ public class HitBoxStageInteraction : DamageOnHit
     /// Describes what happens when colliding with a player object
     /// </summary>
     /// <param name="health">Health.</param>
-    protected override void OnCollideWithPlayer(Player player, Vector3 damageDealerPos)
+    protected override void OnCollideWithPlayer(Player player, GameObject damageDealer)
     {
         // Check player will be ignored from recently collide
         if (_ignoredGameObjects.Contains(player.gameObject))
@@ -88,7 +88,7 @@ public class HitBoxStageInteraction : DamageOnHit
         }
         else
         {
-            _player.recieveDamage(this, DamageCaused, this.transform.position, InvincibilityFrame);
+            _player.recieveDamage(this, DamageCaused, this.gameObject,gameObject.transform.position , InvincibilityFrame);
         }
     }
 
@@ -104,6 +104,6 @@ public class HitBoxStageInteraction : DamageOnHit
         }
         player.FreezingMovement = false;
         player.RemoveAbilityInputIntercepter(this);
-        player.recieveDamage(this, DamageCaused, this.transform.position, InvincibilityFrame);
+        player.recieveDamage(this, DamageCaused, this.gameObject , this.gameObject.transform.position, InvincibilityFrame);
     }
 }

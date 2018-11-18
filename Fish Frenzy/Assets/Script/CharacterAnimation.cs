@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterAnimation : MonoBehaviour {
+[RequireComponent(typeof(Animator))]
 
+public class CharacterAnimation : MonoBehaviour {
+    [HideInInspector]
     public Animator _animator;
 
     public int _currentAnimationState =0;
@@ -15,7 +17,7 @@ public class CharacterAnimation : MonoBehaviour {
         }
         else
         {
-            _animator.SetInteger("state", stateI);
+            _animator.SetInteger("State", stateI);
             _currentAnimationState = stateI;
         }
     }
@@ -37,6 +39,11 @@ public class CharacterAnimation : MonoBehaviour {
 
     // Update is called once per frame
     protected virtual void Update () {
-		
+
 	}
+
+    public void UpdateAnimatorBool(string parameterName, bool value)
+    {        
+        _animator.SetBool(parameterName, value);        
+    }
 }

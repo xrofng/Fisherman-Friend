@@ -88,13 +88,7 @@ public class HitBoxMelee : DamageOnHit
         {
             if (!_player.IsInvincible)
             {
-                if (damageFromOwner)
-                {
-                    OnCollideWithPlayer(_player, this.Owner.transform.position);
-                }else
-                {
-                    OnCollideWithPlayer(_player, this.transform.position);
-                }
+                OnCollideWithPlayer(_player, this.Owner.gameObject);
             }
         }
 
@@ -110,7 +104,7 @@ public class HitBoxMelee : DamageOnHit
     /// Describes what happens when colliding with a player object
     /// </summary>
     /// <param name="health">Health.</param>
-    protected override void OnCollideWithPlayer(Player player , Vector3 damageDealerPos)
+    protected override void OnCollideWithPlayer(Player player , GameObject damageDealer)
     {
         // Check player will be ignored from recently collide
         if (_ignoredGameObjects.Contains(player.gameObject))
@@ -118,10 +112,10 @@ public class HitBoxMelee : DamageOnHit
             return;
         }
         AddIgnoreGameObject(player.gameObject);
-        CauseDamage(damageDealerPos);
+        CauseDamage(damageDealer);
     }
 
-    void CauseDamage(Vector3 damageDealerPos)
+    void CauseDamage(GameObject damageDealer)
     {
         if (_player.IsInvincible)
         {
@@ -131,21 +125,27 @@ public class HitBoxMelee : DamageOnHit
         // don't care about invincibility
         if (FreezeFramesOnHit > 0)
         {
-            StartCoroutine(ieFreezePlayer(_player, FreezeFramesOnHit, damageDealerPos));
+            StartCoroutine(ieFreezePlayer(_player, FreezeFramesOnHit, damageDealer));
         }
         else
         {
-            OnEnemyHit(damageDealerPos);
+            OnEnemyHit(damageDealer);
         }
     }
 
-    void OnEnemyHit(Vector3 damageDealerPos)
+    void OnEnemyHit(GameObject damageDealer)
     {
         PlaySFX(_SFXclip);
-        _player.recieveDamage(DamageCaused, damageDealerPos, InvincibilityFrame);
+        Vector3 forcesource = this.transform.position;
+        if (damageFromOwner)
+        {
+            forcesource = damageDealer.transform.position;
+
+        }
+        _player.recieveDamage(DamageCaused, damageDealer , forcesource, InvincibilityFrame);
     }
 
-    IEnumerator ieFreezePlayer(Player player, int FreezeFramesOnHitDuration, Vector3 damageDealerPos)
+    IEnumerator ieFreezePlayer(Player player, int FreezeFramesOnHitDuration, GameObject damageDealer)
     {
         player.AddAbilityInputIntercepter(this);
         player.FreezingMovement = true;
@@ -157,6 +157,6 @@ public class HitBoxMelee : DamageOnHit
         }
         player.FreezingMovement = false;
         player.RemoveAbilityInputIntercepter(this);
-        OnEnemyHit(damageDealerPos);
+        OnEnemyHit(damageDealer);
     }
 }

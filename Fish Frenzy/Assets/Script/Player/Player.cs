@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+public class Player : Creature {
     public float testForce;
     public float upLaunchingMultiplier;
     public int playerID;
@@ -23,6 +23,21 @@ public class Player : MonoBehaviour {
     /// </summary>
     private List<object> abilityInputIntercepter = new List<object>();
 
+    /// associated input manager
+
+    public JoystickManager _linkedInputManager;
+    public JoystickManager LinkedInputManager
+    {
+        get
+        {
+            if (_linkedInputManager == null)
+            {
+                _linkedInputManager = FindObjectOfType<JoystickManager>();
+            }
+            return _linkedInputManager;
+        }
+    }
+
     public bool IgnoreInputForAbilities
     {
         get { return abilityInputIntercepter.Count > 0; }
@@ -33,16 +48,17 @@ public class Player : MonoBehaviour {
         get { return _cPlayerMovement.freezeMovement; }
         set { _cPlayerMovement.freezeMovement = value; }
     }
+
     public bool holdingFish;
     public Fish mainFish;
     public Fish subFish;
     public Fish baitedFish;
 
+   
 
     // Other Component
     [HideInInspector]
     public Rigidbody rigid;
-    private BoxCollider myCollider;
     [HideInInspector]
     public PlayerAnimation animator;
     [HideInInspector]
@@ -100,6 +116,9 @@ public class Player : MonoBehaviour {
         rodSwinging
     }
     public eState state;
+
+    [Header("SFX")]
+    public AudioClip sfx_Death;
     // Use this for initialization
     void Start() {
 
@@ -112,7 +131,7 @@ public class Player : MonoBehaviour {
         this.gameObject.layer = LayerMask.NameToLayer("Player" + playerID);
         fixedFPS_DT = 0.016f;
 
-        playerIndicator.sprite = PortRoyal.Instance.playerIndicator[playerID-1];
+        playerIndicator.sprite = PortRoyal.Instance.startupPlayer.playerIndicator[playerID-1];
 
         rigid = GetComponent<Rigidbody>();
         rigid.mass = PortRoyal.Instance.characterMass;
@@ -127,7 +146,6 @@ public class Player : MonoBehaviour {
         _cPlayerFishInteraction = GetComponent<PlayerFishInteraction>();
         _cPlayerSwitch = GetComponent<PlayerSwitchFish>();
         _cPlayerFishSpecial = GetComponent<PlayerFishSpecial>();
-
     }
 
     // Update is called once per frame
@@ -144,43 +162,13 @@ public class Player : MonoBehaviour {
     void FixedUpdate() {
 
     }
-    
-    public bool GetOneButtonsPress(string[] button)
-    {
-        for (int i = 0; i < button.Length; i++)
-        {
-            string but = button[i] + "" + playerID;
-            if (Input.GetButtonDown(but))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    void checkInput()
-    {
-        string[] button = { "Fishing", "Switch", "Jump","Slap","Throw" };
-        int numPlayer = 4;
-        for (int i = 0; i < button.Length; i++)
-        {
-            for (int j = 1; j < numPlayer+1; j++)
-            {
-                string bitton = button[i] + j;
-                if (Input.GetButtonDown(bitton))
-                {
-                    print(bitton);
-                }
-            }
-        }
-    }
 
     public void ChangeState(eState staTE)
     {
         state = staTE;
     }
 
-    public void recieveDamage(float damage , Vector3 damageDealerPos , int recoveryFrame)
+    public void recieveDamage(float damage , GameObject damageDealer, Vector3 damageDealerPos,  int recoveryFrame)
     {
         dPercent += (int)damage;
         //Instantiate(knockBackOrigin, center ,Quaternion.identity);
@@ -189,13 +177,15 @@ public class Player : MonoBehaviour {
         _cPlayerFishing.SetFishing(false);
         _cPlayerInvincibility.startInvincible(recoveryFrame);
         _cPlayerState.ToggleIsDamage();
+        MatchResult.Instance.StoreAttacker(playerID, damageDealer);
+
         DamagePercentClamp();
     }
 
-    public void recieveDamage(object intercepter,float damage, Vector3 damageDealerPos, int recoveryFrame)
+    public void recieveDamage(object intercepter,float damage, GameObject damageDealer, Vector3 damageDealerPos, int recoveryFrame)
     {
         StartCoroutine(IgnoreAbilityInput(intercepter, recoveryFrame));
-        recieveDamage(damage, damageDealerPos, recoveryFrame);
+        recieveDamage(damage, damageDealer, damageDealerPos,recoveryFrame);
     }
 
     IEnumerator IgnoreAbilityInput(object intercepter , int FreezeFramesOnHitDuration  )
@@ -223,15 +213,15 @@ public class Player : MonoBehaviour {
         rigid.AddForce(nKnockBackDirection * knockBackForce.x + upLaunching, ForceMode.Impulse);
     }   
 
-    IEnumerator respawn(float waitBeforeRespawn)
+    IEnumerator Respawn(float waitBeforeRespawn)
     {
-       
         yield return new WaitForSeconds(waitBeforeRespawn);
         rigid.velocity = Vector3.zero;
         this.transform.position = PortRoyal.Instance.randomSpawnPosition();
         Death = false;
         holdingFish = false;
         this.dPercent = 0;
+        MatchResult.Instance.ClearRecentDamager(playerID);
 
     }
     void OnCollisionEnter(Collision other)
@@ -244,7 +234,7 @@ public class Player : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "StageEdge")
+        if (other.gameObject.tag == "StageEdge" && !Death)
         {
             KillPlayer();
         }
@@ -253,13 +243,30 @@ public class Player : MonoBehaviour {
     public void KillPlayer()
     {
         Death = true;
+        PlaySFX(sfx_Death);
+        GameObject latest= MatchResult.Instance.GetLatestDamager(playerID,false);
+        if (latest)
+        {
+            if (latest.GetComponent<StageInteraction>())
+            {
+                GameObject latestplayer = MatchResult.Instance.GetLatestDamager(playerID, true);
+                MatchResult.Instance.StoreKnocker(playerID, latestplayer);
+            }
+            MatchResult.Instance.StoreKnocker(playerID, latest);
+        }
+        else
+        {
+
+            MatchResult.Instance.StoreKnocker(playerID, this.gameObject);
+        }
+
         this.transform.position = PortRoyal.Instance.deathRealm.position;
-        StartCoroutine(respawn(PortRoyal.Instance.respawnTime));
+        StartCoroutine(Respawn(PortRoyal.Instance.respawnTime));
     }
 
     public Vector3 getLowestPlayerPoint()
     {
-        return new Vector3(transform.position.x, transform.position.y - myCollider.size.y / 2.0f, transform.position.z);
+        return new Vector3(transform.position.x, transform.position.y - GetCollider<BoxCollider>().size.y / 2.0f, transform.position.z);
     }
 
     public virtual void AddAbilityInputIntercepter(object intercepter)

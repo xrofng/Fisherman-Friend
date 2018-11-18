@@ -204,7 +204,7 @@ public class DamageOnHit : MonoBehaviour
     /// Describes what happens when colliding with a player object
     /// </summary>
     /// <param name="health">Health.</param>
-    protected virtual void OnCollideWithPlayer(Player player, Vector3 damageDealerPos)
+    protected virtual void OnCollideWithPlayer(Player player, GameObject damageDealer)
     {
 
     }

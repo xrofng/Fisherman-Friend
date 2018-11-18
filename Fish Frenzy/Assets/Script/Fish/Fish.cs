@@ -12,7 +12,8 @@ public class Fish : Creature {
         threw,
         ground,
         kept,
-        dehydrate
+        dehydrate,
+        fall
     }
     public GameObject temp;
     [Header("Info")]
@@ -88,7 +89,6 @@ public class Fish : Creature {
 
     void Initialization()
     {
-        _SFX = GetComponent<AudioSource>();
         _pickupFish = GetComponent<PickupFish>();
         _cSpecial = GetComponent<FishSpecial>();
         dehydration = durability;
@@ -303,7 +303,7 @@ public class Fish : Creature {
 
     void CheckJustGround()
     {
-        if( state == fState.threw)
+        if (state == fState.threw || state == fState.fall)
         {
             RaycastHit hit;
             if (Physics.Raycast(getLowestFishPoint(), transform.TransformDirection(Vector3.down), out hit, rayDistance ))
@@ -317,18 +317,18 @@ public class Fish : Creature {
                 }
             }
         }
-        
     }
 
     void CheckWater()
     {
-        if (state == fState.threw || state == fState.dehydrate)
+        if (state == fState.threw || state == fState.dehydrate || state == fState.fall)
         {
             RaycastHit hit;
             if (Physics.Raycast(getLowestFishPoint(), transform.TransformDirection(Vector3.down), out hit, rayDistance))
             {
                 if (hit.transform.gameObject.tag == "Sea" && myRigid.velocity.y < 0)
                 {
+                    GetCollider<BoxCollider>().enabled = false;
                     PlaySFX(sfx_WaterJump);
                 }
             }

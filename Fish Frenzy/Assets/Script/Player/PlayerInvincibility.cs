@@ -21,7 +21,7 @@ public class PlayerInvincibility : PlayerAbility {
     bool isInvincible;
 
     // Use this for initialization
-    void Start () {
+    protected override void Start () {
 		
 	}
 	

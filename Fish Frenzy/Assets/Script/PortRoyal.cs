@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PortRoyal : PersistentSingleton<PortRoyal>
 {
-    
+    public int numPlayer = 4;
+    public int maxNumPlayer = 4;
 
     public float characterMass;
 
@@ -17,10 +18,12 @@ public class PortRoyal : PersistentSingleton<PortRoyal>
     public Transform deathRealm;
 
     public Fish[] fishPool;
-    public Player[] player;
-    public Color[] playerColor;
-    public Sprite[] playerIndicator;
-    public Material[] playerMaterial;
+    [HideInInspector]
+    public StartupPlayer startupPlayer;
+    public Player[] Player
+    {
+        get { return startupPlayer.player; }
+    }
     public Transform[] spawnPoint;
     public Transform underWater;
     public Camera mainCamera;
@@ -31,8 +34,8 @@ public class PortRoyal : PersistentSingleton<PortRoyal>
     public Fish TestingFish;
     // Use this for initialization
     void Start ()
-    { 
-        
+    {
+        startupPlayer = GetComponent<StartupPlayer>();
     }
 	
 	// Update is called once per frame
@@ -77,12 +80,12 @@ public class PortRoyal : PersistentSingleton<PortRoyal>
             if (Input.GetKeyDown(k))
             {
                 GameObject oldOne = GameObject.Find("Player1");
-                GameObject g = player[i].gameObject;
+                GameObject g = Player[i].gameObject;
                 oldOne.name = g.name;
                 g.name = "Player1";
                 for(int j = 0; j < 4; j++)
                 {
-                    player[j].playerID = player[j].gameObject.name[6] - 48;
+                    Player[j].playerID = Player[j].gameObject.name[6] - 48;
                 }
             }
             k++;
