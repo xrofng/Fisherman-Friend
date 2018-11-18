@@ -40,6 +40,5 @@ public class FocusCamera : PersistentSingleton<FocusCamera>
             Vector3 newPosition = focusQueue.Peek() ;
             transform.position = Vector3.SmoothDamp(transform.position, newPosition, ref velocity, smoothTime);
         }
-        //transform.position = position + focusPlayerOffset;
     }
 }
