@@ -109,6 +109,11 @@ public class JoystickManager : Singleton<JoystickManager>
             {
                 SwapButton(Slap, Fishing, i);
                 SwapButton(Fishing, Jump,i);
+            }else 
+            if(joyName.Contains("USB Joystick"))
+            {
+                SwapButton(Slap, Throw, i);
+                SwapButton(Fishing, Jump, i);
             }
         }
     }
