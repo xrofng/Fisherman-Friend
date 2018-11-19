@@ -46,7 +46,7 @@ public class PortRoyal : PersistentSingleton<PortRoyal>
             Fish f = Instantiate(TestingFish, Player[0].transform.position+Vector3.up * 5, Random.rotation) as Fish;
             f.gameObject.transform.localEulerAngles = sClass.setVector3(f.gameObject.transform.localEulerAngles, sClass.vectorComponent.x, 0);
             f.gameObject.transform.localEulerAngles = sClass.setVector3(f.gameObject.transform.localEulerAngles, sClass.vectorComponent.z, 0);
-            f.changeState(Fish.fState.fall);
+            f.ChangeState(Fish.fState.fall);
             f.gameObject.AddComponent<Rigidbody>();
             f._rigidbody.freezeRotation = true;
             f.gameObject.layer = LayerMask.NameToLayer("Fish");

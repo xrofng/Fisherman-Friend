@@ -213,7 +213,7 @@ MonoBehaviour:
   durability: 20
   weight: 0
   mashCountDown: 8
-  rayDistance: 0.1
+  rayDistance: 0.25
   maxHolding: 5
   throwAttack: 0
   t_invicibilityFrame: 50
@@ -221,7 +221,7 @@ MonoBehaviour:
   chargePercent: 0
   attack: 10
   attackSpeed: 0
-  hitBoxStayFrame: 4
+  hitBoxStayFrame: 30
   s_invicibilityFrame: 50
   hitboxSize: {x: 0, y: 0, z: 0}
   hitboxCenter: {x: 0, y: 0, z: 0}
@@ -272,4 +272,6 @@ MonoBehaviour:
   Effect: {fileID: 0}
   PickSfx: {fileID: 0}
   DisableObjectOnPick: 0
+  pickUpImage: {fileID: 114966499513919200, guid: 30e9f486e02400240b828642365cd627,
+    type: 2}
   allowToPick: 0

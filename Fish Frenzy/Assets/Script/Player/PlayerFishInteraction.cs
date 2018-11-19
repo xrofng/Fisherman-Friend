@@ -65,7 +65,14 @@ public class PlayerFishInteraction : PlayerAbility {
     {
         GetCrossZComponent<PlayerThrow>().ChangeToUnAim();
         _player.holdingFish = b;
-        _player.mainFish = null;
+        if (!b)
+        {
+            ChangeAnimState(PlayerAnimation.State.Idle);
+            _player.mainFish = null;
+        }else
+        {
+            ChangeAnimState(PlayerAnimation.State.HoldFish);
+        }
     }
 
     public void SetFishCollidePlayer(Fish fish, Player player, bool collide)
@@ -91,7 +98,7 @@ public class PlayerFishInteraction : PlayerAbility {
 
     public void HoldThatFish(Fish f)
     {
-        f.changeState(Fish.fState.hold);
+        f.ChangeState(Fish.fState.hold);
         f.gameObject.transform.parent = _player.getPart(Player.ePart.rightArm).transform;
         f.SnapTransform();
         f.RemoveRigidBody();
@@ -100,7 +107,7 @@ public class PlayerFishInteraction : PlayerAbility {
         SetFishCollidePlayer(f, _player, true);
         _player.mainFish = f;
         _player.baitedFish = null;
-        _player.holdingFish = true;
+        GetCrossZComponent<PlayerFishInteraction>().SetHoldFish(true);
         GetCrossZComponent<PlayerFishing>().SetFishing(false);
         _player.rigid.velocity = Vector3.zero;
 

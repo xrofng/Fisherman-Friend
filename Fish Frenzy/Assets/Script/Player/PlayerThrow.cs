@@ -105,7 +105,7 @@ public class PlayerThrow : PlayerAbility {
         GetCrossZComponent<PlayerFishInteraction>().SetFishCollidePlayer(_player.mainFish, _player, false);
 
         _player.mainFish.FishThrow(holdToThrow, forwardMultiplier, upMultiplier);
-        _player.mainFish.changeState(Fish.fState.threw);
+        _player.mainFish.ChangeState(Fish.fState.threw);
         GetCrossZComponent<PlayerFishInteraction>().SetHoldFish(false);
     }
 

@@ -84,5 +84,13 @@ public static class sClass {
         changed[(int)qc] = value;
         return changed;
     }
+
+    public static Color ChangeColorAlpha(Color original , float value)
+    {
+        Color changed = original;
+        changed[3] = value;
+        changed[3] = Mathf.Clamp01(changed[3]);
+        return changed;
+    }
 }
 

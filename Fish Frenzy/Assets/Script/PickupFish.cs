@@ -14,8 +14,6 @@ public class PickupFish : Pickup {
             return _fish;
         }
     }
-    
- 
 
     protected override void Pick(Collider othercollider)
     {

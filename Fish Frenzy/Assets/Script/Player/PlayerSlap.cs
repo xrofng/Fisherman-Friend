@@ -24,6 +24,7 @@ public class PlayerSlap : PlayerAbility {
         set
         {
             attacking = value;
+
             slapTrail.gameObject.SetActive(value);
 
             hitBox.GetCollider<BoxCollider>().enabled = value;
@@ -78,8 +79,22 @@ public class PlayerSlap : PlayerAbility {
             if (!Attacking)
             {
                 RunParticle();
+                //StartCoroutine(ActionForFrame(_player.mainFish.hitBoxStayFrame, 
+                //    () => attacking = true , 
+                //    () => attacking = false));
+
+                //StartCoroutine(ActionForFrame(Ign ,
+                //    () => attacking = true,
+                //    () => attacking = false));
+
                 StartCoroutine(HitBoxEnable(_player.mainFish.hitBoxStayFrame));
-                ChangeAnimState(PlayerAnimation.State.H_Slap, frameAnimation, true);
+                //StartCoroutine(Attack(_player.mainFish.hitBoxStayFrame));
+                //StartCoroutine(HitBoxEnable(_player.mainFish.hitBoxStayFrame));
+                ChangeAnimState(PlayerAnimation.State.H_Slap, frameAnimation, true , PlayerAnimation.State.HoldFish);
+            }else
+            {
+                print(Attacking);
+
             }
         }
     }
@@ -117,4 +132,15 @@ public class PlayerSlap : PlayerAbility {
         Attacking = false;
     }
 
+    IEnumerator ActionForFrame(int frameDuration , System.Action begin , System.Action end)
+    {
+        begin();
+        int frameCount = 0;
+        while (frameCount < frameDuration)
+        {
+            yield return new WaitForEndOfFrame();
+            frameCount++;
+        }
+        end();
+    }
 }

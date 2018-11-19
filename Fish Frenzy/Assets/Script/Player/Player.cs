@@ -54,7 +54,7 @@ public class Player : Creature {
     public Fish subFish;
     public Fish baitedFish;
 
-   
+
 
     // Other Component
     [HideInInspector]
@@ -79,7 +79,7 @@ public class Player : Creature {
     public PlayerFishInteraction _cPlayerFishInteraction;
     [HideInInspector]
     public PlayerFishSpecial _cPlayerFishSpecial;
-    
+
 
     public GameObject knockBackOrigin;
     public bool IsInvincible
@@ -219,7 +219,7 @@ public class Player : Creature {
         rigid.velocity = Vector3.zero;
         this.transform.position = PortRoyal.Instance.randomSpawnPosition();
         Death = false;
-        holdingFish = false;
+        _cPlayerFishInteraction.SetHoldFish(false);
         this.dPercent = 0;
         MatchResult.Instance.ClearRecentDamager(playerID);
 
@@ -247,11 +247,11 @@ public class Player : Creature {
         GameObject latest= MatchResult.Instance.GetLatestDamager(playerID,false);
         if (latest)
         {
-            if (latest.GetComponent<StageInteraction>())
-            {
-                GameObject latestplayer = MatchResult.Instance.GetLatestDamager(playerID, true);
-                MatchResult.Instance.StoreKnocker(playerID, latestplayer);
-            }
+            //if (latest.GetComponent<StageInteraction>())
+            //{
+            //    GameObject latestplayer = MatchResult.Instance.GetLatestDamager(playerID, true);
+            //    MatchResult.Instance.StoreKnocker(playerID, latestplayer);
+            //}
             MatchResult.Instance.StoreKnocker(playerID, latest);
         }
         else

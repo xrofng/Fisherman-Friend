@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class Pickup : MonoBehaviour {
@@ -16,8 +17,17 @@ public class Pickup : MonoBehaviour {
     protected Player _player = null;
     protected bool _pickable = false;
 
+    protected List<Player> _playerColliding = new List<Player>();
+
+    public Image pickUpImage;
+    protected Image _pickUpImage;
+
     protected virtual void Start()
     {
+        if (pickUpImage)
+        {
+            _pickUpImage = GUIManager.Instance.InstantiateUI<Image>(pickUpImage);
+        }
     }
 
     /// <summary>
@@ -29,6 +39,23 @@ public class Pickup : MonoBehaviour {
         _otherCollider = collider;
         PickItem();
     }
+    /// <summary>
+    /// Triggered when something collides with the coin
+    /// </summary>
+    /// <param name="collider">Other.</param>
+    public virtual void OnTriggerExit(Collider collider)
+    {
+        Player removePlayer = collider.gameObject.GetComponent<Player>();
+        if (removePlayer != null)
+        {
+            _playerColliding.Remove(removePlayer);
+        }
+    }
+
+    protected virtual void LateUpdate()
+    {
+        UpdatePrompt();
+    }
 
     /// <summary>
     /// Check if the item is pickable and if yes, proceeds with triggering the effects and disabling the object
@@ -38,7 +65,6 @@ public class Pickup : MonoBehaviour {
         if (CheckIfPickable())
         {
             Effects();
-           
             Pick();
             Pick(_otherCollider);
             if (DisableObjectOnPick)
@@ -47,6 +73,7 @@ public class Pickup : MonoBehaviour {
                 gameObject.SetActive(false);
             }
         }
+        
     }
 
     /// <summary>
@@ -60,6 +87,14 @@ public class Pickup : MonoBehaviour {
         if (_player == null)
         {
             return false;
+        }
+        if (_player.holdingFish)
+        {
+            return false;
+        }
+        if (!_playerColliding.Contains(_player))
+        {
+            _playerColliding.Add(_player);
         }
 
         return true;
@@ -95,6 +130,25 @@ public class Pickup : MonoBehaviour {
     /// </summary>
     protected virtual void Pick(Collider othercollider)
     {
+        
+    }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    protected virtual void UpdatePrompt()
+    {
+        GUIManager.Instance.UpdatePickUpButtonIndicator(this.transform.position, _pickUpImage, _playerColliding.Count > 0);
+    }
+
+    /// <summary>
+    /// when this destroy , destroy prompt ui
+    /// </summary>
+    void OnDestroy()
+    {
+        if (_pickUpImage)
+        {
+            Destroy(_pickUpImage.gameObject);
+        }
     }
 }

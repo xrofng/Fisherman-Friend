@@ -7,6 +7,14 @@ using UnityEngine;
 public class PlayerAbility : MonoBehaviour
 {
     protected Player _player;
+    public Player Player
+    {
+        get
+        {
+            if (!_player) { _player = GetComponent<Player>(); }
+            return _player;
+        }
+    }
 
     // private ignore Input for specific ability
     protected bool ignoreInput;
@@ -15,7 +23,6 @@ public class PlayerAbility : MonoBehaviour
     public JoystickManager _pInput
     {
         get { return _player.LinkedInputManager; }
-
     }
 
     public Rigidbody _pRigid
@@ -56,16 +63,17 @@ public class PlayerAbility : MonoBehaviour
         _SFX = GetComponent<AudioSource>();
     }
 
-
-
-
-    public void ChangeAnimState(PlayerAnimation.State s, int ignoreFrame, bool revert)
+    public void ChangeAnimState(PlayerAnimation.State s, int ignoreFrame, bool revert, PlayerAnimation.State revetTo)
     {
-        StartCoroutine(InvokeChangeAnimState(s,ignoreFrame,revert));
+        StartCoroutine(InvokeChangeAnimState(s,ignoreFrame,revert, revetTo));
     }
 
+    public void ChangeAnimState(PlayerAnimation.State s)
+    {
+        _pAnimator.ChangeState((int)s);
+    }
 
-    IEnumerator InvokeChangeAnimState(PlayerAnimation.State s,int frameDuration,bool revert)
+    IEnumerator InvokeChangeAnimState(PlayerAnimation.State s,int frameDuration,bool revert, PlayerAnimation.State revetTo)
     {
         int frameCount = 0;
         _pAnimator.ChangeState((int)s);
@@ -74,7 +82,7 @@ public class PlayerAbility : MonoBehaviour
             yield return new WaitForEndOfFrame();
             frameCount++;
         }
-        if (revert) { _pAnimator.ChangeState((int)PlayerAnimation.State.Idle); }
+        if (revert) { _pAnimator.ChangeState((int)revetTo); }
     }
 
     public void IgnoreInputFor(int ignoreFrame)
