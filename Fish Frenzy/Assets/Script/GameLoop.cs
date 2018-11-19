@@ -14,6 +14,7 @@ public class GameLoop : PersistentSingleton<GameLoop>
     
     public float Round_Time_Limit = 300;
     public float startCountDown = 4.5f;
+    public float playerSpawnRate = 0.55f;
     private float timeCountDown;
     public float timeBeforeChangeScene = 2.5f;
     public bool timeUp;
@@ -43,6 +44,7 @@ public class GameLoop : PersistentSingleton<GameLoop>
         timeCountDown = Round_Time_Limit;
 
         StartCoroutine(CountDown(startCountDown));
+        StartCoroutine(SpawnPlayer(startCountDown));
 
     }
 
@@ -57,6 +59,10 @@ public class GameLoop : PersistentSingleton<GameLoop>
         if(state == GameState.beforeStart)
         {
             startCountDown -= Time.deltaTime;
+            if(startCountDown < 1)
+            {
+                MultiPlayerCamera.Instance.MultiCamEnable = true;
+            }
         }
         else if (state == GameState.playing || state == GameState.gameEnd)
         {
@@ -67,6 +73,7 @@ public class GameLoop : PersistentSingleton<GameLoop>
         {
             timeCountDown = 62;
         }
+     
         CheckTimeUp();
     }
 
@@ -102,42 +109,48 @@ public class GameLoop : PersistentSingleton<GameLoop>
         }
     }
 
-    void spawnPlayers()
+    List<int> takenPos = new List<int>();
+    void spawnPlayers(int playerID)
     {
-        List<int> takenPos = new List<int>();
-        for (int i = 0; i < 4; i++)
+        Player p = materialManager.InstantiatePlayer(playerPrefab, playerID).GetComponent<Player>();
+        PortRoyal.Instance.Player[playerID] = p;
+        p.playerID = playerID + 1;
+        p.gameObject.name = "Player" + p.playerID;
+        int positionIndex = PortRoyal.Instance.randomSpawnPosIndex();
+
+        while (takenPos.Contains(positionIndex))
         {
-            Player p = materialManager.InstantiatePlayer(playerPrefab, i).GetComponent<Player>();
-            PortRoyal.Instance.Player[i] = p;
-            p.playerID = i + 1;
-            p.gameObject.name = "Player" + p.playerID;
-            int positionIndex = PortRoyal.Instance.randomSpawnPosIndex();
-
-            while (takenPos.Contains(positionIndex))
-            {
-                positionIndex = PortRoyal.Instance.randomSpawnPosIndex();
-            }
-
-            p.gameObject.transform.position = PortRoyal.Instance.getSpwanPositionAtIndex(positionIndex);
-            takenPos.Add(positionIndex);
-
-            p.Initialization();
-
-            CamTarget c = Instantiate(playerFollowPrefab,LevelCenter.position,Quaternion.identity) as CamTarget;
-            c.SetCamTarget(p, true,LevelCenter);
-            c.ToPlayerSpeed = MultiPlayerCamera.Instance.speedToPlayer;
-            c.ToCenterSpeed = MultiPlayerCamera.Instance.speedToCenter;
-            MultiPlayerCamera._instance.AddTarget(c.transform);
+            positionIndex = PortRoyal.Instance.randomSpawnPosIndex();
         }
+
+        p.gameObject.transform.position = PortRoyal.Instance.getSpwanPositionAtIndex(positionIndex);
+        takenPos.Add(positionIndex);
+
+        p.Initialization();
+
+        CamTarget c = Instantiate(playerFollowPrefab,LevelCenter.position,Quaternion.identity) as CamTarget;
+        c.SetCamTarget(p, true,LevelCenter);
+        c.ToPlayerSpeed = MultiPlayerCamera.Instance.speedToPlayer;
+        c.ToCenterSpeed = MultiPlayerCamera.Instance.speedToCenter;
+        MultiPlayerCamera.Instance.AddTarget(c.transform);
+        FocusCamera.Instance.MoveCameraTo(p.gameObject.transform.position,true);
     }
 
-    IEnumerator CountDown(float waitTime)
+    IEnumerator SpawnPlayer(float waitTime)
     {
-        yield return new WaitForSeconds(waitTime);
-        spawnPlayers();
+        for (int i = 0; i < PortRoyal.Instance.numPlayer; i++)
+        {
+            yield return new WaitForSeconds(playerSpawnRate);
+            spawnPlayers(i);
+        }
+        yield return new WaitForSeconds(playerSpawnRate);
+        FocusCamera.Instance.MoveCameraTo(MultiPlayerCamera.Instance.GetNewPosition(),false);
+    }
+    IEnumerator CountDown(float waitTime)
+    { 
+        yield return new WaitForSeconds(waitTime );
         state = GameState.playing;
         GUIManager.Instance.GrandText.enabled = false;
-        
     }
 
     

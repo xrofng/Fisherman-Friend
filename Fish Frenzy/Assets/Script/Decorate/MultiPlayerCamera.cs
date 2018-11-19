@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MultiPlayerCamera : PersistentSingleton<MultiPlayerCamera> {
+public class MultiPlayerCamera : PersistentSingleton<MultiPlayerCamera>
+{
+    public bool MultiCamEnable;
     public List<Transform> targets;
     public Transform stage;
     public Vector3 offset;
@@ -17,7 +19,8 @@ public class MultiPlayerCamera : PersistentSingleton<MultiPlayerCamera> {
     public float speedToPlayer;
     private Camera cam;
     Bounds bound;
-    void Start () {
+    void Start()
+    {
         cam = GetComponent<Camera>();
     }
 
@@ -25,20 +28,23 @@ public class MultiPlayerCamera : PersistentSingleton<MultiPlayerCamera> {
     {
         targets.Add(target);
     }
-	void LateUpdate()
+    void LateUpdate()
     {
+        if (!MultiCamEnable)
+        {
+            return;
+        }
         if (targets.Count == 0)
         {
             return;
         }
         Move();
         Zoom();
-        
+
     }
     void Move()
     {
-        Vector3 newPosition = GetCenterPoint() + offset;
-        transform.position = Vector3.SmoothDamp(transform.position, newPosition, ref velocity, smoothTime);
+        transform.position = Vector3.SmoothDamp(transform.position, GetNewPosition(), ref velocity, smoothTime);
     }
     void OnDrawGizmos()
     {
@@ -55,26 +61,26 @@ public class MultiPlayerCamera : PersistentSingleton<MultiPlayerCamera> {
         bound = new Bounds();
         for (int i = 0; i < targets.Count; i++)
         {
-             bound.Encapsulate(targets[i].gameObject.transform.position);
+            bound.Encapsulate(targets[i].gameObject.transform.position);
         }
         return bound;
     }
     float GetGreatestDistance()
     {
-       
         return GetEncapsulatingBounds().size.x;
     }
     Vector3 GetCenterPoint()
     {
-        if(targets.Count == 1)
+        if (targets.Count == 1)
         {
             return targets[0].gameObject.transform.position;
         }
-  
+
         return GetEncapsulatingBounds().center;
     }
-    // Update is called once per frame
-    void Update () {
-		
-	}
+
+    public Vector3 GetNewPosition()
+    {
+        return GetCenterPoint() + offset;
+    }
 }
