@@ -140,7 +140,7 @@ MonoBehaviour:
   mustHaveOwner: 1
   damageFromOwner: 0
   Owner: {fileID: 0}
-  _SFXclip: {fileID: 0}
+  _SFXclip: {fileID: 8300000, guid: 76d3523a591904046bc04aace0181371, type: 3}
 --- !u!114 &114717754795570986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -152,8 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07b57674e59555a439f00151741e4597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 0.5
   direction: {x: 0, y: 0, z: 0}
-  normalTime: 1
+  normalTime: 0.6
   reachDistance: 2
-  rotateSpeed: 20
+  rotateSpeed: 10

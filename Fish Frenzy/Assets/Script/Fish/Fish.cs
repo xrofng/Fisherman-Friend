@@ -52,8 +52,18 @@ public class Fish : Creature {
 
     [Header("Slap")]
     public float attack;
-    public float attackSpeed;
-    public int hitBoxStayFrame = 4;
+    public enum MeleeAnimation
+    {
+        LightHorizontal = 2,
+        HammerDown = 3,
+        LightThrust = 6
+    }
+    public MeleeAnimation slapClip;
+    public int[] AnimationFrame = { 0,0,20,50,0,0,99 };
+    public int SlapClipFrameCount
+    {
+        get { return AnimationFrame[(int)slapClip]; }
+    }
     public int s_invicibilityFrame = 50;
     public Vector3 hitboxSize;
     public Vector3 hitboxCenter;

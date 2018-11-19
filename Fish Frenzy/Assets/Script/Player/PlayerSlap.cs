@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSlap : PlayerAbility {
+public class PlayerSlap : PlayerAbility
+{
 
     public HitBoxMelee hitBox;
     public Animation slapTrail;
     //public ParticleSystem slapParticle;
     protected bool attacking;
+    public int ignoreSlapFrame = 4;
 
     [Header("SFX")]
     public AudioClip sfx_Slap;
@@ -24,15 +26,6 @@ public class PlayerSlap : PlayerAbility {
         set
         {
             attacking = value;
-
-            slapTrail.gameObject.SetActive(value);
-
-            hitBox.GetCollider<BoxCollider>().enabled = value;
-            if (showHitBox)
-            {
-                hitBox.GetMeshRenderer().enabled = value;
-            }
-            slapTrail.Play();
         }
     }
 
@@ -45,7 +38,7 @@ public class PlayerSlap : PlayerAbility {
     {
         base.Initialization();
         hitBox.gameObject.layer = LayerMask.NameToLayer("Fish" + _player.playerID);
-        
+
     }
 
     // Update is called once per frame
@@ -57,7 +50,7 @@ public class PlayerSlap : PlayerAbility {
             {
                 return;
             }
-            SlapFish(); 
+            SlapFish();
         }
     }
 
@@ -70,28 +63,24 @@ public class PlayerSlap : PlayerAbility {
         }
         if (_pInput.GetButtonDown(_pInput.Slap, _player.playerID - 1))
         {
-            //Assign fish stat to hitbox
-            //hitBox.center = _player.mainFish.hitboxCenter;
-            //hitBox.size = _player.mainFish.hitboxSize;
             hitBox.InvincibilityFrame = _player.mainFish.s_invicibilityFrame;
             hitBox.DamageCaused = _player.mainFish.attack;
             hitBox._SFXclip = sfx_Slap;
             if (!Attacking)
             {
-                RunParticle();
-                //StartCoroutine(ActionForFrame(_player.mainFish.hitBoxStayFrame, 
-                //    () => attacking = true , 
-                //    () => attacking = false));
+                // Ignore Input
 
-                //StartCoroutine(ActionForFrame(Ign ,
-                //    () => attacking = true,
-                //    () => attacking = false));
+                ActionForFrame(_player.mainFish.SlapClipFrameCount + ignoreSlapFrame,
+                      () => { attacking = true;  },
+                      () => { attacking = false; });
 
-                StartCoroutine(HitBoxEnable(_player.mainFish.hitBoxStayFrame));
-                //StartCoroutine(Attack(_player.mainFish.hitBoxStayFrame));
-                //StartCoroutine(HitBoxEnable(_player.mainFish.hitBoxStayFrame));
-                ChangeAnimState(PlayerAnimation.State.H_Slap, frameAnimation, true , PlayerAnimation.State.HoldFish);
-            }else
+                // enable trail
+                ActionForFrame(_player.mainFish.SlapClipFrameCount,
+                      () => { slapTrail.gameObject.SetActive(true); slapTrail.Play(); },
+                      () => { slapTrail.gameObject.SetActive(false); slapTrail.Stop(); } );
+
+                ChangeAnimState(PlayerAnimation.State.H_Slap, _player.mainFish.SlapClipFrameCount, true, PlayerAnimation.State.HoldFish);
+            } else
             {
                 print(Attacking);
 
@@ -99,15 +88,7 @@ public class PlayerSlap : PlayerAbility {
         }
     }
 
-    void RunParticle()
-    {
-        //if (slapParticle)
-        //{
-        //    slapParticle.Play();
-        //}
-    }
-
-   public void PlaySlapSFX()
+    public void PlaySlapSFX()
     {
         if (_player.mainFish.sfx_Slap)
         {
@@ -116,7 +97,6 @@ public class PlayerSlap : PlayerAbility {
         else
         {
             PlaySFX(sfx_Slap);
-            
         }
     }
 
@@ -132,15 +112,5 @@ public class PlayerSlap : PlayerAbility {
         Attacking = false;
     }
 
-    IEnumerator ActionForFrame(int frameDuration , System.Action begin , System.Action end)
-    {
-        begin();
-        int frameCount = 0;
-        while (frameCount < frameDuration)
-        {
-            yield return new WaitForEndOfFrame();
-            frameCount++;
-        }
-        end();
-    }
+   
 }

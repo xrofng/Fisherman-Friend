@@ -519,7 +519,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1432078242356300}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.004772904, z: -0.013661254}
+  m_LocalPosition: {x: 0, y: 0.004772904, z: -0.01366125}
   m_LocalScale: {x: 0.01901635, y: 0.00892217, z: 0.019870915}
   m_Children: []
   m_Father: {fileID: 4126871171258258}
@@ -1670,7 +1670,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d092fa8b9fac35847a0cdd2526dfef78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frameAnimation: 0
   forwardMultiplier: 50
   upMultiplier: 5
   aiming: 0
@@ -1693,7 +1692,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 230eea1cfe0e9b14b98c9784298bc22f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frameAnimation: 0
 --- !u!114 &114044003478693562
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1705,7 +1703,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07a3823ef5840314282e84e65e949035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frameAnimation: 0
   sfx_WaterJump: {fileID: 8300000, guid: 8d08f95415bd65b4fa13e099457abb5d, type: 3}
 --- !u!114 &114080718980803230
 MonoBehaviour:
@@ -1718,9 +1715,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcaa51ecc64632a4d9d58c0e8b4fe21e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frameAnimation: 18
   hitBox: {fileID: 114588015360543092}
   slapTrail: {fileID: 111866780131890462}
+  ignoreSlapFrame: 4
   sfx_Slap: {fileID: 8300000, guid: 76d3523a591904046bc04aace0181371, type: 3}
   showHitBox: 0
 --- !u!114 &114120352571177444
@@ -1758,7 +1755,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d88d245f2ee85a40a91d865a1caf733, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frameAnimation: 0
 --- !u!114 &114419155862270234
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1874,7 +1870,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2cd09e96790f40458f50f22c55e6e09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frameAnimation: 0
   invisibilityFrame: 50
 --- !u!114 &114691492094371878
 MonoBehaviour:
@@ -1887,7 +1882,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a42c936c12fb74b449113ef5c8668ece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frameAnimation: 0
   speed: {x: 7.5, y: 0, z: 7.5}
   jumpForce: {x: 0, y: 30, z: 0}
   jumpFaster: 3
@@ -1905,7 +1899,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19479d607a1f83b4a85c34c1459ca16b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frameAnimation: 0
   nearCoast: 0
   fishPoint: {fileID: 4489670666853294}
   fishPoint_finder: {fileID: 4984766661524430}
@@ -1935,7 +1928,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 669376884139f5c4e8fa9f18daa15dd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frameAnimation: 18
+  ignoreSpecialFrame: 4
   hitBoxParent: {fileID: 4126871171258258}
   specialHitBox: {fileID: 0}
   specialTrail: {fileID: 0}
