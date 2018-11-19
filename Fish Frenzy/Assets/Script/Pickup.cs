@@ -20,7 +20,7 @@ public class Pickup : MonoBehaviour {
     protected List<Player> _playerColliding = new List<Player>();
 
     public Image pickUpImage;
-    private Image _pickUpImage;
+    protected Image _pickUpImage;
 
     protected virtual void Start()
     {
@@ -85,6 +85,10 @@ public class Pickup : MonoBehaviour {
         // if what's colliding with the this ain't a characterBehavior, we do nothing and exit
         _player = _otherCollider.gameObject.GetComponent<Player>();
         if (_player == null)
+        {
+            return false;
+        }
+        if (_player.holdingFish)
         {
             return false;
         }

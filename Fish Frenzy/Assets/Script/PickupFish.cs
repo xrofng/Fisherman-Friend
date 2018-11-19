@@ -40,8 +40,6 @@ public class PickupFish : Pickup {
         FishRef.GetCollider<BoxCollider>().isTrigger = b;
     }
 
-    
-
     // Update is called once per frame
     void Update () {
 		

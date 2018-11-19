@@ -10,7 +10,6 @@ public class FrenzySpawner : MonoBehaviour {
 
     public List<Transform> SpawnPoints = new List<Transform>();
     public List<int> spawnedPoint = new List<int>();
-    
     private float timeCount = 0;
     public float timeToNextWave = 10;
     // Use this for initialization
@@ -45,7 +44,6 @@ public class FrenzySpawner : MonoBehaviour {
 
                     SpawnFish(spawnPos);
 
-                    
                 }
                 timeCount = timeToNextWave;
 

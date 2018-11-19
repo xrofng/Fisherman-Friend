@@ -52,13 +52,13 @@ public class GUIManager : Singleton<GUIManager>
     /// list of list of sprite 0=normal 1=death 2=damaged
     protected List<List<Sprite>> PlayerSpriteSet = new List<List<Sprite>>();
 
-    [Header("Fish UI")]
+    [Header("Player UI")]
     public Sprite transparentSprite;
-    public RectTransform DurabilitySet;
-    public RectTransform IconSet;
-    public RectTransform NameSet;
-    public RectTransform StoreIconSet;
-    /// time left image
+    public RectTransform Player1_GUI;
+    public RectTransform Player2_GUI;
+    public RectTransform Player3_GUI;
+    public RectTransform Player4_GUI;
+    /// UI image
     private List<Image> DurabilityImage = new List<Image>();
     private List<Image> IconImage = new List<Image>();
     private List<Image> NameImage = new List<Image>();
@@ -112,26 +112,34 @@ public class GUIManager : Singleton<GUIManager>
 
     void InitImageList()
     {
-        List<List<Image>> ImageList= new List<List<Image>>();
         List<RectTransform> SetList = new List<RectTransform>();
 
-        ImageList.Add(DurabilityImage);
-        ImageList.Add(IconImage);
-        ImageList.Add(NameImage);
-        ImageList.Add(StoreIconImage);
+        SetList.Add(Player1_GUI);
+        SetList.Add(Player2_GUI);
+        SetList.Add(Player3_GUI);
+        SetList.Add(Player4_GUI);
         
-
-        SetList.Add(DurabilitySet);
-        SetList.Add(IconSet);
-        SetList.Add(NameSet);
-        SetList.Add(StoreIconSet);
-
         for (int i = 0; i < SetList.Count; i++)
         {
             Image[] imageInSet = SetList[i].gameObject.GetComponentsInChildren<Image>();
             foreach (Image im in imageInSet)
             {
-                ImageList[i].Add(im);
+                if (im.gameObject.name.Contains("FishDurability"))
+                {
+                    DurabilityImage.Add(im);
+                }
+                if (im.gameObject.name.Contains("Icon"))
+                {
+                    IconImage.Add(im);
+                }
+                if (im.gameObject.name.Contains("Name"))
+                {
+                    NameImage.Add(im);
+                }
+                if (im.gameObject.name.Contains("Store"))
+                {
+                    StoreIconImage.Add(im);
+                }
             }
         }
     }

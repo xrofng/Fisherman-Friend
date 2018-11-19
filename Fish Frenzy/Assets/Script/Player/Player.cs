@@ -247,11 +247,11 @@ public class Player : Creature {
         GameObject latest= MatchResult.Instance.GetLatestDamager(playerID,false);
         if (latest)
         {
-            if (latest.GetComponent<StageInteraction>())
-            {
-                GameObject latestplayer = MatchResult.Instance.GetLatestDamager(playerID, true);
-                MatchResult.Instance.StoreKnocker(playerID, latestplayer);
-            }
+            //if (latest.GetComponent<StageInteraction>())
+            //{
+            //    GameObject latestplayer = MatchResult.Instance.GetLatestDamager(playerID, true);
+            //    MatchResult.Instance.StoreKnocker(playerID, latestplayer);
+            //}
             MatchResult.Instance.StoreKnocker(playerID, latest);
         }
         else
