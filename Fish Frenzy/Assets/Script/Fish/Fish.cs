@@ -56,10 +56,10 @@ public class Fish : Creature {
     {
         LightHorizontal = 2,
         HammerDown = 3,
-        LightThrust = 6
+        LightStab = 6
     }
     public MeleeAnimation slapClip;
-    public int[] AnimationFrame = { 0,0,20,50,0,0,99 };
+    public int[] AnimationFrame = { 0,0,20,50,0,0,35};
     public int SlapClipFrameCount
     {
         get { return AnimationFrame[(int)slapClip]; }

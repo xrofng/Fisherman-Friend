@@ -69,7 +69,8 @@ public class PlayerSlap : PlayerAbility
             if (!Attacking)
             {
                 // Ignore Input
-
+                print(_player.mainFish.SlapClipFrameCount);
+                print( ignoreSlapFrame);
                 ActionForFrame(_player.mainFish.SlapClipFrameCount + ignoreSlapFrame,
                       () => { attacking = true;  },
                       () => { attacking = false; });
@@ -79,7 +80,7 @@ public class PlayerSlap : PlayerAbility
                       () => { slapTrail.gameObject.SetActive(true); slapTrail.Play(); },
                       () => { slapTrail.gameObject.SetActive(false); slapTrail.Stop(); } );
 
-                ChangeAnimState(PlayerAnimation.State.H_Slap, _player.mainFish.SlapClipFrameCount, true, PlayerAnimation.State.HoldFish);
+                _pAnimator.ChangeAnimState((int)_player.mainFish.slapClip, _player.mainFish.SlapClipFrameCount, true, PlayerAnimation.State.HoldFish);
             } else
             {
                 print(Attacking);
