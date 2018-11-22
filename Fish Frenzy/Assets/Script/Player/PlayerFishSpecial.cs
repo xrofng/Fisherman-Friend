@@ -4,31 +4,7 @@ using UnityEngine;
 
 public class PlayerFishSpecial : PlayerAbility
 {
-    public enum FishSpecialType
-    {
-        Melee,
-        Throw,
-        Spawn
-    }
-
-    [Header("Melee")]
-    public Transform hitBoxParent;
-    public HitBoxMelee specialHitBox;
-    public Animation specialTrail;
-    protected bool mSpecialing;
-
-    [Header("Throw")]
-    protected bool tSpecialing;
-    private bool finishThrow;
-    
-    private MovingObject currentMovingObj;
-
-
-    [Header("SFX")]
-    public AudioClip sfx_Special;
-
-    [Header("Debug")]
-    public bool showHitBox;
+    public int ignoreSpecialFrame = 4;
     
     public T FishSpecial<T>() where T : FishSpecial
     {
@@ -70,6 +46,16 @@ public class PlayerFishSpecial : PlayerAbility
         SpecialThrow(special);
     }
 
+    [Header("Melee")]
+    public Transform hitBoxParent;
+    public HitBoxMelee specialHitBox;
+    public Animation specialTrail;
+    protected bool mSpecialing;
+    public bool MeleeSpecialing
+    {
+        get { return mSpecialing; }
+        set { mSpecialing = value; }
+    }
     void SpecialMelee(string special)
     {
         if (!_player.mainFish.GetComponent<FishSpecialMelee>() || MeleeSpecialing)
@@ -79,11 +65,23 @@ public class PlayerFishSpecial : PlayerAbility
 
         if (_pInput.GetButtonDown(_pInput.Fishing, _player.playerID - 1))
         {
-            StartCoroutine(SpecialMeleeAttack(FishSpecial<FishSpecialMelee>().hitBoxStayFrame));
-            ChangeAnimState(PlayerAnimation.State.V_Slap, frameAnimation, true, PlayerAnimation.State.HoldFish);             
+            // Ignore Input
+            ActionForFrame(FishSpecial<FishSpecialMelee>().SpeiclaClipFrameCount + ignoreSpecialFrame,
+                  () => { MeleeSpecialing = true;  },
+                  () => { MeleeSpecialing = false;  });
+            // enable trail
+            ActionForFrame(FishSpecial<FishSpecialMelee>().SpeiclaClipFrameCount,
+                  () => { specialTrail.gameObject.SetActive(true); specialTrail.Play(); },
+                  () => { specialTrail.gameObject.SetActive(false); specialTrail.Stop(); });
+
+            _pAnimator.ChangeAnimState(PlayerAnimation.State.V_Slap, FishSpecial<FishSpecialMelee>().SpeiclaClipFrameCount, true, PlayerAnimation.State.HoldFish);             
         }   
     }
 
+    [Header("Throw")]
+    protected bool tSpecialing;
+    private bool finishThrow;
+    private MovingObject currentMovingObj;
     void SpecialThrow(string special)
     {
         if (!_player.mainFish.GetComponent<FishSpecialThrow>() || ThrowSpecialing)
@@ -102,53 +100,9 @@ public class PlayerFishSpecial : PlayerAbility
         else if (_pInput.GetButtonUp(_pInput.Fishing, _player.playerID - 1))
         {
             //PlayThrowSFX();
-            
             StartCoroutine(SpecialThrowAttack(FishSpecial<FishSpecialThrow>().throwDurationFrame, FishSpecial<FishSpecialThrow>().endByFrame));
             GetCrossZComponent<PlayerThrow>().ChangeToUnAim();
         }        
-    }
-
-    public void PlaySlapSFX()
-    {
-        if (_player.mainFish.sfx_Special)
-        {
-            PlaySFX(_player.mainFish.sfx_Special);
-        }
-        else
-        {
-            PlaySFX(sfx_Special);
-        }
-    }
-
-    IEnumerator SpecialMeleeAttack(int frameDuration)
-    {
-        MeleeSpecialing = true;
-        int frameCount = 0;
-        while (frameCount < frameDuration)
-        {
-            yield return new WaitForEndOfFrame();
-            frameCount++;
-        }
-        MeleeSpecialing = false;
-    }
-
-    public bool MeleeSpecialing
-    {
-        get
-        {
-            return mSpecialing;
-        }
-        set
-        {
-            mSpecialing = value;
-            specialHitBox.GetCollider<MeshCollider>().enabled = value;
-            specialTrail.Play();
-            specialTrail.gameObject.SetActive(value);
-            if (showHitBox)
-            {
-                specialHitBox.GetMeshRenderer().enabled = value;
-            }
-        }
     }
 
     IEnumerator SpecialThrowAttack(int frameDuration , bool endByFrame)
@@ -199,4 +153,21 @@ public class PlayerFishSpecial : PlayerAbility
             tSpecialing = value;
         }
     }
+
+    [Header("SFX")]
+    public AudioClip sfx_Special;
+    public void PlaySlapSFX()
+    {
+        if (_player.mainFish.sfx_Special)
+        {
+            PlaySFX(_player.mainFish.sfx_Special);
+        }
+        else
+        {
+            PlaySFX(sfx_Special);
+        }
+    }
+
+    [Header("Debug")]
+    public bool showHitBox;
 }

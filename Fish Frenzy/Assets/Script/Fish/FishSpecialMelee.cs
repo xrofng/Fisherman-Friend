@@ -6,7 +6,6 @@ public class FishSpecialMelee : FishSpecial {
 
     protected HitBoxMelee playerHitBox;
     public int invicibilityFrame = 50;
-    public int hitBoxStayFrame = 4;
     public int freezeFrame = 10;
     public int damage = 50;
     

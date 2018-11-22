@@ -12,6 +12,12 @@ public class FishSpecial : MonoBehaviour
         get { return _fish.GetPlayerHolder._cPlayerFishSpecial; }
     }
 
+    public Fish.MeleeAnimation specialClip;
+    public int SpeiclaClipFrameCount
+    {
+        get { return _fish.AnimationFrame[(int)specialClip]; }
+    }
+
     // private ignore Input for specific ability
     protected bool ignoreInput;
     public bool IgnoreInput { get { return ignoreInput; } }
@@ -67,4 +73,22 @@ public class FishSpecial : MonoBehaviour
         }
         ignoreInput = false;
     }
+
+    public void ActionForFrame(int frameDuration, System.Action begin, System.Action end)
+    {
+        StartCoroutine(ieActionForFrame(frameDuration, begin, end));
+    }
+
+    IEnumerator ieActionForFrame(int frameDuration, System.Action begin, System.Action end)
+    {
+        begin();
+        int frameCount = 0;
+        while (frameCount < frameDuration)
+        {
+            yield return new WaitForEndOfFrame();
+            frameCount++;
+        }
+        end();
+    }
+
 }

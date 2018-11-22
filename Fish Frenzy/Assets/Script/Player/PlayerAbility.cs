@@ -34,7 +34,6 @@ public class PlayerAbility : MonoBehaviour
     {
         get { return _player.animator; }
     }
-    public int frameAnimation;
 
     protected AudioSource _SFX;
 
@@ -63,27 +62,7 @@ public class PlayerAbility : MonoBehaviour
         _SFX = GetComponent<AudioSource>();
     }
 
-    public void ChangeAnimState(PlayerAnimation.State s, int ignoreFrame, bool revert, PlayerAnimation.State revetTo)
-    {
-        StartCoroutine(InvokeChangeAnimState(s,ignoreFrame,revert, revetTo));
-    }
-
-    public void ChangeAnimState(PlayerAnimation.State s)
-    {
-        _pAnimator.ChangeState((int)s);
-    }
-
-    IEnumerator InvokeChangeAnimState(PlayerAnimation.State s,int frameDuration,bool revert, PlayerAnimation.State revetTo)
-    {
-        int frameCount = 0;
-        _pAnimator.ChangeState((int)s);
-        while (frameCount < frameDuration)
-        {
-            yield return new WaitForEndOfFrame();
-            frameCount++;
-        }
-        if (revert) { _pAnimator.ChangeState((int)revetTo); }
-    }
+    
 
     public void IgnoreInputFor(int ignoreFrame)
     {
@@ -102,7 +81,24 @@ public class PlayerAbility : MonoBehaviour
         }
         ignoreInput = false;
     }
-    
+
+    public void ActionForFrame(int frameDuration, System.Action begin, System.Action end)
+    {
+        StartCoroutine(ieActionForFrame(frameDuration, begin, end));
+    }
+
+    IEnumerator ieActionForFrame(int frameDuration, System.Action begin, System.Action end)
+    {
+        begin();
+        int frameCount = 0;
+        while (frameCount < frameDuration)
+        {
+            yield return new WaitForEndOfFrame();
+            frameCount++;
+        }
+        end();
+    }
+
     public T GetCrossZComponent<T>() where T : PlayerAbility
     {
         if (typeof(T) == typeof(PlayerMovement)) { return _player._cPlayerMovement as T; }

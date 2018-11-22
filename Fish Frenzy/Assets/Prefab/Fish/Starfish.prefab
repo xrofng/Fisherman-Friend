@@ -237,8 +237,8 @@ MonoBehaviour:
   lastHoldPoition: {x: 0, y: 0, z: 0}
   chargePercent: 0
   attack: 4
-  attackSpeed: 0
-  hitBoxStayFrame: 30
+  slapClip: 2
+  AnimationFrame: 00000000000000001400000032000000000000000000000023000000
   s_invicibilityFrame: 50
   hitboxSize: {x: 0, y: 0, z: 0}
   hitboxCenter: {x: 0, y: 0, z: 0}
@@ -268,6 +268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fe8cc6af7ab10041bf19d45db384f63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  specialClip: 0
   movingobject: {fileID: 114717754795570986, guid: ff305f621d0c71c4598ab42daacd2a38,
     type: 2}
   endByFrame: 0

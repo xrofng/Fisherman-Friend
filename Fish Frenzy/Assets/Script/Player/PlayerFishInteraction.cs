@@ -67,11 +67,11 @@ public class PlayerFishInteraction : PlayerAbility {
         _player.holdingFish = b;
         if (!b)
         {
-            ChangeAnimState(PlayerAnimation.State.Idle);
+            _pAnimator.ChangeAnimState(PlayerAnimation.State.Idle);
             _player.mainFish = null;
         }else
         {
-            ChangeAnimState(PlayerAnimation.State.HoldFish);
+            _pAnimator.ChangeAnimState(PlayerAnimation.State.HoldFish);
         }
     }
 
