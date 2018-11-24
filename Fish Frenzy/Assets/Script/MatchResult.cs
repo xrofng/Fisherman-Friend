@@ -124,19 +124,6 @@ public class MatchResult : PersistentSingleton<MatchResult>
         
     }
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        
-
-       
-
-    }
-
     public void PrintLatestAttack(int playerID)
     {
         if (!printLog) { return; }

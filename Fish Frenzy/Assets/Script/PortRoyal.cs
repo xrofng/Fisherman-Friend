@@ -40,7 +40,7 @@ public class PortRoyal : PersistentSingleton<PortRoyal>
 	
 	// Update is called once per frame
 	void Update () {
-        changePlayer();
+        
         if (Input.GetKeyDown(KeyCode.H))
         {
             Fish f = Instantiate(TestingFish, Player[0].transform.position+Vector3.up * 5, Random.rotation) as Fish;
@@ -82,25 +82,6 @@ public class PortRoyal : PersistentSingleton<PortRoyal>
     public int randomFishIndex()
     {
         return Random.Range(0, fishPool.Length);
-    }
-    void changePlayer()
-    {
-        KeyCode k = KeyCode.Alpha1;
-        for(int i = 0; i < 4; i++)
-        {
-            if (Input.GetKeyDown(k))
-            {
-                GameObject oldOne = GameObject.Find("Player1");
-                GameObject g = Player[i].gameObject;
-                oldOne.name = g.name;
-                g.name = "Player1";
-                for(int j = 0; j < 4; j++)
-                {
-                    Player[j].playerID = Player[j].gameObject.name[6] - 48;
-                }
-            }
-            k++;
-        }
     }
 
 }

@@ -6115,7 +6115,7 @@ GameObject:
   - component: {fileID: 1849158991}
   - component: {fileID: 1849158990}
   m_Layer: 0
-  m_Name: Audio Source
+  m_Name: Result
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6132,6 +6132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 647a3301b0a642943bf198cdecbeb9f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ignoreInputTime: 5
   resultPanelRef: {fileID: 134389603}
   mainCanvas: {fileID: 1578400368}
   panelDistance: 190

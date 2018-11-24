@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Result : MonoBehaviour
 {
+    public float ignoreInputTime;
     public ResultPanel resultPanelRef;
     //private List<ResultPanel> panelList = new List<ResultPanel>();
     public Canvas mainCanvas;
@@ -133,7 +134,8 @@ public class Result : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.anyKey)
+        ignoreInputTime -= Time.deltaTime;
+        if (Input.anyKey && ignoreInputTime<=0)
         {
             GetComponent<AudioSource>().Play();
             Initiate.Fade("Start Menu", Color.white, 2.0f);

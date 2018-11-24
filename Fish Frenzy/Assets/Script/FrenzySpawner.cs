@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FrenzySpawner : MonoBehaviour {
-    private bool Frenzying;
+    public bool Frenzying;
     public Vector2 spawnTime;
     public Vector2 fallSpeed;
     public Vector2 amountRange;
@@ -12,6 +12,12 @@ public class FrenzySpawner : MonoBehaviour {
     public List<int> spawnedPoint = new List<int>();
     private float timeCount = 0;
     public float timeToNextWave = 10;
+
+    public float timeAnimationOverhead = 9.3f;
+    public float timeFrenzy= 60.0f;
+
+    public Animator whale;
+    public int whaleAnimFrame;
     // Use this for initialization
     void Start () {
         
@@ -25,6 +31,10 @@ public class FrenzySpawner : MonoBehaviour {
             if (timeCount > 0)
             {
                 timeCount -= Time.deltaTime;
+            }
+            if (timeCount <= timeAnimationOverhead)
+            {
+                PlayWhaleAnimation();
             }
             if (timeCount <= 0)
             {
@@ -68,6 +78,23 @@ public class FrenzySpawner : MonoBehaviour {
     public void StartFrenzy(bool b)
     {
         Frenzying = b;
+    }
+
+    public void PlayWhaleAnimation()
+    {
+        StartCoroutine(WhaleAnimPlay(whaleAnimFrame));
+    }
+
+    IEnumerator WhaleAnimPlay(int frameDuration)
+    {
+        int frameCount = 0;
+        whale.SetBool("Jump",true);
+        while (frameCount < frameDuration)
+        {
+            yield return new WaitForEndOfFrame();
+            frameCount++;
+        }
+        whale.SetBool("Jump",false);
     }
 
     // Draw Path

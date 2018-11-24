@@ -32,17 +32,6 @@ public class MaterialManager : PersistentSingleton<MaterialManager>
       
     }
 
-    // Use this for initialization
-    void Start () {
-        
-    }
-	
-	// Update is called once per frame
-	void Update ()
-    {
-
-	}
-
     public GameObject InstantiatePlayer(GameObject go , int tempId)
     {
         GameObject create = Instantiate(go);

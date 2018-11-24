@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.40661013, g: 0.86674637, b: 1.358268, a: 1}
+  m_IndirectSpecularColor: {r: 0.40658703, g: 0.8667387, b: 1.3582686, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1590,6 +1590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8028cd61fea6d86499dc3e5e3753fb59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Frenzying: 0
   spawnTime: {x: 0, y: 0.9}
   fallSpeed: {x: 0, y: 50}
   amountRange: {x: 4, y: 7}
@@ -1625,6 +1626,10 @@ MonoBehaviour:
   - {fileID: 2086822110}
   spawnedPoint: 
   timeToNextWave: 20
+  timeAnimationOverhead: 9.3
+  timeFrenzy: 60
+  whale: {fileID: 1570761187}
+  whaleAnimFrame: 200
   rayColor: {r: 0.745283, g: 0.6082088, b: 0, a: 1}
   wireSphereRadius: 1
   showRay: 1
@@ -11378,6 +11383,10 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1488403750361722, guid: 5e780846ae5a5fb4c97f2e8d89a52bc8, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e780846ae5a5fb4c97f2e8d89a52bc8, type: 2}
   m_IsPrefabAsset: 0
@@ -15104,6 +15113,11 @@ Prefab:
     - target: {fileID: 4528618179603750, guid: 285b0e5ba1685e64d8640a3bcb5c77f8, type: 2}
       propertyPath: m_RootOrder
       value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 95177338615262488, guid: 285b0e5ba1685e64d8640a3bcb5c77f8,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 285b0e5ba1685e64d8640a3bcb5c77f8, type: 2}
