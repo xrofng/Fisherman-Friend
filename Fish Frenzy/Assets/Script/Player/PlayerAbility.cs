@@ -7,6 +7,14 @@ using UnityEngine;
 public class PlayerAbility : MonoBehaviour
 {
     protected Player _player;
+    public Player Player
+    {
+        get
+        {
+            if (!_player) { _player = GetComponent<Player>(); }
+            return _player;
+        }
+    }
 
     // private ignore Input for specific ability
     protected bool ignoreInput;
@@ -15,7 +23,6 @@ public class PlayerAbility : MonoBehaviour
     public JoystickManager _pInput
     {
         get { return _player.LinkedInputManager; }
-
     }
 
     public Rigidbody _pRigid
@@ -27,7 +34,6 @@ public class PlayerAbility : MonoBehaviour
     {
         get { return _player.animator; }
     }
-    public int frameAnimation;
 
     protected AudioSource _SFX;
 
@@ -56,26 +62,7 @@ public class PlayerAbility : MonoBehaviour
         _SFX = GetComponent<AudioSource>();
     }
 
-
-
-
-    public void ChangeAnimState(PlayerAnimation.State s, int ignoreFrame, bool revert)
-    {
-        StartCoroutine(InvokeChangeAnimState(s,ignoreFrame,revert));
-    }
-
-
-    IEnumerator InvokeChangeAnimState(PlayerAnimation.State s,int frameDuration,bool revert)
-    {
-        int frameCount = 0;
-        _pAnimator.ChangeState((int)s);
-        while (frameCount < frameDuration)
-        {
-            yield return new WaitForEndOfFrame();
-            frameCount++;
-        }
-        if (revert) { _pAnimator.ChangeState((int)PlayerAnimation.State.Idle); }
-    }
+    
 
     public void IgnoreInputFor(int ignoreFrame)
     {
@@ -94,7 +81,24 @@ public class PlayerAbility : MonoBehaviour
         }
         ignoreInput = false;
     }
-    
+
+    public void ActionForFrame(int frameDuration, System.Action begin, System.Action end)
+    {
+        StartCoroutine(ieActionForFrame(frameDuration, begin, end));
+    }
+
+    IEnumerator ieActionForFrame(int frameDuration, System.Action begin, System.Action end)
+    {
+        begin();
+        int frameCount = 0;
+        while (frameCount < frameDuration)
+        {
+            yield return new WaitForEndOfFrame();
+            frameCount++;
+        }
+        end();
+    }
+
     public T GetCrossZComponent<T>() where T : PlayerAbility
     {
         if (typeof(T) == typeof(PlayerMovement)) { return _player._cPlayerMovement as T; }

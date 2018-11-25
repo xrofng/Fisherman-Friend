@@ -38,7 +38,9 @@ public class GUIManager : Singleton<GUIManager>
     /// players damage percent
     public List<RectTransform> MashButtonIndicators;
     /// Indicator position from fish
-    public Vector3 IndicatorOffset;
+    public Vector3 FishingIndicatorOffset;
+    /// Indicator position from fish
+    public Vector3 PickUpIndicatorOffset;
     /// player image
     public List<Image> PlayerImage;
     /// player normal face sprite
@@ -50,21 +52,29 @@ public class GUIManager : Singleton<GUIManager>
     /// list of list of sprite 0=normal 1=death 2=damaged
     protected List<List<Sprite>> PlayerSpriteSet = new List<List<Sprite>>();
 
-    [Header("Fish UI")]
+    [Header("Player UI")]
     public Sprite transparentSprite;
-    public RectTransform DurabilitySet;
-    public RectTransform IconSet;
-    public RectTransform NameSet;
-    public RectTransform StoreIconSet;
-    /// time left image
+    public RectTransform Player1_GUI;
+    public RectTransform Player2_GUI;
+    public RectTransform Player3_GUI;
+    public RectTransform Player4_GUI;
+    List<RectTransform> PlayerUIList = new List<RectTransform>();
+    /// UI image
     private List<Image> DurabilityImage = new List<Image>();
     private List<Image> IconImage = new List<Image>();
     private List<Image> NameImage = new List<Image>();
     private List<Image> StoreIconImage = new List<Image>();
+    private List<RectTransform> ScoreChangeRect = new List<RectTransform>();
 
     /// 
     protected int[] currentFaceIndex = new int[4];
     protected int[] previousFaceIndex = new int[4];
+    protected List<List<RectTransform>> scoreChangeList = new List<List<RectTransform>>();
+    [Header("Score Change")]
+    public RectTransform scoreChange_Decrease;
+    public RectTransform scoreChange_Increase;
+    public int scoreChangeFrameDuration = 150;
+    public Vector3 scoreChangeOffsetDistance;
 
     /// main game manager
     private PortRoyal portroyal;
@@ -110,26 +120,41 @@ public class GUIManager : Singleton<GUIManager>
 
     void InitImageList()
     {
-        List<List<Image>> ImageList= new List<List<Image>>();
-        List<RectTransform> SetList = new List<RectTransform>();
+        PlayerUIList.Add(Player1_GUI);
+        PlayerUIList.Add(Player2_GUI);
+        PlayerUIList.Add(Player3_GUI);
+        PlayerUIList.Add(Player4_GUI);
 
-        ImageList.Add(DurabilityImage);
-        ImageList.Add(IconImage);
-        ImageList.Add(NameImage);
-        ImageList.Add(StoreIconImage);
-        
-
-        SetList.Add(DurabilitySet);
-        SetList.Add(IconSet);
-        SetList.Add(NameSet);
-        SetList.Add(StoreIconSet);
-
-        for (int i = 0; i < SetList.Count; i++)
+        for(int i=0;i<4; i++)
         {
-            Image[] imageInSet = SetList[i].gameObject.GetComponentsInChildren<Image>();
-            foreach (Image im in imageInSet)
+            scoreChangeList.Add(new List<RectTransform>());
+        }
+
+        for (int i = 0; i < PlayerUIList.Count; i++)
+        {
+            RectTransform[] rectInSet = PlayerUIList[i].gameObject.GetComponentsInChildren<RectTransform>();
+            foreach (RectTransform rt in rectInSet)
             {
-                ImageList[i].Add(im);
+                if (rt.gameObject.name.Contains("FishDurability"))
+                {
+                    DurabilityImage.Add(rt.GetComponent<Image>());
+                }
+                if (rt.gameObject.name.Contains("Icon"))
+                {
+                    IconImage.Add(rt.GetComponent<Image>());
+                }
+                if (rt.gameObject.name.Contains("Name"))
+                {
+                    NameImage.Add(rt.GetComponent<Image>());
+                }
+                if (rt.gameObject.name.Contains("Store"))
+                {
+                    StoreIconImage.Add(rt.GetComponent<Image>());
+                }
+                if (rt.gameObject.name.Contains("ScoreChange"))
+                {
+                    ScoreChangeRect.Add(rt);
+                }
             }
         }
     }
@@ -144,6 +169,7 @@ public class GUIManager : Singleton<GUIManager>
                 UpdateFaceSprite(playerID);
                 UpdateFishDurability(playerID);
                 UpdateFishIcon(playerID);
+                
             }
                
             UpdateGameTime();
@@ -183,6 +209,10 @@ public class GUIManager : Singleton<GUIManager>
         PlayerSpriteSet.Add(DamagedSprite);
     }
 
+    /// <summary>
+    /// Change face expression due to player state
+    /// </summary>
+    /// <param name="playerID"></param>
     public virtual void UpdateFaceSprite(int playerID)
     {
         Player _player = portroyal.Player[playerID];
@@ -205,6 +235,10 @@ public class GUIManager : Singleton<GUIManager>
         }
     }
 
+    /// <summary>
+    /// show main/sub fish icon, if player have them . If not show transparent
+    /// </summary>
+    /// <param name="playerID"></param>
     public virtual void UpdateFishIcon(int playerID)
     {
         Player _player = portroyal.Player[playerID];
@@ -227,7 +261,7 @@ public class GUIManager : Singleton<GUIManager>
     }
 
     /// <summary>
-    /// 
+    /// update damage percent text and color
     /// </summary>
     /// <param name="playerID"></param>
     public virtual void UpdateDamagePercent(int playerID)
@@ -249,6 +283,38 @@ public class GUIManager : Singleton<GUIManager>
             return;
         }
         DurabilityImage[playerID].fillAmount = 0;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="playerID"></param>
+    public virtual void AddScoreChange(int playerID , int changeValue)
+    {
+        RectTransform prompt = scoreChange_Decrease;
+        if (changeValue > 0)
+        {
+            prompt = scoreChange_Increase;
+        }
+        StartCoroutine(ieShowScoreChange(playerID, prompt, scoreChangeFrameDuration, scoreChangeList[playerID].Count));
+    }
+
+    IEnumerator ieShowScoreChange(int playerID,RectTransform promptObj , int frameDuration , int queueIndex)
+    {
+        RectTransform spawnPrompt = Instantiate(promptObj, ScoreChangeRect[playerID].transform);
+
+        scoreChangeList[playerID].Add(spawnPrompt);
+        int frameCount = 0;
+        while (frameCount < frameDuration)
+        {
+            yield return new WaitForEndOfFrame();
+            frameCount++;
+        }
+        if (scoreChangeList[playerID].Contains(spawnPrompt))
+        {
+            scoreChangeList[playerID].Remove(spawnPrompt);
+            Destroy(spawnPrompt.gameObject, 2.0f);
+        }
     }
 
     /// <summary>
@@ -304,7 +370,18 @@ public class GUIManager : Singleton<GUIManager>
         {
             return;
         }
-        MashButtonIndicators[playerID - 1].position = portroyal.mainCamera.WorldToScreenPoint(fishingPosition) + IndicatorOffset;
+        MashButtonIndicators[playerID - 1].position = portroyal.mainCamera.WorldToScreenPoint(fishingPosition) + FishingIndicatorOffset;
+    }
+
+    public virtual void UpdatePickUpButtonIndicator(Vector3 fishPosition , Image buttonImage, bool isActive)
+    {
+        float alphaIncrease = 0.1f;
+        if (!isActive)
+        {
+            alphaIncrease *= -1;
+        }
+        buttonImage.color = sClass.ChangeColorAlpha(buttonImage.color, buttonImage.color.a +alphaIncrease);
+        buttonImage.rectTransform.position = portroyal.mainCamera.WorldToScreenPoint(fishPosition + PickUpIndicatorOffset);
     }
 
     /// <summary>
@@ -356,5 +433,8 @@ public class GUIManager : Singleton<GUIManager>
         }
     }
 
-
+    public virtual T InstantiateUI<T>(MaskableGraphic g) where T : MaskableGraphic
+    {
+        return Instantiate(g, this.transform) as T;
+    }
 }

@@ -8,6 +8,7 @@ public class HitBoxMelee : DamageOnHit
     public bool mustHaveOwner;
     /// the owner of the HitBoxMelee zone
     public bool damageFromOwner = true;
+    public bool isLauncher;
     public GameObject Owner;
     protected Player ownerPlayer;
     public Player OwnerPlayer
@@ -142,7 +143,7 @@ public class HitBoxMelee : DamageOnHit
             forcesource = damageDealer.transform.position;
 
         }
-        _player.recieveDamage(DamageCaused, damageDealer , forcesource, InvincibilityFrame);
+        _player.recieveDamage(DamageCaused, damageDealer , forcesource, InvincibilityFrame,isLauncher);
     }
 
     IEnumerator ieFreezePlayer(Player player, int FreezeFramesOnHitDuration, GameObject damageDealer)

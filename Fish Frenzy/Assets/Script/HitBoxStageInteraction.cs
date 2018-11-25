@@ -6,6 +6,7 @@ using UnityEngine;
 public class HitBoxStageInteraction : DamageOnHit
 {
     public bool ignoreInvicibility;
+    public bool launchingDamage;
     protected StageInteraction stageInteraction;
     /// <summary>
     /// Initialization
@@ -88,7 +89,7 @@ public class HitBoxStageInteraction : DamageOnHit
         }
         else
         {
-            _player.recieveDamage(this, DamageCaused, this.gameObject,gameObject.transform.position , InvincibilityFrame);
+            _player.recieveDamage(this, DamageCaused, this.gameObject,gameObject.transform.position , InvincibilityFrame , launchingDamage);
         }
     }
 
@@ -104,6 +105,6 @@ public class HitBoxStageInteraction : DamageOnHit
         }
         player.FreezingMovement = false;
         player.RemoveAbilityInputIntercepter(this);
-        player.recieveDamage(this, DamageCaused, this.gameObject , this.gameObject.transform.position, InvincibilityFrame);
+        player.recieveDamage(this, DamageCaused, this.gameObject , this.gameObject.transform.position, InvincibilityFrame, launchingDamage);
     }
 }

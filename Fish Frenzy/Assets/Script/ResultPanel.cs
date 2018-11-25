@@ -21,6 +21,11 @@ public class ResultPanel : MonoBehaviour
     public Text[] death = new Text[3];
     public Text[] stage = new Text[3];
 
+    public Text totalKoText;
+    public Text totalDeathText;
+    public Text totalStageText;
+    public Text totalScoreText;
+
     void Start () {
         myRect = GetComponent<RectTransform>();
 
@@ -32,16 +37,20 @@ public class ResultPanel : MonoBehaviour
 
     public void UpdateText()
     {
-        for(int i = 0; i < stage.Length; i++)
+        int totalKo = 0;
+        int totalDeath = 0;
+        int totalSko = 0;
+
+        for (int i = 0; i < stage.Length; i++)
         {
             stage[i].text += stageKoCount[i];
+            totalSko += stageKoCount[i];
         }
         if(death.Length != ko.Length || deathCount.Length != koCount.Length)
         {
             Debug.LogWarning("player in ko and death is not equal");
         }
-        int totalKo = 0;
-        int totalDeath = 0;
+      
         for (int i = 0; i < death.Length; i++)
         {
             totalDeath += deathCount[i];
@@ -49,6 +58,10 @@ public class ResultPanel : MonoBehaviour
             death[i].text += deathCount[i];
             ko[i].text += koCount[i];
         }
-        matchScore = totalKo - totalDeath;
+        matchScore = totalKo - totalDeath - totalSko;
+        totalKoText.text = "+" + totalKo;
+        totalDeathText.text = "-" + totalDeath;
+        totalStageText.text = "-" + totalSko;
+        totalScoreText.text = "" + matchScore;
     }
 }

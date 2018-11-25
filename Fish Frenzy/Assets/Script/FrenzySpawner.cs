@@ -3,14 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FrenzySpawner : MonoBehaviour {
-    private bool Frenzying;
+    public bool Frenzying;
     public Vector2 spawnTime;
     public Vector2 fallSpeed;
+    public Vector2 amountRange;
+
     public List<Transform> SpawnPoints = new List<Transform>();
     public List<int> spawnedPoint = new List<int>();
-    
     private float timeCount = 0;
     public float timeToNextWave = 10;
+
+    public float timeAnimationOverhead = 9.3f;
+    public float timeFrenzy= 60.0f;
+
+    public Animator whale;
+    public int whaleAnimFrame;
     // Use this for initialization
     void Start () {
         
@@ -18,55 +25,76 @@ public class FrenzySpawner : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
         if (Frenzying)
         {
             if (timeCount > 0)
             {
                 timeCount -= Time.deltaTime;
             }
+            if (timeCount <= timeAnimationOverhead)
+            {
+                PlayWhaleAnimation();
+            }
             if (timeCount <= 0)
             {
-                int spawnPointIndex = Random.Range(0, SpawnPoints.Count - 1);
-                while (spawnedPoint.Contains(spawnPointIndex))
+                int amountFish = (int)Random.Range(amountRange.x, amountRange.y);
+                spawnedPoint.Clear();
+                for (int i = 0; i < amountFish; i++)
                 {
-                    spawnPointIndex = Random.Range(0, SpawnPoints.Count - 1);
+                    int spawnPointIndex = Random.Range(0, SpawnPoints.Count - 1);
+                    while (spawnedPoint.Contains(spawnPointIndex))
+                    {
+                        spawnPointIndex = Random.Range(0, SpawnPoints.Count - 1);
+                    }
+                    spawnedPoint.Add(spawnPointIndex);
+
+                    Vector3 spawnPos = SpawnPoints[spawnPointIndex].position;
+                    spawnPos = sClass.setVector3(spawnPos, sClass.vectorComponent.y, transform.position.y);
+
+                    SpawnFish(spawnPos);
+
                 }
-
-                Vector3 spawnPos = SpawnPoints[spawnPointIndex].position;
-                spawnPos = sClass.setVector3(spawnPos, sClass.vectorComponent.y, transform.position.y);
-
-              
-              
-
                 timeCount = timeToNextWave;
 
             }
         }
 	}
 
-    void SpawnWave()
-    {
-
-    }
-
     void SpawnFish(Vector3 spawnPos)
     {
         Fish spawnFish = Instantiate(PortRoyal.Instance.randomFish(), spawnPos, Random.rotation) as Fish;
         spawnFish.gameObject.transform.localEulerAngles = sClass.setVector3(spawnFish.gameObject.transform.localEulerAngles, sClass.vectorComponent.x, 0);
         spawnFish.gameObject.transform.localEulerAngles = sClass.setVector3(spawnFish.gameObject.transform.localEulerAngles, sClass.vectorComponent.z, 0);
-        spawnFish.changeState(Fish.fState.fall);
-        spawnFish.gameObject.AddComponent<Rigidbody>();
-        spawnFish._rigidbody.freezeRotation = true;
-        spawnFish.gameObject.layer = LayerMask.NameToLayer("Fish");
-        spawnFish.GetCollider<BoxCollider>().isTrigger = true;
-        spawnFish._rigidbody.AddForce(0, -Random.Range(fallSpeed.x, fallSpeed.y), 0, ForceMode.Impulse);
+        spawnFish.ChangeState(Fish.fState.fall);
+        //spawnFish.GetCollider<BoxCollider>().isTrigger = true;
+
+        //spawnFish.gameObject.layer = LayerMask.NameToLayer("Fish");
+        float f = Random.Range(fallSpeed.x, fallSpeed.y);
+        spawnFish.FishJump(1, 10, Vector3.down, -f);
+        //spawnFish._rigidbody.freezeRotation = true;
     }
 
     public void StartFrenzy(bool b)
     {
-        timeCount = timeToNextWave;
         Frenzying = b;
+    }
+
+    public void PlayWhaleAnimation()
+    {
+        StartCoroutine(WhaleAnimPlay(whaleAnimFrame));
+    }
+
+    IEnumerator WhaleAnimPlay(int frameDuration)
+    {
+        int frameCount = 0;
+        whale.SetBool("Jump",true);
+        while (frameCount < frameDuration)
+        {
+            yield return new WaitForEndOfFrame();
+            frameCount++;
+        }
+        whale.SetBool("Jump",false);
     }
 
     // Draw Path

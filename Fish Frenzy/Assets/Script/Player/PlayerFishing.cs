@@ -78,13 +78,13 @@ public class PlayerFishing : PlayerAbility
         }
         PlaySFX(sfx_WaterTouch);
 
-        _player.baitedFish = Instantiate(PortRoyal.Instance.randomFish(), fishPoint.position, _player.getPart(Player.ePart.body).transform.rotation);
+        _player.baitedFish = Instantiate(PortRoyal.Instance.randomFish(), fishPoint.position, _player.GetPart(Player.ePart.body).transform.rotation);
         Fish baitedFish = _player.baitedFish;
         baitedFish.GetComponent<MeshRenderer>().enabled = false;
         GetCrossZComponent<PlayerFishInteraction>().SetFishCollidePlayer(baitedFish, _player, true);
         baitedFish.setHolder(this.gameObject);
         SetFishing(true);
-        baitedFish.changeState(Fish.fState.baited);
+        baitedFish.ChangeState(Fish.fState.baited);
     }
 
     void coastCheck()

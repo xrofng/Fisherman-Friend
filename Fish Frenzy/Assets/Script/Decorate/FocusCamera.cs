@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class FocusCamera : PersistentSingleton<FocusCamera>
 {
@@ -35,9 +37,19 @@ public class FocusCamera : PersistentSingleton<FocusCamera>
     // Update is called once per frame
     void Update()
     {
+        Update_Game();
+    }
+
+    void Update_Game()
+    {
+        if (SceneManager.GetActiveScene().name != "Gameplay")
+        {
+            return;
+        }
+
         if (focusQueue.Count != 0)
         {
-            Vector3 newPosition = focusQueue.Peek() ;
+            Vector3 newPosition = focusQueue.Peek();
             transform.position = Vector3.SmoothDamp(transform.position, newPosition, ref velocity, smoothTime);
         }
     }

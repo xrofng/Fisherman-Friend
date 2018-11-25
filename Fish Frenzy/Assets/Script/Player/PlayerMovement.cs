@@ -61,7 +61,7 @@ public class PlayerMovement : PlayerAbility {
 
         //Vector3 mov = new Vector3(Input.GetAxisRaw(hori) * speed.x, 0.0f, Input.GetAxisRaw(verti) * speed.z);
         mov = mov * Time.deltaTime;
-        if (!freezeMovement && !GetCrossZComponent<PlayerState>().IsAttacking)
+        if (!freezeMovement && !GetCrossZComponent<PlayerState>().IsAttacking && !GetCrossZComponent<PlayerState>().IsDamaged)
         {
             this.transform.Translate(mov);
         }
@@ -81,13 +81,13 @@ public class PlayerMovement : PlayerAbility {
         {
             if (playerDirection.sqrMagnitude > 0.0f && !_player.Aiming)
             {
-                _player.getPart(Player.ePart.body).transform.rotation = Quaternion.LookRotation(playerDirection, Vector3.up);
+                _player.GetPart(Player.ePart.body).transform.rotation = Quaternion.LookRotation(playerDirection, Vector3.up);
             }
         }else
         {
             if (playerDirection.sqrMagnitude > 0.0f)
             {
-                _player.getPart(Player.ePart.body).transform.rotation = Quaternion.LookRotation(playerDirection, Vector3.up);
+                _player.GetPart(Player.ePart.body).transform.rotation = Quaternion.LookRotation(playerDirection, Vector3.up);
             }
         }
         
@@ -96,7 +96,8 @@ public class PlayerMovement : PlayerAbility {
     void Jump()
     {
         string jump_b = "Jump" + _player.playerID;
-        if (_pInput.GetButtonDown(_pInput.Jump, _player.playerID - 1))
+        
+        if (_pInput.GetButtonDown(_pInput.Jump, _player.playerID - 1) && !GetCrossZComponent<PlayerThrow>().aiming)
         {
             if ( GetCrossZComponent<PlayerState>().IsSwiming)
             {

@@ -47,13 +47,25 @@ public class Fish : Creature {
     public float maxHolding = 5;
     public float throwAttack;
     public int t_invicibilityFrame = 50;
+    public bool t_launchingDamage;
     public Vector3 lastHoldPoition;
     public int chargePercent;
 
     [Header("Slap")]
     public float attack;
-    public float attackSpeed;
-    public int hitBoxStayFrame = 4;
+    public enum MeleeAnimation
+    {
+        LightHorizontal = 2,
+        HammerDown = 3,
+        LightStab = 6
+    }
+    public MeleeAnimation slapClip;
+    public bool s_launchingDamage;
+    public int[] AnimationFrame = { 0,0,20,50,0,0,35};
+    public int SlapClipFrameCount
+    {
+        get { return AnimationFrame[(int)slapClip]; }
+    }
     public int s_invicibilityFrame = 50;
     public Vector3 hitboxSize;
     public Vector3 hitboxCenter;
@@ -143,7 +155,7 @@ public class Fish : Creature {
             mashCountDown -= 1;
             if (mashCountDown <= 0)
             {
-                changeState(fState.toPlayer);
+                ChangeState(fState.toPlayer);
                 return true;
             }
         }
@@ -172,18 +184,25 @@ public class Fish : Creature {
         }
     }
 
-    public void changeState(fState pState)
+    public void ChangeState(fState pState)
     {
+
         OnStateChange(pState);
         state = pState;
     }
 
-    void OnStateChange(fState pState)
+    void OnStateChange(fState stateChange)
     {
-        if (pState == fState.toPlayer)
+        if (stateChange == fState.toPlayer)
         {
             direction = holder.transform.position - transform.position;
             FishJump(fishMass, jumpForce, direction, jumpSpeed);
+        }
+        else if(stateChange == fState.ground)
+        {
+            gameObject.layer = LayerMask.NameToLayer("Fish");
+            SetToGround(true);
+            RemoveRigidBody();
         }
     }
 
@@ -200,7 +219,6 @@ public class Fish : Creature {
         myRigid.AddForce(Vector3.up * 3,ForceMode.Impulse);
     }
 
-
     public void SnapTransform()
     {
         transform.localPosition = holdPosition;
@@ -216,7 +234,6 @@ public class Fish : Creature {
     {
         holder = g;
     }
-
 
     public void FishJump(float m, float f, Vector3 d,float speed)
     {
@@ -308,14 +325,33 @@ public class Fish : Creature {
             RaycastHit hit;
             if (Physics.Raycast(getLowestFishPoint(), transform.TransformDirection(Vector3.down), out hit, rayDistance ))
             {
-                if (hit.transform.gameObject.tag == "Ground" && myRigid.velocity.y < 0)
+                if (myRigid)
                 {
-                    gameObject.layer = LayerMask.NameToLayer("Fish");
-                    state = fState.ground;
-                    SetToGround(true);
-                    RemoveRigidBody();
+                    if (hit.transform.gameObject.tag == "Ground" && myRigid.velocity.y < 0)
+                    {
+                        ChangeState(fState.ground);
+                    }
+                }else
+                {
+                    if (hit.transform.gameObject.tag == "Ground")
+                    {
+                        ChangeState(fState.ground);
+                    }
                 }
+               
             }
+        }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (state == fState.fall)
+        {
+            if (other.gameObject.tag == "Ground")
+            {
+                ChangeState(fState.ground);
+            }
+           
         }
     }
 

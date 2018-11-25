@@ -29,7 +29,6 @@ public class MovingObjBoomerang : MovingObject {
         }
         transform.Rotate(Vector3.up * rotateSpeed, Space.Self);
         transform.Translate(moveDirection * speed,Space.World);
-
     }
 
     protected override bool CheckEnd()

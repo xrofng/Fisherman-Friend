@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameLoop : PersistentSingleton<GameLoop>
 {
@@ -52,14 +53,25 @@ public class GameLoop : PersistentSingleton<GameLoop>
     {
     }
 
-    // Update is called once per frame
-    void Update () {
+    /// <summary>
+    /// 
+    /// </summary>
+    void Update()
+    {
+        Update_Game();
+    }
 
+    void Update_Game()
+    {
+        if (SceneManager.GetActiveScene().name != "Gameplay")
+        {
+            return;
+        }
 
-        if(state == GameState.beforeStart)
+        if (state == GameState.beforeStart)
         {
             startCountDown -= Time.deltaTime;
-            if(startCountDown < 1)
+            if (startCountDown < 1)
             {
                 MultiPlayerCamera.Instance.MultiCamEnable = true;
             }
@@ -68,12 +80,12 @@ public class GameLoop : PersistentSingleton<GameLoop>
         {
             timeCountDown -= Time.deltaTime;
         }
-        
+
         if (Input.GetKeyDown(KeyCode.P))
         {
-            timeCountDown = 62;
+            timeCountDown = 70;
         }
-     
+
         CheckTimeUp();
     }
 
@@ -96,11 +108,19 @@ public class GameLoop : PersistentSingleton<GameLoop>
             OnChangeScene();
             
         }
-        if (timeCountDown < 60)
-        {
-            FrenzySpawner.StartFrenzy(true);
 
+        if (!FrenzySpawner.Frenzying) {
+            if (timeCountDown < FrenzySpawner.timeFrenzy)
+            {
+                FrenzySpawner.StartFrenzy(true);
+            }
+            if (timeCountDown < FrenzySpawner.timeFrenzy + FrenzySpawner.timeAnimationOverhead)
+            {
+                FrenzySpawner.PlayWhaleAnimation();
+            }
         }
+       
+      
         if (timeCountDown <= 0)
         {
             state = GameState.gameEnd;

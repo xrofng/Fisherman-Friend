@@ -54,7 +54,7 @@ public class Player : Creature {
     public Fish subFish;
     public Fish baitedFish;
 
-   
+
 
     // Other Component
     [HideInInspector]
@@ -79,7 +79,7 @@ public class Player : Creature {
     public PlayerFishInteraction _cPlayerFishInteraction;
     [HideInInspector]
     public PlayerFishSpecial _cPlayerFishSpecial;
-    
+
 
     public GameObject knockBackOrigin;
     public bool IsInvincible
@@ -92,9 +92,9 @@ public class Player : Creature {
     public Transform[] part;
     public enum ePart
     {
-        body, leftArm, rightArm
+        body, leftArm, rightArm, hitBox
     }
-    public Transform getPart(ePart p)
+    public Transform GetPart(ePart p)
     {
         int index = (int)p;
         return part[index];
@@ -103,7 +103,7 @@ public class Player : Creature {
     {
         get
         {
-            return -getPart(ePart.body).forward;
+            return -GetPart(ePart.body).forward;
         }
     }
     public enum eState
@@ -168,12 +168,18 @@ public class Player : Creature {
         state = staTE;
     }
 
-    public void recieveDamage(float damage , GameObject damageDealer, Vector3 damageDealerPos,  int recoveryFrame)
+    public void recieveDamage(float damage , GameObject damageDealer, Vector3 damageDealerPos,  int recoveryFrame , bool launchingDamage)
     {
         dPercent += (int)damage;
         //Instantiate(knockBackOrigin, center ,Quaternion.identity);
         Vector2 knockBackForce = KnockData.Instance.getSlapKnockForce((int)damage, dPercent);
-        AddKnockBackForce(damage, damageDealerPos , knockBackForce);
+
+        //print(launchingDamage);
+
+        if (launchingDamage)
+        {
+            AddKnockBackForce(damage, damageDealerPos, knockBackForce);
+        }
         _cPlayerFishing.SetFishing(false);
         _cPlayerInvincibility.startInvincible(recoveryFrame);
         _cPlayerState.ToggleIsDamage();
@@ -182,10 +188,10 @@ public class Player : Creature {
         DamagePercentClamp();
     }
 
-    public void recieveDamage(object intercepter,float damage, GameObject damageDealer, Vector3 damageDealerPos, int recoveryFrame)
+    public void recieveDamage(object intercepter,float damage, GameObject damageDealer, Vector3 damageDealerPos, int recoveryFrame, bool launchingDamage)
     {
         StartCoroutine(IgnoreAbilityInput(intercepter, recoveryFrame));
-        recieveDamage(damage, damageDealer, damageDealerPos,recoveryFrame);
+        recieveDamage(damage, damageDealer, damageDealerPos,recoveryFrame,launchingDamage);
     }
 
     IEnumerator IgnoreAbilityInput(object intercepter , int FreezeFramesOnHitDuration  )
@@ -219,7 +225,7 @@ public class Player : Creature {
         rigid.velocity = Vector3.zero;
         this.transform.position = PortRoyal.Instance.randomSpawnPosition();
         Death = false;
-        holdingFish = false;
+        _cPlayerFishInteraction.SetHoldFish(false);
         this.dPercent = 0;
         MatchResult.Instance.ClearRecentDamager(playerID);
 
@@ -247,11 +253,11 @@ public class Player : Creature {
         GameObject latest= MatchResult.Instance.GetLatestDamager(playerID,false);
         if (latest)
         {
-            if (latest.GetComponent<StageInteraction>())
-            {
-                GameObject latestplayer = MatchResult.Instance.GetLatestDamager(playerID, true);
-                MatchResult.Instance.StoreKnocker(playerID, latestplayer);
-            }
+            //if (latest.GetComponent<StageInteraction>())
+            //{
+            //    GameObject latestplayer = MatchResult.Instance.GetLatestDamager(playerID, true);
+            //    MatchResult.Instance.StoreKnocker(playerID, latestplayer);
+            //}
             MatchResult.Instance.StoreKnocker(playerID, latest);
         }
         else

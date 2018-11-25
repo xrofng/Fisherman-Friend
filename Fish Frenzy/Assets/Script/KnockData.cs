@@ -76,10 +76,7 @@ public class KnockData : PersistentSingleton<KnockData> {
         ThrowScaleList.Add(ThrowScale_tier4);
     }
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
     int getDamageApplyIndex_Charge(int charge, Vector2[] chargeArr)
     {
         for (int i = 0; i < chargeArr.Length; i++)

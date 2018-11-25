@@ -208,6 +208,8 @@ MonoBehaviour:
   Effect: {fileID: 0}
   PickSfx: {fileID: 0}
   DisableObjectOnPick: 0
+  pickUpImage: {fileID: 114966499513919200, guid: 30e9f486e02400240b828642365cd627,
+    type: 2}
   allowToPick: 0
 --- !u!114 &114768006698364366
 MonoBehaviour:
@@ -227,15 +229,17 @@ MonoBehaviour:
   durability: 20
   weight: 0
   mashCountDown: 6
-  rayDistance: 0.1
+  rayDistance: 0.25
   maxHolding: 5
   throwAttack: 0
   t_invicibilityFrame: 50
+  t_launchingDamage: 1
   lastHoldPoition: {x: 0, y: 0, z: 0}
   chargePercent: 0
   attack: 12
-  attackSpeed: 0
-  hitBoxStayFrame: 4
+  slapClip: 6
+  s_launchingDamage: 0
+  AnimationFrame: 00000000000000001400000032000000000000000000000023000000
   s_invicibilityFrame: 50
   hitboxSize: {x: 0, y: 0, z: 0}
   hitboxCenter: {x: 0, y: 0, z: 0}
@@ -243,9 +247,13 @@ MonoBehaviour:
   holdRotation: {x: 0, y: 180, z: 0}
   aimPositioningOffset: {x: 0, y: 0, z: 0}
   sfx_WaterJump: {fileID: 8300000, guid: 391886dd2fd156a44873b2eeeb6d6248, type: 3}
+  volume_wj: 0
   sfx_Slap: {fileID: 0}
+  volume_slap: 0
   sfx_Throw: {fileID: 0}
+  volume_throw: 0
   sfx_Special: {fileID: 8300000, guid: 76d3523a591904046bc04aace0181371, type: 3}
+  volume_special: 0
   fishIcon: {fileID: 21300000, guid: e3095200a1646ce45b900224412acf0d, type: 3}
   fishName: {fileID: 21300000, guid: e1b66ccc501aed14f8e0cb170b2a2fec, type: 3}
   fishStored: {fileID: 21300000, guid: 3e05e7ec2d00b6a4390714411a3b2995, type: 3}

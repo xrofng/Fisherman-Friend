@@ -11,6 +11,7 @@ public class FishSpecialThrow : FishSpecial {
     public int invicibilityFrame = 50;
     public int freezeFrame = 0;
     public int damage = 50;
+    public bool launchingDamage = true;
 
 
 
