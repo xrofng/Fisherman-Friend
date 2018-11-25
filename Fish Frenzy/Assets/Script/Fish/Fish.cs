@@ -47,6 +47,7 @@ public class Fish : Creature {
     public float maxHolding = 5;
     public float throwAttack;
     public int t_invicibilityFrame = 50;
+    public bool t_launchingDamage;
     public Vector3 lastHoldPoition;
     public int chargePercent;
 
@@ -59,6 +60,7 @@ public class Fish : Creature {
         LightStab = 6
     }
     public MeleeAnimation slapClip;
+    public bool s_launchingDamage;
     public int[] AnimationFrame = { 0,0,20,50,0,0,35};
     public int SlapClipFrameCount
     {

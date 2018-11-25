@@ -92,9 +92,9 @@ public class Player : Creature {
     public Transform[] part;
     public enum ePart
     {
-        body, leftArm, rightArm
+        body, leftArm, rightArm, hitBox
     }
-    public Transform getPart(ePart p)
+    public Transform GetPart(ePart p)
     {
         int index = (int)p;
         return part[index];
@@ -103,7 +103,7 @@ public class Player : Creature {
     {
         get
         {
-            return -getPart(ePart.body).forward;
+            return -GetPart(ePart.body).forward;
         }
     }
     public enum eState
@@ -168,12 +168,17 @@ public class Player : Creature {
         state = staTE;
     }
 
-    public void recieveDamage(float damage , GameObject damageDealer, Vector3 damageDealerPos,  int recoveryFrame)
+    public void recieveDamage(float damage , GameObject damageDealer, Vector3 damageDealerPos,  int recoveryFrame , bool launchingDamage)
     {
         dPercent += (int)damage;
         //Instantiate(knockBackOrigin, center ,Quaternion.identity);
         Vector2 knockBackForce = KnockData.Instance.getSlapKnockForce((int)damage, dPercent);
-        AddKnockBackForce(damage, damageDealerPos , knockBackForce);
+        print(launchingDamage);
+
+        if (launchingDamage)
+        {
+            AddKnockBackForce(damage, damageDealerPos, knockBackForce);
+        }
         _cPlayerFishing.SetFishing(false);
         _cPlayerInvincibility.startInvincible(recoveryFrame);
         _cPlayerState.ToggleIsDamage();
@@ -182,10 +187,10 @@ public class Player : Creature {
         DamagePercentClamp();
     }
 
-    public void recieveDamage(object intercepter,float damage, GameObject damageDealer, Vector3 damageDealerPos, int recoveryFrame)
+    public void recieveDamage(object intercepter,float damage, GameObject damageDealer, Vector3 damageDealerPos, int recoveryFrame, bool launchingDamage)
     {
         StartCoroutine(IgnoreAbilityInput(intercepter, recoveryFrame));
-        recieveDamage(damage, damageDealer, damageDealerPos,recoveryFrame);
+        recieveDamage(damage, damageDealer, damageDealerPos,recoveryFrame,launchingDamage);
     }
 
     IEnumerator IgnoreAbilityInput(object intercepter , int FreezeFramesOnHitDuration  )

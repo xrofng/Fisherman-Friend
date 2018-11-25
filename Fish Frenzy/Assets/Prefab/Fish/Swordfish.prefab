@@ -233,10 +233,12 @@ MonoBehaviour:
   maxHolding: 5
   throwAttack: 0
   t_invicibilityFrame: 50
+  t_launchingDamage: 1
   lastHoldPoition: {x: 0, y: 0, z: 0}
   chargePercent: 0
   attack: 12
   slapClip: 6
+  s_launchingDamage: 0
   AnimationFrame: 00000000000000001400000032000000000000000000000023000000
   s_invicibilityFrame: 50
   hitboxSize: {x: 0, y: 0, z: 0}

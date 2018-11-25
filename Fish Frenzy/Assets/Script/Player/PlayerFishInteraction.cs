@@ -45,7 +45,7 @@ public class PlayerFishInteraction : PlayerAbility {
                     _player.rigid.velocity = Vector3.zero;
                     f.RemoveRigidBody();
                     f.damageDealed = true;
-                    _player.recieveDamage(f.throwAttack, f.holder ,f.lastHoldPoition, f.t_invicibilityFrame);
+                    _player.recieveDamage(f.throwAttack, f.holder ,f.lastHoldPoition, f.t_invicibilityFrame , f.t_launchingDamage);
                     f.fishBounce();
                 }
                 break;
@@ -88,8 +88,8 @@ public class PlayerFishInteraction : PlayerAbility {
 
     public void SetMainFishTransformAsPart(Player.ePart transPart, Player.ePart rotatPart, bool flipY)
     {
-        _player.mainFish.transform.position = _player.getPart(transPart).transform.position;
-        _player.mainFish.transform.rotation = _player.getPart(rotatPart).transform.rotation;
+        _player.mainFish.transform.position = _player.GetPart(transPart).transform.position;
+        _player.mainFish.transform.rotation = _player.GetPart(rotatPart).transform.rotation;
         if (flipY)
         {
             _player.mainFish.transform.Rotate(0, 180, 0);
@@ -99,7 +99,7 @@ public class PlayerFishInteraction : PlayerAbility {
     public void HoldThatFish(Fish f)
     {
         f.ChangeState(Fish.fState.hold);
-        f.gameObject.transform.parent = _player.getPart(Player.ePart.rightArm).transform;
+        f.gameObject.transform.parent = _player.GetPart(Player.ePart.rightArm).transform;
         f.SnapTransform();
         f.RemoveRigidBody();
         f.SetToGround(false);

@@ -217,10 +217,12 @@ MonoBehaviour:
   maxHolding: 5
   throwAttack: 0
   t_invicibilityFrame: 50
+  t_launchingDamage: 1
   lastHoldPoition: {x: 0, y: 0, z: 0}
   chargePercent: 0
   attack: 10
   slapClip: 2
+  s_launchingDamage: 0
   AnimationFrame: 00000000000000001400000032000000000000000000000023000000
   s_invicibilityFrame: 50
   hitboxSize: {x: 0, y: 0, z: 0}
@@ -252,9 +254,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   specialClip: 3
+  thisSpecialHitBox: {fileID: 114706098538591994, guid: 66da22c8c634a2943bd2093bf7467c2b,
+    type: 2}
   invicibilityFrame: 50
   freezeFrame: 10
   damage: 50
+  launchingDamage: 1
   hitBoxRef: {fileID: 4352711589645446, guid: 66da22c8c634a2943bd2093bf7467c2b, type: 2}
   trailAnimRef: {fileID: 4027786647993208, guid: a180c3fecbcc1c641b3b33c001ca2256,
     type: 2}

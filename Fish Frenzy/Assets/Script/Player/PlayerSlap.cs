@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerSlap : PlayerAbility
 {
-
     public HitBoxMelee hitBox;
     public Animation slapTrail;
     //public ParticleSystem slapParticle;
@@ -65,12 +64,11 @@ public class PlayerSlap : PlayerAbility
         {
             hitBox.InvincibilityFrame = _player.mainFish.s_invicibilityFrame;
             hitBox.DamageCaused = _player.mainFish.attack;
+            hitBox.isLauncher = _player.mainFish.s_launchingDamage;
             hitBox._SFXclip = sfx_Slap;
             if (!Attacking)
             {
                 // Ignore Input
-                print(_player.mainFish.SlapClipFrameCount);
-                print( ignoreSlapFrame);
                 ActionForFrame(_player.mainFish.SlapClipFrameCount + ignoreSlapFrame,
                       () => { attacking = true;  },
                       () => { attacking = false; });
@@ -84,7 +82,6 @@ public class PlayerSlap : PlayerAbility
             } else
             {
                 print(Attacking);
-
             }
         }
     }

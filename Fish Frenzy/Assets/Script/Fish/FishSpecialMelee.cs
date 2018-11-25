@@ -5,10 +5,13 @@ using UnityEngine;
 public class FishSpecialMelee : FishSpecial {
 
     protected HitBoxMelee playerHitBox;
+    public HitBoxMelee thisSpecialHitBox;
     public int invicibilityFrame = 50;
     public int freezeFrame = 10;
     public int damage = 50;
-    
+    public bool launchingDamage = true;
+
+
     protected Vector3 snapPosition;
     protected Vector3 snapRotation;
     protected Vector3 snapScale;
@@ -39,13 +42,17 @@ public class FishSpecialMelee : FishSpecial {
     {
         SetSnapFromRef(hitBoxRef.transform);
 
-        if (_playerFishSpecial.specialHitBox)
+        foreach (Transform hb in _fish.GetPlayerHolder.GetPart(Player.ePart.hitBox))
         {
-            Destroy(_playerFishSpecial.specialHitBox.gameObject);
+            if(hb.gameObject.name == thisSpecialHitBox.gameObject.name)
+            {
+                _playerFishSpecial.specialHitBox = hb.GetComponent<HitBoxMelee>();
+            }
         }
-        _playerFishSpecial.specialHitBox = Instantiate(hitBoxRef).GetComponent<HitBoxMelee>();
+        if(_playerFishSpecial == null) { Debug.LogError("Can't find hitbox"); }
         _playerFishSpecial.specialHitBox.transform.SetParent(_playerFishSpecial.hitBoxParent);
         _playerFishSpecial.specialHitBox.Owner = _fish.holder;
+        _playerFishSpecial.specialHitBox.isLauncher = launchingDamage;
 
         Snap(_playerFishSpecial.specialHitBox.transform);
     }

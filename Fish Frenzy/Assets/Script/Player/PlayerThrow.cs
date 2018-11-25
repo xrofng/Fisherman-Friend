@@ -40,7 +40,7 @@ public class PlayerThrow : PlayerAbility {
     {
         base.Initialization();
         _aimArrow = Instantiate(aimArrow);
-        _aimArrow.transform.SetParent( _player.getPart(Player.ePart.body) );
+        _aimArrow.transform.SetParent( _player.GetPart(Player.ePart.body) );
         _aimArrow.GetComponent<SpriteRenderer>().color = PortRoyal.Instance.startupPlayer.playerColor[_player.playerID-1];
         _aimArrow.localPosition =  arrowPositioningOffset;
         _aimArrow.gameObject.SetActive(false);
@@ -132,7 +132,7 @@ public class PlayerThrow : PlayerAbility {
         
         for (int i = 0; i < NumberOfVerticalRays; i++)
         {
-            rayPos += _player.getPart(Player.ePart.body).TransformDirection(-Vector3.forward) * rayDistanceFrequent ;
+            rayPos += _player.GetPart(Player.ePart.body).TransformDirection(-Vector3.forward) * rayDistanceFrequent ;
             RaycastHit hit;
             // Does the ray intersect any objects excluding the player layer
             Color lineColor = Color.magenta;
@@ -182,7 +182,7 @@ public class PlayerThrow : PlayerAbility {
         {
             if (turningDegree >= circleDegree[i] && turningDegree < circleDegree[i + 1])
             {
-                _player.getPart(Player.ePart.body).transform.eulerAngles = new Vector3(0,HardCodeDegreeConvert( circleDegree[i]), 0);
+                _player.GetPart(Player.ePart.body).transform.eulerAngles = new Vector3(0,HardCodeDegreeConvert( circleDegree[i]), 0);
             }
         }
     }

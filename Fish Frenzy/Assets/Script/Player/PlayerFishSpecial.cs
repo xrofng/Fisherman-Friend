@@ -141,7 +141,7 @@ public class PlayerFishSpecial : PlayerAbility
                 currentMovingObj.gameObject.layer = LayerMask.NameToLayer("Fish" + _player.playerID);
                 currentMovingObj.HitBox.Owner = this.gameObject;
                 currentMovingObj.HitBox._SFXclip = sfx_Special;
-                currentMovingObj.direction = currentMovingObj.HitBox.OwnerPlayer.getPart(Player.ePart.body).transform.TransformDirection(-Vector3.forward);
+                currentMovingObj.direction = currentMovingObj.HitBox.OwnerPlayer.GetPart(Player.ePart.body).transform.TransformDirection(-Vector3.forward);
                 //spanw
                 // tick move it
             }

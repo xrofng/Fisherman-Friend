@@ -260,6 +260,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1704096998139672
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4288532701475046}
+  - component: {fileID: 114280614709624312}
+  - component: {fileID: 33368454839138736}
+  - component: {fileID: 23182144031499618}
+  - component: {fileID: 54988779360625880}
+  - component: {fileID: 64652661239989366}
+  m_Layer: 9
+  m_Name: EarthShatter_HB
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1727452470752796
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,7 +337,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4126871171258258}
   m_Layer: 0
-  m_Name: Melee
+  m_Name: HitBoxCollection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -480,7 +500,7 @@ Transform:
   m_LocalScale: {x: 0.00861045, y: 0.008309178, z: 0.010460072}
   m_Children: []
   m_Father: {fileID: 4126871171258258}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 80, y: 90, z: 0}
 --- !u!4 &4107190696405228
 Transform:
@@ -508,6 +528,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4192114104602884}
+  - {fileID: 4288532701475046}
   - {fileID: 4089578797703462}
   m_Father: {fileID: 4265649757716330}
   m_RootOrder: 7
@@ -547,6 +568,19 @@ Transform:
   m_Father: {fileID: 4776109513001538}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4288532701475046
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1704096998139672}
+  m_LocalRotation: {x: -0, y: -0.9999345, z: -0, w: 0.011445361}
+  m_LocalPosition: {x: 0, y: -0.00079999125, z: -0.0036}
+  m_LocalScale: {x: 0.032248374, y: 0.000604946, z: 0.07662559}
+  m_Children: []
+  m_Father: {fileID: 4126871171258258}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: -178.688, z: 0}
 --- !u!4 &4333089078651028
 Transform:
   m_ObjectHideFlags: 1
@@ -701,7 +735,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1727452470752796}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.11, y: 7.03, z: -3.28}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 52, y: 52, z: 52}
   m_Children:
   - {fileID: 4696772567405072}
@@ -799,6 +833,41 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 51f779effc79117478451130771f0557, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!23 &23182144031499618
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1704096998139672}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 2100000, guid: 23ae6ed6035f5a4438590b6fda41698e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1395,6 +1464,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1757172497880862}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &33368454839138736
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1704096998139672}
+  m_Mesh: {fileID: 4300000, guid: 8d3eaa4e6ebb9b447931ca96a3e20875, type: 2}
 --- !u!33 &33447894779051214
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -1495,6 +1571,35 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!54 &54988779360625880
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1704096998139672}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!64 &64652661239989366
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1704096998139672}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 8d3eaa4e6ebb9b447931ca96a3e20875, type: 2}
 --- !u!65 &65398378398704450
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -1732,6 +1837,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   materialSetIndex: 0
+--- !u!114 &114280614709624312
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1704096998139672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca0f42ae7141b6438ad514d3bbb47b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TargetLayerMask:
+    serializedVersion: 2
+    m_Bits: 30720
+  DamageCaused: 10
+  DamageCausedKnockbackType: 1
+  DamageCausedKnockbackDirection: 0
+  DamageCausedKnockbackForce: {x: 10, y: 2}
+  InvincibilityDuration: 0.5
+  InvincibilityFrame: 50
+  FreezeFramesOnHitDuration: 0
+  FreezeFramesOnHit: 10
+  IgnorePlayerFrame: 20
+  mustHaveOwner: 0
+  damageFromOwner: 1
+  isLauncher: 1
+  Owner: {fileID: 0}
+  _SFXclip: {fileID: 0}
 --- !u!114 &114300933567003324
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1805,6 +1938,7 @@ MonoBehaviour:
   IgnorePlayerFrame: 20
   mustHaveOwner: 1
   damageFromOwner: 1
+  isLauncher: 0
   Owner: {fileID: 1727452470752796}
   _SFXclip: {fileID: 0}
 --- !u!114 &114598192372927898
@@ -1845,6 +1979,7 @@ MonoBehaviour:
   - {fileID: 4265649757716330}
   - {fileID: 4836818010158862}
   - {fileID: 4666289591519604}
+  - {fileID: 4126871171258258}
   state: 0
   sfx_Death: {fileID: 8300000, guid: 8ddf30244bfadbe40a9fb00dec90be75, type: 3}
 --- !u!114 &114651210123651802
