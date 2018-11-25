@@ -85,6 +85,15 @@ public class PlayerFishInteraction : PlayerAbility {
         fish.gameObject.layer = LayerMask.NameToLayer(layerN + _player.playerID);
     }
 
+    public void SetPlayerCollideEverything( bool collide)
+    {
+        _player.gameObject.layer = LayerMask.NameToLayer("Player" + _player.playerID);
+        if (!collide)
+        {
+            _player.gameObject.layer = LayerMask.NameToLayer("Player0");
+        }
+    }
+
 
     public void SetMainFishTransformAsPart(Player.ePart transPart, Player.ePart rotatPart, bool flipY)
     {

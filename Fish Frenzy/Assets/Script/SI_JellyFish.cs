@@ -6,6 +6,9 @@ public class SI_JellyFish : StageInteraction {
 
     public Vector3 bounceForce = new Vector3(0,5,0);
     public int ShockingFrame = 10;
+    public AudioClip sfx_Shock;
+    public AudioClip sfx_Bounce;
+
     // Use this for initialization
     protected override void Start()
     {
@@ -29,10 +32,12 @@ public class SI_JellyFish : StageInteraction {
         {
             // play animation feedback
             Animator.ChangeAnimState(1, true, 0);
+            PlaySFX(sfx_Bounce);
             _player._cPlayerMovement.StartJumping(bounceForce);
         }
         else 
         {
+            PlaySFX(sfx_Shock);
             hitBox.CauseDamage();
         }
     }

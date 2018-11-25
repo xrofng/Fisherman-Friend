@@ -12,6 +12,7 @@ public class PortRoyal : PersistentSingleton<PortRoyal>
     public bool debugMode;
     
     public float respawnTime;
+    public float respawnInvincTime;
 
     public Vector2 FishJumpToWaterMultiplier;
 
