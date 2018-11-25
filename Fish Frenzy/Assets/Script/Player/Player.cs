@@ -135,7 +135,7 @@ public class Player : Creature {
 
         rigid = GetComponent<Rigidbody>();
         rigid.mass = PortRoyal.Instance.characterMass;
-        myCollider = GetComponent<BoxCollider>();
+        _collider = GetComponent<BoxCollider>();
         animator = GetComponent<PlayerAnimation>();
         _cPlayerInvincibility = GetComponent<PlayerInvincibility>();
         _cPlayerThrow = GetComponent<PlayerThrow>();

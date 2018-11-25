@@ -10,7 +10,7 @@ public class MultiPlayerCamera : PersistentSingleton<MultiPlayerCamera>
     public Transform stage;
     public Vector3 offset;
     // Use this for initialization
-    private float smoothTime;
+    public float smoothTime;
     private Vector3 velocity;
     public float minZoom;
     public float maxZoom;

@@ -95,8 +95,6 @@ public class PlayerMovement : PlayerAbility {
 
     void Jump()
     {
-        string jump_b = "Jump" + _player.playerID;
-        
         if (_pInput.GetButtonDown(_pInput.Jump, _player.playerID - 1) && !GetCrossZComponent<PlayerThrow>().aiming)
         {
             if ( GetCrossZComponent<PlayerState>().IsSwiming)

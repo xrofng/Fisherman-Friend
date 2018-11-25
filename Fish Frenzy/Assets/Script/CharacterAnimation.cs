@@ -6,10 +6,18 @@ using UnityEngine;
 
 public class CharacterAnimation : MonoBehaviour {
     [HideInInspector]
-    public Animator _animator;
+    private Animator _animator;
+    public Animator Animator
+    {
+        get
+        {
+            if (_animator==null) { _animator = GetComponent<Animator>(); }
+            return _animator;
+        }
+    }
 
     public int _currentAnimationState =0;
-    public void ChangeState(int stateI)
+    private void ChangeState(int stateI)
     {
         if (_currentAnimationState == stateI)
         {
@@ -17,10 +25,21 @@ public class CharacterAnimation : MonoBehaviour {
         }
         else
         {
-            _animator.SetInteger("State", stateI);
+            Animator.SetInteger("State", stateI);
             _currentAnimationState = stateI;
         }
     }
+
+    public List<AnimationClip> animClipList = new List<AnimationClip>();
+    public AnimationClip GetClip(int i)
+    {
+        return animClipList[i];
+    }
+    public int GetClipFrame(AnimationClip clip, float percent)
+    {
+        return (int)(clip.frameRate * percent / 100.0f);
+    }
+
     /// <summary>
     /// On Start(), we call the ability's intialization
     /// </summary>
@@ -34,7 +53,7 @@ public class CharacterAnimation : MonoBehaviour {
     /// </summary>
     protected virtual void Initialization()
     {
-        _animator = GetComponent<Animator>();
+        
     }
 
     // Update is called once per frame
@@ -44,6 +63,32 @@ public class CharacterAnimation : MonoBehaviour {
 
     public void UpdateAnimatorBool(string parameterName, bool value)
     {        
-        _animator.SetBool(parameterName, value);        
+        Animator.SetBool(parameterName, value);        
     }
+
+    public void ChangeAnimState(int i, int ignoreFrame, bool revert, int revetTo)
+    {
+        StartCoroutine(InvokeChangeAnimState(i, ignoreFrame, revert, revetTo));
+    }
+    public void ChangeAnimState(int i, bool revert, int revetTo)
+    {
+        StartCoroutine(InvokeChangeAnimState(i, GetClipFrame(GetClip(1) , 70), revert, revetTo));
+    }
+    public void ChangeAnimState(int i)
+    {
+        ChangeState(i);
+    }
+    
+    IEnumerator InvokeChangeAnimState(int iState, int frameDuration, bool revert, int revetTo)
+    {
+        int frameCount = 0;
+        ChangeState(iState);
+        while (frameCount < frameDuration)
+        {
+            yield return new WaitForEndOfFrame();
+            frameCount++;
+        }
+        if (revert) { ChangeState(revetTo); }
+    }
+
 }

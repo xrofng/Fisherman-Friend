@@ -27,6 +27,8 @@ public class SI_JellyFish : StageInteraction {
     {
         if (_player._cPlayerState.IsJumping)
         {
+            // play animation feedback
+            Animator.ChangeAnimState(1, true, 0);
             _player._cPlayerMovement.StartJumping(bounceForce);
         }
         else 

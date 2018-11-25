@@ -54,8 +54,8 @@ public class PlayerSlap : PlayerAbility
     }
 
     // Update is called once per frame
-    void SlapFish() {
-        string slap = "Slap" + _player.playerID;
+    void SlapFish()
+    {
         if (_player.mainFish == null)
         {
             return;
@@ -78,7 +78,7 @@ public class PlayerSlap : PlayerAbility
                       () => { slapTrail.gameObject.SetActive(true); slapTrail.Play(); },
                       () => { slapTrail.gameObject.SetActive(false); slapTrail.Stop(); } );
 
-                _pAnimator.ChangeAnimState((int)_player.mainFish.slapClip, _player.mainFish.SlapClipFrameCount, true, PlayerAnimation.State.HoldFish);
+                _pAnimator.ChangeAnimState((int)_player.mainFish.slapClip, _player.mainFish.SlapClipFrameCount, true, (int)PlayerAnimation.State.HoldFish);
             } else
             {
                 print(Attacking);
