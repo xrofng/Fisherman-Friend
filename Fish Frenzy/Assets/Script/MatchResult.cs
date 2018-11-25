@@ -5,6 +5,7 @@ using UnityEngine;
 public class MatchResult : PersistentSingleton<MatchResult>
 {
     [Header("Kill Count")]
+    public bool unTagEnable = false;
     public float untagAttackerDuration = 5.0f;
     public int maxNumPlayer = 4;
     public int numPlayer = 4;
@@ -65,7 +66,17 @@ public class MatchResult : PersistentSingleton<MatchResult>
         {
             KnockByList[recieveAttackID - 1].Add(knocker);
         }
+        ScoreChangeDisplay(recieveAttackID, knocker);
         PrintKnockBy(recieveAttackID);
+    }
+
+    public void ScoreChangeDisplay(int recieveAttackID,GameObject knocker)
+    {
+        if (knocker.gameObject.GetComponent<Player>())
+        {
+            GUIManager.Instance.AddScoreChange(knocker.gameObject.GetComponent<Player>().playerID - 1, 1);
+        }
+        GUIManager.Instance.AddScoreChange(recieveAttackID - 1, -1);
     }
 
     public void StoreAttacker(int recieveAttackID, GameObject attacker)
@@ -83,7 +94,7 @@ public class MatchResult : PersistentSingleton<MatchResult>
         lastAttack.Add(attacker);
         PrintLatestAttack(recieveAttackID);
         yield return new WaitForSeconds(timeDuration);
-        if (lastAttack.Contains(attacker))
+        if (lastAttack.Contains(attacker) && unTagEnable)
         {
             lastAttack.Remove(attacker);
         }

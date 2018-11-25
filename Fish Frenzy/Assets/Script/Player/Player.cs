@@ -173,7 +173,8 @@ public class Player : Creature {
         dPercent += (int)damage;
         //Instantiate(knockBackOrigin, center ,Quaternion.identity);
         Vector2 knockBackForce = KnockData.Instance.getSlapKnockForce((int)damage, dPercent);
-        print(launchingDamage);
+
+        //print(launchingDamage);
 
         if (launchingDamage)
         {
