@@ -22,7 +22,8 @@ public class PlayerAnimation : CharacterAnimation {
         V_Slap,
         Throw,
         HoldFish,
-        F_Stab
+        F_Stab,
+        Damaged
     };
     
     protected override void Start()
@@ -40,17 +41,21 @@ public class PlayerAnimation : CharacterAnimation {
     {
     }
 
-    public void ChangeAnimState(int i, int ignoreFrame, bool revert, PlayerAnimation.State revetTo)
+    public void ChangeAnimState(int i, int ignoreFrame, bool revert, int revetTo)
     {
         StartCoroutine(InvokeChangeAnimState(i, ignoreFrame, revert, revetTo));
     }
+    public void ChangeAnimState(int i, int ignoreFrame, bool revert, PlayerAnimation.State revetTo)
+    {
+        StartCoroutine(InvokeChangeAnimState(i, ignoreFrame, revert, (int)revetTo));
+    }
     public void ChangeAnimState(PlayerAnimation.State s, int ignoreFrame, bool revert, PlayerAnimation.State revetTo)
     {
-        ChangeAnimState((int)s, ignoreFrame, revert, revetTo);
+        ChangeAnimState((int)s, ignoreFrame, revert, (int)revetTo);
     }
     public void ChangeAnimState(Fish.MeleeAnimation s, int ignoreFrame, bool revert, PlayerAnimation.State revetTo)
     {
-        ChangeAnimState((int)s, ignoreFrame, revert, revetTo);
+        ChangeAnimState((int)s, ignoreFrame, revert, (int)revetTo);
     }
 
     public void ChangeAnimState(PlayerAnimation.State s)
@@ -58,7 +63,7 @@ public class PlayerAnimation : CharacterAnimation {
         ChangeState((int)s);
     }
 
-    IEnumerator InvokeChangeAnimState(int iState, int frameDuration, bool revert, PlayerAnimation.State revetTo)
+    IEnumerator InvokeChangeAnimState(int iState, int frameDuration, bool revert,int revetTo)
     {
         int frameCount = 0;
         ChangeState(iState);
@@ -67,6 +72,6 @@ public class PlayerAnimation : CharacterAnimation {
             yield return new WaitForEndOfFrame();
             frameCount++;
         }
-        if (revert) { ChangeState((int)revetTo); }
+        if (revert) { ChangeState(revetTo); }
     }
 }

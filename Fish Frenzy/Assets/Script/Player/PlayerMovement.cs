@@ -61,7 +61,7 @@ public class PlayerMovement : PlayerAbility {
 
         //Vector3 mov = new Vector3(Input.GetAxisRaw(hori) * speed.x, 0.0f, Input.GetAxisRaw(verti) * speed.z);
         mov = mov * Time.deltaTime;
-        if (!freezeMovement && !GetCrossZComponent<PlayerState>().IsAttacking)
+        if (!freezeMovement && !GetCrossZComponent<PlayerState>().IsAttacking && !GetCrossZComponent<PlayerState>().IsDamaged)
         {
             this.transform.Translate(mov);
         }
