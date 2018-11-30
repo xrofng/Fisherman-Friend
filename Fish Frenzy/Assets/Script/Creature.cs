@@ -14,6 +14,10 @@ public class Creature : MonoBehaviour
         {
             if (!_rigid)
             {
+                if (GetComponent<Rigidbody>() == null)
+                {
+                    gameObject.AddComponent<Rigidbody>();
+                }
                 _rigid = GetComponent<Rigidbody>();
 
             }

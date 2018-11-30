@@ -31,7 +31,12 @@ public class Fish : Creature {
             return _playerHolder;
         }
     }
-    public bool damageDealed;
+
+    // Ignore Object
+    // TODO encap to damage on hit
+    public int ignorePlayerFrame;
+    protected List<GameObject> _ignoredGameObjects = new List<GameObject>();
+
 
     [Header("Fishing")]
     public float durability = 7;
@@ -186,7 +191,6 @@ public class Fish : Creature {
 
     public void ChangeState(fState pState)
     {
-
         OnStateChange(pState);
         state = pState;
     }
@@ -200,7 +204,7 @@ public class Fish : Creature {
         }
         else if(stateChange == fState.ground)
         {
-            gameObject.layer = LayerMask.NameToLayer("Fish");
+            gameObject.layer = LayerMask.NameToLayer("Fish_All");
             SetToGround(true);
             RemoveRigidBody();
         }
@@ -215,8 +219,7 @@ public class Fish : Creature {
     private IEnumerator  ieFishBounce()
     {
         yield return new WaitForSeconds(0.0f);
-        _rigid = gameObject.AddComponent<Rigidbody>();
-        _rigid.AddForce(Vector3.up * 3,ForceMode.Impulse);
+        Rigidbody.AddForce(Vector3.up * 3,ForceMode.Impulse);
     }
 
     public void SnapTransform()
@@ -230,7 +233,7 @@ public class Fish : Creature {
         transform.position += aimPositioningOffset;
     }
 
-    public void setHolder(GameObject g)
+    public void SetHolder(GameObject g)
     {
         holder = g;
     }
@@ -374,5 +377,31 @@ public class Fish : Creature {
     public void SetToGround(bool b)
     {
         _pickupFish.SetAllowToPick(b);
+    }
+
+    /// <summary>
+    /// Adds the gameobject set in parameters to the ignore list
+    /// </summary>
+    /// <param name="newIgnoredGameObject">New ignored game object.</param>
+    public virtual void AddIgnoreGameObject(GameObject newIgnoredGameObject)
+    {
+        StartCoroutine(ieAddIgnoreGameObject(newIgnoredGameObject));
+    }
+
+    IEnumerator ieAddIgnoreGameObject(GameObject newIgnoredGameObject)
+    {
+        _ignoredGameObjects.Add(newIgnoredGameObject);
+        int frameCount = 0;
+        while (frameCount < ignorePlayerFrame)
+        {
+            yield return new WaitForEndOfFrame();
+            frameCount++;
+        }
+        _ignoredGameObjects.Remove(newIgnoredGameObject);
+    }
+
+    public bool CheckIgnoredObject(GameObject go)
+    {
+        return _ignoredGameObjects.Contains(go);
     }
 }
