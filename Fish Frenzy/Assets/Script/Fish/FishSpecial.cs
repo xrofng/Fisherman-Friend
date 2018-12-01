@@ -12,10 +12,20 @@ public class FishSpecial : MonoBehaviour
         get { return _fish.GetPlayerHolder._cPlayerFishSpecial; }
     }
 
-    public Fish.MeleeAnimation specialClip;
+    [Header("Special")]
+    public float attack;
+    public enum MeleeAnimation
+    {
+        LightHorizontal = 2,
+        HammerDown = 3,
+        LightStab = 6
+    }
+    public int[] AnimationFrame = { 0, 0, 20, 50, 0, 0, 35 };
+
+    public MeleeAnimation specialClip;
     public int SpeiclaClipFrameCount
     {
-        get { return _fish.AnimationFrame[(int)specialClip]; }
+        get { return AnimationFrame[(int)specialClip]; }
     }
 
     // private ignore Input for specific ability

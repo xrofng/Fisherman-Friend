@@ -48,6 +48,7 @@ public class Fish : Creature {
     protected float jumpSpeed = 40;
     protected float fishMass =1;
     public float rayDistance = 0.01f;
+
     [Header("Throw")]
     public float maxHolding = 5;
     public float throwAttack;
@@ -56,25 +57,8 @@ public class Fish : Creature {
     public Vector3 lastHoldPoition;
     public int chargePercent;
 
-    [Header("Slap")]
-    public float attack;
-    public enum MeleeAnimation
-    {
-        LightHorizontal = 2,
-        HammerDown = 3,
-        LightStab = 6
-    }
-    public MeleeAnimation slapClip;
-    public bool s_launchingDamage;
-    public int[] AnimationFrame = { 0,0,20,50,0,0,35};
-    public int SlapClipFrameCount
-    {
-        get { return AnimationFrame[(int)slapClip]; }
-    }
-    public int s_invicibilityFrame = 50;
-    public Vector3 hitboxSize;
-    public Vector3 hitboxCenter;
-    
+
+
 
     [Header("Snap")]
     //snap
@@ -272,7 +256,7 @@ public class Fish : Creature {
         float scaleToDuration = duration / maxHolding;
         chargePercent =  (int)(scaleToDuration * 100.0f);
         _rigid.velocity = -transform.forward * -(forwardMultiplier * scaleToDuration) + (transform.up* upMultiplier);
-        throwAttack = attack * scaleToDuration;
+        throwAttack = _cSpecial.attack * scaleToDuration;
     }
 
     public void RemoveRigidBody()

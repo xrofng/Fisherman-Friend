@@ -70,9 +70,9 @@ public class PlayerSpecial : PlayerAbility
                   () => { MeleeSpecialing = true;  },
                   () => { MeleeSpecialing = false;  });
             // enable trail
-            ActionForFrame(FishSpecial<FishSpecialMelee>().SpeiclaClipFrameCount,
-                  () => { specialTrail.gameObject.SetActive(true); specialTrail.Play(); },
-                  () => { specialTrail.gameObject.SetActive(false); specialTrail.Stop(); });
+            //ActionForFrame(FishSpecial<FishSpecialMelee>().SpeiclaClipFrameCount,
+            //      () => { specialTrail.gameObject.SetActive(true); specialTrail.Play(); },
+            //      () => { specialTrail.gameObject.SetActive(false); specialTrail.Stop(); });
 
             int specialClip = (int)FishSpecial<FishSpecialMelee>().specialClip;
             _pAnimator.ChangeAnimState(specialClip, FishSpecial<FishSpecialMelee>().SpeiclaClipFrameCount, true, (int)PlayerAnimation.State.HoldFish);             
@@ -143,8 +143,6 @@ public class PlayerSpecial : PlayerAbility
                 currentMovingObj.HitBox.Owner = this.gameObject;
                 currentMovingObj.HitBox._SFXclip = sfx_Special;
                 currentMovingObj.direction = currentMovingObj.HitBox.OwnerPlayer.GetPart(Player.ePart.body).transform.TransformDirection(-Vector3.forward);
-                //spanw
-                // tick move it
             }
             else
             {
