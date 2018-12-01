@@ -7,7 +7,7 @@ public class FishSpecial : MonoBehaviour
 {
     protected Fish _fish;
 
-    protected PlayerFishSpecial _playerFishSpecial
+    protected PlayerSpecial _playerFishSpecial
     {
         get { return _fish.GetPlayerHolder._cPlayerFishSpecial; }
     }

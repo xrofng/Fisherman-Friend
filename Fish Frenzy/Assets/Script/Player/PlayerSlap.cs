@@ -60,7 +60,7 @@ public class PlayerSlap : PlayerAbility
         {
             return;
         }
-        if (_pInput.GetButtonDown(_pInput.Slap, _player.playerID - 1))
+        if (_pInput.GetButtonDown(_pInput.Special, _player.playerID - 1))
         {
             hitBox.InvincibilityFrame = _player.mainFish.s_invicibilityFrame;
             hitBox.DamageCaused = _player.mainFish.attack;

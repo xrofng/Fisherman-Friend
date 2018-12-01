@@ -17,7 +17,7 @@ public class JoystickManager : Singleton<JoystickManager>
     [Header("Button Key")]
     public string Fishing  = "Fishing";
     public string Jump     = "Jump"   ;
-    public string Slap     = "Slap"   ;
+    public string Special     = "Special"   ;
     public string Throw    = "Throw"  ;
     public string Switch   = "Switch" ;
     public string Hori     = "Hori"   ;
@@ -73,8 +73,8 @@ public class JoystickManager : Singleton<JoystickManager>
         // specify button of 1st joystick
         Player1Button.Add(Fishing, KeyCode.Joystick1Button2);
         Player1Button.Add(Jump, KeyCode.Joystick1Button1);
-        Player1Button.Add(Slap, KeyCode.Joystick1Button0);
-        Player1Button.Add(Throw, KeyCode.Joystick1Button3);
+        Player1Button.Add(Special, KeyCode.Joystick1Button3);
+        Player1Button.Add(Throw, KeyCode.Joystick1Button0);
         Player1Button.Add(Switch, KeyCode.Joystick1Button5);
         Player1Button.Add(Hori, KeyCode.Joystick1Button18);
         Player1Button.Add(Verti, KeyCode.Joystick1Button19);
@@ -107,13 +107,13 @@ public class JoystickManager : Singleton<JoystickManager>
             } else 
             if (joyName == ("Generic   USB  Joystick  "))
             {
-                SwapButton(Slap, Throw, i);
-                SwapButton(Fishing, Jump, i);
+                //SwapButton(Special, Throw, i);
+               // SwapButton(Fishing, Jump, i);
             }else
             if (joyName.Contains("Controller"))
             {
-                SwapButton(Slap, Fishing, i);
-                SwapButton(Fishing, Jump,i);
+                SwapButton(Jump, Throw, i);
+                SwapButton(Throw, Fishing, i);
             }
         }
     }

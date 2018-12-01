@@ -78,7 +78,7 @@ public class Player : Creature {
     [HideInInspector]
     public PlayerFishInteraction _cPlayerFishInteraction;
     [HideInInspector]
-    public PlayerFishSpecial _cPlayerFishSpecial;
+    public PlayerSpecial _cPlayerFishSpecial;
 
 
     public GameObject knockBackOrigin;
@@ -143,7 +143,7 @@ public class Player : Creature {
         _cPlayerMovement = GetComponent<PlayerMovement>();
         _cPlayerFishInteraction = GetComponent<PlayerFishInteraction>();
         _cPlayerSwitch = GetComponent<PlayerSwitchFish>();
-        _cPlayerFishSpecial = GetComponent<PlayerFishSpecial>();
+        _cPlayerFishSpecial = GetComponent<PlayerSpecial>();
     }
 
     // Update is called once per frame

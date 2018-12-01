@@ -28,7 +28,7 @@ public class PlayerState : PlayerAbility
 
     /// Is the character attacking ? 
     public bool IsAttacking { get { return GetCrossZComponent<PlayerSlap>().Attacking ||
-                                            GetCrossZComponent<PlayerFishSpecial>().MeleeSpecialing;  }  }
+                                            GetCrossZComponent<PlayerSpecial>().MeleeSpecialing;  }  }
     /// is the character falling right now ?
     public bool IsFalling { get; set; }
     /// is the character falling right now ?
