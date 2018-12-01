@@ -2,82 +2,93 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Creature : MonoBehaviour {
-    public enum ColliderType
-    {
-        Box,
-        Capsule
-    }
-
-    protected Rigidbody myRigid;
-    protected Collider myCollider;
-    protected Animation myAnimation;
-    protected AudioSource myAudioSource;
-  
-
-    public Rigidbody _rigidbody
+public class Creature : MonoBehaviour
+{
+    /// <summary>
+    /// Rigid of creature
+    /// </summary>
+    protected Rigidbody _rigid;
+    public Rigidbody Rigidbody
     {
         get
         {
-            if (!myRigid)
+            if (!_rigid)
             {
-                myRigid = GetComponent<Rigidbody>();
+                if (GetComponent<Rigidbody>() == null)
+                {
+                    gameObject.AddComponent<Rigidbody>();
+                }
+                _rigid = GetComponent<Rigidbody>();
 
             }
-            return myRigid;
+            return _rigid;
         }
     }
-    public Collider _collider
+
+    /// <summary>
+    /// Collider of creature
+    /// </summary>
+    protected Collider _collider;
+    public Collider Collider
     {
         get
         {
-            if (!myCollider)
+            if (!_collider)
             {
-                myCollider = GetComponent<Collider>();
+                _collider = GetComponent<Collider>();
 
             }
-            return myCollider;
+            return _collider;
         }
-    }
-    public Animation _animation
-    {
-        get
-        {
-            if (!myAnimation)
-            {
-                myAnimation = GetComponent<Animation>();
-
-            }
-            return myAnimation;
-        }
-    }
-    public AudioSource _SFX
-    {
-        get
-        {
-            if (!myAudioSource)
-            {
-                myAudioSource = GetComponent<AudioSource>();
-
-            }
-            return myAudioSource;
-        }
-    }
-
-
-    protected virtual void PlaySFX(AudioClip SFXclip)
-    {
-        if (_SFX.isPlaying) { return; }
-        _SFX.clip = SFXclip;
-        _SFX.Play();
     }
 
     public T GetCollider<T>() where T : Collider
     {
-        if (!myCollider)
+        return Collider as T;
+    }
+
+    /// <summary>
+    /// Audio of creature
+    /// </summary>
+    protected AudioSource _audioSource;
+    public AudioSource SFX
+    {
+        get
         {
-            myCollider = GetComponent<T>() as T;
+            if (!_audioSource)
+            {
+                _audioSource = GetComponent<AudioSource>();
+
+            }
+            return _audioSource;
         }
-        return myCollider as T;
+    }
+
+    protected virtual void PlaySFX(AudioClip SFXclip)
+    {
+        if (SFX.isPlaying) { return; }
+        SFX.clip = SFXclip;
+        SFX.Play();
+    }
+
+    /// <summary>
+    /// Animation of creature
+    /// </summary>
+    protected CharacterAnimation _animation;
+    public CharacterAnimation Animator
+    {
+        get
+        {
+            if (!_animation)
+            {
+                _animation = GetComponent<CharacterAnimation>();
+            }
+            return _animation;
+        }
+    }
+
+    public T GetAnimator<T>() where T : CharacterAnimation
+    {
+        return Animator as T;
     }
 }

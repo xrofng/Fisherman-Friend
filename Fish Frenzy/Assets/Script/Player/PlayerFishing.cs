@@ -41,7 +41,7 @@ public class PlayerFishing : PlayerAbility
     void Fishing()
     {
         //if (Input.GetButtonDown(fishi))
-        if (_pInput.GetButtonDown("Fishing", _player.playerID-1)) 
+        if (_pInput.GetButtonDown(_pInput.Fishing, _player.playerID-1)) 
         {
             switch (_player.state)
             {
@@ -58,6 +58,7 @@ public class PlayerFishing : PlayerAbility
                     {
                         _player.baitedFish.GetComponent<MeshRenderer>().enabled = true;
                         _player.ChangeState(Player.eState.waitForFish);
+                        GetCrossZComponent<PlayerFishInteraction>().FinishFishing();
                         GUIManager.Instance.UpdateMashFishingButtonIndicator(_player.playerID, fishPoint.position, false);
                     }
                     break;
@@ -81,8 +82,8 @@ public class PlayerFishing : PlayerAbility
         _player.baitedFish = Instantiate(PortRoyal.Instance.randomFish(), fishPoint.position, _player.GetPart(Player.ePart.body).transform.rotation);
         Fish baitedFish = _player.baitedFish;
         baitedFish.GetComponent<MeshRenderer>().enabled = false;
-        GetCrossZComponent<PlayerFishInteraction>().SetFishCollidePlayer(baitedFish, _player, true);
-        baitedFish.setHolder(this.gameObject);
+        GetCrossZComponent<PlayerFishInteraction>().SetFishCollideType(PlayerFishInteraction.CollideType.Uncollide ,baitedFish, _player);
+        baitedFish.SetHolder(this.gameObject);
         SetFishing(true);
         baitedFish.ChangeState(Fish.fState.baited);
     }

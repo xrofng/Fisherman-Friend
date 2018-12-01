@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerFishSpecial : PlayerAbility
+public class PlayerSpecial : PlayerAbility
 {
     public int ignoreSpecialFrame = 4;
     
@@ -63,18 +63,19 @@ public class PlayerFishSpecial : PlayerAbility
             return;
         }
 
-        if (_pInput.GetButtonDown(_pInput.Fishing, _player.playerID - 1))
+        if (_pInput.GetButtonDown(_pInput.Special, _player.playerID - 1))
         {
             // Ignore Input
             ActionForFrame(FishSpecial<FishSpecialMelee>().SpeiclaClipFrameCount + ignoreSpecialFrame,
                   () => { MeleeSpecialing = true;  },
                   () => { MeleeSpecialing = false;  });
             // enable trail
-            ActionForFrame(FishSpecial<FishSpecialMelee>().SpeiclaClipFrameCount,
-                  () => { specialTrail.gameObject.SetActive(true); specialTrail.Play(); },
-                  () => { specialTrail.gameObject.SetActive(false); specialTrail.Stop(); });
+            //ActionForFrame(FishSpecial<FishSpecialMelee>().SpeiclaClipFrameCount,
+            //      () => { specialTrail.gameObject.SetActive(true); specialTrail.Play(); },
+            //      () => { specialTrail.gameObject.SetActive(false); specialTrail.Stop(); });
 
-            _pAnimator.ChangeAnimState(PlayerAnimation.State.V_Slap, FishSpecial<FishSpecialMelee>().SpeiclaClipFrameCount, true, PlayerAnimation.State.HoldFish);             
+            int specialClip = (int)FishSpecial<FishSpecialMelee>().specialClip;
+            _pAnimator.ChangeAnimState(specialClip, FishSpecial<FishSpecialMelee>().SpeiclaClipFrameCount, true, (int)PlayerAnimation.State.HoldFish);             
         }   
     }
 
@@ -89,15 +90,15 @@ public class PlayerFishSpecial : PlayerAbility
             return;
         }       
 
-        if (_pInput.GetButtonDown(_pInput.Fishing, _player.playerID - 1))
+        if (_pInput.GetButtonDown(_pInput.Special, _player.playerID - 1))
         {
             GetCrossZComponent<PlayerThrow>().OnButtonDown();
         }
-        else if (_pInput.GetButton(_pInput.Fishing, _player.playerID - 1))
+        else if (_pInput.GetButton(_pInput.Special, _player.playerID - 1))
         {
             GetCrossZComponent<PlayerThrow>().OnButtonHold();
         }
-        else if (_pInput.GetButtonUp(_pInput.Fishing, _player.playerID - 1))
+        else if (_pInput.GetButtonUp(_pInput.Special, _player.playerID - 1))
         {
             //PlayThrowSFX();
             StartCoroutine(SpecialThrowAttack(FishSpecial<FishSpecialThrow>().throwDurationFrame, FishSpecial<FishSpecialThrow>().endByFrame));
@@ -142,8 +143,6 @@ public class PlayerFishSpecial : PlayerAbility
                 currentMovingObj.HitBox.Owner = this.gameObject;
                 currentMovingObj.HitBox._SFXclip = sfx_Special;
                 currentMovingObj.direction = currentMovingObj.HitBox.OwnerPlayer.GetPart(Player.ePart.body).transform.TransformDirection(-Vector3.forward);
-                //spanw
-                // tick move it
             }
             else
             {

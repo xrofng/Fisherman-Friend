@@ -14,6 +14,7 @@ public class SI_Shark : StageInteraction
     [Header("Bloodthirst")]
     public bool randomStartWayPoint = true;
     public bool randomClockWise = true;
+    public AudioClip sfx_Bite;
     protected int CurrentWayPointID;
     protected int NearestWayPointID;
     public float BloodThirstSpeed;
@@ -84,6 +85,9 @@ public class SI_Shark : StageInteraction
         int frameCount = 0;
         stopMove = true;
         _player.AddAbilityInputIntercepter(this);
+        // play animation feedback
+        Animator.ChangeAnimState(1, true, 0);
+        PlaySFX(sfx_Bite);
         while (frameCount < BiteFrame)
         {
             yield return new WaitForEndOfFrame();        frameCount++;
@@ -161,14 +165,7 @@ public class SI_Shark : StageInteraction
             CurrentWayPointID = path_objs.Count - 1;
         }
     }
-
-
-    void PlayBiteAnimation()
-    {
-        _animation.clip = _animation.GetClip("Bite");
-        _animation.Play();
-    }
-
+    
     int NextWayPointID(int current)
     {
         int next = current + 1;

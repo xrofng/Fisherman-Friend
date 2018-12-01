@@ -7,15 +7,25 @@ public class FishSpecial : MonoBehaviour
 {
     protected Fish _fish;
 
-    protected PlayerFishSpecial _playerFishSpecial
+    protected PlayerSpecial _playerFishSpecial
     {
         get { return _fish.GetPlayerHolder._cPlayerFishSpecial; }
     }
 
-    public Fish.MeleeAnimation specialClip;
+    [Header("Special")]
+    public float attack;
+    public enum MeleeAnimation
+    {
+        LightHorizontal = 2,
+        HammerDown = 3,
+        LightStab = 6
+    }
+    public int[] AnimationFrame = { 0, 0, 20, 50, 0, 0, 35 };
+
+    public MeleeAnimation specialClip;
     public int SpeiclaClipFrameCount
     {
-        get { return _fish.AnimationFrame[(int)specialClip]; }
+        get { return AnimationFrame[(int)specialClip]; }
     }
 
     // private ignore Input for specific ability
@@ -24,7 +34,7 @@ public class FishSpecial : MonoBehaviour
 
     public Rigidbody _pRigid
     {
-        get { return _fish._rigidbody; }
+        get { return _fish.Rigidbody; }
     }
 
     protected AudioSource _SFX;

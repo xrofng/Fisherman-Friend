@@ -52,7 +52,7 @@ public class HitBoxMelee : DamageOnHit
 
     protected override void Colliding(Collider collider)
     {
-        if(mustHaveOwner && !Owner)
+        if (mustHaveOwner && !Owner)
         {
             return;
         }

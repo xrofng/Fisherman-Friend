@@ -8,7 +8,6 @@ public class FishSpecialMelee : FishSpecial {
     public HitBoxMelee thisSpecialHitBox;
     public int invicibilityFrame = 50;
     public int freezeFrame = 10;
-    public int damage = 50;
     public bool launchingDamage = true;
 
 
@@ -18,7 +17,6 @@ public class FishSpecialMelee : FishSpecial {
 
     [Header("Prefab Ref")]
     public Transform hitBoxRef;
-    public Transform trailAnimRef;
 
     protected override void Start()
     {
@@ -35,12 +33,11 @@ public class FishSpecialMelee : FishSpecial {
     {
         SetUpSpecialHitBox();
         SetUpGameVariable();
-        SetUpSpecialTrailAnim();
     }
 
     public void SetUpSpecialHitBox()
     {
-        SetSnapFromRef(hitBoxRef.transform);
+        //SetSnapFromRef(hitBoxRef.transform);
 
         foreach (Transform hb in _fish.GetPlayerHolder.GetPart(Player.ePart.hitBox))
         {
@@ -49,26 +46,13 @@ public class FishSpecialMelee : FishSpecial {
                 _playerFishSpecial.specialHitBox = hb.GetComponent<HitBoxMelee>();
             }
         }
-        if(_playerFishSpecial == null) { Debug.LogError("Can't find hitbox"); }
+        if(_playerFishSpecial.specialHitBox == null) { Debug.LogError("Can't find hitbox"); }
+
         _playerFishSpecial.specialHitBox.transform.SetParent(_playerFishSpecial.hitBoxParent);
         _playerFishSpecial.specialHitBox.Owner = _fish.holder;
         _playerFishSpecial.specialHitBox.isLauncher = launchingDamage;
 
-        Snap(_playerFishSpecial.specialHitBox.transform);
-    }
-
-    public void SetUpSpecialTrailAnim()
-    {
-        SetSnapFromRef(trailAnimRef.transform);
-
-        if (_playerFishSpecial.specialTrail)
-        {
-            Destroy(_playerFishSpecial.specialTrail.gameObject);
-        }
-        _playerFishSpecial.specialTrail = Instantiate(trailAnimRef).GetComponent<Animation>();
-        _playerFishSpecial.specialTrail.transform.SetParent(_playerFishSpecial.hitBoxParent);
-
-        Snap(_playerFishSpecial.specialTrail.transform);
+        //Snap(_playerFishSpecial.specialHitBox.transform);
     }
 
     /// <summary>
@@ -102,7 +86,7 @@ public class FishSpecialMelee : FishSpecial {
         playerHitBox = _playerFishSpecial.specialHitBox;
         playerHitBox.FreezeFramesOnHit = freezeFrame;
         playerHitBox.InvincibilityFrame = invicibilityFrame;
-        playerHitBox.DamageCaused = damage;
+        playerHitBox.DamageCaused = attack;
         if (_fish.sfx_Special)
         {
             playerHitBox._SFXclip = _fish.sfx_Special;

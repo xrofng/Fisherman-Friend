@@ -78,7 +78,7 @@ public class Player : Creature {
     [HideInInspector]
     public PlayerFishInteraction _cPlayerFishInteraction;
     [HideInInspector]
-    public PlayerFishSpecial _cPlayerFishSpecial;
+    public PlayerSpecial _cPlayerFishSpecial;
 
 
     public GameObject knockBackOrigin;
@@ -130,12 +130,10 @@ public class Player : Creature {
         playerID = gameObject.name[6] - 48;
         this.gameObject.layer = LayerMask.NameToLayer("Player" + playerID);
         fixedFPS_DT = 0.016f;
-
         playerIndicator.sprite = PortRoyal.Instance.startupPlayer.playerIndicator[playerID-1];
-
         rigid = GetComponent<Rigidbody>();
         rigid.mass = PortRoyal.Instance.characterMass;
-        myCollider = GetComponent<BoxCollider>();
+        _collider = GetComponent<BoxCollider>();
         animator = GetComponent<PlayerAnimation>();
         _cPlayerInvincibility = GetComponent<PlayerInvincibility>();
         _cPlayerThrow = GetComponent<PlayerThrow>();
@@ -145,7 +143,7 @@ public class Player : Creature {
         _cPlayerMovement = GetComponent<PlayerMovement>();
         _cPlayerFishInteraction = GetComponent<PlayerFishInteraction>();
         _cPlayerSwitch = GetComponent<PlayerSwitchFish>();
-        _cPlayerFishSpecial = GetComponent<PlayerFishSpecial>();
+        _cPlayerFishSpecial = GetComponent<PlayerSpecial>();
     }
 
     // Update is called once per frame
@@ -173,7 +171,8 @@ public class Player : Creature {
         dPercent += (int)damage;
         //Instantiate(knockBackOrigin, center ,Quaternion.identity);
         Vector2 knockBackForce = KnockData.Instance.getSlapKnockForce((int)damage, dPercent);
-        print(launchingDamage);
+
+        //print(launchingDamage);
 
         if (launchingDamage)
         {
@@ -218,7 +217,7 @@ public class Player : Creature {
         rigid.AddForce(nKnockBackDirection * knockBackForce.x + upLaunching, ForceMode.Impulse);
     }   
 
-    IEnumerator Respawn(float waitBeforeRespawn)
+    IEnumerator Respawn(float waitBeforeRespawn , float waitBeforeCancelInvinc)
     {
         yield return new WaitForSeconds(waitBeforeRespawn);
         rigid.velocity = Vector3.zero;
@@ -227,6 +226,8 @@ public class Player : Creature {
         _cPlayerFishInteraction.SetHoldFish(false);
         this.dPercent = 0;
         MatchResult.Instance.ClearRecentDamager(playerID);
+        yield return new WaitForSeconds(waitBeforeCancelInvinc);
+        _cPlayerFishInteraction.SetPlayerCollideEverything(true);
 
     }
     void OnCollisionEnter(Collision other)
@@ -248,6 +249,7 @@ public class Player : Creature {
     public void KillPlayer()
     {
         Death = true;
+        _cPlayerFishInteraction.SetPlayerCollideEverything(false);
         PlaySFX(sfx_Death);
         GameObject latest= MatchResult.Instance.GetLatestDamager(playerID,false);
         if (latest)
@@ -266,7 +268,7 @@ public class Player : Creature {
         }
 
         this.transform.position = PortRoyal.Instance.deathRealm.position;
-        StartCoroutine(Respawn(PortRoyal.Instance.respawnTime));
+        StartCoroutine(Respawn(PortRoyal.Instance.respawnTime , PortRoyal.Instance.respawnTime));
     }
 
     public Vector3 getLowestPlayerPoint()

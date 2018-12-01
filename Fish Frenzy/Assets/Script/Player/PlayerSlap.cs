@@ -54,35 +54,35 @@ public class PlayerSlap : PlayerAbility
     }
 
     // Update is called once per frame
-    void SlapFish() {
-        string slap = "Slap" + _player.playerID;
+    void SlapFish()
+    {
         if (_player.mainFish == null)
         {
             return;
         }
-        if (_pInput.GetButtonDown(_pInput.Slap, _player.playerID - 1))
+        if (_pInput.GetButtonDown(_pInput.Special, _player.playerID - 1))
         {
-            hitBox.InvincibilityFrame = _player.mainFish.s_invicibilityFrame;
-            hitBox.DamageCaused = _player.mainFish.attack;
-            hitBox.isLauncher = _player.mainFish.s_launchingDamage;
-            hitBox._SFXclip = sfx_Slap;
-            if (!Attacking)
-            {
-                // Ignore Input
-                ActionForFrame(_player.mainFish.SlapClipFrameCount + ignoreSlapFrame,
-                      () => { attacking = true;  },
-                      () => { attacking = false; });
+            //hitBox.InvincibilityFrame = _player.mainFish.s_invicibilityFrame;
+            //hitBox.DamageCaused = _player.mainFish.attack;
+            //hitBox.isLauncher = _player.mainFish.s_launchingDamage;
+            //hitBox._SFXclip = sfx_Slap;
+            //if (!Attacking)
+            //{
+            //    // Ignore Input
+            //    ActionForFrame(_player.mainFish.SlapClipFrameCount + ignoreSlapFrame,
+            //          () => { attacking = true;  },
+            //          () => { attacking = false; });
 
-                // enable trail
-                ActionForFrame(_player.mainFish.SlapClipFrameCount,
-                      () => { slapTrail.gameObject.SetActive(true); slapTrail.Play(); },
-                      () => { slapTrail.gameObject.SetActive(false); slapTrail.Stop(); } );
+            //    // enable trail
+            //    ActionForFrame(_player.mainFish.SlapClipFrameCount,
+            //          () => { slapTrail.gameObject.SetActive(true); slapTrail.Play(); },
+            //          () => { slapTrail.gameObject.SetActive(false); slapTrail.Stop(); } );
 
-                _pAnimator.ChangeAnimState((int)_player.mainFish.slapClip, _player.mainFish.SlapClipFrameCount, true, PlayerAnimation.State.HoldFish);
-            } else
-            {
-                print(Attacking);
-            }
+            //    _pAnimator.ChangeAnimState((int)_player.mainFish.slapClip, _player.mainFish.SlapClipFrameCount, true, (int)PlayerAnimation.State.HoldFish);
+            //} else
+            //{
+            //    print(Attacking);
+            //}
         }
     }
 

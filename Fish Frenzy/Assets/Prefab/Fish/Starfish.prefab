@@ -226,7 +226,7 @@ MonoBehaviour:
   temp: {fileID: 1741521758649520, guid: 5f192c056a302e9418bd3b64d9801479, type: 2}
   state: 0
   holder: {fileID: 0}
-  damageDealed: 0
+  ignorePlayerFrame: 0
   durability: 20
   weight: 0
   mashCountDown: 3
@@ -237,13 +237,6 @@ MonoBehaviour:
   t_launchingDamage: 1
   lastHoldPoition: {x: 0, y: 0, z: 0}
   chargePercent: 0
-  attack: 4
-  slapClip: 2
-  s_launchingDamage: 0
-  AnimationFrame: 00000000000000001400000032000000000000000000000023000000
-  s_invicibilityFrame: 50
-  hitboxSize: {x: 0, y: 0, z: 0}
-  hitboxCenter: {x: 0, y: 0, z: 0}
   holdPosition: {x: 0, y: 0.0068, z: -0.0105}
   holdRotation: {x: 340, y: 0, z: 90}
   aimPositioningOffset: {x: 0, y: 0, z: 0}
@@ -270,6 +263,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fe8cc6af7ab10041bf19d45db384f63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attack: 4
+  AnimationFrame: 00000000000000001400000032000000000000000000000023000000
   specialClip: 0
   movingobject: {fileID: 114717754795570986, guid: ff305f621d0c71c4598ab42daacd2a38,
     type: 2}
@@ -278,3 +273,4 @@ MonoBehaviour:
   invicibilityFrame: 50
   freezeFrame: 0
   damage: 8
+  launchingDamage: 1

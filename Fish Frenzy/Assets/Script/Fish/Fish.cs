@@ -31,7 +31,12 @@ public class Fish : Creature {
             return _playerHolder;
         }
     }
-    public bool damageDealed;
+
+    // Ignore Object
+    // TODO encap to damage on hit
+    public int ignorePlayerFrame;
+    protected List<GameObject> _ignoredGameObjects = new List<GameObject>();
+
 
     [Header("Fishing")]
     public float durability = 7;
@@ -43,6 +48,7 @@ public class Fish : Creature {
     protected float jumpSpeed = 40;
     protected float fishMass =1;
     public float rayDistance = 0.01f;
+
     [Header("Throw")]
     public float maxHolding = 5;
     public float throwAttack;
@@ -51,25 +57,8 @@ public class Fish : Creature {
     public Vector3 lastHoldPoition;
     public int chargePercent;
 
-    [Header("Slap")]
-    public float attack;
-    public enum MeleeAnimation
-    {
-        LightHorizontal = 2,
-        HammerDown = 3,
-        LightStab = 6
-    }
-    public MeleeAnimation slapClip;
-    public bool s_launchingDamage;
-    public int[] AnimationFrame = { 0,0,20,50,0,0,35};
-    public int SlapClipFrameCount
-    {
-        get { return AnimationFrame[(int)slapClip]; }
-    }
-    public int s_invicibilityFrame = 50;
-    public Vector3 hitboxSize;
-    public Vector3 hitboxCenter;
-    
+
+
 
     [Header("Snap")]
     //snap
@@ -77,7 +66,7 @@ public class Fish : Creature {
     public Vector3 holdRotation;
     public Vector3 aimPositioningOffset;
     
-    public Collider MyCollider { get { return myCollider; } }
+    public Collider MyCollider { get { return _collider; } }
     private PickupFish _pickupFish;
 
     [Header("SFX")]
@@ -186,7 +175,6 @@ public class Fish : Creature {
 
     public void ChangeState(fState pState)
     {
-
         OnStateChange(pState);
         state = pState;
     }
@@ -200,7 +188,7 @@ public class Fish : Creature {
         }
         else if(stateChange == fState.ground)
         {
-            gameObject.layer = LayerMask.NameToLayer("Fish");
+            gameObject.layer = LayerMask.NameToLayer("Fish_All");
             SetToGround(true);
             RemoveRigidBody();
         }
@@ -215,8 +203,7 @@ public class Fish : Creature {
     private IEnumerator  ieFishBounce()
     {
         yield return new WaitForSeconds(0.0f);
-        myRigid = gameObject.AddComponent<Rigidbody>();
-        myRigid.AddForce(Vector3.up * 3,ForceMode.Impulse);
+        Rigidbody.AddForce(Vector3.up * 3,ForceMode.Impulse);
     }
 
     public void SnapTransform()
@@ -230,7 +217,7 @@ public class Fish : Creature {
         transform.position += aimPositioningOffset;
     }
 
-    public void setHolder(GameObject g)
+    public void SetHolder(GameObject g)
     {
         holder = g;
     }
@@ -238,10 +225,10 @@ public class Fish : Creature {
     public void FishJump(float m, float f, Vector3 d,float speed)
     {
         gameObject.AddComponent<Rigidbody>();
-        myRigid = GetComponent<Rigidbody>();
-        myRigid.mass = m;
+        _rigid = GetComponent<Rigidbody>();
+        _rigid.mass = m;
         d.y = f;
-        myRigid.AddForce(d*speed);
+        _rigid.AddForce(d*speed);
     }
 
     void JumpToWater()
@@ -255,9 +242,9 @@ public class Fish : Creature {
         nearest = new Vector3(nearest.x, this.transform.position.y, nearest.z);
         transform.LookAt(nearest);
         gameObject.AddComponent<Rigidbody>();
-        myRigid = GetComponent<Rigidbody>();
-        myRigid.velocity = -transform.forward * -(PortRoyal.Instance.FishJumpToWaterMultiplier.x) + (transform.up * PortRoyal.Instance.FishJumpToWaterMultiplier.y);
-        myCollider.enabled = false;
+        _rigid = GetComponent<Rigidbody>();
+        _rigid.velocity = -transform.forward * -(PortRoyal.Instance.FishJumpToWaterMultiplier.x) + (transform.up * PortRoyal.Instance.FishJumpToWaterMultiplier.y);
+        _collider.enabled = false;
     }
 
     public void FishThrow(float duration , float forwardMultiplier , float upMultiplier)
@@ -265,16 +252,16 @@ public class Fish : Creature {
         duration = Mathf.Clamp(duration, 0.5f, maxHolding);
         transform.parent = null;
         gameObject.AddComponent<Rigidbody>();
-        myRigid = GetComponent<Rigidbody>();
+        _rigid = GetComponent<Rigidbody>();
         float scaleToDuration = duration / maxHolding;
         chargePercent =  (int)(scaleToDuration * 100.0f);
-        myRigid.velocity = -transform.forward * -(forwardMultiplier * scaleToDuration) + (transform.up* upMultiplier);
-        throwAttack = attack * scaleToDuration;
+        _rigid.velocity = -transform.forward * -(forwardMultiplier * scaleToDuration) + (transform.up* upMultiplier);
+        throwAttack = _cSpecial.attack * scaleToDuration;
     }
 
     public void RemoveRigidBody()
     {
-        Destroy(myRigid);
+        Destroy(_rigid);
     }
    
  
@@ -325,9 +312,9 @@ public class Fish : Creature {
             RaycastHit hit;
             if (Physics.Raycast(getLowestFishPoint(), transform.TransformDirection(Vector3.down), out hit, rayDistance ))
             {
-                if (myRigid)
+                if (_rigid)
                 {
-                    if (hit.transform.gameObject.tag == "Ground" && myRigid.velocity.y < 0)
+                    if (hit.transform.gameObject.tag == "Ground" && _rigid.velocity.y < 0)
                     {
                         ChangeState(fState.ground);
                     }
@@ -362,7 +349,7 @@ public class Fish : Creature {
             RaycastHit hit;
             if (Physics.Raycast(getLowestFishPoint(), transform.TransformDirection(Vector3.down), out hit, rayDistance))
             {
-                if (hit.transform.gameObject.tag == "Sea" && myRigid.velocity.y < 0)
+                if (hit.transform.gameObject.tag == "Sea" && _rigid.velocity.y < 0)
                 {
                     GetCollider<BoxCollider>().enabled = false;
                     PlaySFX(sfx_WaterJump);
@@ -374,5 +361,31 @@ public class Fish : Creature {
     public void SetToGround(bool b)
     {
         _pickupFish.SetAllowToPick(b);
+    }
+
+    /// <summary>
+    /// Adds the gameobject set in parameters to the ignore list
+    /// </summary>
+    /// <param name="newIgnoredGameObject">New ignored game object.</param>
+    public virtual void AddIgnoreGameObject(GameObject newIgnoredGameObject)
+    {
+        StartCoroutine(ieAddIgnoreGameObject(newIgnoredGameObject));
+    }
+
+    IEnumerator ieAddIgnoreGameObject(GameObject newIgnoredGameObject)
+    {
+        _ignoredGameObjects.Add(newIgnoredGameObject);
+        int frameCount = 0;
+        while (frameCount < ignorePlayerFrame)
+        {
+            yield return new WaitForEndOfFrame();
+            frameCount++;
+        }
+        _ignoredGameObjects.Remove(newIgnoredGameObject);
+    }
+
+    public bool CheckIgnoredObject(GameObject go)
+    {
+        return _ignoredGameObjects.Contains(go);
     }
 }

@@ -21,13 +21,14 @@ public class PlayerState : PlayerAbility
     public bool IsDeath { get; set; }
     /// Is the character get hurt recently
     public bool IsDamaged { get; set; }
+    public int damagedFrameDuration = 10;
     /// Is the character swim ? 
     public bool IsSwiming { get; set; }
     protected bool prevIsSwiming;
 
     /// Is the character attacking ? 
     public bool IsAttacking { get { return GetCrossZComponent<PlayerSlap>().Attacking ||
-                                            GetCrossZComponent<PlayerFishSpecial>().MeleeSpecialing;  }  }
+                                            GetCrossZComponent<PlayerSpecial>().MeleeSpecialing;  }  }
     /// is the character falling right now ?
     public bool IsFalling { get; set; }
     /// is the character falling right now ?
@@ -129,19 +130,35 @@ public class PlayerState : PlayerAbility
 
     public void ToggleIsDamage()
     {
-        StartCoroutine(ToggleIsDamageForFrame(10));
+        StartCoroutine(ToggleIsDamageForFrame(damagedFrameDuration));
     }
 
     IEnumerator ToggleIsDamageForFrame(int frameDuration)
     {
         IsDamaged = true;
         int frameCount = 0;
+        if (_player.holdingFish)
+        {
+            _pAnimator.ChangeAnimState((int)PlayerAnimation.State.Damaged_HoldFish);
+        }
+        else
+        {
+            _pAnimator.ChangeAnimState((int)PlayerAnimation.State.Damaged);
+        }
         while (frameCount < frameDuration)
         {
             yield return new WaitForEndOfFrame();
             frameCount += 1;
         }
         IsDamaged = false;
+        if (_player.holdingFish)
+        {
+            _pAnimator.ChangeAnimState((int)PlayerAnimation.State.HoldFish);
+        }
+        else
+        {
+            _pAnimator.ChangeAnimState((int)PlayerAnimation.State.Idle);
+        }
     }
 
 

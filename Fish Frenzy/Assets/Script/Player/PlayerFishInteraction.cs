@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerFishInteraction : PlayerAbility {
 
+    public int beforeHoldFrameDuration;
+
     // Use this for initialization
     protected override void Start()
     {
@@ -32,19 +34,17 @@ public class PlayerFishInteraction : PlayerAbility {
             case Fish.fState.baited:
                 break;
             case Fish.fState.toPlayer:
-                HoldThatFish(f);
-
                 break;
 
             case Fish.fState.hold:
                 break;
 
             case Fish.fState.threw:
-                if (!isOwnerFish(f) && !f.damageDealed)
+                if (!isOwnerFish(f) && !f.CheckIgnoredObject(_player.gameObject))
                 {
                     _player.rigid.velocity = Vector3.zero;
                     f.RemoveRigidBody();
-                    f.damageDealed = true;
+                    f.AddIgnoreGameObject(_player.gameObject);
                     _player.recieveDamage(f.throwAttack, f.holder ,f.lastHoldPoition, f.t_invicibilityFrame , f.t_launchingDamage);
                     f.fishBounce();
                 }
@@ -67,22 +67,53 @@ public class PlayerFishInteraction : PlayerAbility {
         _player.holdingFish = b;
         if (!b)
         {
-            _pAnimator.ChangeAnimState(PlayerAnimation.State.Idle);
+            _pAnimator.ChangeAnimState((int)PlayerAnimation.State.Idle);
             _player.mainFish = null;
         }else
         {
-            _pAnimator.ChangeAnimState(PlayerAnimation.State.HoldFish);
+            _pAnimator.ChangeAnimState((int)PlayerAnimation.State.HoldFish);
         }
     }
 
-    public void SetFishCollidePlayer(Fish fish, Player player, bool collide)
+    public enum CollideType
     {
-        string layerN = "FishO";
+        Uncollide,
+        Collide_Opponent,
+        Collide_All
+    }
+    public void SetFishCollideType(CollideType fl, Fish fish, Player player)
+    {
+        if(fl == CollideType.Uncollide)
+        {
+            fish.gameObject.layer = LayerMask.NameToLayer("Fish_Un");
+        }
+        if (fl == CollideType.Collide_Opponent)
+        {
+            fish.gameObject.layer = LayerMask.NameToLayer("Fish" + _player.playerID);
+        }
+        if (fl == CollideType.Collide_All)
+        {
+            fish.gameObject.layer = LayerMask.NameToLayer("Fish_All");
+        }
+    }
+
+    //public void SetFishCollidePlayer(Fish fish, Player player, bool collide)
+    //{
+    //    string layerN = "FishO";
+    //    if (!collide)
+    //    {
+    //        layerN = "Fish";
+    //    }
+    //    fish.gameObject.layer = LayerMask.NameToLayer(layerN + _player.playerID);
+    //}
+
+    public void SetPlayerCollideEverything( bool collide)
+    {
+        _player.gameObject.layer = LayerMask.NameToLayer("Player" + _player.playerID);
         if (!collide)
         {
-            layerN = "Fish";
+            _player.gameObject.layer = LayerMask.NameToLayer("Player0");
         }
-        fish.gameObject.layer = LayerMask.NameToLayer(layerN + _player.playerID);
     }
 
 
@@ -96,6 +127,25 @@ public class PlayerFishInteraction : PlayerAbility {
         }
     }
 
+    IEnumerator coroutineFinishFishing;
+
+    public void FinishFishing()
+    {
+        coroutineFinishFishing = ieFinishFishing(beforeHoldFrameDuration);
+        StartCoroutine(coroutineFinishFishing);
+    }
+
+    IEnumerator ieFinishFishing(int frameDuration)
+    {
+        int frameCount = 0;
+        while (frameCount < frameDuration)
+        {
+            yield return new WaitForEndOfFrame();
+            frameCount++;
+        }
+        HoldThatFish(_player.baitedFish);
+    }
+
     public void HoldThatFish(Fish f)
     {
         f.ChangeState(Fish.fState.hold);
@@ -103,15 +153,14 @@ public class PlayerFishInteraction : PlayerAbility {
         f.SnapTransform();
         f.RemoveRigidBody();
         f.SetToGround(false);
-        f.setHolder(_player.gameObject);
-        SetFishCollidePlayer(f, _player, true);
+        f.SetHolder(_player.gameObject);
         _player.mainFish = f;
         _player.baitedFish = null;
         GetCrossZComponent<PlayerFishInteraction>().SetHoldFish(true);
+        GetCrossZComponent<PlayerFishInteraction>().SetFishCollideType(PlayerFishInteraction.CollideType.Uncollide, _player.mainFish, _player);
         GetCrossZComponent<PlayerFishing>().SetFishing(false);
         _player.rigid.velocity = Vector3.zero;
 
-        
         if (f.gameObject.GetComponent<FishSpecialMelee>())
         {
             f.gameObject.GetComponent<FishSpecialMelee>().SetUpFishSpecial();
@@ -124,5 +173,7 @@ public class PlayerFishInteraction : PlayerAbility {
         {
             f.gameObject.GetComponent<FishSpecialThrow>().SetUpFishSpecial();
         }
+
+        StopCoroutine(coroutineFinishFishing);
     }
 }
