@@ -27,7 +27,9 @@ public class PlayerAnimation : CharacterAnimation {
         Damaged_HoldFish,
         Eel_Hook,
         Eel_Slap,
-        Star_Throw
+        Star_Throw,
+        Shocked,
+        Eaten
     };
     
     protected override void Start()

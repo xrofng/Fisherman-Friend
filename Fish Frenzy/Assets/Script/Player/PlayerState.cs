@@ -21,7 +21,10 @@ public class PlayerState : PlayerAbility
     public bool IsDeath { get; set; }
     /// Is the character get hurt recently
     public bool IsDamaged { get; set; }
+
     public int damagedFrameDuration = 10;
+    public int eatenFrameDuration = 40;
+
     /// Is the character swim ? 
     public bool IsSwiming { get; set; }
     protected bool prevIsSwiming;

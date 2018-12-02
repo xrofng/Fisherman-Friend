@@ -276,7 +276,11 @@ MonoBehaviour:
   bounceForce: {x: 0, y: 20, z: 0}
   ShockingFrame: 10
   sfx_Shock: {fileID: 8300000, guid: 83c2c9cf12e1e634796c49ce699aaa86, type: 3}
-  sfx_Bounce: {fileID: 8300000, guid: 25830c9ca27a3514982e3d7d1e536264, type: 3}
+  sfx_Bounces:
+  - {fileID: 8300000, guid: 5c0479ffb3d7fdd45a9cf00b1523f43d, type: 3}
+  - {fileID: 8300000, guid: 869d40a8c0aa8cc4fa3a95bfd03267d4, type: 3}
+  - {fileID: 8300000, guid: af70bd630801c2c41ad6ccf048b2ff1b, type: 3}
+  - {fileID: 8300000, guid: cb8aa2fa1f22804439ca73d3060bc371, type: 3}
 --- !u!114 &114812884268322648
 MonoBehaviour:
   m_ObjectHideFlags: 1

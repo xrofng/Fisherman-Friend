@@ -68,9 +68,9 @@ public class CharacterAnimation : MonoBehaviour {
         Animator.SetBool(parameterName, value);        
     }
 
-    public void ChangeAnimState(int i, int ignoreFrame, bool revert, int revetTo)
+    public void ChangeAnimState(int i, int frameDuration, bool revert, int revetTo)
     {
-        StartCoroutine(InvokeChangeAnimState(i, ignoreFrame, revert, revetTo));
+        StartCoroutine(InvokeChangeAnimState(i, frameDuration, revert, revetTo));
     }
     public void ChangeAnimState(int i, bool revert, int revetTo)
     {
