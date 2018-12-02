@@ -209,7 +209,7 @@ MonoBehaviour:
   temp: {fileID: 1741521758649520, guid: 5f192c056a302e9418bd3b64d9801479, type: 2}
   state: 0
   holder: {fileID: 0}
-  damageDealed: 0
+  ignorePlayerFrame: 0
   durability: 20
   weight: 0
   mashCountDown: 8
@@ -220,13 +220,6 @@ MonoBehaviour:
   t_launchingDamage: 1
   lastHoldPoition: {x: 0, y: 0, z: 0}
   chargePercent: 0
-  attack: 10
-  slapClip: 2
-  s_launchingDamage: 0
-  AnimationFrame: 00000000000000001400000032000000000000000000000023000000
-  s_invicibilityFrame: 50
-  hitboxSize: {x: 0, y: 0, z: 0}
-  hitboxCenter: {x: 0, y: 0, z: 0}
   holdPosition: {x: -0.0059, y: 0.022, z: -0.0193}
   holdRotation: {x: -50, y: 180, z: -90}
   aimPositioningOffset: {x: 0, y: 0.5, z: 0}
@@ -253,16 +246,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcbb71c491f658e448fc46b5a9c5e9b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attack: 10
+  AnimationFrame: 00000000000000001400000032000000000000000000000023000000
   specialClip: 3
   thisSpecialHitBox: {fileID: 114706098538591994, guid: 66da22c8c634a2943bd2093bf7467c2b,
     type: 2}
   invicibilityFrame: 50
   freezeFrame: 10
-  damage: 50
   launchingDamage: 1
   hitBoxRef: {fileID: 4352711589645446, guid: 66da22c8c634a2943bd2093bf7467c2b, type: 2}
-  trailAnimRef: {fileID: 4027786647993208, guid: a180c3fecbcc1c641b3b33c001ca2256,
-    type: 2}
 --- !u!114 &114671319226790252
 MonoBehaviour:
   m_ObjectHideFlags: 1

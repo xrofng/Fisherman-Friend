@@ -101,7 +101,7 @@ public class PlayerThrow : PlayerAbility {
         _player.mainFish.lastHoldPoition = _player.mainFish.transform.position;
         GetCrossZComponent<PlayerFishInteraction>().SetMainFishTransformAsPart(Player.ePart.body, Player.ePart.body, true);
 
-        GetCrossZComponent<PlayerFishInteraction>().SetFishCollidePlayer(_player.mainFish, _player, false);
+        GetCrossZComponent<PlayerFishInteraction>().SetFishCollideType(PlayerFishInteraction.CollideType.Collide_Opponent,_player.mainFish, _player);
 
         _player.mainFish.FishThrow(holdToThrow, forwardMultiplier, upMultiplier);
         _player.mainFish.ChangeState(Fish.fState.threw);

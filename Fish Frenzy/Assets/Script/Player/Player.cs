@@ -78,7 +78,7 @@ public class Player : Creature {
     [HideInInspector]
     public PlayerFishInteraction _cPlayerFishInteraction;
     [HideInInspector]
-    public PlayerFishSpecial _cPlayerFishSpecial;
+    public PlayerSpecial _cPlayerFishSpecial;
 
 
     public GameObject knockBackOrigin;
@@ -143,7 +143,7 @@ public class Player : Creature {
         _cPlayerMovement = GetComponent<PlayerMovement>();
         _cPlayerFishInteraction = GetComponent<PlayerFishInteraction>();
         _cPlayerSwitch = GetComponent<PlayerSwitchFish>();
-        _cPlayerFishSpecial = GetComponent<PlayerFishSpecial>();
+        _cPlayerFishSpecial = GetComponent<PlayerSpecial>();
     }
 
     // Update is called once per frame
@@ -173,6 +173,23 @@ public class Player : Creature {
         Vector2 knockBackForce = KnockData.Instance.getSlapKnockForce((int)damage, dPercent);
 
         //print(launchingDamage);
+
+        if (launchingDamage)
+        {
+            AddKnockBackForce(damage, damageDealerPos, knockBackForce);
+        }
+        _cPlayerFishing.SetFishing(false);
+        _cPlayerInvincibility.startInvincible(recoveryFrame);
+        _cPlayerState.ToggleIsDamage();
+        MatchResult.Instance.StoreAttacker(playerID, damageDealer);
+
+        DamagePercentClamp();
+    }
+    public void recieveDamage(float damage, GameObject damageDealer, Vector3 damageDealerPos, int recoveryFrame, bool launchingDamage, float upMultiplier)
+    {
+        dPercent += (int)damage;
+        Vector2 knockBackForce = KnockData.Instance.getSlapKnockForce((int)damage, dPercent);
+        knockBackForce += Vector2.up * KnockData.Instance.getVerticalKnockForce(dPercent) * upMultiplier;
 
         if (launchingDamage)
         {

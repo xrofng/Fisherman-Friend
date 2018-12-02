@@ -62,6 +62,10 @@ public class KnockData : PersistentSingleton<KnockData> {
     public KnockScale[] ThrowScale_tier4;
     protected List<KnockScale[]> ThrowScaleList = new List<KnockScale[]>();
 
+    [Header("Vertical")]
+    public float verticalInstaKillPercent = 300;
+    public float vertiForceMin = 1;
+    public float vertiForceMax = 50;
 
     // Use this for initialization
     void Start () {
@@ -110,10 +114,14 @@ public class KnockData : PersistentSingleton<KnockData> {
         }
         return 0;
     }
-    public Vector2 getSlapKnockForce(int damage , int percent)
+    public float getVerticalKnockForce(int percent)
+    {
+        return Mathf.Lerp(vertiForceMin, vertiForceMax, percent / verticalInstaKillPercent);
+    }
+    public Vector2 getSlapKnockForce(int damage, int percent)
     {
         // check which damage set
-        int ApplyDamageIndex = getDamageApplyIndex_Attack(damage , slapDamage);
+        int ApplyDamageIndex = getDamageApplyIndex_Attack(damage, slapDamage);
         int KnockScaleIndex = getKnockScaleIndex(percent, percentList);
         KnockScale knockLevel = SlapScaleList[ApplyDamageIndex][KnockScaleIndex];
         return force[(int)knockLevel];

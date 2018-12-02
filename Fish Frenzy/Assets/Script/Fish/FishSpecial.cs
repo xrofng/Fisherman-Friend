@@ -7,20 +7,30 @@ public class FishSpecial : MonoBehaviour
 {
     protected Fish _fish;
 
-    protected PlayerFishSpecial _playerFishSpecial
+    protected PlayerSpecial _playerFishSpecial
     {
-        get { return _fish.GetPlayerHolder._cPlayerFishSpecial; }
+        get { return _player._cPlayerFishSpecial; }
+    }
+    protected Player _player
+    {
+        get { return _fish.GetPlayerHolder; }
     }
 
-    public Fish.MeleeAnimation specialClip;
+    [Header("Special")]
+    public float attack;
+    public enum MeleeAnimation
+    {
+        LightHorizontal = 2,
+        HammerDown = 3,
+        LightStab = 6
+    }
+    public int[] AnimationFrame = { 0, 0, 20, 50, 0, 0, 35 };
+
+    public MeleeAnimation specialClip;
     public int SpeiclaClipFrameCount
     {
-        get { return _fish.AnimationFrame[(int)specialClip]; }
+        get { return AnimationFrame[(int)specialClip]; }
     }
-
-    // private ignore Input for specific ability
-    protected bool ignoreInput;
-    public bool IgnoreInput { get { return ignoreInput; } }
 
     public Rigidbody _pRigid
     {
@@ -57,7 +67,7 @@ public class FishSpecial : MonoBehaviour
         _SFX = GetComponent<AudioSource>();
     }
 
-    public void IgnoreInputFor(int ignoreFrame)
+    protected virtual void IgnoreInputFor(int ignoreFrame)
     {
         StartCoroutine(InvokeIgnoreInput(ignoreFrame));
     }
@@ -65,13 +75,13 @@ public class FishSpecial : MonoBehaviour
     IEnumerator InvokeIgnoreInput(int frameDuration)
     {
         int frameCount = 0;
-        ignoreInput = true;
+        _player.AddAbilityInputIntercepter(this);
         while (frameCount < frameDuration)
         {
             yield return new WaitForEndOfFrame();
             frameCount++;
         }
-        ignoreInput = false;
+        _player.RemoveAbilityInputIntercepter(this);
     }
 
     public void ActionForFrame(int frameDuration, System.Action begin, System.Action end)

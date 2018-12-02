@@ -14,6 +14,10 @@ public class Creature : MonoBehaviour
         {
             if (!_rigid)
             {
+                if (GetComponent<Rigidbody>() == null)
+                {
+                    gameObject.AddComponent<Rigidbody>();
+                }
                 _rigid = GetComponent<Rigidbody>();
 
             }
@@ -86,5 +90,22 @@ public class Creature : MonoBehaviour
     public T GetAnimator<T>() where T : CharacterAnimation
     {
         return Animator as T;
+    }
+
+    /// <summary>
+    /// Renderer of creature
+    /// </summary>
+    protected MeshRenderer _meshRenderer;
+    public MeshRenderer MeshRenderer
+    {
+        get
+        {
+            if (!_meshRenderer)
+            {
+                _meshRenderer = GetComponent<MeshRenderer>();
+
+            }
+            return _meshRenderer;
+        }
     }
 }

@@ -50,7 +50,7 @@ public class PortRoyal : PersistentSingleton<PortRoyal>
             f.ChangeState(Fish.fState.fall);
             f.gameObject.AddComponent<Rigidbody>();
             f.Rigidbody.freezeRotation = true;
-            f.gameObject.layer = LayerMask.NameToLayer("Fish");
+            f.gameObject.layer = LayerMask.NameToLayer("Fish_All");
             f.GetCollider<BoxCollider>().isTrigger = true;
         }
     }

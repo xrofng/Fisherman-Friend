@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114447408894065984}
   - component: {fileID: 114109508714941994}
   - component: {fileID: 82612576762288146}
+  - component: {fileID: 114515199957103786}
   m_Layer: 0
   m_Name: Eel
   m_TagString: Fish
@@ -225,7 +226,7 @@ MonoBehaviour:
   temp: {fileID: 1741521758649520, guid: 5f192c056a302e9418bd3b64d9801479, type: 2}
   state: 0
   holder: {fileID: 0}
-  damageDealed: 0
+  ignorePlayerFrame: 0
   durability: 20
   weight: 0
   mashCountDown: 3
@@ -236,13 +237,6 @@ MonoBehaviour:
   t_launchingDamage: 1
   lastHoldPoition: {x: 0, y: 0, z: 0}
   chargePercent: 0
-  attack: 7
-  slapClip: 2
-  s_launchingDamage: 0
-  AnimationFrame: 00000000000000001400000032000000000000000000000023000000
-  s_invicibilityFrame: 50
-  hitboxSize: {x: 0, y: 0, z: 0}
-  hitboxCenter: {x: 0, y: 0, z: 0}
   holdPosition: {x: -0.000000002095696, y: 0.01601, z: 0.01917}
   holdRotation: {x: 145, y: 0, z: 0}
   aimPositioningOffset: {x: 0, y: 0, z: 0}
@@ -258,3 +252,28 @@ MonoBehaviour:
   fishName: {fileID: 21300000, guid: 0daf92f248496a245a0c53122e15a3d8, type: 3}
   fishStored: {fileID: 21300000, guid: b1df3557e9fcbad44a7420d16e89f482, type: 3}
   _cSpecial: {fileID: 0}
+--- !u!114 &114515199957103786
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1996391577515160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12e2aa3f861dbde4898c25c7c78df741, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack: 7
+  AnimationFrame: 00000000000000001400000032000000000000000000000023000000
+  specialClip: 0
+  movingobject: {fileID: 114532827588214438, guid: 6415abaacfab66948abfae3bbfc54429,
+    type: 2}
+  throwFrameDuration: 999
+  invicibilityFrame: 50
+  freezeFrame: 0
+  launchingDamage: 1
+  channelingFrameDuration: 30
+  ignoreInput: 1
+  damageFrameDuration: 10
+  releaseFrameDuration: 10
+  finalBlowForce: 50
