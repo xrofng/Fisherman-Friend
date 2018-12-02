@@ -2,20 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FishSpecialSpawn : FishSpecial {
-    public HitBoxMelee projectileHitBox;
+public class FishSpecialSpawn : FishSpecial
+{
 
+    [Header("Throw Seetting")]
+    public MovingObject movingobject;
+    public bool endByFrame;
+    public int throwDurationFrame = 10;
     public int invicibilityFrame = 50;
-    public int freezeFrame = 10;
-    public int damage = 50;
-    
-    protected Vector3 snapPosition;
-    protected Vector3 snapRotation;
-    protected Vector3 snapScale;
-
-    [Header("Prefab Ref")]
-    public Transform hitBoxRef;
-    public Transform trailAnimRef;
+    public int freezeFrame = 0;
+    public bool launchingDamage = true;
 
     protected override void Start()
     {
@@ -29,63 +25,7 @@ public class FishSpecialSpawn : FishSpecial {
 
     public void SetUpFishSpecial()
     {
-        SetUpSpecialHitBox();
-        SetUpSpecialTrailAnim();
-    }
-
-    public void SetUpSpecialHitBox()
-    {
-        SetSnapFromRef(hitBoxRef.transform);
-
-        if (_playerFishSpecial.specialHitBox)
-        {
-            Destroy(_playerFishSpecial.specialHitBox.gameObject);
-        }
-        _playerFishSpecial.specialHitBox = Instantiate(hitBoxRef).GetComponent<HitBoxMelee>();
-        _playerFishSpecial.specialHitBox.transform.SetParent(_playerFishSpecial.hitBoxParent);
-        _playerFishSpecial.specialHitBox.Owner = _fish.holder;
-
-        Snap(_playerFishSpecial.specialHitBox.transform);
-        
         SetUpGameVariable();
-    }
-
-    
-
-    public void SetUpSpecialTrailAnim()
-    {
-        SetSnapFromRef(trailAnimRef.transform);
-
-        if (_playerFishSpecial.specialTrail)
-        {
-            Destroy(_playerFishSpecial.specialTrail.gameObject);
-        }
-        _playerFishSpecial.specialTrail = Instantiate(trailAnimRef).GetComponent<Animation>();
-        _playerFishSpecial.specialTrail.transform.SetParent(_playerFishSpecial.hitBoxParent);
-
-        Snap(_playerFishSpecial.specialTrail.transform);
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="tRef"></param>
-    void SetSnapFromRef(Transform tRef)
-    {
-        snapPosition = tRef.localPosition;
-        snapRotation = tRef.localEulerAngles;
-        snapScale    =  tRef.localScale;
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="t"></param>
-    void Snap(Transform t)
-    {
-        t.localPosition = snapPosition;
-        t.localEulerAngles = snapRotation;
-        t.localScale = snapScale;
     }
 
     /// <summary>
@@ -93,16 +33,23 @@ public class FishSpecialSpawn : FishSpecial {
     /// </summary>
     void SetUpGameVariable()
     {
-        _playerFishSpecial.specialHitBox.gameObject.layer = LayerMask.NameToLayer("Fish" + _fish.GetPlayerHolder.playerID);
-        projectileHitBox = _playerFishSpecial.specialHitBox;
-        projectileHitBox.FreezeFramesOnHit = freezeFrame;
-        projectileHitBox.InvincibilityFrame = invicibilityFrame;
-        projectileHitBox.DamageCaused = damage;
+        movingobject.HitBox.FreezeFramesOnHit = freezeFrame;
+        movingobject.HitBox.InvincibilityFrame = invicibilityFrame;
+        movingobject.HitBox.DamageCaused = attack;
+        if (_fish.sfx_Special)
+        {
+            movingobject.HitBox._SFXclip = _fish.sfx_Special;
+        }
+        else
+        {
+            movingobject.HitBox._SFXclip = _playerFishSpecial.sfx_Special;
+        }
+
     }
 
     protected override void Update()
     {
 
     }
-   
+
 }

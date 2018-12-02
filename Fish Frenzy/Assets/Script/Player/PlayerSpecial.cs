@@ -79,13 +79,10 @@ public class PlayerSpecial : PlayerAbility
         }   
     }
 
-    [Header("Throw")]
-    protected bool tSpecialing;
-    private bool finishThrow;
-    private MovingObject currentMovingObj;
+    //[Header("Throw")]
     void SpecialThrow(string special)
     {
-        if (!_player.mainFish.GetComponent<FishSpecialThrow>() || ThrowSpecialing)
+        if (!_player.mainFish.GetComponent<FishSpecialThrow>() || _player.mainFish.GetComponent<FishSpecialThrow>().ThrowSpecialing)
         {
             return;
         }       
@@ -101,58 +98,11 @@ public class PlayerSpecial : PlayerAbility
         else if (_pInput.GetButtonUp(_pInput.Special, _player.playerID - 1))
         {
             //PlayThrowSFX();
-            StartCoroutine(SpecialThrowAttack(FishSpecial<FishSpecialThrow>().throwDurationFrame, FishSpecial<FishSpecialThrow>().endByFrame));
+            _player.mainFish.GetComponent<FishSpecialThrow>().SpecialThrowAttack();
             GetCrossZComponent<PlayerThrow>().ChangeToUnAim();
         }        
     }
-
-    IEnumerator SpecialThrowAttack(int frameDuration , bool endByFrame)
-    {
-        ThrowSpecialing = true;
-        if (endByFrame)
-        {
-            int frameCount = 0;
-            while (frameCount < frameDuration)
-            {
-                yield return new WaitForEndOfFrame();
-                frameCount++;
-            }
-            ThrowSpecialing = false;
-        }else
-        {
-            while (!currentMovingObj.MoveEnd)
-            {
-                yield return new WaitForEndOfFrame();
-            }
-            ThrowSpecialing = false;            
-        }       
-    }
-
-    public bool ThrowSpecialing
-    {
-        get
-        {
-            return tSpecialing;
-        }
-        set
-        {
-            if (value)
-            {
-                currentMovingObj = Instantiate(FishSpecial<FishSpecialThrow>().movingobject, this.transform.position,Quaternion.identity);// add pos set lyr
-                currentMovingObj.gameObject.layer = LayerMask.NameToLayer("Fish" + _player.playerID);
-                currentMovingObj.HitBox.Owner = this.gameObject;
-                currentMovingObj.HitBox._SFXclip = sfx_Special;
-                currentMovingObj.direction = currentMovingObj.HitBox.OwnerPlayer.GetPart(Player.ePart.body).transform.TransformDirection(-Vector3.forward);
-            }
-            else
-            {
-                Destroy(currentMovingObj.gameObject);
-                //destroy specialMovingHitBox
-            }
-            tSpecialing = value;
-        }
-    }
-
+    
     [Header("SFX")]
     public AudioClip sfx_Special;
     public void PlaySlapSFX()

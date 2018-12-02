@@ -185,6 +185,23 @@ public class Player : Creature {
 
         DamagePercentClamp();
     }
+    public void recieveDamage(float damage, GameObject damageDealer, Vector3 damageDealerPos, int recoveryFrame, bool launchingDamage, float upMultiplier)
+    {
+        dPercent += (int)damage;
+        Vector2 knockBackForce = KnockData.Instance.getSlapKnockForce((int)damage, dPercent);
+        knockBackForce += Vector2.up * KnockData.Instance.getVerticalKnockForce(dPercent) * upMultiplier;
+
+        if (launchingDamage)
+        {
+            AddKnockBackForce(damage, damageDealerPos, knockBackForce);
+        }
+        _cPlayerFishing.SetFishing(false);
+        _cPlayerInvincibility.startInvincible(recoveryFrame);
+        _cPlayerState.ToggleIsDamage();
+        MatchResult.Instance.StoreAttacker(playerID, damageDealer);
+
+        DamagePercentClamp();
+    }
 
     public void recieveDamage(object intercepter,float damage, GameObject damageDealer, Vector3 damageDealerPos, int recoveryFrame, bool launchingDamage)
     {

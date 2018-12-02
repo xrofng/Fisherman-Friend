@@ -91,4 +91,21 @@ public class Creature : MonoBehaviour
     {
         return Animator as T;
     }
+
+    /// <summary>
+    /// Renderer of creature
+    /// </summary>
+    protected MeshRenderer _meshRenderer;
+    public MeshRenderer MeshRenderer
+    {
+        get
+        {
+            if (!_meshRenderer)
+            {
+                _meshRenderer = GetComponent<MeshRenderer>();
+
+            }
+            return _meshRenderer;
+        }
+    }
 }

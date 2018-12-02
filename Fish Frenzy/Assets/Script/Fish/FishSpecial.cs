@@ -9,7 +9,11 @@ public class FishSpecial : MonoBehaviour
 
     protected PlayerSpecial _playerFishSpecial
     {
-        get { return _fish.GetPlayerHolder._cPlayerFishSpecial; }
+        get { return _player._cPlayerFishSpecial; }
+    }
+    protected Player _player
+    {
+        get { return _fish.GetPlayerHolder; }
     }
 
     [Header("Special")]
@@ -27,10 +31,6 @@ public class FishSpecial : MonoBehaviour
     {
         get { return AnimationFrame[(int)specialClip]; }
     }
-
-    // private ignore Input for specific ability
-    protected bool ignoreInput;
-    public bool IgnoreInput { get { return ignoreInput; } }
 
     public Rigidbody _pRigid
     {
@@ -67,7 +67,7 @@ public class FishSpecial : MonoBehaviour
         _SFX = GetComponent<AudioSource>();
     }
 
-    public void IgnoreInputFor(int ignoreFrame)
+    protected virtual void IgnoreInputFor(int ignoreFrame)
     {
         StartCoroutine(InvokeIgnoreInput(ignoreFrame));
     }
@@ -75,13 +75,13 @@ public class FishSpecial : MonoBehaviour
     IEnumerator InvokeIgnoreInput(int frameDuration)
     {
         int frameCount = 0;
-        ignoreInput = true;
+        _player.AddAbilityInputIntercepter(this);
         while (frameCount < frameDuration)
         {
             yield return new WaitForEndOfFrame();
             frameCount++;
         }
-        ignoreInput = false;
+        _player.RemoveAbilityInputIntercepter(this);
     }
 
     public void ActionForFrame(int frameDuration, System.Action begin, System.Action end)

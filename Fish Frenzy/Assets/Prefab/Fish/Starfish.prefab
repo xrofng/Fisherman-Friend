@@ -268,9 +268,8 @@ MonoBehaviour:
   specialClip: 0
   movingobject: {fileID: 114717754795570986, guid: ff305f621d0c71c4598ab42daacd2a38,
     type: 2}
-  endByFrame: 0
-  throwDurationFrame: 999
+  throwFrameDuration: 10
   invicibilityFrame: 50
   freezeFrame: 0
-  damage: 8
   launchingDamage: 1
+  channelingFrameDuration: 4

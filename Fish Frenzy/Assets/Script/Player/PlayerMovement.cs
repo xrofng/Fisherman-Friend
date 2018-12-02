@@ -63,6 +63,7 @@ public class PlayerMovement : PlayerAbility {
         mov = mov * Time.deltaTime;
         if (!freezeMovement && !GetCrossZComponent<PlayerState>().IsAttacking && !GetCrossZComponent<PlayerState>().IsDamaged)
         {
+
             this.transform.Translate(mov);
         }
 
