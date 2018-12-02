@@ -33,7 +33,6 @@ public class PlayerSwitchFish : PlayerAbility
 
     void SwitchFish()
     {
-        string switc = "Switch" + _player.playerID;
         if (_pInput.GetButtonDown(_pInput.Switch, _player.playerID - 1))
         {
 

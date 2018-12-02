@@ -60,7 +60,6 @@ public class PlayerThrow : PlayerAbility {
 
     void ThrowFish()
     {
-        string thro = "Throw" + _player.playerID;
         if (_player.mainFish == null)
         {
             return;

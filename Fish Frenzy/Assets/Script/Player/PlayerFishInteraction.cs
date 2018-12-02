@@ -67,11 +67,11 @@ public class PlayerFishInteraction : PlayerAbility {
         _player.holdingFish = b;
         if (!b)
         {
-            _pAnimator.ChangeAnimState(PlayerAnimation.State.Idle);
+            _pAnimator.ChangeAnimState((int)PlayerAnimation.State.Idle);
             _player.mainFish = null;
         }else
         {
-            _pAnimator.ChangeAnimState(PlayerAnimation.State.HoldFish);
+            _pAnimator.ChangeAnimState((int)PlayerAnimation.State.HoldFish);
         }
     }
 
@@ -83,6 +83,15 @@ public class PlayerFishInteraction : PlayerAbility {
             layerN = "Fish";
         }
         fish.gameObject.layer = LayerMask.NameToLayer(layerN + _player.playerID);
+    }
+
+    public void SetPlayerCollideEverything( bool collide)
+    {
+        _player.gameObject.layer = LayerMask.NameToLayer("Player" + _player.playerID);
+        if (!collide)
+        {
+            _player.gameObject.layer = LayerMask.NameToLayer("Player0");
+        }
     }
 
 

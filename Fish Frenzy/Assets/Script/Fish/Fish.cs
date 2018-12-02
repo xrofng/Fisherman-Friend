@@ -77,7 +77,7 @@ public class Fish : Creature {
     public Vector3 holdRotation;
     public Vector3 aimPositioningOffset;
     
-    public Collider MyCollider { get { return myCollider; } }
+    public Collider MyCollider { get { return _collider; } }
     private PickupFish _pickupFish;
 
     [Header("SFX")]
@@ -215,8 +215,8 @@ public class Fish : Creature {
     private IEnumerator  ieFishBounce()
     {
         yield return new WaitForSeconds(0.0f);
-        myRigid = gameObject.AddComponent<Rigidbody>();
-        myRigid.AddForce(Vector3.up * 3,ForceMode.Impulse);
+        _rigid = gameObject.AddComponent<Rigidbody>();
+        _rigid.AddForce(Vector3.up * 3,ForceMode.Impulse);
     }
 
     public void SnapTransform()
@@ -238,10 +238,10 @@ public class Fish : Creature {
     public void FishJump(float m, float f, Vector3 d,float speed)
     {
         gameObject.AddComponent<Rigidbody>();
-        myRigid = GetComponent<Rigidbody>();
-        myRigid.mass = m;
+        _rigid = GetComponent<Rigidbody>();
+        _rigid.mass = m;
         d.y = f;
-        myRigid.AddForce(d*speed);
+        _rigid.AddForce(d*speed);
     }
 
     void JumpToWater()
@@ -255,9 +255,9 @@ public class Fish : Creature {
         nearest = new Vector3(nearest.x, this.transform.position.y, nearest.z);
         transform.LookAt(nearest);
         gameObject.AddComponent<Rigidbody>();
-        myRigid = GetComponent<Rigidbody>();
-        myRigid.velocity = -transform.forward * -(PortRoyal.Instance.FishJumpToWaterMultiplier.x) + (transform.up * PortRoyal.Instance.FishJumpToWaterMultiplier.y);
-        myCollider.enabled = false;
+        _rigid = GetComponent<Rigidbody>();
+        _rigid.velocity = -transform.forward * -(PortRoyal.Instance.FishJumpToWaterMultiplier.x) + (transform.up * PortRoyal.Instance.FishJumpToWaterMultiplier.y);
+        _collider.enabled = false;
     }
 
     public void FishThrow(float duration , float forwardMultiplier , float upMultiplier)
@@ -265,16 +265,16 @@ public class Fish : Creature {
         duration = Mathf.Clamp(duration, 0.5f, maxHolding);
         transform.parent = null;
         gameObject.AddComponent<Rigidbody>();
-        myRigid = GetComponent<Rigidbody>();
+        _rigid = GetComponent<Rigidbody>();
         float scaleToDuration = duration / maxHolding;
         chargePercent =  (int)(scaleToDuration * 100.0f);
-        myRigid.velocity = -transform.forward * -(forwardMultiplier * scaleToDuration) + (transform.up* upMultiplier);
+        _rigid.velocity = -transform.forward * -(forwardMultiplier * scaleToDuration) + (transform.up* upMultiplier);
         throwAttack = attack * scaleToDuration;
     }
 
     public void RemoveRigidBody()
     {
-        Destroy(myRigid);
+        Destroy(_rigid);
     }
    
  
@@ -325,9 +325,9 @@ public class Fish : Creature {
             RaycastHit hit;
             if (Physics.Raycast(getLowestFishPoint(), transform.TransformDirection(Vector3.down), out hit, rayDistance ))
             {
-                if (myRigid)
+                if (_rigid)
                 {
-                    if (hit.transform.gameObject.tag == "Ground" && myRigid.velocity.y < 0)
+                    if (hit.transform.gameObject.tag == "Ground" && _rigid.velocity.y < 0)
                     {
                         ChangeState(fState.ground);
                     }
@@ -362,7 +362,7 @@ public class Fish : Creature {
             RaycastHit hit;
             if (Physics.Raycast(getLowestFishPoint(), transform.TransformDirection(Vector3.down), out hit, rayDistance))
             {
-                if (hit.transform.gameObject.tag == "Sea" && myRigid.velocity.y < 0)
+                if (hit.transform.gameObject.tag == "Sea" && _rigid.velocity.y < 0)
                 {
                     GetCollider<BoxCollider>().enabled = false;
                     PlaySFX(sfx_WaterJump);

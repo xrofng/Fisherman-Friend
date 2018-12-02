@@ -74,7 +74,7 @@ public class PlayerFishSpecial : PlayerAbility
                   () => { specialTrail.gameObject.SetActive(true); specialTrail.Play(); },
                   () => { specialTrail.gameObject.SetActive(false); specialTrail.Stop(); });
 
-            _pAnimator.ChangeAnimState(PlayerAnimation.State.V_Slap, FishSpecial<FishSpecialMelee>().SpeiclaClipFrameCount, true, PlayerAnimation.State.HoldFish);             
+            _pAnimator.ChangeAnimState((int)PlayerAnimation.State.V_Slap, FishSpecial<FishSpecialMelee>().SpeiclaClipFrameCount, true, (int)PlayerAnimation.State.HoldFish);             
         }   
     }
 

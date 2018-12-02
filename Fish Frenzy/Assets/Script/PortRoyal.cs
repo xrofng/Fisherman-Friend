@@ -12,6 +12,7 @@ public class PortRoyal : PersistentSingleton<PortRoyal>
     public bool debugMode;
     
     public float respawnTime;
+    public float respawnInvincTime;
 
     public Vector2 FishJumpToWaterMultiplier;
 
@@ -48,7 +49,7 @@ public class PortRoyal : PersistentSingleton<PortRoyal>
             f.gameObject.transform.localEulerAngles = sClass.setVector3(f.gameObject.transform.localEulerAngles, sClass.vectorComponent.z, 0);
             f.ChangeState(Fish.fState.fall);
             f.gameObject.AddComponent<Rigidbody>();
-            f._rigidbody.freezeRotation = true;
+            f.Rigidbody.freezeRotation = true;
             f.gameObject.layer = LayerMask.NameToLayer("Fish");
             f.GetCollider<BoxCollider>().isTrigger = true;
         }

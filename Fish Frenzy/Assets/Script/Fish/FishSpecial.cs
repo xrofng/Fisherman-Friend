@@ -24,7 +24,7 @@ public class FishSpecial : MonoBehaviour
 
     public Rigidbody _pRigid
     {
-        get { return _fish._rigidbody; }
+        get { return _fish.Rigidbody; }
     }
 
     protected AudioSource _SFX;

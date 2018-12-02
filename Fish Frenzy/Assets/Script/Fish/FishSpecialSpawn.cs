@@ -8,12 +8,6 @@ public class FishSpecialSpawn : FishSpecial {
     public int invicibilityFrame = 50;
     public int freezeFrame = 10;
     public int damage = 50;
-
-    protected PlayerFishSpecial _playerFishSpecial
-    {
-        get { return _fish.GetPlayerHolder._cPlayerFishSpecial; }
-    }
-    
     
     protected Vector3 snapPosition;
     protected Vector3 snapRotation;

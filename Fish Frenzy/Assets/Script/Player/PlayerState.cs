@@ -137,7 +137,14 @@ public class PlayerState : PlayerAbility
     {
         IsDamaged = true;
         int frameCount = 0;
-        _pAnimator.ChangeAnimState(PlayerAnimation.State.Damaged, frameCount, false, PlayerAnimation.State.Damaged);
+        if (_player.holdingFish)
+        {
+            _pAnimator.ChangeAnimState((int)PlayerAnimation.State.Damaged_HoldFish);
+        }
+        else
+        {
+            _pAnimator.ChangeAnimState((int)PlayerAnimation.State.Damaged);
+        }
         while (frameCount < frameDuration)
         {
             yield return new WaitForEndOfFrame();
@@ -146,11 +153,11 @@ public class PlayerState : PlayerAbility
         IsDamaged = false;
         if (_player.holdingFish)
         {
-            _pAnimator.ChangeAnimState(PlayerAnimation.State.HoldFish, frameCount, false, PlayerAnimation.State.HoldFish);
+            _pAnimator.ChangeAnimState((int)PlayerAnimation.State.HoldFish);
         }
         else
         {
-            _pAnimator.ChangeAnimState(PlayerAnimation.State.Idle, frameCount, false, PlayerAnimation.State.Idle);
+            _pAnimator.ChangeAnimState((int)PlayerAnimation.State.Idle);
         }
     }
 

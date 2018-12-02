@@ -1808,6 +1808,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07a3823ef5840314282e84e65e949035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagedFrameDuration: 20
   sfx_WaterJump: {fileID: 8300000, guid: 8d08f95415bd65b4fa13e099457abb5d, type: 3}
 --- !u!114 &114080718980803230
 MonoBehaviour:
@@ -1899,8 +1900,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eef4032045110449b855c9ac8657ca7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 0}
   _currentAnimationState: 0
+  animClipList:
+  - {fileID: 7400000, guid: 98ec83322776082498bef713312e091f, type: 2}
+  - {fileID: 0}
+  - {fileID: 7400000, guid: a67efd01eee5eb748ae6fe1d3952c339, type: 2}
+  - {fileID: 7400000, guid: 549dd5cf3c09bde4e92a47398c107f15, type: 2}
+  - {fileID: 0}
+  - {fileID: 7400000, guid: 0f134db5cb4e2b94e8964eef0c61b51a, type: 2}
+  - {fileID: 7400000, guid: 889c148ae3fdc3545a2eca06ef79e28b, type: 2}
+  - {fileID: 7400000, guid: 103a5568ebc2a624c97a4cdfca48650c, type: 2}
+  - {fileID: 7400000, guid: 1ce4e7aefab96c245b14971d0dca3f3a, type: 2}
 --- !u!114 &114539361193624000
 MonoBehaviour:
   m_ObjectHideFlags: 1
