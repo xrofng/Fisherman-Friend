@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 114472043294426846}
   - component: {fileID: 82435529548346754}
   - component: {fileID: 114201184234966816}
+  - component: {fileID: 95741270081294372}
   m_Layer: 0
   m_Name: GenericFish
   m_TagString: Fish
@@ -39,7 +40,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1724100121020078}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 41.66005, y: 42.77786, z: 273.59497}
   m_Children: []
@@ -98,8 +99,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.009027121, y: 0.01741625, z: 0.009684276}
-  m_Center: {x: 0, y: 0.0024872406, z: 0.00012247544}
+  m_Size: {x: 0.009027121, y: 0.0093743745, z: 0.009684276}
+  m_Center: {x: 0, y: 0.0038149375, z: 0.00012247541}
 --- !u!82 &82435529548346754
 AudioSource:
   m_ObjectHideFlags: 1
@@ -195,6 +196,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &95741270081294372
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1724100121020078}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ec45b373bd72aed4f96662558e41eaf3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114201184234966816
 MonoBehaviour:
   m_ObjectHideFlags: 1

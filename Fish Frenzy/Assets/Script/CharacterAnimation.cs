@@ -37,6 +37,8 @@ public class CharacterAnimation : MonoBehaviour {
     }
     public int GetClipFrame(AnimationClip clip, float percent)
     {
+       // int f = (int)(clip.frameRate * percent / 100.0f);
+       // print("get:"+f);
         return (int)(clip.frameRate * percent / 100.0f);
     }
 

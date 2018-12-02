@@ -174,6 +174,9 @@ public class PlayerFishInteraction : PlayerAbility {
             f.gameObject.GetComponent<FishSpecialThrow>().SetUpFishSpecial();
         }
 
-        StopCoroutine(coroutineFinishFishing);
+        if (coroutineFinishFishing != null)
+        {
+            StopCoroutine(coroutineFinishFishing);
+        }
     }
 }

@@ -57,7 +57,6 @@ public class FishSpecialThrow : FishSpecial {
         {
             movingobject.HitBox._SFXclip = _playerFishSpecial.sfx_Special;
         }
-        
     }
 
     protected override void Update()
@@ -112,8 +111,6 @@ public class FishSpecialThrow : FishSpecial {
         _fish.SnapTransform();
         Destroy(currentMovingObj.gameObject);
     }
-
-
 
     protected override void IgnoreInputFor(int ignoreFrame)
     {
