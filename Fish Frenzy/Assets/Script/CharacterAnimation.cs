@@ -37,6 +37,8 @@ public class CharacterAnimation : MonoBehaviour {
     }
     public int GetClipFrame(AnimationClip clip, float percent)
     {
+       // int f = (int)(clip.frameRate * percent / 100.0f);
+       // print("get:"+f);
         return (int)(clip.frameRate * percent / 100.0f);
     }
 
@@ -66,9 +68,9 @@ public class CharacterAnimation : MonoBehaviour {
         Animator.SetBool(parameterName, value);        
     }
 
-    public void ChangeAnimState(int i, int ignoreFrame, bool revert, int revetTo)
+    public void ChangeAnimState(int i, int frameDuration, bool revert, int revetTo)
     {
-        StartCoroutine(InvokeChangeAnimState(i, ignoreFrame, revert, revetTo));
+        StartCoroutine(InvokeChangeAnimState(i, frameDuration, revert, revetTo));
     }
     public void ChangeAnimState(int i, bool revert, int revetTo)
     {

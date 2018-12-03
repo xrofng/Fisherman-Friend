@@ -18,15 +18,19 @@ public class FishSpecial : MonoBehaviour
 
     [Header("Special")]
     public float attack;
-    public enum MeleeAnimation
+    public enum SpecialAnimation
     {
         LightHorizontal = 2,
         HammerDown = 3,
-        LightStab = 6
-    }
-    public int[] AnimationFrame = { 0, 0, 20, 50, 0, 0, 35 };
+        SwordThrust = 6,
+        EelHook = 9,
+        EelSlap = 10,
+        StarShuriken = 11
 
-    public MeleeAnimation specialClip;
+    }
+    public int[] AnimationFrame = { 0, 0, 20, 50, 0, 0, 35,0,0, 150, 54,10  };
+
+    public SpecialAnimation specialClip;
     public int SpeiclaClipFrameCount
     {
         get { return AnimationFrame[(int)specialClip]; }

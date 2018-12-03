@@ -10,6 +10,8 @@ public class FishSpecialHook : FishSpecialThrow {
     public int finalBlowForce = 1;
     protected Player hookedPlayer;
 
+    public SpecialAnimation hookSlapClip;
+
     protected override void OnThrowStart()
     {
         base.OnThrowStart();
@@ -27,7 +29,12 @@ public class FishSpecialHook : FishSpecialThrow {
 
     IEnumerator FinalBlow()
     {
+        _player.AddAbilityInputIntercepter(this);
+
         hookedPlayer.AddAbilityInputIntercepter(this);
+
+        int specialClip = (int)hookSlapClip;
+        _playerFishSpecial._pAnimator.ChangeAnimState(specialClip, damageFrameDuration, true, (int)PlayerAnimation.State.HoldFish);
 
         int frameCount = 0;
         while (frameCount < damageFrameDuration)
@@ -53,5 +60,6 @@ public class FishSpecialHook : FishSpecialThrow {
             hookedPlayer.RemoveAbilityInputIntercepter(this);
             hookedPlayer._cPlayerFishInteraction.SetPlayerCollideEverything(true);
         }
+        _player.RemoveAbilityInputIntercepter(this);
     }
 }

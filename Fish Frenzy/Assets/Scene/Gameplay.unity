@@ -1310,8 +1310,8 @@ MonoBehaviour:
   underWater: {fileID: 793332554}
   mainCamera: {fileID: 208782328}
   multiPCamera: {fileID: 1296815681}
-  FixedFish: 1
-  TestingFish: {fileID: 114447408894065984, guid: aeccb13bec295bb44bfb133acf6276f3,
+  FixedFish: 0
+  TestingFish: {fileID: 114257537931697316, guid: fe938b2f86a8ac845b2c1d3292925b54,
     type: 2}
 --- !u!114 &156079904
 MonoBehaviour:
@@ -11575,7 +11575,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1226092592}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -20.762438, y: 4.93, z: 6.641965}
+  m_LocalPosition: {x: -20.762438, y: 6.4, z: 6.641965}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1465189626}
@@ -15578,11 +15578,6 @@ Prefab:
     - target: {fileID: 4776109513001538, guid: 39fef1461dd626e4c869f96b5a2d7e66, type: 2}
       propertyPath: m_RootOrder
       value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 65029772642893038, guid: 39fef1461dd626e4c869f96b5a2d7e66,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1727452470752796, guid: 39fef1461dd626e4c869f96b5a2d7e66, type: 2}
       propertyPath: m_IsActive

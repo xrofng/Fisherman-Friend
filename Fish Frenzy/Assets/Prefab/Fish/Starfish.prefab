@@ -98,8 +98,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.018238772, y: 0.0049454966, z: 0.018472578}
-  m_Center: {x: 0.0020714465, y: 0.0021904225, z: 0}
+  m_Size: {x: 0.018238772, y: 0.00140265, z: 0.01439602}
+  m_Center: {x: 0.0020714465, y: 0.0055600875, z: 0.002400142}
 --- !u!82 &82485654958079526
 AudioSource:
   m_ObjectHideFlags: 1
@@ -264,12 +264,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attack: 4
-  AnimationFrame: 00000000000000001400000032000000000000000000000023000000
-  specialClip: 0
+  AnimationFrame: 00000000000000001400000032000000000000000000000023000000000000000000000096000000360000000a000000
+  specialClip: 11
   movingobject: {fileID: 114717754795570986, guid: ff305f621d0c71c4598ab42daacd2a38,
     type: 2}
-  throwFrameDuration: 10
+  throwFrameDuration: 999
   invicibilityFrame: 50
   freezeFrame: 0
   launchingDamage: 1
-  channelingFrameDuration: 4
+  channelingFrameDuration: 0
+  ignoreInput: 0
