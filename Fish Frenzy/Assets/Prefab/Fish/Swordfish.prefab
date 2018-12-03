@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114768006698364366}
   - component: {fileID: 114190608134864540}
   - component: {fileID: 82659759615109278}
+  - component: {fileID: 114437027043337802}
   m_Layer: 0
   m_Name: Swordfish
   m_TagString: Fish
@@ -211,6 +212,25 @@ MonoBehaviour:
   pickUpImage: {fileID: 114966499513919200, guid: 30e9f486e02400240b828642365cd627,
     type: 2}
   allowToPick: 0
+--- !u!114 &114437027043337802
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1021876689917346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcbb71c491f658e448fc46b5a9c5e9b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack: 0
+  AnimationFrame: 00000000000000001400000032000000000000000000000023000000000000000000000096000000360000000a000000
+  specialClip: 6
+  thisSpecialHitBox: {fileID: 0}
+  invicibilityFrame: 50
+  freezeFrame: 10
+  launchingDamage: 1
+  hitBoxRef: {fileID: 0}
 --- !u!114 &114768006698364366
 MonoBehaviour:
   m_ObjectHideFlags: 1

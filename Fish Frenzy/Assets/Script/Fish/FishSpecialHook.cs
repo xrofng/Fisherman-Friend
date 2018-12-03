@@ -42,6 +42,7 @@ public class FishSpecialHook : FishSpecialThrow {
             yield return new WaitForEndOfFrame();
             frameCount += 1;
         }
+        PlaySFX(_fish.sfx_Special);
         hookedPlayer.recieveDamage(attack, _player.gameObject, hookedPlayer.transform.position + Vector3.up, invicibilityFrame, true , finalBlowForce);
 
         frameCount = 0;

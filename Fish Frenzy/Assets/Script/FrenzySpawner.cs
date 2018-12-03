@@ -17,6 +17,15 @@ public class FrenzySpawner : MonoBehaviour {
     public float timeFrenzy= 60.0f;
 
     public Animator whale;
+    protected AudioSource _SFX;
+    public AudioSource SFX
+    {
+        get
+        {
+            if (!_SFX) { _SFX = GetComponent<AudioSource>(); }
+            return _SFX;
+        }
+    }
     public int whaleAnimFrame;
     // Use this for initialization
     void Start () {
@@ -82,6 +91,10 @@ public class FrenzySpawner : MonoBehaviour {
 
     public void PlayWhaleAnimation()
     {
+        if (!SFX.isPlaying)
+        {
+            SFX.Play();
+        }
         StartCoroutine(WhaleAnimPlay(whaleAnimFrame));
     }
 

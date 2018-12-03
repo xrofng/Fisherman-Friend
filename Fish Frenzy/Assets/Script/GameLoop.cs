@@ -83,7 +83,7 @@ public class GameLoop : PersistentSingleton<GameLoop>
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            timeCountDown = 80;
+            timeCountDown = 70;
         }
 
         CheckTimeUp();
