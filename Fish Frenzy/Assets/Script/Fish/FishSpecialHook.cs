@@ -63,4 +63,11 @@ public class FishSpecialHook : FishSpecialThrow {
         }
         _player.RemoveAbilityInputIntercepter(this);
     }
+
+    public override void OnDehydrate()
+    {
+        base.OnDehydrate();
+        ReleaseHook();
+    }
+
 }

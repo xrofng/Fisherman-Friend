@@ -127,7 +127,8 @@ public class Fish : Creature {
                 LeftPlayer();
                 state = fState.dehydrate;
                 JumpToWater();
-                
+
+                _cSpecial.OnDehydrate();
             }
         }
     }

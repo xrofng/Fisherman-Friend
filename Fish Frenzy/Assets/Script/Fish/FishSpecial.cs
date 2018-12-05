@@ -105,4 +105,9 @@ public class FishSpecial : MonoBehaviour
         end();
     }
 
+    public virtual void OnDehydrate()
+    {
+
+    }
+
 }
