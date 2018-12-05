@@ -61,7 +61,10 @@ public class FishSpecialHook : FishSpecialThrow {
             hookedPlayer.RemoveAbilityInputIntercepter(this);
             hookedPlayer._cPlayerFishInteraction.SetPlayerCollideEverything(true);
         }
-        _player.RemoveAbilityInputIntercepter(this);
+        if (_player)
+        {
+            _player.RemoveAbilityInputIntercepter(this);
+        }
     }
 
     public override void OnDehydrate()

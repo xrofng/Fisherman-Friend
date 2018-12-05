@@ -64,8 +64,9 @@ public class FishSpecialThrow : FishSpecial {
 
     }
 
-    public void SpecialThrowAttack()
+    public virtual void SpecialThrowAttack(Player _player)
     {
+        _player.animator.ChangeAnimState((int)specialClip, SpeiclaClipFrameCount, true, (int)PlayerAnimation.State.HoldFish);
         StartCoroutine(ieSpecialThrowAttack(throwFrameDuration, channelingFrameDuration));
     }
 

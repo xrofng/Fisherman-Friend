@@ -29,7 +29,9 @@ public class PlayerAnimation : CharacterAnimation {
         Eel_Slap,
         Star_Throw,
         Shocked,
-        Eaten
+        Eaten,
+        Spin,
+        Spinning
     };
     
     protected override void Start()

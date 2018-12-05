@@ -74,9 +74,9 @@ public class PlayerSpecial : PlayerAbility
             //      () => { specialTrail.gameObject.SetActive(true); specialTrail.Play(); },
             //      () => { specialTrail.gameObject.SetActive(false); specialTrail.Stop(); });
 
-            int specialClip = (int)FishSpecial<FishSpecial>().specialClip;
-            _pAnimator.ChangeAnimState(specialClip, FishSpecial<FishSpecial>().SpeiclaClipFrameCount, true, (int)PlayerAnimation.State.HoldFish);             
-        }   
+            _player.mainFish.GetComponent<FishSpecialMelee>().SpecialMeleeAttack(_player);
+
+        }
     }
 
     //[Header("Throw")]
@@ -98,11 +98,8 @@ public class PlayerSpecial : PlayerAbility
         else if (_pInput.GetButtonUp(_pInput.Special, _player.playerID - 1))
         {
             //PlayThrowSFX();
-            _player.mainFish.GetComponent<FishSpecialThrow>().SpecialThrowAttack();
+            _player.mainFish.GetComponent<FishSpecialThrow>().SpecialThrowAttack(_player);
             GetCrossZComponent<PlayerThrow>().ChangeToUnAim();
-
-            int specialClip = (int)FishSpecial<FishSpecial>().specialClip;
-            _pAnimator.ChangeAnimState(specialClip, FishSpecial<FishSpecial>().SpeiclaClipFrameCount, true, (int)PlayerAnimation.State.HoldFish);
         }        
     }
     

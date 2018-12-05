@@ -29,13 +29,13 @@ public class FishSpecialMelee : FishSpecial {
     }
 
 
-    public void SetUpFishSpecial()
+    public virtual void SetUpFishSpecial()
     {
         SetUpSpecialHitBox();
         SetUpGameVariable();
     }
 
-    public void SetUpSpecialHitBox()
+    protected void SetUpSpecialHitBox()
     {
         //SetSnapFromRef(hitBoxRef.transform);
 
@@ -64,6 +64,12 @@ public class FishSpecialMelee : FishSpecial {
         snapPosition = tRef.localPosition;
         snapRotation = tRef.localEulerAngles;
         snapScale    =  tRef.localScale;
+    }
+
+
+    public virtual void SpecialMeleeAttack(Player _player)
+    {
+        _player.animator.ChangeAnimState((int)specialClip, SpeiclaClipFrameCount, true, (int)PlayerAnimation.State.HoldFish);      
     }
 
     /// <summary>

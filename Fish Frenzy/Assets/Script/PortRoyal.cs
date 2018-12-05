@@ -40,20 +40,11 @@ public class PortRoyal : PersistentSingleton<PortRoyal>
     }
 	
 	// Update is called once per frame
-	void Update () {
-        
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            Fish f = Instantiate(TestingFish, Player[0].transform.position+Vector3.up * 5, Random.rotation) as Fish;
-            f.gameObject.transform.localEulerAngles = sClass.setVector3(f.gameObject.transform.localEulerAngles, sClass.vectorComponent.x, 0);
-            f.gameObject.transform.localEulerAngles = sClass.setVector3(f.gameObject.transform.localEulerAngles, sClass.vectorComponent.z, 0);
-            f.ChangeState(Fish.fState.fall);
-            f.gameObject.AddComponent<Rigidbody>();
-            f.Rigidbody.freezeRotation = true;
-            f.gameObject.layer = LayerMask.NameToLayer("Fish_All");
-            f.GetCollider<BoxCollider>().isTrigger = true;
-        }
+	void Update ()
+    {
+        Test();
     }
+
     public int randomSpawnPosIndex()
     {
         return Random.Range(0, spawnPoint.Length);
@@ -85,4 +76,33 @@ public class PortRoyal : PersistentSingleton<PortRoyal>
         return Random.Range(0, fishPool.Length);
     }
 
+
+    void Test()
+    {
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            ForceSpawnFish(TestingFish);
+        }
+        KeyCode spa = KeyCode.Keypad1;
+        for(int i = 0; i < fishPool.Length; i++)
+        {
+            if (Input.GetKeyDown(spa))
+            {
+                ForceSpawnFish(fishPool[i]);
+            }
+            spa += 1;
+        }
+    }
+
+    void ForceSpawnFish(Fish spawnFish)
+    {
+        Fish f = Instantiate(spawnFish, Player[0].transform.position + Vector3.up * 5, Random.rotation) as Fish;
+        f.gameObject.transform.localEulerAngles = sClass.setVector3(f.gameObject.transform.localEulerAngles, sClass.vectorComponent.x, 0);
+        f.gameObject.transform.localEulerAngles = sClass.setVector3(f.gameObject.transform.localEulerAngles, sClass.vectorComponent.z, 0);
+        f.ChangeState(Fish.fState.fall);
+        f.gameObject.AddComponent<Rigidbody>();
+        f.Rigidbody.freezeRotation = true;
+        f.gameObject.layer = LayerMask.NameToLayer("Fish_All");
+        f.GetCollider<BoxCollider>().isTrigger = true;
+    }
 }

@@ -25,10 +25,13 @@ public class FishSpecial : MonoBehaviour
         SwordThrust = 6,
         EelHook = 9,
         EelSlap = 10,
-        StarShuriken = 11
+        StarShuriken = 11,
+        SwordSpin = 14,
+        SwordSpining = 15
+
 
     }
-    public int[] AnimationFrame = { 0, 0, 20, 50, 0, 0, 35,0,0, 150, 54,10  };
+    public int[] AnimationFrame = { 0, 0, 20, 50, 0, 0, 35,0,0, 150, 54,10,0,0, 10 ,30  };
 
     public SpecialAnimation specialClip;
     public int SpeiclaClipFrameCount
