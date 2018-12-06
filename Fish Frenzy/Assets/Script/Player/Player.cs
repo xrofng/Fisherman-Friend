@@ -271,20 +271,15 @@ public class Player : Creature {
         GameObject latest= MatchResult.Instance.GetLatestDamager(playerID,false);
         if (latest)
         {
-            //if (latest.GetComponent<StageInteraction>())
-            //{
-            //    GameObject latestplayer = MatchResult.Instance.GetLatestDamager(playerID, true);
-            //    MatchResult.Instance.StoreKnocker(playerID, latestplayer);
-            //}
             MatchResult.Instance.StoreKnocker(playerID, latest);
         }
         else
         {
-
             MatchResult.Instance.StoreKnocker(playerID, this.gameObject);
         }
 
         this.transform.position = PortRoyal.Instance.deathRealm.position;
+        Animator.ChangeAnimState((int)PlayerAnimation.State.Idle);
         StartCoroutine(Respawn(PortRoyal.Instance.respawnTime , PortRoyal.Instance.respawnTime));
     }
 

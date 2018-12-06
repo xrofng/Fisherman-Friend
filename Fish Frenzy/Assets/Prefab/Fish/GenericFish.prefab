@@ -231,7 +231,7 @@ MonoBehaviour:
   thisSpecialHitBox: {fileID: 114932500520018290, guid: 6657a06d3df040b4a8412bd9f0e164c1,
     type: 2}
   invicibilityFrame: 50
-  freezeFrame: 10
+  freezeFrame: 0
   launchingDamage: 1
   hitBoxRef: {fileID: 4992497796906506, guid: 6657a06d3df040b4a8412bd9f0e164c1, type: 2}
 --- !u!114 &114472043294426846
@@ -270,7 +270,7 @@ MonoBehaviour:
   weight: 0
   mashCountDown: 1
   rayDistance: 0.25
-  maxHolding: 5
+  maxHolding: 7
   throwAttack: 0
   t_invicibilityFrame: 50
   t_launchingDamage: 1

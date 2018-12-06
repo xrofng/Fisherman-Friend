@@ -68,11 +68,11 @@ public class PlayerThrow : PlayerAbility {
         {
             OnButtonDown();
         }
-        else if (_pInput.GetButton(_pInput.Throw, _player.playerID - 1))
+        else if (_pInput.GetButton(_pInput.Throw, _player.playerID - 1) && aiming)
         {
             OnButtonHold();
         }
-        else if (_pInput.GetButtonUp(_pInput.Throw, _player.playerID - 1))
+        else if (_pInput.GetButtonUp(_pInput.Throw, _player.playerID - 1) && aiming)
         {
             OnButtonUp();
         }

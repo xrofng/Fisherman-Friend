@@ -255,8 +255,9 @@ public class Fish : Creature {
         gameObject.AddComponent<Rigidbody>();
         _rigid = GetComponent<Rigidbody>();
         float scaleToDuration = duration / maxHolding;
-        chargePercent =  (int)(scaleToDuration * 100.0f);
-        _rigid.velocity = -transform.forward * -(forwardMultiplier * scaleToDuration) + (transform.up* upMultiplier);
+        chargePercent = (int)scaleToDuration *100;
+        float chargePer = Mathf.Lerp(0.1f, 1, scaleToDuration);
+        _rigid.velocity = -transform.forward * -(forwardMultiplier * chargePer) + (transform.up* upMultiplier);
         throwAttack = _cSpecial.attack * scaleToDuration;
     }
 

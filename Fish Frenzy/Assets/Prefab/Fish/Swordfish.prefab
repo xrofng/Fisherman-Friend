@@ -223,17 +223,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 063923ab17acfe54abf9317ead1268cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack: 0
+  attack: 12
   AnimationFrame: 00000000000000001400000032000000000000000000000023000000000000000000000096000000360000000a00000000000000000000000a0000001e000000
   specialClip: 14
   thisSpecialHitBox: {fileID: 114144094556950716, guid: 4553a14b9b388c6428bb0880ecfe688b,
     type: 2}
   invicibilityFrame: 50
-  freezeFrame: 10
+  freezeFrame: 0
   launchingDamage: 1
   hitBoxRef: {fileID: 4524753283349938, guid: 4553a14b9b388c6428bb0880ecfe688b, type: 2}
   speed: 20
-  floorOffset: 10
+  floorOffset: 1
   spiningFrameDuration: 60
   fishSpinSpeed: 10
   spiningClip: 15
@@ -252,11 +252,11 @@ MonoBehaviour:
   state: 0
   holder: {fileID: 0}
   ignorePlayerFrame: 0
-  durability: 20
+  durability: 10
   weight: 0
   mashCountDown: 6
   rayDistance: 0.25
-  maxHolding: 5
+  maxHolding: 7
   throwAttack: 0
   t_invicibilityFrame: 50
   t_launchingDamage: 1

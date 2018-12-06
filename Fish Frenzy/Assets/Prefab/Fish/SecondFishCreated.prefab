@@ -225,24 +225,17 @@ MonoBehaviour:
   temp: {fileID: 1741521758649520, guid: 5f192c056a302e9418bd3b64d9801479, type: 2}
   state: 0
   holder: {fileID: 0}
-  damageDealed: 0
+  ignorePlayerFrame: 0
   durability: 20
   weight: 0
   mashCountDown: 5
   rayDistance: 0.25
-  maxHolding: 5
+  maxHolding: 7
   throwAttack: 0
   t_invicibilityFrame: 50
   t_launchingDamage: 1
   lastHoldPoition: {x: 0, y: 0, z: 0}
   chargePercent: 0
-  attack: 7
-  slapClip: 2
-  s_launchingDamage: 1
-  AnimationFrame: 00000000000000001400000032000000000000000000000023000000
-  s_invicibilityFrame: 50
-  hitboxSize: {x: 0, y: 0, z: 0}
-  hitboxCenter: {x: 0, y: 0, z: 0}
   holdPosition: {x: 0, y: 0, z: 0}
   holdRotation: {x: 0, y: 270, z: 0}
   aimPositioningOffset: {x: 0, y: 0, z: 0}

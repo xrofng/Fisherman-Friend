@@ -72,7 +72,11 @@ public class MatchResult : PersistentSingleton<MatchResult>
 
     public void ScoreChangeDisplay(int recieveAttackID,GameObject knocker)
     {
-        if (knocker.gameObject.GetComponent<Player>())
+        if (!knocker.gameObject.GetComponent<Player>())
+        {
+            return;
+        }
+        if(knocker.gameObject.GetComponent<Player>().playerID != recieveAttackID)
         {
             GUIManager.Instance.AddScoreChange(knocker.gameObject.GetComponent<Player>().playerID - 1, 1);
         }

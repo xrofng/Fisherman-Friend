@@ -6,8 +6,17 @@ public class FishSpecialSpin : FishSpecialMelee {
 
     [Header("Spin")]
     public float speed = 10;
+    protected float speedDet = 100;
+    protected float _speed=0;
+    public float Speed
+    {
+        get { if (_speed == 0) { _speed = speed / speedDet; } return _speed;  }
+    }
+
+
     public float floorOffset;
-    protected Vector3 playerColliderSize;
+    protected float floorRatio = 10;
+    protected float playerPositionY;
     public int spiningFrameDuration = 60;
     public float fishSpinSpeed = 10;
     public SpecialAnimation spiningClip;
@@ -15,39 +24,43 @@ public class FishSpecialSpin : FishSpecialMelee {
     public override void SetUpFishSpecial()
     {
         base.SetUpFishSpecial();
-        playerColliderSize = _player.GetCollider<BoxCollider>().size;
+        
     }
 
     public override void SpecialMeleeAttack(Player _player)
     {
         // dont call base.SpecialMeleeAttack to not change to holdfish after finish 1st animation clip
         _player.animator.ChangeAnimState((int)specialClip, SpeiclaClipFrameCount, true, (int)PlayerAnimation.State.Spinning);
-        _player.Rigidbody.AddForce(_player.playerForward * speed, ForceMode.Impulse);
-        StartCoroutine(Spining());
+        // _player.Rigidbody.AddForce(, ForceMode.Impulse);
+        playerPositionY = _player.transform.position.y;
+         StartCoroutine(Spining());
     }
 
     IEnumerator Spining()
     {
-        playerColliderSize = playerColliderSize + Vector3.up* floorOffset;
+//        _player.GetCollider<BoxCollider>().size = playerColliderSize + Vector3.up* floorOffset/ floorRatio;
+        
         _player.AddAbilityInputIntercepter(this);
         int frameCount = 0;
         while (frameCount < spiningFrameDuration + SpeiclaClipFrameCount)
         {
             yield return new WaitForEndOfFrame();
+            _player.transform.Translate(_player.playerForward * Speed);
+            _player.transform.position = sClass.setVector3(_player.transform.position, sClass.vectorComponent.y, playerPositionY + floorOffset);
             _fish.transform.Rotate(Vector3.forward * fishSpinSpeed, Space.Self);
             frameCount += 1;
         }
+        _player.transform.position = sClass.setVector3(_player.transform.position, sClass.vectorComponent.y, playerPositionY);
         _player.animator.ChangeAnimState((int)PlayerAnimation.State.HoldFish);
         _player.RemoveAbilityInputIntercepter(this);
         _fish.SnapTransform();
-        playerColliderSize = playerColliderSize - Vector3.up * floorOffset;
     }
 
 
     public override void OnDehydrate()
     {
         base.OnDehydrate();
-       
+        _player.RemoveAbilityInputIntercepter(this);
     }
 
 }
