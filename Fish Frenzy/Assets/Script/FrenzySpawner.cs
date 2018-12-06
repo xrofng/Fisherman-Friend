@@ -16,7 +16,20 @@ public class FrenzySpawner : MonoBehaviour {
     public float timeAnimationOverhead = 9.3f;
     public float timeFrenzy= 60.0f;
 
-    public Animator whale;
+    public GameObject whalePrefab;
+    protected GameObject whale;
+    protected Animator _whaleAnim;
+    public Animator WhaleAnim
+    {
+        get
+        {
+            if (!_whaleAnim && whale)
+            {
+                _whaleAnim = whale.GetComponentInChildren<Animator>();
+            }
+            return _whaleAnim;
+        }
+    }
     protected AudioSource _SFX;
     public AudioSource SFX
     {
@@ -29,7 +42,7 @@ public class FrenzySpawner : MonoBehaviour {
     public int whaleAnimFrame;
     // Use this for initialization
     void Start () {
-        
+        whale = Instantiate(whalePrefab);
 
     }
 	
@@ -101,13 +114,13 @@ public class FrenzySpawner : MonoBehaviour {
     IEnumerator WhaleAnimPlay(int frameDuration)
     {
         int frameCount = 0;
-        whale.SetBool("Jump",true);
+        WhaleAnim.SetBool("Jump",true);
         while (frameCount < frameDuration)
         {
             yield return new WaitForEndOfFrame();
             frameCount++;
         }
-        whale.SetBool("Jump",false);
+        WhaleAnim.SetBool("Jump",false);
     }
 
     // Draw Path
