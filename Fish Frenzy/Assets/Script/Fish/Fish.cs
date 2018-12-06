@@ -26,7 +26,7 @@ public class Fish : Creature {
         {
             if (!_playerHolder)
             {
-                _playerHolder = holder.GetComponent<Player>();
+                _playerHolder = holder.gameObject.GetComponent<Player>();
             }
             return _playerHolder;
         }
