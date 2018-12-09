@@ -12323,6 +12323,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114930179200439546, guid: 37a5eec4b16ac0340a05e1e79840ec0d,
+        type: 2}
+      propertyPath: gizmoSize.z
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 114930179200439546, guid: 37a5eec4b16ac0340a05e1e79840ec0d,
+        type: 2}
+      propertyPath: maxYPos
+      value: 13.6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37a5eec4b16ac0340a05e1e79840ec0d, type: 2}
   m_IsPrefabAsset: 0

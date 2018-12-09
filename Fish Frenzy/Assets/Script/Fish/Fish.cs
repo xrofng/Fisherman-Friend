@@ -96,6 +96,7 @@ public class Fish : Creature {
         dehydration = durability;
         gameLoop = FFGameManager.Instance.GameLoop;
         portRoyal = FFGameManager.Instance.PortRoyal;
+        SetMesh(fishMeshRenderer);
     }
 
     // Update is called once per frame
