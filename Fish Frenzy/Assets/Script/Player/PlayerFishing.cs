@@ -56,7 +56,7 @@ public class PlayerFishing : PlayerAbility
                 case Player.eState.fishing:
                     if (_player.baitedFish.MashForCatch())
                     {
-                        _player.baitedFish.GetComponent<MeshRenderer>().enabled = true;
+                        _player.baitedFish.fishMeshRenderer.enabled = true;
                         _player.ChangeState(Player.eState.waitForFish);
                         GetCrossZComponent<PlayerFishInteraction>().FinishFishing();
                         guiManager.UpdateMashFishingButtonIndicator(_player.playerID, fishPoint.position, false);
@@ -81,7 +81,7 @@ public class PlayerFishing : PlayerAbility
 
         _player.baitedFish = Instantiate(portRoyal.randomFish(), fishPoint.position, _player.GetPart(Player.ePart.body).transform.rotation);
         Fish baitedFish = _player.baitedFish;
-        baitedFish.GetComponent<MeshRenderer>().enabled = false;
+        baitedFish.fishMeshRenderer.enabled = false;
         GetCrossZComponent<PlayerFishInteraction>().SetFishCollideType(PlayerFishInteraction.CollideType.Uncollide ,baitedFish, _player);
         baitedFish.SetHolder(this.gameObject);
         SetFishing(true);

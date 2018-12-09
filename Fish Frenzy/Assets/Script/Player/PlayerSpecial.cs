@@ -85,7 +85,11 @@ public class PlayerSpecial : PlayerAbility
         if (!_player.mainFish.GetComponent<FishSpecialThrow>() || _player.mainFish.GetComponent<FishSpecialThrow>().ThrowSpecialing)
         {
             return;
-        }       
+        }
+        if (GetCrossZComponent<PlayerState>().IsJumping)
+        {
+            return;
+        }
 
         if (_pInput.GetButtonDown(_pInput.Special, _player.playerID - 1))
         {

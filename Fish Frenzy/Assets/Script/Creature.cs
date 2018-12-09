@@ -108,4 +108,8 @@ public class Creature : MonoBehaviour
             return _meshRenderer;
         }
     }
+    public void SetMesh(MeshRenderer mr)
+    {
+        _meshRenderer = mr;
+    }
 }

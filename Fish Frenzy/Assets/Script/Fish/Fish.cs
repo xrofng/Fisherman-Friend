@@ -24,7 +24,7 @@ public class Fish : Creature {
     {
         get
         {
-            if (!_playerHolder)
+            if (holder && !_playerHolder)
             {
                 _playerHolder = holder.gameObject.GetComponent<Player>();
             }
@@ -36,7 +36,7 @@ public class Fish : Creature {
     // TODO encap to damage on hit
     public int ignorePlayerFrame;
     protected List<GameObject> _ignoredGameObjects = new List<GameObject>();
-
+    public MeshRenderer fishMeshRenderer;
 
     [Header("Fishing")]
     public float durability = 7;
@@ -56,9 +56,6 @@ public class Fish : Creature {
     public bool t_launchingDamage;
     public Vector3 lastHoldPoition;
     public int chargePercent;
-
-
-
 
     [Header("Snap")]
     //snap

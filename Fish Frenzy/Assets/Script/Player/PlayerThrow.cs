@@ -64,6 +64,10 @@ public class PlayerThrow : PlayerAbility {
         {
             return;
         }
+        if (GetCrossZComponent<PlayerState>().IsJumping)
+        {
+            return;
+        }
         if (_pInput.GetButtonDown(_pInput.Throw, _player.playerID - 1))
         {
             OnButtonDown();

@@ -110,7 +110,7 @@ public class FishSpecial : MonoBehaviour
 
     public virtual void OnDehydrate()
     {
-        if (_player)
+        if ( _player )
         {
             _player.animator.ChangeAnimState((int)PlayerAnimation.State.Idle);
         }
