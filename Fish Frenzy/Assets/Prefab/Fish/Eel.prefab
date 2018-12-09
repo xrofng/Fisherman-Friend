@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114109508714941994}
   - component: {fileID: 82612576762288146}
   - component: {fileID: 114515199957103786}
+  - component: {fileID: 95866220282495180}
   m_Layer: 0
   m_Name: Eel
   m_TagString: Fish
@@ -68,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1932084071963072}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.775932, y: 3.7182794, z: 7.514854}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 26.466883, y: 29.391651, z: 29.391651}
   m_Children:
   - {fileID: 4072137911606198}
@@ -127,8 +128,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.008997474, y: 0.012569159, z: 0.15612887}
-  m_Center: {x: 0, y: 0.002757838, z: 0.059716012}
+  m_Size: {x: 0.008997474, y: 0.009554743, z: 0.15612887}
+  m_Center: {x: 0, y: 0.0008905638, z: 0.059716012}
 --- !u!82 &82612576762288146
 AudioSource:
   m_ObjectHideFlags: 1
@@ -224,6 +225,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &95866220282495180
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1932084071963072}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a5692baac61c28f42b9401aa8efbb3b9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114109508714941994
 MonoBehaviour:
   m_ObjectHideFlags: 1
