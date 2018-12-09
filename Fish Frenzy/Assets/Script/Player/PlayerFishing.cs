@@ -48,7 +48,7 @@ public class PlayerFishing : PlayerAbility
                 case Player.eState.ground:
                     if (nearCoast == true && !_player.holdingFish)
                     {
-                        GUIManager.Instance.UpdateFishButtonIndicator(_player.playerID, fishPoint.position, false);
+                        guiManager.UpdateFishButtonIndicator(_player.playerID, fishPoint.position, false);
                         _player.ChangeState(Player.eState.rodSwinging);
                         StartCoroutine(StartFishing(delayFrame));
                     }
@@ -59,7 +59,7 @@ public class PlayerFishing : PlayerAbility
                         _player.baitedFish.GetComponent<MeshRenderer>().enabled = true;
                         _player.ChangeState(Player.eState.waitForFish);
                         GetCrossZComponent<PlayerFishInteraction>().FinishFishing();
-                        GUIManager.Instance.UpdateMashFishingButtonIndicator(_player.playerID, fishPoint.position, false);
+                        guiManager.UpdateMashFishingButtonIndicator(_player.playerID, fishPoint.position, false);
                     }
                     break;
                 case Player.eState.waitForFish:
@@ -79,7 +79,7 @@ public class PlayerFishing : PlayerAbility
         }
         PlaySFX(sfx_WaterTouch);
 
-        _player.baitedFish = Instantiate(PortRoyal.Instance.randomFish(), fishPoint.position, _player.GetPart(Player.ePart.body).transform.rotation);
+        _player.baitedFish = Instantiate(portRoyal.randomFish(), fishPoint.position, _player.GetPart(Player.ePart.body).transform.rotation);
         Fish baitedFish = _player.baitedFish;
         baitedFish.GetComponent<MeshRenderer>().enabled = false;
         GetCrossZComponent<PlayerFishInteraction>().SetFishCollideType(PlayerFishInteraction.CollideType.Uncollide ,baitedFish, _player);
@@ -104,11 +104,11 @@ public class PlayerFishing : PlayerAbility
                 lineColor = Color.blue;
                 nearCoast = true;
                 fishPoint.position = hit.point + Vector3.down;
-                GUIManager.Instance.UpdateFishButtonIndicator(_player.playerID, fishPoint.position, true);
+                guiManager.UpdateFishButtonIndicator(_player.playerID, fishPoint.position, true);
             }
             else
             {
-                GUIManager.Instance.UpdateFishButtonIndicator(_player.playerID, fishPoint.position, false);
+                guiManager.UpdateFishButtonIndicator(_player.playerID, fishPoint.position, false);
             }
             Debug.DrawRay(fishPoint_finder.position, transform.TransformDirection(Vector3.down) * hit.distance, lineColor);
         }
@@ -116,7 +116,7 @@ public class PlayerFishing : PlayerAbility
 
     public void SetFishing(bool b)
     {
-        GUIManager.Instance.UpdateMashFishingButtonIndicator(_player.playerID, fishPoint.position, b);
+        guiManager.UpdateMashFishingButtonIndicator(_player.playerID, fishPoint.position, b);
         if (b)
         {
             _player.ChangeState(Player.eState.fishing);

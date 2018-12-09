@@ -41,7 +41,7 @@ public class PlayerThrow : PlayerAbility {
         base.Initialization();
         _aimArrow = Instantiate(aimArrow);
         _aimArrow.transform.SetParent( _player.GetPart(Player.ePart.body) );
-        _aimArrow.GetComponent<SpriteRenderer>().color = PortRoyal.Instance.startupPlayer.playerColor[_player.playerID-1];
+        _aimArrow.GetComponent<SpriteRenderer>().color = StartupPlayer.Instance.playerColor[_player.playerID-1];
         _aimArrow.localPosition =  arrowPositioningOffset;
         _aimArrow.gameObject.SetActive(false);
     }

@@ -10,6 +10,19 @@ public class MatchResult : PersistentSingleton<MatchResult>
     public int maxNumPlayer = 4;
     public int numPlayer = 4;
 
+    protected GUIManager _guiManager;
+    public GUIManager GUIManager
+    {
+        get
+        {
+            if (_guiManager == null)
+            {
+                _guiManager = FFGameManager.Instance.GUIManager;
+            }
+            return _guiManager;
+        }
+    }
+
     private List<List<string>> knockByList_Name = new List<List<string>>();
     public List<List<string>> KnockByList_Name
     {
@@ -78,9 +91,9 @@ public class MatchResult : PersistentSingleton<MatchResult>
         }
         if(knocker.gameObject.GetComponent<Player>().playerID != recieveAttackID)
         {
-            GUIManager.Instance.AddScoreChange(knocker.gameObject.GetComponent<Player>().playerID - 1, 1);
+            GUIManager.AddScoreChange(knocker.gameObject.GetComponent<Player>().playerID - 1, 1);
         }
-        GUIManager.Instance.AddScoreChange(recieveAttackID - 1, -1);
+        GUIManager.AddScoreChange(recieveAttackID - 1, -1);
     }
 
     public void StoreAttacker(int recieveAttackID, GameObject attacker)

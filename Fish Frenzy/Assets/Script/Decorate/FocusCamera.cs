@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-public class FocusCamera : PersistentSingleton<FocusCamera>
+public class FocusCamera : MonoBehaviour
 {
     public Vector3 focusPlayerOffset;
 

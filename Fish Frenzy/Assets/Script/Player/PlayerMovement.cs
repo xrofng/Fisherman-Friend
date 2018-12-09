@@ -12,6 +12,8 @@ public class PlayerMovement : PlayerAbility {
 
     public Vector3 lookTo;
 
+
+
     // Use this for initialization
     protected override void Start()
     {
@@ -33,7 +35,7 @@ public class PlayerMovement : PlayerAbility {
     // Update is called once per frame
     void Update()
     {
-        if(GameLoop.Instance.state == GameLoop.GameState.beforeStart)
+        if(gameLoop.state == GameLoop.GameState.beforeStart)
         {
             return;
         }

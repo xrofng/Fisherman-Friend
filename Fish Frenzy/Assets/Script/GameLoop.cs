@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameLoop : PersistentSingleton<GameLoop>
+public class GameLoop : MonoBehaviour
 {
     public enum GameState
     {
@@ -23,8 +23,25 @@ public class GameLoop : PersistentSingleton<GameLoop>
     public GameObject playerPrefab;
     public CamTarget playerFollowPrefab;
     public Transform LevelCenter;
-    public FrenzySpawner FrenzySpawner;
-    private MaterialManager materialManager;
+    protected FrenzySpawner _frenzySpawner;
+    public FrenzySpawner FrenzySpawner
+    {
+        get
+        {
+            if(_frenzySpawner == null)
+            {
+                _frenzySpawner = FindObjectOfType<FrenzySpawner>();
+            }
+            return _frenzySpawner;
+        }
+    }
+
+    [Header("Other Class Ref")]
+    protected MultiPlayerCamera multiplayerCamera;
+    protected FocusCamera focusCamera;
+    protected PortRoyal portRoyal;
+    protected GUIManager guiManager;
+
 
     public float Time_Minute
     {
@@ -41,12 +58,15 @@ public class GameLoop : PersistentSingleton<GameLoop>
 
     // Use this for initialization
     void Start () {
-        materialManager = GetComponent<MaterialManager>();
+        multiplayerCamera = FFGameManager.Instance.MultiplayerCamera;
+        portRoyal = FFGameManager.Instance.PortRoyal;
+        guiManager = FFGameManager.Instance.GUIManager;
+        focusCamera = FFGameManager.Instance.FocusCamera;
+
         timeCountDown = Round_Time_Limit;
 
         StartCoroutine(CountDown(startCountDown));
         StartCoroutine(SpawnPlayer(startCountDown));
-
     }
 
     public void Reset()
@@ -73,7 +93,7 @@ public class GameLoop : PersistentSingleton<GameLoop>
             startCountDown -= Time.deltaTime;
             if (startCountDown < 1)
             {
-                MultiPlayerCamera.Instance.MultiCamEnable = true;
+                multiplayerCamera.MultiCamEnable = true;
             }
         }
         else if (state == GameState.playing || state == GameState.gameEnd)
@@ -96,10 +116,9 @@ public class GameLoop : PersistentSingleton<GameLoop>
     void OnChangeScene()
     {
         MatchResult.Instance.KnockerObjToName();
-        MultiPlayerCamera.Instance.enabled = false;
-        PortRoyal.Instance.enabled = false;
-        GUIManager.Instance.enabled = false;
-        GameLoop.Instance.enabled = false;
+        multiplayerCamera.enabled = false;
+        portRoyal.enabled = false;
+        guiManager.enabled = false;
     }
 
     void CheckTimeUp()
@@ -128,7 +147,7 @@ public class GameLoop : PersistentSingleton<GameLoop>
         if (timeCountDown <= 0)
         {
             state = GameState.gameEnd;
-            GUIManager.Instance.GrandText.enabled = true;
+            guiManager.GrandText.enabled = true;
             timeUp = true;
         }
     }
@@ -136,45 +155,47 @@ public class GameLoop : PersistentSingleton<GameLoop>
     List<int> takenPos = new List<int>();
     void spawnPlayers(int playerID)
     {
-        Player p = materialManager.InstantiatePlayer(playerPrefab, playerID).GetComponent<Player>();
-        PortRoyal.Instance.Player[playerID] = p;
+        Player p = MaterialManager.Instance.InstantiatePlayer(playerPrefab, playerID).GetComponent<Player>();
+        portRoyal.Player[playerID] = p;
         p.playerID = playerID + 1;
         p.gameObject.name = "Player" + p.playerID;
-        int positionIndex = PortRoyal.Instance.randomSpawnPosIndex();
+        int positionIndex = portRoyal.randomSpawnPosIndex();
 
         while (takenPos.Contains(positionIndex))
         {
-            positionIndex = PortRoyal.Instance.randomSpawnPosIndex();
+            positionIndex = portRoyal.randomSpawnPosIndex();
         }
 
-        p.gameObject.transform.position = PortRoyal.Instance.getSpwanPositionAtIndex(positionIndex);
+        p.gameObject.transform.position = portRoyal.getSpwanPositionAtIndex(positionIndex);
         takenPos.Add(positionIndex);
 
         p.Initialization();
 
         CamTarget c = Instantiate(playerFollowPrefab,LevelCenter.position,Quaternion.identity) as CamTarget;
         c.SetCamTarget(p, true,LevelCenter);
-        c.ToPlayerSpeed = MultiPlayerCamera.Instance.speedToPlayer;
-        c.ToCenterSpeed = MultiPlayerCamera.Instance.speedToCenter;
-        MultiPlayerCamera.Instance.AddTarget(c.transform);
-        FocusCamera.Instance.MoveCameraTo(p.gameObject.transform.position,true);
+        c.ToPlayerSpeed = multiplayerCamera.speedToPlayer;
+        c.ToCenterSpeed = multiplayerCamera.speedToCenter;
+        multiplayerCamera.AddTarget(c.transform);
+        focusCamera.MoveCameraTo(p.gameObject.transform.position,true);
     }
 
     IEnumerator SpawnPlayer(float waitTime)
     {
-        for (int i = 0; i < PortRoyal.Instance.numPlayer; i++)
+        multiplayerCamera.enabled = true;
+        multiplayerCamera.ClearTarget();
+        for (int i = 0; i < portRoyal.numPlayer; i++)
         {
             yield return new WaitForSeconds(playerSpawnRate);
             spawnPlayers(i);
         }
         yield return new WaitForSeconds(playerSpawnRate);
-        FocusCamera.Instance.MoveCameraTo(MultiPlayerCamera.Instance.GetNewPosition(),false);
+        focusCamera.MoveCameraTo(multiplayerCamera.GetNewPosition(),false);
     }
     IEnumerator CountDown(float waitTime)
     { 
         yield return new WaitForSeconds(waitTime );
         state = GameState.playing;
-        GUIManager.Instance.GrandText.enabled = false;
+        guiManager.GrandText.enabled = false;
     }
 
     

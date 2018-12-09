@@ -44,7 +44,13 @@ public class PlayerAbility : MonoBehaviour
         _SFX.Play();
     }
 
-
+    /// <summary>
+    /// 
+    /// </summary>
+    [Header("Other Class Ref")]
+    protected GameLoop gameLoop;
+    protected PortRoyal portRoyal;
+    protected GUIManager guiManager;
     /// <summary>
     /// On Start(), we call the ability's intialization
     /// </summary>
@@ -60,6 +66,9 @@ public class PlayerAbility : MonoBehaviour
     {
         _player = GetComponent<Player>();
         _SFX = GetComponent<AudioSource>();
+        gameLoop = FFGameManager.Instance.GameLoop;
+        portRoyal = FFGameManager.Instance.PortRoyal;
+        guiManager = FFGameManager.Instance.GUIManager;
     }
 
     
@@ -113,4 +122,6 @@ public class PlayerAbility : MonoBehaviour
 
         return this as T;
     }
+
+    
 }

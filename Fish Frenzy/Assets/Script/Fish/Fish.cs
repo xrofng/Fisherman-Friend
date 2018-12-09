@@ -83,6 +83,10 @@ public class Fish : Creature {
     [HideInInspector]
     public FishSpecial _cSpecial;
 
+    [Header("Other Class Ref")]
+    protected GameLoop gameLoop;
+    protected PortRoyal portRoyal;
+
     // Use this for initialization
     void Start () {
         Initialization();
@@ -93,6 +97,8 @@ public class Fish : Creature {
         _pickupFish = GetComponent<PickupFish>();
         _cSpecial = GetComponent<FishSpecial>();
         dehydration = durability;
+        gameLoop = FFGameManager.Instance.GameLoop;
+        portRoyal = FFGameManager.Instance.PortRoyal;
     }
 
     // Update is called once per frame
@@ -156,7 +162,7 @@ public class Fish : Creature {
 
     void GoInDeepWater()
     {
-        if (transform.position.y <= PortRoyal.Instance.underWater.position.y)
+        if (transform.position.y <= portRoyal.underWater.position.y)
         {
             Destroy(this.gameObject);
         }        
@@ -244,7 +250,7 @@ public class Fish : Creature {
         transform.LookAt(nearest);
         gameObject.AddComponent<Rigidbody>();
         _rigid = GetComponent<Rigidbody>();
-        _rigid.velocity = -transform.forward * -(PortRoyal.Instance.FishJumpToWaterMultiplier.x) + (transform.up * PortRoyal.Instance.FishJumpToWaterMultiplier.y);
+        _rigid.velocity = -transform.forward * -(portRoyal.FishJumpToWaterMultiplier.x) + (transform.up * portRoyal.FishJumpToWaterMultiplier.y);
         _collider.enabled = false;
     }
 

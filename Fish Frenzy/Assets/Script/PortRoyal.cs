@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PortRoyal : PersistentSingleton<PortRoyal>
+public class PortRoyal : MonoBehaviour
 {
     public int numPlayer = 4;
     public int maxNumPlayer = 4;
@@ -20,10 +20,10 @@ public class PortRoyal : PersistentSingleton<PortRoyal>
 
     public Fish[] fishPool;
     [HideInInspector]
-    public StartupPlayer startupPlayer;
+   
     public Player[] Player
     {
-        get { return startupPlayer.player; }
+        get { return StartupPlayer.Instance.player; }
     }
     public Transform[] spawnPoint;
     public Transform underWater;
@@ -36,7 +36,6 @@ public class PortRoyal : PersistentSingleton<PortRoyal>
     // Use this for initialization
     void Start ()
     {
-        startupPlayer = GetComponent<StartupPlayer>();
     }
 	
 	// Update is called once per frame

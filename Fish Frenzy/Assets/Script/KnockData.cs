@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KnockData : PersistentSingleton<KnockData> {
+public class KnockData : MonoBehaviour {
     
     public enum KnockScale
     {

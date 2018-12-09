@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MultiPlayerCamera : PersistentSingleton<MultiPlayerCamera>
+public class MultiPlayerCamera : MonoBehaviour
 {
     public bool MultiCamEnable;
     public List<Transform> targets;
-    public Transform stage;
     public Vector3 offset;
     // Use this for initialization
     public float smoothTime;
@@ -26,7 +25,10 @@ public class MultiPlayerCamera : PersistentSingleton<MultiPlayerCamera>
     {
         cam = GetComponent<Camera>();
     }
-
+    public void ClearTarget()
+    {
+        targets.Clear();
+    }
     public void AddTarget(Transform target)
     {
         targets.Add(target);

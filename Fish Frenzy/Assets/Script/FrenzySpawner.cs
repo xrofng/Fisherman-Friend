@@ -40,10 +40,15 @@ public class FrenzySpawner : MonoBehaviour {
         }
     }
     public int whaleAnimFrame;
+
+    [Header("Other Class Ref")]
+    protected GameLoop gameLoop;
+    protected PortRoyal portRoyal;
     // Use this for initialization
     void Start () {
         whale = Instantiate(whalePrefab);
-
+        gameLoop = FFGameManager.Instance.GameLoop;
+        portRoyal = FFGameManager.Instance.PortRoyal;
     }
 	
 	// Update is called once per frame
@@ -85,7 +90,7 @@ public class FrenzySpawner : MonoBehaviour {
 
     void SpawnFish(Vector3 spawnPos)
     {
-        Fish spawnFish = Instantiate(PortRoyal.Instance.randomFish(), spawnPos, Random.rotation) as Fish;
+        Fish spawnFish = Instantiate(portRoyal.randomFish(), spawnPos, Random.rotation) as Fish;
         spawnFish.gameObject.transform.localEulerAngles = sClass.setVector3(spawnFish.gameObject.transform.localEulerAngles, sClass.vectorComponent.x, 0);
         spawnFish.gameObject.transform.localEulerAngles = sClass.setVector3(spawnFish.gameObject.transform.localEulerAngles, sClass.vectorComponent.z, 0);
         spawnFish.ChangeState(Fish.fState.fall);

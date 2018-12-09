@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System; //This allows the IComparable Interface
 using UnityEngine;
 
-public class JoystickManager : Singleton<JoystickManager>
+public class JoystickManager : PersistentSingleton<JoystickManager>
 {
     int numPlayer = 4;
 

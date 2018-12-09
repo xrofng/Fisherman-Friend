@@ -4621,7 +4621,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1157622800}
   - component: {fileID: 1157622799}
-  - component: {fileID: 1157622798}
   m_Layer: 0
   m_Name: "\u0E3ABackUI_Camera"
   m_TagString: Untagged
@@ -4629,13 +4628,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1157622798
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1157622797}
-  m_Enabled: 1
 --- !u!20 &1157622799
 Camera:
   m_ObjectHideFlags: 0
@@ -6514,7 +6506,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1551116252}
   - component: {fileID: 1551116251}
-  - component: {fileID: 1551116250}
   m_Layer: 0
   m_Name: PlayerCamera
   m_TagString: Untagged
@@ -6522,13 +6513,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1551116250
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1551116249}
-  m_Enabled: 1
 --- !u!20 &1551116251
 Camera:
   m_ObjectHideFlags: 0
@@ -6557,7 +6541,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

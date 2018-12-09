@@ -60,7 +60,10 @@ public class FishSpecialSpin : FishSpecialMelee {
     public override void OnDehydrate()
     {
         base.OnDehydrate();
-        _player.RemoveAbilityInputIntercepter(this);
+        if (_player)
+        {
+            _player.RemoveAbilityInputIntercepter(this);
+        }
     }
 
 }

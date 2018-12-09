@@ -119,6 +119,11 @@ public class Player : Creature {
 
     [Header("SFX")]
     public AudioClip sfx_Death;
+
+    [Header("Other Class Ref")]
+    protected GameLoop gameLoop;
+    protected PortRoyal portRoyal;
+    protected KnockData knockData;
     // Use this for initialization
     void Start() {
 
@@ -127,12 +132,16 @@ public class Player : Creature {
 
     public void Initialization()
     {
+        gameLoop = FFGameManager.Instance.GameLoop;
+        portRoyal = FFGameManager.Instance.PortRoyal;
+        knockData = FFGameManager.Instance.KnockData;
+
         playerID = gameObject.name[6] - 48;
         this.gameObject.layer = LayerMask.NameToLayer("Player" + playerID);
         fixedFPS_DT = 0.016f;
-        playerIndicator.sprite = PortRoyal.Instance.startupPlayer.playerIndicator[playerID-1];
+        playerIndicator.sprite = StartupPlayer.Instance.playerIndicator[playerID-1];
         rigid = GetComponent<Rigidbody>();
-        rigid.mass = PortRoyal.Instance.characterMass;
+        rigid.mass = portRoyal.characterMass;
         _collider = GetComponent<BoxCollider>();
         animator = GetComponent<PlayerAnimation>();
         _cPlayerInvincibility = GetComponent<PlayerInvincibility>();
@@ -170,7 +179,7 @@ public class Player : Creature {
     {
         dPercent += (int)damage;
         //Instantiate(knockBackOrigin, center ,Quaternion.identity);
-        Vector2 knockBackForce = KnockData.Instance.getSlapKnockForce((int)damage, dPercent);
+        Vector2 knockBackForce = knockData.getSlapKnockForce((int)damage, dPercent);
 
         //print(launchingDamage);
 
@@ -188,8 +197,8 @@ public class Player : Creature {
     public void recieveDamage(float damage, GameObject damageDealer, Vector3 damageDealerPos, int recoveryFrame, bool launchingDamage, float upMultiplier)
     {
         dPercent += (int)damage;
-        Vector2 knockBackForce = KnockData.Instance.getSlapKnockForce((int)damage, dPercent);
-        knockBackForce += Vector2.up * KnockData.Instance.getVerticalKnockForce(dPercent) * upMultiplier;
+        Vector2 knockBackForce = knockData.getSlapKnockForce((int)damage, dPercent);
+        knockBackForce += Vector2.up * knockData.getVerticalKnockForce(dPercent) * upMultiplier;
 
         if (launchingDamage)
         {
@@ -238,7 +247,7 @@ public class Player : Creature {
     {
         yield return new WaitForSeconds(waitBeforeRespawn);
         rigid.velocity = Vector3.zero;
-        this.transform.position = PortRoyal.Instance.randomSpawnPosition();
+        this.transform.position = portRoyal.randomSpawnPosition();
         Death = false;
         _cPlayerFishInteraction.SetHoldFish(false);
         this.dPercent = 0;
@@ -278,9 +287,9 @@ public class Player : Creature {
             MatchResult.Instance.StoreKnocker(playerID, this.gameObject);
         }
 
-        this.transform.position = PortRoyal.Instance.deathRealm.position;
+        this.transform.position = portRoyal.deathRealm.position;
         Animator.ChangeAnimState((int)PlayerAnimation.State.Idle);
-        StartCoroutine(Respawn(PortRoyal.Instance.respawnTime , PortRoyal.Instance.respawnTime));
+        StartCoroutine(Respawn(portRoyal.respawnTime , portRoyal.respawnTime));
     }
 
     public Vector3 getLowestPlayerPoint()
