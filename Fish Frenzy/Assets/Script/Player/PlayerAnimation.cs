@@ -14,15 +14,15 @@ public class PlayerAnimation : CharacterAnimation {
         }
     }
 
-    public enum State
+    public enum Anim
     {
         Idle=0,
         Walk,
-        H_Slap,
-        V_Slap,
+        NormalSlap,
+        HammerDown,
         Throw,
         HoldFish,
-        F_Stab,
+        NormalThrust,
         Damaged,
         Damaged_HoldFish,
         Eel_Hook,
@@ -31,8 +31,12 @@ public class PlayerAnimation : CharacterAnimation {
         Shocked,
         Eaten,
         Spin,
-        Spinning
+        Spinning,
+        FishingStart,
+        Fishing,
+        FishingEnd
     };
+    public int[] AnimationFrame;
     
     protected override void Start()
     {
@@ -42,12 +46,15 @@ public class PlayerAnimation : CharacterAnimation {
     protected override void Initialization()
     {
         base.Initialization();
-        ChangeAnimState((int)State.Idle);
+        ChangeAnimState((int)Anim.Idle);
     }
 
     protected override void Update()
     {
     }
 
- 
+    public override void ChangeAnimState(int i, bool revert, int revetTo)
+    {
+        base.ChangeAnimState(i, AnimationFrame[i],revert, revetTo);
+    }
 }

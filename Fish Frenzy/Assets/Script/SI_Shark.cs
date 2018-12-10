@@ -88,7 +88,7 @@ public class SI_Shark : StageInteraction
         
         // play animation feedback
         Animation.ChangeAnimState(1, true, 0);
-        _player.Animation.ChangeAnimState((int)PlayerAnimation.State.Eaten, _player._cPlayerState.eatenFrameDuration, true , (int)PlayerAnimation.State.Idle);
+        _player.Animation.ChangeAnimState((int)PlayerAnimation.Anim.Eaten, _player._cPlayerState.eatenFrameDuration, true , (int)PlayerAnimation.Anim.Idle);
 
         PlaySFX(sfx_Bite);
         while (frameCount < BiteFrame)

@@ -40,7 +40,6 @@ public class PlayerFishing : PlayerAbility
 
     void Fishing()
     {
-        //if (Input.GetButtonDown(fishi))
         if (_pInput.GetButtonDown(_pInput.Fishing, _player.playerID-1)) 
         {
             switch (_player.state)
@@ -58,6 +57,8 @@ public class PlayerFishing : PlayerAbility
                     {
                         _player.baitedFish.fishMeshRenderer.enabled = true;
                         _player.ChangeState(Player.eState.waitForFish);
+                        _player.Animation.ChangeAnimState((int)PlayerAnimation.Anim.FishingEnd,true, (int)PlayerAnimation.Anim.HoldFish);
+
                         GetCrossZComponent<PlayerFishInteraction>().FinishFishing();
                         guiManager.UpdateMashFishingButtonIndicator(_player.playerID, fishPoint.position, false);
                     }
@@ -72,6 +73,9 @@ public class PlayerFishing : PlayerAbility
     {
         PlaySFX(sfx_RodSwing);
         int frameCount = 0;
+
+        _player.Animation.ChangeAnimState((int)PlayerAnimation.Anim.FishingStart);
+
         while (frameCount < frameDuration)
         {
             yield return new WaitForEndOfFrame();
@@ -80,6 +84,9 @@ public class PlayerFishing : PlayerAbility
         PlaySFX(sfx_WaterTouch);
 
         _player.baitedFish = Instantiate(portRoyal.randomFish(), fishPoint.position, _player.GetPart(Player.ePart.body).transform.rotation);
+        _player.Animation.ChangeAnimState((int)PlayerAnimation.Anim.Fishing);
+
+
         Fish baitedFish = _player.baitedFish;
         baitedFish.fishMeshRenderer.enabled = false;
         GetCrossZComponent<PlayerFishInteraction>().SetFishCollideType(PlayerFishInteraction.CollideType.Uncollide ,baitedFish, _player);
