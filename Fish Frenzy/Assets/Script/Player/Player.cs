@@ -277,7 +277,7 @@ public class Player : Creature {
         Death = true;
         _cPlayerFishInteraction.SetPlayerCollideEverything(false);
         PlaySFX(sfx_Death);
-        GameObject latest= MatchResult.Instance.GetLatestDamager(playerID,false);
+        GameObject latest = MatchResult.Instance.GetLatestDamager(playerID,false);
         if (latest)
         {
             MatchResult.Instance.StoreKnocker(playerID, latest);
@@ -288,6 +288,7 @@ public class Player : Creature {
         }
 
         this.transform.position = portRoyal.deathRealm.position;
+
         Animation.ChangeAnimState((int)PlayerAnimation.Anim.Idle);
         StartCoroutine(Respawn(portRoyal.respawnTime , portRoyal.respawnTime));
     }

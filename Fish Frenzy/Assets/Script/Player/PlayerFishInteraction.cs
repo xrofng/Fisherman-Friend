@@ -68,7 +68,9 @@ public class PlayerFishInteraction : PlayerAbility {
         if (!b)
         {
             _pAnimator.ChangeAnimState((int)PlayerAnimation.Anim.Idle);
+            _player.mainFish._cSpecial.OnPlayerDeath();
             _player.mainFish = null;
+
         }else
         {
             _pAnimator.ChangeAnimState((int)PlayerAnimation.Anim.HoldFish);

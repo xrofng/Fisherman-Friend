@@ -101,4 +101,11 @@ public class FishSpecial : MonoBehaviour
         }
     }
 
+    public virtual void OnPlayerDeath()
+    {
+        if (_player)
+        {
+            _player.RemoveAbilityInputIntercepter(this);
+        }
+    }
 }
