@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 82333306428814174}
   - component: {fileID: 114467510467294388}
   - component: {fileID: 95486596632624872}
+  - component: {fileID: 114337159778539560}
   m_Layer: 0
   m_Name: HammerShark
   m_TagString: Fish
@@ -284,6 +285,19 @@ MonoBehaviour:
   fishName: {fileID: 21300000, guid: 9dbb8e5e55689e248a9a30cc39e10257, type: 3}
   fishStored: {fileID: 21300000, guid: a83a0e62f1fc7024f879d0ac960a4cf8, type: 3}
   _cSpecial: {fileID: 0}
+--- !u!114 &114337159778539560
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1928599882968034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b45fed72b61530748a01a392cc30d2e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentAnimationState: 0
+  animClipList: []
 --- !u!114 &114467510467294388
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 82659759615109278}
   - component: {fileID: 114483302645443646}
   - component: {fileID: 95482299466688374}
+  - component: {fileID: 114585271399849186}
   m_Layer: 0
   m_Name: Swordfish
   m_TagString: Fish
@@ -285,6 +286,19 @@ MonoBehaviour:
   spiningFrameDuration: 60
   fishSpinSpeed: 10
   spiningClip: 15
+--- !u!114 &114585271399849186
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1018433680911492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b45fed72b61530748a01a392cc30d2e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentAnimationState: 0
+  animClipList: []
 --- !u!114 &114768006698364366
 MonoBehaviour:
   m_ObjectHideFlags: 1

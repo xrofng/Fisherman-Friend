@@ -75,7 +75,7 @@ public class Creature : MonoBehaviour
     /// Animation of creature
     /// </summary>
     protected CharacterAnimation _animation;
-    public CharacterAnimation Animator
+    public CharacterAnimation Animation
     {
         get
         {
@@ -89,7 +89,7 @@ public class Creature : MonoBehaviour
 
     public T GetAnimator<T>() where T : CharacterAnimation
     {
-        return Animator as T;
+        return Animation as T;
     }
 
     /// <summary>

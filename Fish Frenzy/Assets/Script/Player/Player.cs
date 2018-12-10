@@ -288,7 +288,7 @@ public class Player : Creature {
         }
 
         this.transform.position = portRoyal.deathRealm.position;
-        Animator.ChangeAnimState((int)PlayerAnimation.State.Idle);
+        Animation.ChangeAnimState((int)PlayerAnimation.State.Idle);
         StartCoroutine(Respawn(portRoyal.respawnTime , portRoyal.respawnTime));
     }
 

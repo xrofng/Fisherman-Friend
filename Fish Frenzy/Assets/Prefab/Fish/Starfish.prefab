@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 82485654958079526}
   - component: {fileID: 114920496964403372}
   - component: {fileID: 95253866854468326}
+  - component: {fileID: 114227833297520602}
   m_Layer: 0
   m_Name: Starfish
   m_TagString: Fish
@@ -260,6 +261,19 @@ MonoBehaviour:
   pickUpImage: {fileID: 114966499513919200, guid: 30e9f486e02400240b828642365cd627,
     type: 2}
   allowToPick: 0
+--- !u!114 &114227833297520602
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1611034412136168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b45fed72b61530748a01a392cc30d2e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentAnimationState: 0
+  animClipList: []
 --- !u!114 &114257537931697316
 MonoBehaviour:
   m_ObjectHideFlags: 1

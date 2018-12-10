@@ -41,7 +41,7 @@ public class SI_JellyFish : StageInteraction {
         {
             StartCoroutine(IgnorePlayerFor(ignoreBounceFrame, _player));
             // play animation feedback
-            Animator.ChangeAnimState(1, true, 0);
+            Animation.ChangeAnimState(1, true, 0);
             PlaySFX(RandomAudioClip());
             _player._cPlayerMovement.StartJumping(bounceForce);
         }

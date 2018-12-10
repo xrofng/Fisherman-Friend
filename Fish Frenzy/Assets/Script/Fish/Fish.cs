@@ -100,11 +100,13 @@ public class Fish : Creature {
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update ()
+    {
         Dehydrate();
         GoInDeepWater();
         CheckJustGround();
         CheckWater();
+        UpdateAnimation();
     }
 
     public void playerCollideInteraction(GameObject player)
@@ -156,7 +158,11 @@ public class Fish : Creature {
         return false;
     }
 
- 
+    void UpdateAnimation()
+    {
+        Animation.ChangeAnimState((int)state);
+    }
+
 
     void GoInDeepWater()
     {

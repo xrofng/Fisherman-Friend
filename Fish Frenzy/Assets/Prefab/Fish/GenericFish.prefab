@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 82435529548346754}
   - component: {fileID: 114201184234966816}
   - component: {fileID: 95154562137749254}
+  - component: {fileID: 114252081100868080}
   m_Layer: 0
   m_Name: GenericFish
   m_TagString: Fish
@@ -282,6 +283,19 @@ MonoBehaviour:
   freezeFrame: 0
   launchingDamage: 1
   hitBoxRef: {fileID: 4992497796906506, guid: 6657a06d3df040b4a8412bd9f0e164c1, type: 2}
+--- !u!114 &114252081100868080
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1240263514377780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b45fed72b61530748a01a392cc30d2e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentAnimationState: 0
+  animClipList: []
 --- !u!114 &114472043294426846
 MonoBehaviour:
   m_ObjectHideFlags: 1

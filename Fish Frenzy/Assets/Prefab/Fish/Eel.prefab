@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 82612576762288146}
   - component: {fileID: 114515199957103786}
   - component: {fileID: 95866220282495180}
+  - component: {fileID: 114729089609547344}
   m_Layer: 0
   m_Name: Eel
   m_TagString: Fish
@@ -327,3 +328,16 @@ MonoBehaviour:
   releaseFrameDuration: 10
   finalBlowForce: 2
   hookSlapClip: 10
+--- !u!114 &114729089609547344
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1932084071963072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b45fed72b61530748a01a392cc30d2e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentAnimationState: 0
+  animClipList: []
