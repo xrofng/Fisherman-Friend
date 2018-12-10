@@ -146,6 +146,14 @@ public class Pickup : MonoBehaviour {
         guiManager.UpdatePickUpButtonIndicator(this.transform.position, _pickUpImage, _playerColliding.Count > 0);
     }
 
+    public virtual void HidePrompt()
+    {
+        _playerColliding.Clear();
+        guiManager.UpdatePickUpButtonIndicator(this.transform.position, _pickUpImage, false);
+    }
+
+
+
     /// <summary>
     /// when this destroy , destroy prompt ui
     /// </summary>

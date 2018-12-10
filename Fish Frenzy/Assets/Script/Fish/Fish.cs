@@ -132,6 +132,7 @@ public class Fish : Creature {
             {
                 LeftPlayer();
                 state = fState.dehydrate;
+                _pickupFish.HidePrompt();
                 JumpToWater();
 
                 _cSpecial.OnDehydrate();
