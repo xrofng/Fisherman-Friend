@@ -147,7 +147,10 @@ public class PlayerThrow : PlayerAbility {
                 }
             }
         }
-
+        if (lowDetected.Count <= 0)
+        {
+            return;
+        }
         // Get highest Y
         float highest = float.MinValue;
         foreach(float low in lowDetected)
@@ -158,6 +161,7 @@ public class PlayerThrow : PlayerAbility {
             }
         }
         // set position Y
+        //_aimArrow.transform.position = new Vector3(_aimArrow.transform.position.x, highest, _aimArrow.transform.position.z);
         _aimArrow.transform.position = sClass.setVector3(_aimArrow.transform.position, sClass.vectorComponent.y, highest + additionOverUp);
     }
 

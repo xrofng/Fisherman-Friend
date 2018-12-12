@@ -290,7 +290,7 @@ public class Player : Creature {
         this.transform.position = portRoyal.deathRealm.position;
 
         Animation.ChangeAnimState((int)PlayerAnimation.Anim.Idle);
-        StartCoroutine(Respawn(portRoyal.respawnTime , portRoyal.respawnTime));
+        StartCoroutine(Respawn(portRoyal.respawnTime , portRoyal.respawnInvincTime));
     }
 
     public Vector3 getLowestPlayerPoint()

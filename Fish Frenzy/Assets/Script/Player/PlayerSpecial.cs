@@ -50,15 +50,39 @@ public class PlayerSpecial : PlayerAbility
     public Transform hitBoxParent;
     public HitBoxMelee specialHitBox;
     public Animation specialTrail;
-    protected bool mSpecialing;
     public bool MeleeSpecialing
     {
-        get { return mSpecialing; }
-        set { mSpecialing = value; }
+        get
+        {
+            if (_player.mainFish && _player.mainFish.GetComponent<FishSpecialMelee>())
+            {
+                return _player.mainFish.GetComponent<FishSpecialMelee>().MeleeSpecialing;
+            }
+            return false;
+        }
     }
+    public bool ThrowSpecialing
+    {
+        get
+        {
+            if (_player.mainFish && _player.mainFish.GetComponent<FishSpecialThrow>())
+            {
+                return _player.mainFish.GetComponent<FishSpecialThrow>().ThrowSpecialing;
+            }
+            return false;
+        }
+    }
+    public bool Specialing
+    {
+        get
+        {
+            return  MeleeSpecialing || ThrowSpecialing;
+        }
+    }
+
     void SpecialMelee(string special)
     {
-        if (!_player.mainFish.GetComponent<FishSpecialMelee>() || MeleeSpecialing)
+        if (!_player.mainFish.GetComponent<FishSpecialMelee>() || _player.mainFish.GetComponent<FishSpecialMelee>().MeleeSpecialing)
         {
             return;
         }
@@ -67,8 +91,8 @@ public class PlayerSpecial : PlayerAbility
         {
             // Ignore Input
             ActionForFrame(FishSpecial<FishSpecialMelee>().SpeiclaClipFrameCount + ignoreSpecialFrame,
-                  () => { MeleeSpecialing = true;  },
-                  () => { MeleeSpecialing = false;  });
+                  () => { _player.mainFish.GetComponent<FishSpecialMelee>().MeleeSpecialing = true;  },
+                  () => { _player.mainFish.GetComponent<FishSpecialMelee>().MeleeSpecialing = false;  });
             // enable trail
             //ActionForFrame(FishSpecial<FishSpecialMelee>().SpeiclaClipFrameCount,
             //      () => { specialTrail.gameObject.SetActive(true); specialTrail.Play(); },

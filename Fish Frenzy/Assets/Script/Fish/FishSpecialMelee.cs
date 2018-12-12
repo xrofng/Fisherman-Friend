@@ -10,6 +10,12 @@ public class FishSpecialMelee : FishSpecial {
     public int freezeFrame = 10;
     public bool launchingDamage = true;
 
+    protected bool mSpecialing;
+    public bool MeleeSpecialing
+    {
+        get { return mSpecialing; }
+        set { mSpecialing = value; }
+    }
 
     protected Vector3 snapPosition;
     protected Vector3 snapRotation;

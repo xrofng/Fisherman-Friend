@@ -1287,7 +1287,7 @@ MonoBehaviour:
   characterMass: 1
   debugMode: 1
   respawnTime: 5
-  respawnInvincTime: 1
+  respawnInvincTime: 0
   FishJumpToWaterMultiplier: {x: 8, y: 10}
   deathRealm: {fileID: 1560228767}
   fishPool:
@@ -10216,52 +10216,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1038224917}
   m_Mesh: {fileID: 4300018, guid: a1acb0ebd55e19a45a069f4e17a4f872, type: 3}
---- !u!1001 &1061193996
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4729885229064484, guid: 6415abaacfab66948abfae3bbfc54429, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -15.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4729885229064484, guid: 6415abaacfab66948abfae3bbfc54429, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 4.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4729885229064484, guid: 6415abaacfab66948abfae3bbfc54429, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4729885229064484, guid: 6415abaacfab66948abfae3bbfc54429, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4729885229064484, guid: 6415abaacfab66948abfae3bbfc54429, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4729885229064484, guid: 6415abaacfab66948abfae3bbfc54429, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4729885229064484, guid: 6415abaacfab66948abfae3bbfc54429, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4729885229064484, guid: 6415abaacfab66948abfae3bbfc54429, type: 2}
-      propertyPath: m_RootOrder
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 1071598445611460, guid: 6415abaacfab66948abfae3bbfc54429, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 6415abaacfab66948abfae3bbfc54429, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1 &1069131640
 GameObject:
   m_ObjectHideFlags: 0
