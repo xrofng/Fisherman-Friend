@@ -243,19 +243,7 @@ public class Player : Creature {
         rigid.AddForce(nKnockBackDirection * knockBackForce.x + upLaunching, ForceMode.Impulse);
     }   
 
-    IEnumerator Respawn(float waitBeforeRespawn , float waitBeforeCancelInvinc)
-    {
-        yield return new WaitForSeconds(waitBeforeRespawn);
-        rigid.velocity = Vector3.zero;
-        this.transform.position = portRoyal.randomSpawnPosition();
-        Death = false;
-        _cPlayerFishInteraction.SetHoldFish(false);
-        this.dPercent = 0;
-        MatchResult.Instance.ClearRecentDamager(playerID);
-        yield return new WaitForSeconds(waitBeforeCancelInvinc);
-        _cPlayerFishInteraction.SetPlayerCollideEverything(true);
-
-    }
+   
     void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.tag == "Fish")
@@ -290,7 +278,27 @@ public class Player : Creature {
         this.transform.position = portRoyal.deathRealm.position;
 
         Animation.ChangeAnimState((int)PlayerAnimation.Anim.Idle);
+
+        if (mainFish)
+        {
+            mainFish._cSpecial.OnPlayerDeath();
+        }
+
         StartCoroutine(Respawn(portRoyal.respawnTime , portRoyal.respawnInvincTime));
+    }
+
+    IEnumerator Respawn(float waitBeforeRespawn, float waitBeforeCancelInvinc)
+    {
+        yield return new WaitForSeconds(waitBeforeRespawn);
+        rigid.velocity = Vector3.zero;
+        this.transform.position = portRoyal.randomSpawnPosition();
+        Death = false;
+        _cPlayerFishInteraction.SetHoldFish(false);
+        this.dPercent = 0;
+        MatchResult.Instance.ClearRecentDamager(playerID);
+        yield return new WaitForSeconds(waitBeforeCancelInvinc);
+        _cPlayerFishInteraction.SetPlayerCollideEverything(true);
+
     }
 
     public Vector3 getLowestPlayerPoint()

@@ -24,7 +24,6 @@ public class FishSpecialSpin : FishSpecialMelee {
     public override void SetUpFishSpecial()
     {
         base.SetUpFishSpecial();
-        
     }
 
     public override void SpecialMeleeAttack(Player _player)

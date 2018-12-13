@@ -314,9 +314,10 @@ MonoBehaviour:
   holder: {fileID: 0}
   ignorePlayerFrame: 0
   fishMeshRenderer: {fileID: 23883083035931570}
-  durability: 10
+  durability: 15
   weight: 0
   mashCountDown: 6
+  spawnRate: 10
   rayDistance: 0.25
   maxHolding: 5
   throwAttack: 0
