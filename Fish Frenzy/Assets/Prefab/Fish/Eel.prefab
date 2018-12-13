@@ -277,9 +277,10 @@ MonoBehaviour:
   holder: {fileID: 0}
   ignorePlayerFrame: 0
   fishMeshRenderer: {fileID: 23609865208187692}
-  durability: 20
+  durability: 7
   weight: 0
   mashCountDown: 3
+  spawnRate: 11
   rayDistance: 0.25
   maxHolding: 5
   throwAttack: 0
@@ -314,7 +315,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attack: 7
-  AnimationFrame: 00000000000000001400000032000000000000000000000023000000000000000000000078000000360000000a000000
   specialClip: 9
   movingobject: {fileID: 114532827588214438, guid: 6415abaacfab66948abfae3bbfc54429,
     type: 2}

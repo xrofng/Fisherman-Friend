@@ -19,8 +19,8 @@ public class PortRoyal : MonoBehaviour
     public Transform deathRealm;
 
     public Fish[] fishPool;
-    [HideInInspector]
-   
+    protected float totalSpawnRate;
+
     public Player[] Player
     {
         get { return StartupPlayer.Instance.player; }
@@ -36,6 +36,11 @@ public class PortRoyal : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+        totalSpawnRate = 0;
+        for(int i = 0; i < fishPool.Length; i++)
+        {
+            totalSpawnRate += fishPool[i].spawnRate;
+        }
     }
 	
 	// Update is called once per frame
@@ -70,9 +75,21 @@ public class PortRoyal : MonoBehaviour
         int fishIndex = randomFishIndex(); 
         return getFish(fishIndex);
     }
+
     public int randomFishIndex()
     {
-        return Random.Range(0, fishPool.Length);
+        float ran = Random.Range(0, totalSpawnRate) ;
+        float spawnPercentOffset = 0;
+        for (int i = 0; i < fishPool.Length; i++)
+        {
+            if(ran< fishPool[i].spawnRate + spawnPercentOffset)
+            {
+                return i;
+            }
+            spawnPercentOffset += fishPool[i].spawnRate;
+        }
+        Debug.LogWarning("error random fish");
+        return 999;
     }
 
 

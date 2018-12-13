@@ -43,6 +43,7 @@ public class Fish : Creature {
     private float dehydration;
     public float weight;
     public int mashCountDown = 2;
+    public float spawnRate = 10;
     protected Vector3 direction;
     protected float jumpForce = 10;
     protected float jumpSpeed = 40;

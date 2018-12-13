@@ -1287,7 +1287,7 @@ MonoBehaviour:
   characterMass: 1
   debugMode: 1
   respawnTime: 5
-  respawnInvincTime: 0
+  respawnInvincTime: 1
   FishJumpToWaterMultiplier: {x: 8, y: 10}
   deathRealm: {fileID: 1560228767}
   fishPool:
@@ -5921,6 +5921,7 @@ MonoBehaviour:
   Special: Special
   Throw: Throw
   Switch: Switch
+  AltSwitch: AltSwitch
   Hori: Hori
   Verti: Verti
 --- !u!114 &552195890

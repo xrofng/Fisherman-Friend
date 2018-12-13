@@ -275,7 +275,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attack: 7
-  AnimationFrame: 00000000000000001400000032000000000000000000000023000000
   specialClip: 2
   thisSpecialHitBox: {fileID: 114932500520018290, guid: 6657a06d3df040b4a8412bd9f0e164c1,
     type: 2}
@@ -329,9 +328,10 @@ MonoBehaviour:
   holder: {fileID: 0}
   ignorePlayerFrame: 0
   fishMeshRenderer: {fileID: 23865638686869896}
-  durability: 20
+  durability: 12
   weight: 0
   mashCountDown: 1
+  spawnRate: 15
   rayDistance: 0.25
   maxHolding: 5
   throwAttack: 0

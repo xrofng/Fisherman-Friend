@@ -20,6 +20,7 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
     public string Special     = "Special"   ;
     public string Throw    = "Throw"  ;
     public string Switch   = "Switch" ;
+    public string AltSwitch = "AltSwitch";
     public string Hori     = "Hori"   ;
     public string Verti    = "Verti"  ;
 
@@ -76,6 +77,7 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
         Player1Button.Add(Special, KeyCode.Joystick1Button3);
         Player1Button.Add(Throw, KeyCode.Joystick1Button0);
         Player1Button.Add(Switch, KeyCode.Joystick1Button5);
+        Player1Button.Add(AltSwitch, KeyCode.Joystick1Button4);
         Player1Button.Add(Hori, KeyCode.Joystick1Button18);
         Player1Button.Add(Verti, KeyCode.Joystick1Button19);
         // duplicate input from 1st to other but increase key code by offsetToNextPlayerKeycode
