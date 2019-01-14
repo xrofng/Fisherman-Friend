@@ -97,7 +97,7 @@ public class FishSpecial : MonoBehaviour
     {
         if ( _player )
         {
-            _player.animator.ChangeAnimState((int)PlayerAnimation.Anim.Idle);
+            _player._cPlayerAnimator.ChangeAnimState((int)PlayerAnimation.Anim.Idle);
         }
     }
 

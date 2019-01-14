@@ -32,7 +32,7 @@ public class PlayerAbility : MonoBehaviour
     }
     public PlayerAnimation  _pAnimator
     {
-        get { return _player.animator; }
+        get { return _player._cPlayerAnimator; }
     }
 
     protected AudioSource _SFX;

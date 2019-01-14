@@ -75,7 +75,7 @@ public class FishSpecialMelee : FishSpecial {
 
     public virtual void SpecialMeleeAttack(Player _player)
     {
-        _player.animator.ChangeAnimState((int)specialClip, SpeiclaClipFrameCount, true, (int)PlayerAnimation.Anim.HoldFish);      
+        _player._cPlayerAnimator.ChangeAnimState((int)specialClip, SpeiclaClipFrameCount, true, (int)_player._cPlayerAnimator.GetIdleAnimation());      
     }
 
     /// <summary>

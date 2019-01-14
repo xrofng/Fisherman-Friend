@@ -37,6 +37,7 @@ public class MovingObjBoomerang : MovingObject {
         //transform.LookAt(targetPos, Vector3.up);
         if (distance <= reachDistance)
         {
+            Destroy(this.gameObject);
             return true;
         }
         return false;

@@ -29,7 +29,7 @@ public class FishSpecialSpin : FishSpecialMelee {
     public override void SpecialMeleeAttack(Player _player)
     {
         // dont call base.SpecialMeleeAttack to not change to holdfish after finish 1st animation clip
-        _player.animator.ChangeAnimState((int)specialClip, SpeiclaClipFrameCount, true, (int)PlayerAnimation.Anim.Spinning);
+        _player._cPlayerAnimator.ChangeAnimState((int)specialClip, SpeiclaClipFrameCount, true, (int)PlayerAnimation.Anim.Spinning);
         // _player.Rigidbody.AddForce(, ForceMode.Impulse);
         playerPositionY = _player.transform.position.y;
          StartCoroutine(Spining());
@@ -50,7 +50,7 @@ public class FishSpecialSpin : FishSpecialMelee {
             frameCount += 1;
         }
         _player.transform.position = sClass.setVector3(_player.transform.position, sClass.vectorComponent.y, playerPositionY);
-        _player.animator.ChangeAnimState((int)PlayerAnimation.Anim.HoldFish);
+        _player._cPlayerAnimator.ChangeAnimState((int)_player._cPlayerAnimator.GetIdleAnimation());
         _player.RemoveAbilityInputIntercepter(this);
         _fish.SnapTransform();
     }

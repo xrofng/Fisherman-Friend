@@ -60,7 +60,7 @@ public class Player : Creature {
     [HideInInspector]
     public Rigidbody rigid;
     [HideInInspector]
-    public PlayerAnimation animator;
+    public PlayerAnimation _cPlayerAnimator;
     [HideInInspector]
     public PlayerInvincibility _cPlayerInvincibility;
     [HideInInspector]
@@ -143,7 +143,7 @@ public class Player : Creature {
         rigid = GetComponent<Rigidbody>();
         rigid.mass = portRoyal.characterMass;
         _collider = GetComponent<BoxCollider>();
-        animator = GetComponent<PlayerAnimation>();
+        _cPlayerAnimator = GetComponent<PlayerAnimation>();
         _cPlayerInvincibility = GetComponent<PlayerInvincibility>();
         _cPlayerThrow = GetComponent<PlayerThrow>();
         _cPlayerState = GetComponent<PlayerState>();

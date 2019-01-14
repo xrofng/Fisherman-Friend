@@ -34,7 +34,7 @@ public class FishSpecialHook : FishSpecialThrow {
         hookedPlayer.AddAbilityInputIntercepter(this);
 
         int specialClip = (int)hookSlapClip;
-        _playerFishSpecial._pAnimator.ChangeAnimState(specialClip, damageFrameDuration, true, (int)PlayerAnimation.Anim.HoldFish);
+        _playerFishSpecial._pAnimator.ChangeAnimState(specialClip, damageFrameDuration, true, (int)_player._cPlayerAnimator.GetIdleAnimation());
 
         int frameCount = 0;
         while (frameCount < damageFrameDuration)

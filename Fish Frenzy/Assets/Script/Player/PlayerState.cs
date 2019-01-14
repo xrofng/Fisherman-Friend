@@ -154,14 +154,9 @@ public class PlayerState : PlayerAbility
             frameCount += 1;
         }
         IsDamaged = false;
-        if (_player.holdingFish)
-        {
-            _pAnimator.ChangeAnimState((int)PlayerAnimation.Anim.HoldFish);
-        }
-        else
-        {
-            _pAnimator.ChangeAnimState((int)PlayerAnimation.Anim.Idle);
-        }
+
+        _pAnimator.ChangeAnimState((int)_player._cPlayerAnimator.GetIdleAnimation());
+
     }
 
 

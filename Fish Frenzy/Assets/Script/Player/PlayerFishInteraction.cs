@@ -65,14 +65,8 @@ public class PlayerFishInteraction : PlayerAbility {
     {
         GetCrossZComponent<PlayerThrow>().ChangeToUnAim();
         _player.holdingFish = b;
-        if (!b)
-        {
-            _pAnimator.ChangeAnimState((int)PlayerAnimation.Anim.Idle);
-        }
-        else
-        {
-            _pAnimator.ChangeAnimState((int)PlayerAnimation.Anim.HoldFish);
-        }
+
+        _pAnimator.ChangeAnimState((int)_pAnimator.GetIdleAnimation());
     }
 
     public enum CollideType
