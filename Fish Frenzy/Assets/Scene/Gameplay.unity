@@ -1465,6 +1465,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114812884268322648, guid: 335af115ec130c743b00a437fca47699,
+        type: 2}
+      propertyPath: animClipList.Array.size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4131956419975194, guid: 335af115ec130c743b00a437fca47699, type: 2}
       propertyPath: m_LocalPosition.x
       value: -27.17
@@ -1497,6 +1502,64 @@ Prefab:
       propertyPath: m_RootOrder
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 114165130875738714, guid: 335af115ec130c743b00a437fca47699,
+        type: 2}
+      propertyPath: sharkDetectRadius
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 114165130875738714, guid: 335af115ec130c743b00a437fca47699,
+        type: 2}
+      propertyPath: rayColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114165130875738714, guid: 335af115ec130c743b00a437fca47699,
+        type: 2}
+      propertyPath: rayColor.g
+      value: 0.2028302
+      objectReference: {fileID: 0}
+    - target: {fileID: 114165130875738714, guid: 335af115ec130c743b00a437fca47699,
+        type: 2}
+      propertyPath: rayColor.b
+      value: 0.94208074
+      objectReference: {fileID: 0}
+    - target: {fileID: 114165130875738714, guid: 335af115ec130c743b00a437fca47699,
+        type: 2}
+      propertyPath: rayColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 65648701876479538, guid: 335af115ec130c743b00a437fca47699,
+        type: 2}
+      propertyPath: m_Center.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4602833851600758, guid: 335af115ec130c743b00a437fca47699, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.0028
+      objectReference: {fileID: 0}
+    - target: {fileID: 114165130875738714, guid: 335af115ec130c743b00a437fca47699,
+        type: 2}
+      propertyPath: sharkTransform
+      value: 
+      objectReference: {fileID: 1993077510}
+    - target: {fileID: 4602833851600758, guid: 335af115ec130c743b00a437fca47699, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114812884268322648, guid: 335af115ec130c743b00a437fca47699,
+        type: 2}
+      propertyPath: animClipList.Array.data[2]
+      value: 
+      objectReference: {fileID: 7400000, guid: b3fb7e3bb6bd9b342bd6a5bd7d413cdc, type: 2}
+    - target: {fileID: 114812884268322648, guid: 335af115ec130c743b00a437fca47699,
+        type: 2}
+      propertyPath: animClipList.Array.data[3]
+      value: 
+      objectReference: {fileID: 7400000, guid: dc4516ca8fe43b945b7208cfbddfd661, type: 2}
+    - target: {fileID: 114812884268322648, guid: 335af115ec130c743b00a437fca47699,
+        type: 2}
+      propertyPath: animClipList.Array.data[4]
+      value: 
+      objectReference: {fileID: 7400000, guid: 2404e449e8e4b3f41a4708659ffc87f1, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 335af115ec130c743b00a437fca47699, type: 2}
   m_IsPrefabAsset: 0

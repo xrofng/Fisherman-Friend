@@ -13,6 +13,16 @@ public class SI_JellyFish : StageInteraction {
     protected List<Player> ignoreBounceList = new List<Player>();
     public int ignoreBounceFrame = 4;
 
+    [Header("Drowning")]
+    public float drowningSpeed = 4;
+    public float sharkDetectRadius = 4;
+    public float reachDistance = 0.5f;
+    protected bool sharkDetected = false;
+    public int drowningDirection = 1;
+    public Color rayColor;
+    private Vector3 originPosition;
+    public Transform sharkTransform;
+
     // Use this for initialization
     protected override void Start()
     {
@@ -23,12 +33,28 @@ public class SI_JellyFish : StageInteraction {
     {
         base.Initialization();
         hitBox.FreezeFramesOnHit = ShockingFrame;
+        originPosition = transform.position;
     }
 
     // Update is called once per frame
     protected override void Update () {
-		
-	}
+		if(Vector3.Distance(sharkTransform.position,transform.position) < sharkDetectRadius)
+        {
+            if (!sharkDetected)
+            {
+                Animation.ChangeAnimState(2);
+                sharkDetected = true;
+            }
+        }
+        else
+        {
+            if (sharkDetected)
+            {
+                Animation.ChangeAnimState(4);
+                sharkDetected = false;
+            }
+        }
+    }
 
     public override void OnPlayerCollide(Player _player)
     {
@@ -76,6 +102,13 @@ public class SI_JellyFish : StageInteraction {
         {
             ignoreBounceList.Remove(_player);
         }
+    }
+
+    // Draw Shark DetectRadius
+    void OnDrawGizmos()
+    {
+        Gizmos.color = rayColor;
+        Gizmos.DrawWireSphere(this.transform.position, sharkDetectRadius);
     }
 }
     

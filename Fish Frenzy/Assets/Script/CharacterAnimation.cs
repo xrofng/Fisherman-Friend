@@ -74,7 +74,7 @@ public class CharacterAnimation : MonoBehaviour {
     }
     public virtual void ChangeAnimState(int i, bool revert, int revetTo)
     {
-        StartCoroutine(InvokeChangeAnimState(i,  GetClipFrame(GetClip(1) , 70), revert, revetTo));
+        StartCoroutine(InvokeChangeAnimState(i,  GetClipFrame(GetClip(i) , 30), revert, revetTo));
     }
     public void ChangeAnimState(int i)
     {
