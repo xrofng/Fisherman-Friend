@@ -58,6 +58,20 @@ public class PlayerAnimation : CharacterAnimation {
         base.ChangeAnimState(i, AnimationFrame[i],revert, revetTo);
     }
 
+    public void ChangeAnimState(int i, int frameDuration, bool revert)
+    {
+        base.ChangeAnimState(i, frameDuration, () => RevertToIdle(revert));
+    }
+
+    void RevertToIdle(bool revert)
+    {
+        if (!revert)
+        {
+            return;
+        }
+        ChangeState((int)GetIdleAnimation());
+    }
+
     public Anim GetIdleAnimation()
     {
         if (!Player.holdingFish)
