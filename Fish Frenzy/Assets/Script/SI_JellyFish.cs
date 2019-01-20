@@ -23,6 +23,7 @@ public class SI_JellyFish : StageInteraction {
     private Vector3 originPosition;
     public Transform sharkTransform;
 
+
     // Use this for initialization
     protected override void Start()
     {
@@ -38,31 +39,18 @@ public class SI_JellyFish : StageInteraction {
 
     // Update is called once per frame
     protected override void Update () {
-		if(Vector3.Distance(sharkTransform.position,transform.position) < sharkDetectRadius)
-        {
-            if (!sharkDetected)
-            {
-                Animation.ChangeAnimState(2);
-                sharkDetected = true;
-            }
-        }
-        else
-        {
-            if (sharkDetected)
-            {
-                Animation.ChangeAnimState(4);
-                sharkDetected = false;
-            }
-        }
+
+        SharkDetection();
     }
 
     public override void OnPlayerCollide(Player _player)
     {
         if (ignoreBounceList.Contains(_player))
         {
+            Debug.Log("No more bounce");
             return;
         }
-        print(_player._cPlayerState.IsJumping);
+
         if (_player._cPlayerState.IsJumping)
         {
             StartCoroutine(IgnorePlayerFor(ignoreBounceFrame, _player));
@@ -101,6 +89,28 @@ public class SI_JellyFish : StageInteraction {
         if (ignoreBounceList.Contains(_player))
         {
             ignoreBounceList.Remove(_player);
+        }
+    }
+
+    void SharkDetection()
+    {
+        if (Vector3.Distance(sharkTransform.position, transform.position) < sharkDetectRadius)
+        {
+            if (!sharkDetected)
+            {
+                Animation.ChangeAnimState(2);
+                sharkDetected = true;
+                Collider.enabled = !sharkDetected;
+            }
+        }
+        else
+        {
+            if (sharkDetected)
+            {
+                Animation.ChangeAnimState(4);
+                sharkDetected = false;
+                Collider.enabled = !sharkDetected;
+            }
         }
     }
 

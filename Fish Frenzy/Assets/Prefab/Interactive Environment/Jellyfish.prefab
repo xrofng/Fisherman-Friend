@@ -144,8 +144,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.013000004, y: 0.004714564, z: 0.013000004}
-  m_Center: {x: 0, y: 0.0010584551, z: 0}
+  m_Size: {x: 0.013000004, y: 0.0047, z: 0.013000004}
+  m_Center: {x: 0, y: 0.002, z: 0}
 --- !u!82 &82610425234197824
 AudioSource:
   m_ObjectHideFlags: 1
@@ -272,7 +272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 15
   invicibilityFrame: 20
-  ignorePlayerFrame: 1
+  ignorePlayerFrame: 10
   bounceForce: {x: 0, y: 20, z: 0}
   ShockingFrame: 10
   sfx_Shock: {fileID: 8300000, guid: 83c2c9cf12e1e634796c49ce699aaa86, type: 3}

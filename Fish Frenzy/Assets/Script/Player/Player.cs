@@ -54,8 +54,6 @@ public class Player : Creature {
     public Fish subFish;
     public Fish baitedFish;
 
-
-
     // Other Component
     [HideInInspector]
     public Rigidbody rigid;
@@ -291,7 +289,7 @@ public class Player : Creature {
     {
         yield return new WaitForSeconds(waitBeforeRespawn);
         rigid.velocity = Vector3.zero;
-        this.transform.position = portRoyal.randomSpawnPosition();
+        this.transform.position = portRoyal.randomSpawnPosition(Vector3.up * portRoyal.respawnPositionOffset);
         Death = false;
         _cPlayerFishInteraction.SetHoldFish(false);
         this.dPercent = 0;

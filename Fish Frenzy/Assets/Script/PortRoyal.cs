@@ -13,6 +13,7 @@ public class PortRoyal : MonoBehaviour
     
     public float respawnTime;
     public float respawnInvincTime;
+    public float respawnPositionOffset = 8;
 
     public Vector2 FishJumpToWaterMultiplier;
 
@@ -57,7 +58,11 @@ public class PortRoyal : MonoBehaviour
     {
         return spawnPoint[randomSpawnPosIndex()].position;
     }
-    public Vector3 getSpwanPositionAtIndex(int index)
+    public Vector3 randomSpawnPosition(Vector3 positionOffset)
+    {
+        return  randomSpawnPosition() + positionOffset;
+    }
+    public Vector3 getSpawnPositionAtIndex(int index)
     {
         return spawnPoint[index].position;
     }

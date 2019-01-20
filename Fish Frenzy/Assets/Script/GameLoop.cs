@@ -166,7 +166,7 @@ public class GameLoop : MonoBehaviour
             positionIndex = portRoyal.randomSpawnPosIndex();
         }
 
-        p.gameObject.transform.position = portRoyal.getSpwanPositionAtIndex(positionIndex);
+        p.gameObject.transform.position = portRoyal.getSpawnPositionAtIndex(positionIndex);
         takenPos.Add(positionIndex);
 
         p.Initialization();
