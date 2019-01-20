@@ -25,6 +25,7 @@ public class FishSpecialHook : FishSpecialThrow {
             StartCoroutine(FinalBlow());
         }
         base.OnThrowEnd();
+        Destroy(currentMovingObj.gameObject);
     }
 
     IEnumerator FinalBlow()
@@ -34,7 +35,7 @@ public class FishSpecialHook : FishSpecialThrow {
         hookedPlayer.AddAbilityInputIntercepter(this);
 
         int specialClip = (int)hookSlapClip;
-        _playerFishSpecial._pAnimator.ChangeAnimState(specialClip, damageFrameDuration, true, (int)PlayerAnimation.Anim.HoldFish);
+        _playerFishSpecial._pAnimator.ChangeAnimState(specialClip, damageFrameDuration, true);
 
         int frameCount = 0;
         while (frameCount < damageFrameDuration)

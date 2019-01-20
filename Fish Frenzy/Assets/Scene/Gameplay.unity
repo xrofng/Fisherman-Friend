@@ -1543,7 +1543,7 @@ Prefab:
       objectReference: {fileID: 1993077510}
     - target: {fileID: 4602833851600758, guid: 335af115ec130c743b00a437fca47699, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.003
       objectReference: {fileID: 0}
     - target: {fileID: 114812884268322648, guid: 335af115ec130c743b00a437fca47699,
         type: 2}
@@ -1560,6 +1560,11 @@ Prefab:
       propertyPath: animClipList.Array.data[4]
       value: 
       objectReference: {fileID: 7400000, guid: 2404e449e8e4b3f41a4708659ffc87f1, type: 2}
+    - target: {fileID: 65648701876479538, guid: 335af115ec130c743b00a437fca47699,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 335af115ec130c743b00a437fca47699, type: 2}
   m_IsPrefabAsset: 0

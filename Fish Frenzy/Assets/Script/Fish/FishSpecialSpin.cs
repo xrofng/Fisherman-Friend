@@ -50,7 +50,7 @@ public class FishSpecialSpin : FishSpecialMelee {
             frameCount += 1;
         }
         _player.transform.position = sClass.setVector3(_player.transform.position, sClass.vectorComponent.y, playerPositionY);
-        _player._cPlayerAnimator.ChangeAnimState((int)PlayerAnimation.Anim.HoldFish);
+        _player._cPlayerAnimator.ChangeAnimState((int)_player._cPlayerAnimator.GetIdleAnimation());
         _player.RemoveAbilityInputIntercepter(this);
         _fish.SnapTransform();
     }
