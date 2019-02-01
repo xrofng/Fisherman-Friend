@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.40658703, g: 0.8667387, b: 1.3582686, a: 1}
+  m_IndirectSpecularColor: {r: 0.40661013, g: 0.86674637, b: 1.358268, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1288,6 +1288,7 @@ MonoBehaviour:
   debugMode: 1
   respawnTime: 5
   respawnInvincTime: 1
+  respawnPositionOffset: 8
   FishJumpToWaterMultiplier: {x: 8, y: 10}
   deathRealm: {fileID: 1560228767}
   fishPool:
@@ -1563,7 +1564,75 @@ Prefab:
     - target: {fileID: 65648701876479538, guid: 335af115ec130c743b00a437fca47699,
         type: 2}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 65648701876479538, guid: 335af115ec130c743b00a437fca47699,
+        type: 2}
+      propertyPath: m_Size.z
+      value: 0.013000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 65648701876479538, guid: 335af115ec130c743b00a437fca47699,
+        type: 2}
+      propertyPath: m_Center.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 65648701876479538, guid: 335af115ec130c743b00a437fca47699,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 0.0047
+      objectReference: {fileID: 0}
+    - target: {fileID: 65648701876479538, guid: 335af115ec130c743b00a437fca47699,
+        type: 2}
+      propertyPath: m_Center.y
+      value: 0.002
+      objectReference: {fileID: 0}
+    - target: {fileID: 4602833851600758, guid: 335af115ec130c743b00a437fca47699, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4602833851600758, guid: 335af115ec130c743b00a437fca47699, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4602833851600758, guid: 335af115ec130c743b00a437fca47699, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4602833851600758, guid: 335af115ec130c743b00a437fca47699, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4602833851600758, guid: 335af115ec130c743b00a437fca47699, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4602833851600758, guid: 335af115ec130c743b00a437fca47699, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4602833851600758, guid: 335af115ec130c743b00a437fca47699, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4602833851600758, guid: 335af115ec130c743b00a437fca47699, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4602833851600758, guid: 335af115ec130c743b00a437fca47699, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131956419975194, guid: 335af115ec130c743b00a437fca47699, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 233.50438
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131956419975194, guid: 335af115ec130c743b00a437fca47699, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 233.5044
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131956419975194, guid: 335af115ec130c743b00a437fca47699, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 233.5044
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 335af115ec130c743b00a437fca47699, type: 2}
