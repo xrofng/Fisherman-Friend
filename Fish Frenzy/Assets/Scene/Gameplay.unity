@@ -1268,7 +1268,7 @@ Transform:
   - {fileID: 1938088594}
   - {fileID: 431376570}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &156079903
 MonoBehaviour:
@@ -1288,6 +1288,7 @@ MonoBehaviour:
   debugMode: 1
   respawnTime: 5
   respawnInvincTime: 1
+  respawnPositionOffset: 8
   FishJumpToWaterMultiplier: {x: 8, y: 10}
   deathRealm: {fileID: 1560228767}
   fishPool:
@@ -1355,7 +1356,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 157027390}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -17.15648, y: -7.333293, z: 21.28492}
+  m_LocalPosition: {x: -17.15648, y: -7.3, z: 21.28492}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1938088594}
@@ -1465,11 +1466,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114812884268322648, guid: 335af115ec130c743b00a437fca47699,
-        type: 2}
-      propertyPath: animClipList.Array.size
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 4131956419975194, guid: 335af115ec130c743b00a437fca47699, type: 2}
       propertyPath: m_LocalPosition.x
       value: -27.17
@@ -1500,71 +1496,13 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4131956419975194, guid: 335af115ec130c743b00a437fca47699, type: 2}
       propertyPath: m_RootOrder
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 114165130875738714, guid: 335af115ec130c743b00a437fca47699,
-        type: 2}
-      propertyPath: sharkDetectRadius
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 114165130875738714, guid: 335af115ec130c743b00a437fca47699,
-        type: 2}
-      propertyPath: rayColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114165130875738714, guid: 335af115ec130c743b00a437fca47699,
-        type: 2}
-      propertyPath: rayColor.g
-      value: 0.2028302
-      objectReference: {fileID: 0}
-    - target: {fileID: 114165130875738714, guid: 335af115ec130c743b00a437fca47699,
-        type: 2}
-      propertyPath: rayColor.b
-      value: 0.94208074
-      objectReference: {fileID: 0}
-    - target: {fileID: 114165130875738714, guid: 335af115ec130c743b00a437fca47699,
-        type: 2}
-      propertyPath: rayColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 65648701876479538, guid: 335af115ec130c743b00a437fca47699,
-        type: 2}
-      propertyPath: m_Center.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4602833851600758, guid: 335af115ec130c743b00a437fca47699, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0.0028
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 114165130875738714, guid: 335af115ec130c743b00a437fca47699,
         type: 2}
       propertyPath: sharkTransform
       value: 
       objectReference: {fileID: 1993077510}
-    - target: {fileID: 4602833851600758, guid: 335af115ec130c743b00a437fca47699, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114812884268322648, guid: 335af115ec130c743b00a437fca47699,
-        type: 2}
-      propertyPath: animClipList.Array.data[2]
-      value: 
-      objectReference: {fileID: 7400000, guid: b3fb7e3bb6bd9b342bd6a5bd7d413cdc, type: 2}
-    - target: {fileID: 114812884268322648, guid: 335af115ec130c743b00a437fca47699,
-        type: 2}
-      propertyPath: animClipList.Array.data[3]
-      value: 
-      objectReference: {fileID: 7400000, guid: dc4516ca8fe43b945b7208cfbddfd661, type: 2}
-    - target: {fileID: 114812884268322648, guid: 335af115ec130c743b00a437fca47699,
-        type: 2}
-      propertyPath: animClipList.Array.data[4]
-      value: 
-      objectReference: {fileID: 7400000, guid: 2404e449e8e4b3f41a4708659ffc87f1, type: 2}
-    - target: {fileID: 65648701876479538, guid: 335af115ec130c743b00a437fca47699,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 335af115ec130c743b00a437fca47699, type: 2}
   m_IsPrefabAsset: 0
@@ -2409,7 +2347,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &208446753
 GameObject:
@@ -5928,7 +5866,6 @@ GameObject:
   m_Component:
   - component: {fileID: 552195887}
   - component: {fileID: 552195888}
-  - component: {fileID: 552195889}
   - component: {fileID: 552195890}
   - component: {fileID: 552195891}
   - component: {fileID: 552195892}
@@ -5950,7 +5887,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &552195888
 MonoBehaviour:
@@ -5973,25 +5910,6 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 9ca136a73f5606248ba388f2791d0fa9, type: 2}
   - {fileID: 2100000, guid: 9ca136a73f5606248ba388f2791d0fa9, type: 2}
   - {fileID: 2100000, guid: 9ca136a73f5606248ba388f2791d0fa9, type: 2}
---- !u!114 &552195889
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 552195886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0015841587565c34c9ae64b8181aa2b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Fishing: Fishing
-  Jump: Jump
-  Special: Special
-  Throw: Throw
-  Switch: Switch
-  AltSwitch: AltSwitch
-  Hori: Hori
-  Verti: Verti
 --- !u!114 &552195890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6596,7 +6514,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &602309678 stripped
 Transform:
@@ -6627,7 +6545,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 611046852}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -28.88648, y: -7.333293, z: 10.554919}
+  m_LocalPosition: {x: -28.88648, y: -7.3, z: 10.554919}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1938088594}
@@ -8049,7 +7967,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 61.2, y: 39.52, z: 0}
 --- !u!1 &738483566
 GameObject:
@@ -11551,7 +11469,7 @@ Transform:
   - {fileID: 585364554}
   - {fileID: 40785548}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1171781239
 GameObject:
@@ -11741,7 +11659,7 @@ Transform:
   - {fileID: 184172847}
   - {fileID: 1209956263}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1236285368
 Prefab:
@@ -14207,7 +14125,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1561917422}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -42.956482, y: -7.333293, z: 21.28492}
+  m_LocalPosition: {x: -42.956482, y: -7.3, z: 21.28492}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1938088594}
@@ -14965,7 +14883,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1712028470}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -29.63648, y: -7.333293, z: 37.08492}
+  m_LocalPosition: {x: -29.63648, y: -7.3, z: 37.08492}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1938088594}
@@ -16787,7 +16705,7 @@ Transform:
   - {fileID: 1074744963}
   - {fileID: 513483143}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1917596704
 GameObject:
@@ -17793,7 +17711,7 @@ Transform:
   m_Children:
   - {fileID: 993368916}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1993077511
 MonoBehaviour:
@@ -18700,7 +18618,7 @@ Transform:
   - {fileID: 2019830886}
   - {fileID: 2098309262}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2098309261
 GameObject:
@@ -18882,7 +18800,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4528618179603750, guid: 285b0e5ba1685e64d8640a3bcb5c77f8, type: 2}
       propertyPath: m_RootOrder
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 95177338615262488, guid: 285b0e5ba1685e64d8640a3bcb5c77f8,
         type: 2}
@@ -18941,6 +18859,55 @@ RectTransform:
   m_AnchoredPosition: {x: -114, y: 42}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2124322802
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2124322803}
+  - component: {fileID: 2124322804}
+  m_Layer: 0
+  m_Name: JoystickManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2124322803
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2124322802}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 13.54648, y: 10.453293, z: -18.85492}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2124322804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2124322802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0015841587565c34c9ae64b8181aa2b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Fishing: Fishing
+  Jump: Jump
+  Special: Special
+  Throw: Throw
+  Switch: Switch
+  AltSwitch: AltSwitch
+  Hori: Hori
+  Verti: Verti
+  Pause: Pause
 --- !u!1 &2128297630
 GameObject:
   m_ObjectHideFlags: 0

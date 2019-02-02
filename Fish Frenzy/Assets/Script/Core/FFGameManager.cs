@@ -9,7 +9,7 @@ public class FFGameManager : PersistentSingleton<FFGameManager>
     {
         get
         {
-            if(_multiplayerCamera == null)
+            if (_multiplayerCamera == null)
             {
                 _multiplayerCamera = FindObjectOfType<MultiPlayerCamera>();
             }
@@ -82,3 +82,4 @@ public class FFGameManager : PersistentSingleton<FFGameManager>
         }
     }
 }
+
