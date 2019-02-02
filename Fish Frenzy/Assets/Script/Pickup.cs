@@ -22,11 +22,16 @@ public class Pickup : MonoBehaviour {
     public Image pickUpImage;
     protected Image _pickUpImage;
 
+    [Header("Other Class Ref")]
+    protected GUIManager guiManager;
+
     protected virtual void Start()
     {
+
         if (pickUpImage)
         {
-            _pickUpImage = GUIManager.Instance.InstantiateUI<Image>(pickUpImage);
+            guiManager = FFGameManager.Instance.GUIManager;
+            _pickUpImage = guiManager.InstantiateUI<Image>(pickUpImage);
         }
     }
 
@@ -138,8 +143,16 @@ public class Pickup : MonoBehaviour {
     /// </summary>
     protected virtual void UpdatePrompt()
     {
-        GUIManager.Instance.UpdatePickUpButtonIndicator(this.transform.position, _pickUpImage, _playerColliding.Count > 0);
+        guiManager.UpdatePickUpButtonIndicator(this.transform.position, _pickUpImage, _playerColliding.Count > 0);
     }
+
+    public virtual void HidePrompt()
+    {
+        _playerColliding.Clear();
+        guiManager.UpdatePickUpButtonIndicator(this.transform.position, _pickUpImage, false);
+    }
+
+
 
     /// <summary>
     /// when this destroy , destroy prompt ui

@@ -103,7 +103,7 @@ public class Result : MonoBehaviour
                 // find kill self
                 if (pId == kId)
                 {
-
+                    playerPanel[pId].deathCount[IndexInMyPanel(pId, kId)] += 1;
                 }
                 else
                 {

@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MultiPlayerCamera : PersistentSingleton<MultiPlayerCamera>
+public class MultiPlayerCamera : MonoBehaviour
 {
     public bool MultiCamEnable;
     public List<Transform> targets;
-    public Transform stage;
     public Vector3 offset;
     // Use this for initialization
     public float smoothTime;
@@ -15,8 +14,16 @@ public class MultiPlayerCamera : PersistentSingleton<MultiPlayerCamera>
     public float minZoom;
     public float maxZoom;
     public float zoomLimit;
+
+    [Header("Camera Bound")]
+    public float minXPos;
+    public float maxXPos;
+    public float minYPos;
+    public float maxYPos;
     public float minZPos;
     public float maxZPos;
+
+
     public float GizmoRadius;
     public float speedToCenter;
     public float speedToPlayer;
@@ -26,7 +33,10 @@ public class MultiPlayerCamera : PersistentSingleton<MultiPlayerCamera>
     {
         cam = GetComponent<Camera>();
     }
-
+    public void ClearTarget()
+    {
+        targets.Clear();
+    }
     public void AddTarget(Transform target)
     {
         targets.Add(target);
@@ -57,8 +67,12 @@ public class MultiPlayerCamera : PersistentSingleton<MultiPlayerCamera>
     void Move()
     {
         transform.position = Vector3.SmoothDamp(transform.position, GetNewPosition(), ref velocity, smoothTime);
+
+        float clampedY = Mathf.Clamp(transform.position.y, minYPos, maxYPos);
+        transform.position = sClass.setVector3(transform.position, sClass.vectorComponent.y, clampedY);
         float clampedZ = Mathf.Clamp(transform.position.z, minZPos, maxZPos);
         transform.position = sClass.setVector3(transform.position, sClass.vectorComponent.z, clampedZ);
+
     }
 
     void Zoom()
@@ -100,8 +114,9 @@ public class MultiPlayerCamera : PersistentSingleton<MultiPlayerCamera>
     void OnDrawGizmosSelected()
     {
         Gizmos.color = RayColor;
-        Gizmos.DrawCube(new Vector3(this.transform.position.x, this.transform.position.y, minZPos), gizmoSize);
-        Gizmos.DrawCube(new Vector3(this.transform.position.x, this.transform.position.y, maxZPos), gizmoSize);
+        Gizmos.DrawCube(new Vector3(this.transform.position.x, this.transform.position.y, minZPos), gizmoSize -Vector3.forward * (gizmoSize.z - 1));
+        Gizmos.DrawCube(new Vector3(this.transform.position.x, this.transform.position.y, maxZPos), gizmoSize -Vector3.forward * (gizmoSize.z - 1));
+        Gizmos.DrawCube(new Vector3(this.transform.position.x, maxYPos, this.transform.position.z ), gizmoSize - Vector3.up*(gizmoSize.y-1));
 
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(GetCenterPoint(), GizmoRadius);

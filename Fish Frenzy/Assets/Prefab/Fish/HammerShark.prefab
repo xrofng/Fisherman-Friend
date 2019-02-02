@@ -9,7 +9,7 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1314264188363882}
+  m_RootGameObject: {fileID: 1928599882968034}
   m_IsPrefabAsset: 1
 --- !u!1 &1314264188363882
 GameObject:
@@ -21,11 +21,28 @@ GameObject:
   - component: {fileID: 4738545150947064}
   - component: {fileID: 33981647766107398}
   - component: {fileID: 23386506973063562}
+  m_Layer: 0
+  m_Name: Model
+  m_TagString: Fish
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1928599882968034
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4726616787014234}
   - component: {fileID: 65295904132575260}
   - component: {fileID: 114233512559669156}
   - component: {fileID: 114671319226790252}
   - component: {fileID: 82333306428814174}
   - component: {fileID: 114467510467294388}
+  - component: {fileID: 95486596632624872}
+  - component: {fileID: 114337159778539560}
   m_Layer: 0
   m_Name: HammerShark
   m_TagString: Fish
@@ -33,6 +50,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4726616787014234
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1928599882968034}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 131.59367, y: 131.5937, z: 131.5937}
+  m_Children:
+  - {fileID: 4738545150947064}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4738545150947064
 Transform:
   m_ObjectHideFlags: 1
@@ -41,9 +72,9 @@ Transform:
   m_GameObject: {fileID: 1314264188363882}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 131.59367, y: 131.5937, z: 131.5937}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 4726616787014234}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23386506973063562
@@ -93,7 +124,7 @@ BoxCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1314264188363882}
+  m_GameObject: {fileID: 1928599882968034}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
@@ -105,7 +136,7 @@ AudioSource:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1314264188363882}
+  m_GameObject: {fileID: 1928599882968034}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
@@ -195,12 +226,30 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &95486596632624872
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1928599882968034}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a5692baac61c28f42b9401aa8efbb3b9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114233512559669156
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1314264188363882}
+  m_GameObject: {fileID: 1928599882968034}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21300686d0b82e2468e9faf58577675f, type: 3}
@@ -210,9 +259,11 @@ MonoBehaviour:
   state: 0
   holder: {fileID: 0}
   ignorePlayerFrame: 0
-  durability: 20
+  fishMeshRenderer: {fileID: 23386506973063562}
+  durability: 15
   weight: 0
   mashCountDown: 8
+  spawnRate: 10
   rayDistance: 0.25
   maxHolding: 5
   throwAttack: 0
@@ -235,19 +286,31 @@ MonoBehaviour:
   fishName: {fileID: 21300000, guid: 9dbb8e5e55689e248a9a30cc39e10257, type: 3}
   fishStored: {fileID: 21300000, guid: a83a0e62f1fc7024f879d0ac960a4cf8, type: 3}
   _cSpecial: {fileID: 0}
+--- !u!114 &114337159778539560
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1928599882968034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b45fed72b61530748a01a392cc30d2e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentAnimationState: 0
+  animClipList: []
 --- !u!114 &114467510467294388
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1314264188363882}
+  m_GameObject: {fileID: 1928599882968034}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fcbb71c491f658e448fc46b5a9c5e9b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attack: 10
-  AnimationFrame: 00000000000000001400000032000000000000000000000023000000
   specialClip: 3
   thisSpecialHitBox: {fileID: 114706098538591994, guid: 66da22c8c634a2943bd2093bf7467c2b,
     type: 2}
@@ -260,7 +323,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1314264188363882}
+  m_GameObject: {fileID: 1928599882968034}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3701a61f4a003047afca7f5c500f5ae, type: 3}

@@ -16,12 +16,39 @@ public class FrenzySpawner : MonoBehaviour {
     public float timeAnimationOverhead = 9.3f;
     public float timeFrenzy= 60.0f;
 
-    public Animator whale;
+    public GameObject whalePrefab;
+    protected GameObject whale;
+    protected Animator _whaleAnim;
+    public Animator WhaleAnim
+    {
+        get
+        {
+            if (!_whaleAnim && whale)
+            {
+                _whaleAnim = whale.GetComponentInChildren<Animator>();
+            }
+            return _whaleAnim;
+        }
+    }
+    protected AudioSource _SFX;
+    public AudioSource SFX
+    {
+        get
+        {
+            if (!_SFX) { _SFX = GetComponent<AudioSource>(); }
+            return _SFX;
+        }
+    }
     public int whaleAnimFrame;
+
+    [Header("Other Class Ref")]
+    protected GameLoop gameLoop;
+    protected PortRoyal portRoyal;
     // Use this for initialization
     void Start () {
-        
-
+        whale = Instantiate(whalePrefab);
+        gameLoop = FFGameManager.Instance.GameLoop;
+        portRoyal = FFGameManager.Instance.PortRoyal;
     }
 	
 	// Update is called once per frame
@@ -63,7 +90,7 @@ public class FrenzySpawner : MonoBehaviour {
 
     void SpawnFish(Vector3 spawnPos)
     {
-        Fish spawnFish = Instantiate(PortRoyal.Instance.randomFish(), spawnPos, Random.rotation) as Fish;
+        Fish spawnFish = Instantiate(portRoyal.randomFish(), spawnPos, Random.rotation) as Fish;
         spawnFish.gameObject.transform.localEulerAngles = sClass.setVector3(spawnFish.gameObject.transform.localEulerAngles, sClass.vectorComponent.x, 0);
         spawnFish.gameObject.transform.localEulerAngles = sClass.setVector3(spawnFish.gameObject.transform.localEulerAngles, sClass.vectorComponent.z, 0);
         spawnFish.ChangeState(Fish.fState.fall);
@@ -82,19 +109,23 @@ public class FrenzySpawner : MonoBehaviour {
 
     public void PlayWhaleAnimation()
     {
+        if (!SFX.isPlaying)
+        {
+            SFX.Play();
+        }
         StartCoroutine(WhaleAnimPlay(whaleAnimFrame));
     }
 
     IEnumerator WhaleAnimPlay(int frameDuration)
     {
         int frameCount = 0;
-        whale.SetBool("Jump",true);
+        WhaleAnim.SetBool("Jump",true);
         while (frameCount < frameDuration)
         {
             yield return new WaitForEndOfFrame();
             frameCount++;
         }
-        whale.SetBool("Jump",false);
+        WhaleAnim.SetBool("Jump",false);
     }
 
     // Draw Path

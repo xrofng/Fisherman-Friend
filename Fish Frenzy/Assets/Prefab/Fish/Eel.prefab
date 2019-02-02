@@ -9,8 +9,30 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1996391577515160}
+  m_RootGameObject: {fileID: 1932084071963072}
   m_IsPrefabAsset: 1
+--- !u!1 &1932084071963072
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4585741113791544}
+  - component: {fileID: 65925870460092574}
+  - component: {fileID: 114447408894065984}
+  - component: {fileID: 114109508714941994}
+  - component: {fileID: 82612576762288146}
+  - component: {fileID: 114515199957103786}
+  - component: {fileID: 95866220282495180}
+  - component: {fileID: 114729089609547344}
+  m_Layer: 0
+  m_Name: Eel
+  m_TagString: Fish
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1996391577515160
 GameObject:
   m_ObjectHideFlags: 0
@@ -21,13 +43,8 @@ GameObject:
   - component: {fileID: 4072137911606198}
   - component: {fileID: 33363509374732098}
   - component: {fileID: 23609865208187692}
-  - component: {fileID: 65925870460092574}
-  - component: {fileID: 114447408894065984}
-  - component: {fileID: 114109508714941994}
-  - component: {fileID: 82612576762288146}
-  - component: {fileID: 114515199957103786}
   m_Layer: 0
-  m_Name: Eel
+  m_Name: Model
   m_TagString: Fish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39,10 +56,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1996391577515160}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4585741113791544}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4585741113791544
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1932084071963072}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 26.466883, y: 29.391651, z: 29.391651}
-  m_Children: []
+  m_Children:
+  - {fileID: 4072137911606198}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -93,19 +124,19 @@ BoxCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1996391577515160}
+  m_GameObject: {fileID: 1932084071963072}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.008997474, y: 0.012569159, z: 0.15612887}
-  m_Center: {x: 0, y: 0.002757838, z: 0.059716012}
+  m_Size: {x: 0.008997474, y: 0.009554743, z: 0.15612887}
+  m_Center: {x: 0, y: 0.0008905638, z: 0.059716012}
 --- !u!82 &82612576762288146
 AudioSource:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1996391577515160}
+  m_GameObject: {fileID: 1932084071963072}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
@@ -195,12 +226,30 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &95866220282495180
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1932084071963072}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a5692baac61c28f42b9401aa8efbb3b9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114109508714941994
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1996391577515160}
+  m_GameObject: {fileID: 1932084071963072}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3701a61f4a003047afca7f5c500f5ae, type: 3}
@@ -217,7 +266,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1996391577515160}
+  m_GameObject: {fileID: 1932084071963072}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21300686d0b82e2468e9faf58577675f, type: 3}
@@ -227,9 +276,11 @@ MonoBehaviour:
   state: 0
   holder: {fileID: 0}
   ignorePlayerFrame: 0
-  durability: 20
+  fishMeshRenderer: {fileID: 23609865208187692}
+  durability: 15
   weight: 0
   mashCountDown: 3
+  spawnRate: 11
   rayDistance: 0.25
   maxHolding: 5
   throwAttack: 0
@@ -257,14 +308,13 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1996391577515160}
+  m_GameObject: {fileID: 1932084071963072}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 12e2aa3f861dbde4898c25c7c78df741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attack: 7
-  AnimationFrame: 00000000000000001400000032000000000000000000000023000000000000000000000078000000360000000a000000
   specialClip: 9
   movingobject: {fileID: 114532827588214438, guid: 6415abaacfab66948abfae3bbfc54429,
     type: 2}
@@ -274,7 +324,20 @@ MonoBehaviour:
   launchingDamage: 1
   channelingFrameDuration: 30
   ignoreInput: 1
-  damageFrameDuration: 40
+  damageFrameDuration: 20
   releaseFrameDuration: 10
   finalBlowForce: 2
   hookSlapClip: 10
+--- !u!114 &114729089609547344
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1932084071963072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b45fed72b61530748a01a392cc30d2e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentAnimationState: 0
+  animClipList: []

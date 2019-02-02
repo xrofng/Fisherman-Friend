@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 /// <summary>
 /// Handles all GUI effects and changes
 /// </summary>
-public class GUIManager : Singleton<GUIManager>
+public class GUIManager : MonoBehaviour
 {
     [Header("Bindings")]
     /// the game object that contains the heads up display (avatar, health, points...)
@@ -76,8 +76,7 @@ public class GUIManager : Singleton<GUIManager>
     public int scoreChangeFrameDuration = 150;
     public Vector3 scoreChangeOffsetDistance;
 
-    /// main game manager
-    private PortRoyal portroyal;
+
 
     [Header("Settings")]
     /// the pattern to apply when displaying the score
@@ -86,14 +85,22 @@ public class GUIManager : Singleton<GUIManager>
     protected float _initialJoystickAlpha;
     protected float _initialButtonsAlpha;
 
+    [Header("Other Class Ref")]
+    protected GameLoop gameLoop;
+    protected PortRoyal portRoyal;
+    protected KnockData knockData;
     /// <summary>
     /// Initialization
     /// </summary>
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
+
         InitImageList();
-        portroyal = PortRoyal.Instance;
+
+        gameLoop = FFGameManager.Instance.GameLoop;
+        portRoyal = FFGameManager.Instance.PortRoyal;
+        knockData = FFGameManager.Instance.KnockData;
+
         if (Joystick != null)
         {
             _initialJoystickAlpha = Joystick.alpha;
@@ -113,9 +120,10 @@ public class GUIManager : Singleton<GUIManager>
         for (int playerID = 0; playerID < 4; playerID++)
         {
             float a = DurabilityImage[playerID].color.a;
-            Color pColor= PortRoyal.Instance.startupPlayer.playerColor[playerID];
+            Color pColor= StartupPlayer.Instance.playerColor[playerID];
             DurabilityImage[playerID].color = new Color(pColor.r, pColor.g, pColor.b, a);
         }
+        
     }
 
     void InitImageList()
@@ -161,7 +169,7 @@ public class GUIManager : Singleton<GUIManager>
 
     protected virtual void Update()
     {
-        if (GameLoop.Instance.state == GameLoop.GameState.playing)
+        if (gameLoop.state == GameLoop.GameState.playing)
         {
             for (int playerID = 0; playerID < 4; playerID++)
             {
@@ -175,8 +183,8 @@ public class GUIManager : Singleton<GUIManager>
             UpdateGameTime();
             
         }
-        if (GameLoop.Instance.state == GameLoop.GameState.beforeStart ||
-            GameLoop.Instance.state == GameLoop.GameState.gameEnd)
+        if (gameLoop.state == GameLoop.GameState.beforeStart ||
+            gameLoop.state == GameLoop.GameState.gameEnd)
         {
             UpdateGrandText();
             UpdateGameTime();
@@ -215,7 +223,7 @@ public class GUIManager : Singleton<GUIManager>
     /// <param name="playerID"></param>
     public virtual void UpdateFaceSprite(int playerID)
     {
-        Player _player = portroyal.Player[playerID];
+        Player _player = portRoyal.Player[playerID];
         if (_player._cPlayerState.IsDeath)
         {
             currentFaceIndex[playerID] = 1;
@@ -241,7 +249,7 @@ public class GUIManager : Singleton<GUIManager>
     /// <param name="playerID"></param>
     public virtual void UpdateFishIcon(int playerID)
     {
-        Player _player = portroyal.Player[playerID];
+        Player _player = portRoyal.Player[playerID];
         if (_player.subFish)
         {
             StoreIconImage[playerID].sprite = _player.subFish.fishStored;
@@ -266,8 +274,8 @@ public class GUIManager : Singleton<GUIManager>
     /// <param name="playerID"></param>
     public virtual void UpdateDamagePercent(int playerID)
     {
-        PercentText[playerID].text = portroyal.Player[playerID].dPercent + "%";
-        PercentText[playerID].color = KnockData.Instance.GetColor(portroyal.Player[playerID].dPercent);
+        PercentText[playerID].text = portRoyal.Player[playerID].dPercent + "%";
+        PercentText[playerID].color = knockData.GetColor(portRoyal.Player[playerID].dPercent);
     }
 
     /// <summary>
@@ -276,7 +284,7 @@ public class GUIManager : Singleton<GUIManager>
     /// <param name="playerID"></param>
     public virtual void UpdateFishDurability(int playerID)
     {
-        Player _player = portroyal.Player[playerID];
+        Player _player = portRoyal.Player[playerID];
         if (_player.holdingFish)
         {
             DurabilityImage[playerID].fillAmount = _player.mainFish.GetDurabilityRatio;
@@ -322,15 +330,15 @@ public class GUIManager : Singleton<GUIManager>
     /// </summary>
     public virtual void UpdateGrandText()
     {
-        if (GameLoop.Instance.startCountDown <= 1)
+        if (gameLoop.startCountDown <= 1)
         {
             GrandText.text = "GO";
         }
-        else if(GameLoop.Instance.startCountDown<=4)
+        else if(gameLoop.startCountDown<=4)
         {
-            GrandText.text = (int)GameLoop.Instance.startCountDown + "";
+            GrandText.text = (int)gameLoop.startCountDown + "";
         }
-        if (GameLoop.Instance.TimeInSecond <= 0)
+        if (gameLoop.TimeInSecond <= 0)
         {
             GrandText.text = "Game";
         }
@@ -342,12 +350,12 @@ public class GUIManager : Singleton<GUIManager>
     /// <param name="playerID"></param>
     public virtual void UpdateGameTime()
     {
-        if(GameLoop.Instance.state == GameLoop.GameState.gameEnd)
+        if(gameLoop.state == GameLoop.GameState.gameEnd)
         {
             return;
         }
-        int second = (int)GameLoop.Instance.Time_Second;
-        int minute = (int)GameLoop.Instance.Time_Minute;
+        int second = (int)gameLoop.Time_Second;
+        int minute = (int)gameLoop.Time_Minute;
         TimeText.text = minute.ToString("00") + ":" + second.ToString("00");
     }
 
@@ -359,7 +367,7 @@ public class GUIManager : Singleton<GUIManager>
         {
             return;
         }
-        ButtonIndicators[playerID - 1].position = portroyal.mainCamera.WorldToScreenPoint(fishingPosition);
+        ButtonIndicators[playerID - 1].position = portRoyal.mainCamera.WorldToScreenPoint(fishingPosition);
     }
 
     public virtual void UpdateMashFishingButtonIndicator(int playerID, Vector3 fishingPosition, bool isActive)
@@ -370,7 +378,7 @@ public class GUIManager : Singleton<GUIManager>
         {
             return;
         }
-        MashButtonIndicators[playerID - 1].position = portroyal.mainCamera.WorldToScreenPoint(fishingPosition) + FishingIndicatorOffset;
+        MashButtonIndicators[playerID - 1].position = portRoyal.mainCamera.WorldToScreenPoint(fishingPosition) + FishingIndicatorOffset;
     }
 
     public virtual void UpdatePickUpButtonIndicator(Vector3 fishPosition , Image buttonImage, bool isActive)
@@ -381,7 +389,7 @@ public class GUIManager : Singleton<GUIManager>
             alphaIncrease *= -1;
         }
         buttonImage.color = sClass.ChangeColorAlpha(buttonImage.color, buttonImage.color.a +alphaIncrease);
-        buttonImage.rectTransform.position = portroyal.mainCamera.WorldToScreenPoint(fishPosition + PickUpIndicatorOffset);
+        buttonImage.rectTransform.position = portRoyal.mainCamera.WorldToScreenPoint(fishPosition + PickUpIndicatorOffset);
     }
 
     /// <summary>

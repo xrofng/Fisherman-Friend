@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerSwitchFish : PlayerAbility
 {
-    
-
     protected override void Start()
     {
         Initialization();
@@ -26,6 +24,10 @@ public class PlayerSwitchFish : PlayerAbility
             {
                 return;
             }
+            if (GetCrossZComponent<PlayerSpecial>().Specialing)
+            {
+                return;
+            }
             SwitchFish();
         }
 
@@ -33,21 +35,23 @@ public class PlayerSwitchFish : PlayerAbility
 
     void SwitchFish()
     {
-        if (_pInput.GetButtonDown(_pInput.Switch, _player.playerID - 1))
+        if (_pInput.GetButtonDown(_pInput.Switch, _player.playerID - 1) || _pInput.GetButtonDown(_pInput.AltSwitch, _player.playerID - 1))
         {
-
             _player.baitedFish = _player.subFish;
             _player.subFish = _player.mainFish;
-            if (_player.subFish != null) { _player.subFish.KeepFish(true); }
+            if (_player.subFish != null)
+            {
+                _player.subFish.KeepFish(true);
+            }
 
             _player.mainFish = _player.baitedFish;
             _player.baitedFish = null;
-            GetCrossZComponent<PlayerFishInteraction>().SetHoldFish(false);
+
             if (_player.mainFish != null)
             {
-                GetCrossZComponent<PlayerFishInteraction>().SetHoldFish(true);
                 _player.mainFish.KeepFish(false);
             }
+            GetCrossZComponent<PlayerFishInteraction>().SetHoldFish(_player.mainFish != null);
         }
     }
 }

@@ -142,11 +142,11 @@ public class PlayerState : PlayerAbility
         int frameCount = 0;
         if (_player.holdingFish)
         {
-            _pAnimator.ChangeAnimState((int)PlayerAnimation.State.Damaged_HoldFish);
+            _pAnimator.ChangeAnimState((int)PlayerAnimation.Anim.Damaged_HoldFish);
         }
         else
         {
-            _pAnimator.ChangeAnimState((int)PlayerAnimation.State.Damaged);
+            _pAnimator.ChangeAnimState((int)PlayerAnimation.Anim.Damaged);
         }
         while (frameCount < frameDuration)
         {
@@ -154,14 +154,9 @@ public class PlayerState : PlayerAbility
             frameCount += 1;
         }
         IsDamaged = false;
-        if (_player.holdingFish)
-        {
-            _pAnimator.ChangeAnimState((int)PlayerAnimation.State.HoldFish);
-        }
-        else
-        {
-            _pAnimator.ChangeAnimState((int)PlayerAnimation.State.Idle);
-        }
+
+        _pAnimator.ChangeAnimState((int)_player._cPlayerAnimator.GetIdleAnimation());
+
     }
 
 

@@ -10,6 +10,12 @@ public class FishSpecialMelee : FishSpecial {
     public int freezeFrame = 10;
     public bool launchingDamage = true;
 
+    protected bool mSpecialing;
+    public bool MeleeSpecialing
+    {
+        get { return mSpecialing; }
+        set { mSpecialing = value; }
+    }
 
     protected Vector3 snapPosition;
     protected Vector3 snapRotation;
@@ -29,13 +35,13 @@ public class FishSpecialMelee : FishSpecial {
     }
 
 
-    public void SetUpFishSpecial()
+    public virtual void SetUpFishSpecial()
     {
         SetUpSpecialHitBox();
         SetUpGameVariable();
     }
 
-    public void SetUpSpecialHitBox()
+    protected void SetUpSpecialHitBox()
     {
         //SetSnapFromRef(hitBoxRef.transform);
 
@@ -64,6 +70,12 @@ public class FishSpecialMelee : FishSpecial {
         snapPosition = tRef.localPosition;
         snapRotation = tRef.localEulerAngles;
         snapScale    =  tRef.localScale;
+    }
+
+
+    public virtual void SpecialMeleeAttack(Player _player)
+    {
+        _player._cPlayerAnimator.ChangeAnimState((int)specialClip, SpeiclaClipFrameCount, true);      
     }
 
     /// <summary>

@@ -11,7 +11,7 @@ public class TestControl : MonoBehaviour
         if (Input.anyKeyDown )
         {
             m_SetCode = FindKeyDown();
-            print(m_SetCode);
+            //print(m_SetCode);
         }
     }
 

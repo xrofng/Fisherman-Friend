@@ -18,22 +18,10 @@ public class FishSpecial : MonoBehaviour
 
     [Header("Special")]
     public float attack;
-    public enum SpecialAnimation
-    {
-        LightHorizontal = 2,
-        HammerDown = 3,
-        SwordThrust = 6,
-        EelHook = 9,
-        EelSlap = 10,
-        StarShuriken = 11
-
-    }
-    public int[] AnimationFrame = { 0, 0, 20, 50, 0, 0, 35,0,0, 150, 54,10  };
-
-    public SpecialAnimation specialClip;
+    public PlayerAnimation.Anim specialClip;
     public int SpeiclaClipFrameCount
     {
-        get { return AnimationFrame[(int)specialClip]; }
+        get { return _player.GetAnimator<PlayerAnimation>().AnimationFrame[(int)specialClip]; }
     }
 
     public Rigidbody _pRigid
@@ -105,4 +93,19 @@ public class FishSpecial : MonoBehaviour
         end();
     }
 
+    public virtual void OnDehydrate()
+    {
+        if ( _player )
+        {
+            _player._cPlayerAnimator.ChangeAnimState((int)PlayerAnimation.Anim.Idle);
+        }
+    }
+
+    public virtual void OnPlayerDeath()
+    {
+        if (_player)
+        {
+            _player.RemoveAbilityInputIntercepter(this);
+        }
+    }
 }

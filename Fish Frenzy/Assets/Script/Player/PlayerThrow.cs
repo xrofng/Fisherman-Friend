@@ -41,7 +41,7 @@ public class PlayerThrow : PlayerAbility {
         base.Initialization();
         _aimArrow = Instantiate(aimArrow);
         _aimArrow.transform.SetParent( _player.GetPart(Player.ePart.body) );
-        _aimArrow.GetComponent<SpriteRenderer>().color = PortRoyal.Instance.startupPlayer.playerColor[_player.playerID-1];
+        _aimArrow.GetComponent<SpriteRenderer>().color = StartupPlayer.Instance.playerColor[_player.playerID-1];
         _aimArrow.localPosition =  arrowPositioningOffset;
         _aimArrow.gameObject.SetActive(false);
     }
@@ -64,15 +64,19 @@ public class PlayerThrow : PlayerAbility {
         {
             return;
         }
+        if (GetCrossZComponent<PlayerState>().IsJumping)
+        {
+            return;
+        }
         if (_pInput.GetButtonDown(_pInput.Throw, _player.playerID - 1))
         {
             OnButtonDown();
         }
-        else if (_pInput.GetButton(_pInput.Throw, _player.playerID - 1))
+        else if (_pInput.GetButton(_pInput.Throw, _player.playerID - 1) && aiming)
         {
             OnButtonHold();
         }
-        else if (_pInput.GetButtonUp(_pInput.Throw, _player.playerID - 1))
+        else if (_pInput.GetButtonUp(_pInput.Throw, _player.playerID - 1) && aiming)
         {
             OnButtonUp();
         }
@@ -143,7 +147,10 @@ public class PlayerThrow : PlayerAbility {
                 }
             }
         }
-
+        if (lowDetected.Count <= 0)
+        {
+            return;
+        }
         // Get highest Y
         float highest = float.MinValue;
         foreach(float low in lowDetected)

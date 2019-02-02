@@ -5,6 +5,7 @@ using UnityEngine;
 public class MovingObjHook : MovingObject {
 
     public float fowardTime = 5.0f;
+    protected bool backwarding;
     public float reachDistance = 2.0f;
     public Transform trailObject;
 
@@ -38,6 +39,7 @@ public class MovingObjHook : MovingObject {
         fowardTime -= Time.deltaTime;
         if (fowardTime <= 0)
         {
+            SetBackward();
             moveDirection = Vector3.Normalize(HitBox.Owner.gameObject.transform.position - transform.position);
             MoveEnd = CheckEnd();
             stretchincrement = -1;
@@ -82,10 +84,18 @@ public class MovingObjHook : MovingObject {
         hookedPlayer._cPlayerFishInteraction.SetPlayerCollideEverything(false);
     }
 
+    void SetBackward()
+    {
+        if (!backwarding)
+        {
+            backwarding = true;
+        }
+    }
+
     void OnCollisionEnter(Collision other)
     {
         hookedPlayer = other.gameObject.GetComponent<Player>();
-        if (hookedPlayer != null && !hasHooked)
+        if (hookedPlayer != null && !hasHooked && !backwarding)
         {
             hasHooked = true;
             StartHook();

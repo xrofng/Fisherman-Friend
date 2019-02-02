@@ -64,13 +64,16 @@ public class FishSpecialThrow : FishSpecial {
 
     }
 
-    public void SpecialThrowAttack()
+    public virtual void SpecialThrowAttack(Player _player)
     {
+        _player._cPlayerAnimator.ChangeAnimState((int)specialClip, SpeiclaClipFrameCount, true);
         StartCoroutine(ieSpecialThrowAttack(throwFrameDuration, channelingFrameDuration));
     }
 
     IEnumerator ieSpecialThrowAttack(int frameDuration, int channelFrameDuration)
     {
+        ThrowSpecialing = true;
+
         IgnoreInputFor(channelFrameDuration);
         int frameCount = 0;
         while (frameCount < channelFrameDuration)
@@ -78,8 +81,7 @@ public class FishSpecialThrow : FishSpecial {
             yield return new WaitForEndOfFrame();
             frameCount++;
         }
-
-        ThrowSpecialing = true;
+        
         OnThrowStart();
 
         IgnoreInputFor(frameDuration);
@@ -109,7 +111,6 @@ public class FishSpecialThrow : FishSpecial {
     {
         _fish.MeshRenderer.enabled = true;
         _fish.SnapTransform();
-        Destroy(currentMovingObj.gameObject);
     }
 
     protected override void IgnoreInputFor(int ignoreFrame)

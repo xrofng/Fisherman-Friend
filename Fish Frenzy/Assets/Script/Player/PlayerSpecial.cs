@@ -50,15 +50,39 @@ public class PlayerSpecial : PlayerAbility
     public Transform hitBoxParent;
     public HitBoxMelee specialHitBox;
     public Animation specialTrail;
-    protected bool mSpecialing;
     public bool MeleeSpecialing
     {
-        get { return mSpecialing; }
-        set { mSpecialing = value; }
+        get
+        {
+            if (_player.mainFish && _player.mainFish.GetComponent<FishSpecialMelee>())
+            {
+                return _player.mainFish.GetComponent<FishSpecialMelee>().MeleeSpecialing;
+            }
+            return false;
+        }
     }
+    public bool ThrowSpecialing
+    {
+        get
+        {
+            if (_player.mainFish && _player.mainFish.GetComponent<FishSpecialThrow>())
+            {
+                return _player.mainFish.GetComponent<FishSpecialThrow>().ThrowSpecialing;
+            }
+            return false;
+        }
+    }
+    public bool Specialing
+    {
+        get
+        {
+            return  MeleeSpecialing || ThrowSpecialing;
+        }
+    }
+
     void SpecialMelee(string special)
     {
-        if (!_player.mainFish.GetComponent<FishSpecialMelee>() || MeleeSpecialing)
+        if (!_player.mainFish.GetComponent<FishSpecialMelee>() || _player.mainFish.GetComponent<FishSpecialMelee>().MeleeSpecialing)
         {
             return;
         }
@@ -67,16 +91,16 @@ public class PlayerSpecial : PlayerAbility
         {
             // Ignore Input
             ActionForFrame(FishSpecial<FishSpecialMelee>().SpeiclaClipFrameCount + ignoreSpecialFrame,
-                  () => { MeleeSpecialing = true;  },
-                  () => { MeleeSpecialing = false;  });
+                  () => { _player.mainFish.GetComponent<FishSpecialMelee>().MeleeSpecialing = true;  },
+                  () => { _player.mainFish.GetComponent<FishSpecialMelee>().MeleeSpecialing = false;  });
             // enable trail
             //ActionForFrame(FishSpecial<FishSpecialMelee>().SpeiclaClipFrameCount,
             //      () => { specialTrail.gameObject.SetActive(true); specialTrail.Play(); },
             //      () => { specialTrail.gameObject.SetActive(false); specialTrail.Stop(); });
 
-            int specialClip = (int)FishSpecial<FishSpecial>().specialClip;
-            _pAnimator.ChangeAnimState(specialClip, FishSpecial<FishSpecial>().SpeiclaClipFrameCount, true, (int)PlayerAnimation.State.HoldFish);             
-        }   
+            _player.mainFish.GetComponent<FishSpecialMelee>().SpecialMeleeAttack(_player);
+
+        }
     }
 
     //[Header("Throw")]
@@ -85,7 +109,11 @@ public class PlayerSpecial : PlayerAbility
         if (!_player.mainFish.GetComponent<FishSpecialThrow>() || _player.mainFish.GetComponent<FishSpecialThrow>().ThrowSpecialing)
         {
             return;
-        }       
+        }
+        if (GetCrossZComponent<PlayerState>().IsJumping)
+        {
+            return;
+        }
 
         if (_pInput.GetButtonDown(_pInput.Special, _player.playerID - 1))
         {
@@ -98,11 +126,8 @@ public class PlayerSpecial : PlayerAbility
         else if (_pInput.GetButtonUp(_pInput.Special, _player.playerID - 1))
         {
             //PlayThrowSFX();
-            _player.mainFish.GetComponent<FishSpecialThrow>().SpecialThrowAttack();
+            _player.mainFish.GetComponent<FishSpecialThrow>().SpecialThrowAttack(_player);
             GetCrossZComponent<PlayerThrow>().ChangeToUnAim();
-
-            int specialClip = (int)FishSpecial<FishSpecial>().specialClip;
-            _pAnimator.ChangeAnimState(specialClip, FishSpecial<FishSpecial>().SpeiclaClipFrameCount, true, (int)PlayerAnimation.State.HoldFish);
         }        
     }
     

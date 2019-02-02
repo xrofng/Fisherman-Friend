@@ -17,7 +17,7 @@ public class CharacterAnimation : MonoBehaviour {
     }
 
     public int _currentAnimationState =0;
-    private void ChangeState(int stateI)
+    public void ChangeState(int stateI)
     {
         if (_currentAnimationState == stateI)
         {
@@ -64,24 +64,39 @@ public class CharacterAnimation : MonoBehaviour {
 	}
 
     public void UpdateAnimatorBool(string parameterName, bool value)
-    {        
-        Animator.SetBool(parameterName, value);        
+    {
+        Animator.SetBool(parameterName, value);
     }
 
-    public void ChangeAnimState(int i, int frameDuration, bool revert, int revetTo)
+    void RevertAnimation(bool revert, int revertTo)
     {
-        StartCoroutine(InvokeChangeAnimState(i, frameDuration, revert, revetTo));
+        if (revert)
+        {
+            ChangeState(revertTo);
+        }
     }
-    public void ChangeAnimState(int i, bool revert, int revetTo)
+
+    public void ChangeAnimState(int i, int frameDuration, System.Action finishAnimationCallback)
     {
-        StartCoroutine(InvokeChangeAnimState(i, GetClipFrame(GetClip(1) , 70), revert, revetTo));
+        StartCoroutine(InvokeChangeAnimState(i, frameDuration, finishAnimationCallback));
     }
+
+    public void ChangeAnimState(int i, int frameDuration, bool revert, int revertTo)
+    {
+        StartCoroutine(InvokeChangeAnimState(i, frameDuration, () => RevertAnimation(revert, revertTo)));
+    }
+
+    public virtual void ChangeAnimState(int i, bool revert, int revertTo)
+    {
+        ChangeAnimState(i, GetClipFrame(GetClip(i), 30), revert, revertTo);
+    }
+
     public void ChangeAnimState(int i)
     {
         ChangeState(i);
     }
-    
-    IEnumerator InvokeChangeAnimState(int iState, int frameDuration, bool revert, int revetTo)
+
+    IEnumerator InvokeChangeAnimState(int iState, int frameDuration, System.Action finishAnimationCallback)
     {
         int frameCount = 0;
         ChangeState(iState);
@@ -90,7 +105,8 @@ public class CharacterAnimation : MonoBehaviour {
             yield return new WaitForEndOfFrame();
             frameCount++;
         }
-        if (revert) { ChangeState(revetTo); }
+
+        finishAnimationCallback();
     }
 
 }

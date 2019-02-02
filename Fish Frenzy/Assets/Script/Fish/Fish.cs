@@ -24,9 +24,9 @@ public class Fish : Creature {
     {
         get
         {
-            if (!_playerHolder)
+            if (holder && !_playerHolder)
             {
-                _playerHolder = holder.GetComponent<Player>();
+                _playerHolder = holder.gameObject.GetComponent<Player>();
             }
             return _playerHolder;
         }
@@ -36,13 +36,14 @@ public class Fish : Creature {
     // TODO encap to damage on hit
     public int ignorePlayerFrame;
     protected List<GameObject> _ignoredGameObjects = new List<GameObject>();
-
+    public MeshRenderer fishMeshRenderer;
 
     [Header("Fishing")]
     public float durability = 7;
     private float dehydration;
     public float weight;
     public int mashCountDown = 2;
+    public float spawnRate = 10;
     protected Vector3 direction;
     protected float jumpForce = 10;
     protected float jumpSpeed = 40;
@@ -56,9 +57,6 @@ public class Fish : Creature {
     public bool t_launchingDamage;
     public Vector3 lastHoldPoition;
     public int chargePercent;
-
-
-
 
     [Header("Snap")]
     //snap
@@ -83,6 +81,10 @@ public class Fish : Creature {
     [HideInInspector]
     public FishSpecial _cSpecial;
 
+    [Header("Other Class Ref")]
+    protected GameLoop gameLoop;
+    protected PortRoyal portRoyal;
+
     // Use this for initialization
     void Start () {
         Initialization();
@@ -93,14 +95,19 @@ public class Fish : Creature {
         _pickupFish = GetComponent<PickupFish>();
         _cSpecial = GetComponent<FishSpecial>();
         dehydration = durability;
+        gameLoop = FFGameManager.Instance.GameLoop;
+        portRoyal = FFGameManager.Instance.PortRoyal;
+        SetMesh(fishMeshRenderer);
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update ()
+    {
         Dehydrate();
         GoInDeepWater();
         CheckJustGround();
         CheckWater();
+        UpdateAnimation();
     }
 
     public void playerCollideInteraction(GameObject player)
@@ -126,8 +133,10 @@ public class Fish : Creature {
             {
                 LeftPlayer();
                 state = fState.dehydrate;
+                _pickupFish.HidePrompt();
                 JumpToWater();
-                
+
+                _cSpecial.OnDehydrate();
             }
         }
     }
@@ -151,11 +160,15 @@ public class Fish : Creature {
         return false;
     }
 
- 
+    void UpdateAnimation()
+    {
+        Animation.ChangeAnimState((int)state);
+    }
+
 
     void GoInDeepWater()
     {
-        if (transform.position.y <= PortRoyal.Instance.underWater.position.y)
+        if (transform.position.y <= portRoyal.underWater.position.y)
         {
             Destroy(this.gameObject);
         }        
@@ -243,7 +256,7 @@ public class Fish : Creature {
         transform.LookAt(nearest);
         gameObject.AddComponent<Rigidbody>();
         _rigid = GetComponent<Rigidbody>();
-        _rigid.velocity = -transform.forward * -(PortRoyal.Instance.FishJumpToWaterMultiplier.x) + (transform.up * PortRoyal.Instance.FishJumpToWaterMultiplier.y);
+        _rigid.velocity = -transform.forward * -(portRoyal.FishJumpToWaterMultiplier.x) + (transform.up * portRoyal.FishJumpToWaterMultiplier.y);
         _collider.enabled = false;
     }
 
@@ -254,8 +267,9 @@ public class Fish : Creature {
         gameObject.AddComponent<Rigidbody>();
         _rigid = GetComponent<Rigidbody>();
         float scaleToDuration = duration / maxHolding;
-        chargePercent =  (int)(scaleToDuration * 100.0f);
-        _rigid.velocity = -transform.forward * -(forwardMultiplier * scaleToDuration) + (transform.up* upMultiplier);
+        chargePercent = (int)scaleToDuration *100;
+        float chargePer = Mathf.Lerp(0.1f, 1, scaleToDuration);
+        _rigid.velocity = -transform.forward * -(forwardMultiplier * chargePer) + (transform.up* upMultiplier);
         throwAttack = _cSpecial.attack * scaleToDuration;
     }
 

@@ -71,7 +71,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1769779184463570}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.0028, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4131956419975194}
@@ -144,8 +144,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.013000004, y: 0.004714564, z: 0.013000004}
-  m_Center: {x: -0.002750574, y: 0.0010584551, z: 0}
+  m_Size: {x: 0.013000004, y: 0.0047, z: 0.013000004}
+  m_Center: {x: 0, y: 0.002, z: 0}
 --- !u!82 &82610425234197824
 AudioSource:
   m_ObjectHideFlags: 1
@@ -272,7 +272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 15
   invicibilityFrame: 20
-  ignorePlayerFrame: 1
+  ignorePlayerFrame: 10
   bounceForce: {x: 0, y: 20, z: 0}
   ShockingFrame: 10
   sfx_Shock: {fileID: 8300000, guid: 83c2c9cf12e1e634796c49ce699aaa86, type: 3}
@@ -281,6 +281,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 869d40a8c0aa8cc4fa3a95bfd03267d4, type: 3}
   - {fileID: 8300000, guid: af70bd630801c2c41ad6ccf048b2ff1b, type: 3}
   - {fileID: 8300000, guid: cb8aa2fa1f22804439ca73d3060bc371, type: 3}
+  ignoreBounceFrame: 4
+  drowningSpeed: 4
+  sharkDetectRadius: 10
+  reachDistance: 0.5
+  drowningDirection: 1
+  rayColor: {r: 1, g: 0.2028302, b: 0.94208074, a: 1}
+  sharkTransform: {fileID: 0}
 --- !u!114 &114812884268322648
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -296,6 +303,9 @@ MonoBehaviour:
   animClipList:
   - {fileID: 7400000, guid: ebdd64b0f12afee4aa60d50472f2226e, type: 2}
   - {fileID: 7400000, guid: d8df58e2c5077ca4cbe804dabfa2576f, type: 2}
+  - {fileID: 7400000, guid: b3fb7e3bb6bd9b342bd6a5bd7d413cdc, type: 2}
+  - {fileID: 7400000, guid: dc4516ca8fe43b945b7208cfbddfd661, type: 2}
+  - {fileID: 7400000, guid: 2404e449e8e4b3f41a4708659ffc87f1, type: 2}
 --- !u!114 &114919741911121930
 MonoBehaviour:
   m_ObjectHideFlags: 1
