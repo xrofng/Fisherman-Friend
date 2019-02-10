@@ -23,7 +23,7 @@ public class JoystickRegister : MonoBehaviour
         {
             for (int i = 0; i < Input.GetJoystickNames().Length; i++)
             {
-                Debug.Log(i+Input.GetJoystickNames()[i]);
+                Debug.Log(i + Input.GetJoystickNames()[i]);
             }
         }
         if (Input.GetKeyDown(KeyCode.J))
@@ -39,7 +39,7 @@ public class JoystickRegister : MonoBehaviour
         {
             string joyName = Input.GetJoystickNames()[i];
 
-            if (JoystickManager.Instance.GetButtonDown("Jump",i) )
+            if (JoystickManager.Instance.GetButtonDown("Jump",i,true) )
             {
                 if (!registeredJoystick.Contains(joyName))
                 {
@@ -52,8 +52,6 @@ public class JoystickRegister : MonoBehaviour
                 {
                     Debug.Log("contain" + joyName);
                 }
-               
-
             }
         }
     }
