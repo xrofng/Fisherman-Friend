@@ -10,6 +10,8 @@ public class JoystickTester : MonoBehaviour
     private bool testing = false;
     private SpriteRenderer spriterenderer;
 
+    public bool testUnregis = false;
+
     void Start()
     {
         spriterenderer = GetComponent<SpriteRenderer>();
@@ -18,7 +20,7 @@ public class JoystickTester : MonoBehaviour
 
     void Update()
     {
-        if (JoystickManager.Instance.GetButtonDown("Jump", playerId))
+        if (JoystickManager.Instance.GetButtonDown("Jump", playerId,testUnregis))
         {
             testing = !testing;
             if (testing)

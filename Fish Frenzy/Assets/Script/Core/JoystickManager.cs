@@ -61,14 +61,13 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
     /// </summary>
     protected virtual void Start()
     {
-        InitializeInput();
-        RemapButton();
+         InitializeInput();
+         
+         RemapButton();
     }
 
     protected virtual void InitializeInput()
     {
-        
-
         // specify button of 1st joystick
         playerButton.Add(Fishing, KeyCode.Joystick1Button2);
         playerButton.Add(Jump, KeyCode.Joystick1Button1);
@@ -136,21 +135,9 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
     /// </summary>
     /// <param name="playerID_1"></param>
     /// <param name="playerID_2"></param>
-    public void AssignPlayerButton(int playerID_1, int playerID_2)
+    public void AssignPlayerButton(int playerID, int unregisJoyID)
     {
-        Debug.Log(playerID_1);
-        Debug.Log(playerID_2);
-        if (playerID_1 == playerID_2)
-        {
-            return;
-        }
-        List<string> buttonKeys = new List<string>(playerButton.Keys);
-        foreach (string key in buttonKeys)
-        {
-            KeyCode temp = ButtonList[playerID_1][key];
-            ButtonList[playerID_1][key] = ButtonList[playerID_2][key];
-            ButtonList[playerID_2][key] = temp;
-        }
+        ButtonList[playerID] = UnregisterButtonList[unregisJoyID];
     }
 
     /// <summary>

@@ -66,7 +66,7 @@ public class GameLoop : MonoBehaviour
         timeCountDown = Round_Time_Limit;
 
         StartCoroutine(CountDown(startCountDown));
-        StartCoroutine(SpawnPlayer(startCountDown));
+        StartCoroutine(ieSpawnPlayer(startCountDown));
     }
 
     public void Reset()
@@ -153,9 +153,9 @@ public class GameLoop : MonoBehaviour
     }
 
     List<int> takenPos = new List<int>();
-    void spawnPlayers(int playerID)
+    void SpawnPlayers(int playerID)
     {
-        Player p = MaterialManager.Instance.InstantiatePlayer(playerPrefab, playerID).GetComponent<Player>();
+        Player p = MaterialManager.Instance.InstantiatePlayer(playerPrefab, PlayerData.Instance.playerSkinId[playerID]).GetComponent<Player>();
         portRoyal.Player[playerID] = p;
         p.playerID = playerID + 1;
         p.gameObject.name = "Player" + p.playerID;
@@ -179,16 +179,17 @@ public class GameLoop : MonoBehaviour
         focusCamera.MoveCameraTo(p.gameObject.transform.position,true);
     }
 
-    IEnumerator SpawnPlayer(float waitTime)
+    IEnumerator ieSpawnPlayer(float waitTime)
     {
         multiplayerCamera.enabled = true;
         multiplayerCamera.ClearTarget();
-        for (int i = 0; i < portRoyal.numPlayer; i++)
-        {
-            yield return new WaitForSeconds(playerSpawnRate);
-            spawnPlayers(i);
-        }
+        float _playerSpawnRate = playerSpawnRate * PlayerData.Instance.maxNumPlayer / PlayerData.Instance.numPlayer;
         yield return new WaitForSeconds(playerSpawnRate);
+        for (int i = 0; i < PlayerData.Instance.numPlayer; i++)
+        {
+            SpawnPlayers(i);
+            yield return new WaitForSeconds(_playerSpawnRate);
+        }
         focusCamera.MoveCameraTo(multiplayerCamera.GetNewPosition(),false);
     }
     IEnumerator CountDown(float waitTime)

@@ -95,6 +95,7 @@ namespace FishFrenzy
         {
             customizePropertiesImage[(int)CustomProperties.color].color = colorCustom[customIndex[(int)CustomProperties.color]];
             MaterialManager.Instance.GetChangedColorPlayer(playerModel, customIndex[(int)CustomProperties.color]);
+            PlayerData.Instance.playerSkinId[playerCustomizeMenuID] = customIndex[(int)CustomProperties.color];
         }
 
         IEnumerator ieIgnoreInput()

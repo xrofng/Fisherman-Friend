@@ -17,7 +17,7 @@ public class CharacterSceneGUI : GameSceneGUI
 	void Update () {
         for (int i = 0; i < Input.GetJoystickNames().Length; i++)
         {
-            if (JoystickManager.Instance.GetButtonDown("Pause", i) || Input.GetKeyDown(KeyCode.G))
+            if (JoystickManager.Instance.GetButtonDown("Pause", i, true) || Input.GetKeyDown(KeyCode.G))
             {
                 Initiate.Fade("Gameplay", Color.white, 2.0f);
             }
