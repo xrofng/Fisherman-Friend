@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 public class Result : MonoBehaviour
 {
-    public float ignoreInputTime;
+    public float ignoreInputDuration;
+    public float victoryAnimDuration;
     public ResultPanel resultPanelRef;
     //private List<ResultPanel> panelList = new List<ResultPanel>();
-    public Canvas mainCanvas;
+    public Canvas resultCanvas;
 
     public float panelDistance;
     //
@@ -16,19 +17,20 @@ public class Result : MonoBehaviour
     public List<Sprite> rankSpriteList = new List<Sprite>();
     public List<ResultPanel> playerPanel = new List<ResultPanel>();
 
-
+    protected int winnerId;
     protected int maxNumPlayer;
     protected int numPlayer;
+    public GameObject playerPrefab;
     public List<string> stageEnvironmentName = new List<string>();
     // Use this for initialization
     void Start () {
-        maxNumPlayer = MatchResult.Instance.maxNumPlayer;
-        numPlayer = MatchResult.Instance.numPlayer;
+        maxNumPlayer = PlayerData.Instance.maxNumPlayer;
+        numPlayer = PlayerData.Instance.numPlayer;
 
         float offsetX = (panelDistance / 2) * (maxNumPlayer - numPlayer);
         for(int i = 0; i < numPlayer; i++)
         {
-            ResultPanel thisPanel = Instantiate(resultPanelRef, mainCanvas.transform) as ResultPanel;
+            ResultPanel thisPanel = Instantiate(resultPanelRef, resultCanvas.transform) as ResultPanel;
             thisPanel.myRect.anchoredPosition += Vector2.right * offsetX;
             thisPanel.myRect.anchoredPosition += Vector2.right * panelDistance * i;
             thisPanel.panel.sprite = panelSprite[i];
@@ -42,8 +44,17 @@ public class Result : MonoBehaviour
         UpdateAllResultText();
 
         EvaluateScore();
-    }
 
+        // TODO play vic of winner
+        // spawn winner
+        SpawnWinner(winnerId);
+
+
+        resultCanvas.gameObject.SetActive(false);
+    }
+    /// <summary>
+    /// store id
+    /// </summary>
     void ComputeResultValue()
     {
         // loop through panel check KnockBy list of each player
@@ -61,6 +72,9 @@ public class Result : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// change rank image for each player, store id of winner
+    /// </summary>
     void EvaluateScore()
     {
         List<ResultPanel> sortPanel = playerPanel;
@@ -78,6 +92,17 @@ public class Result : MonoBehaviour
         {
             sortPanel[pId].rank.sprite = rankSpriteList[pId];
         }
+
+        winnerId = sortPanel[0].playerId-1;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    void SpawnWinner(int winerId)
+    {
+        GameObject playerObject = Instantiate(playerPrefab);
+        playerObject = MaterialManager.Instance.GetChangedColorPlayer(playerObject, PlayerData.Instance.playerSkinId[winnerId]);
     }
 
     void StageEnviKnockerCheck(int pId, string knockerName)
@@ -134,12 +159,27 @@ public class Result : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-        ignoreInputTime -= Time.deltaTime;
-        if (Input.anyKey && ignoreInputTime<=0)
+
+        victoryAnimDuration -= Time.deltaTime;
+        if (victoryAnimDuration <= 0)
+        {
+            resultCanvas.gameObject.SetActive(true);
+        }
+        else
+        {
+            return;
+        }
+
+        ignoreInputDuration -= Time.deltaTime;
+        if (Input.anyKey && ignoreInputDuration<=0)
         {
             GetComponent<AudioSource>().Play();
             Initiate.Fade("Start Menu", Color.white, 2.0f);
         }
+
+
+        
+
     }
-    
+
 }

@@ -59,7 +59,6 @@ public class MaterialManager : PersistentSingleton<MaterialManager>
             materialSetList.Add(materialSet0);
             materialSetList.Add(materialSet1);
         }
-
         return materialSetList[setIndex][colorIndex];
     }
 }
