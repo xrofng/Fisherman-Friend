@@ -3,107 +3,174 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FishFrenzy
+
+public class CustomizationMenu : MonoBehaviour
 {
-    public class CustomizationMenu : MonoBehaviour
+    enum CustomProperties
     {
-        enum CustomProperties
+        hat = 0,
+        color,
+        victoryintro
+    };
+    public int playerCustomizeMenuID;
+    public float inputDelay = 0.75f;
+    private bool ignorInput = false;
+    public GameObject playerModel;
+
+    [Header("Menu")]
+    public RectTransform propertiesHighlight;
+    public Image[] customizePropertiesImage;
+    public Image selectionPanelUIImage;
+    public Image ReadyButtonUIImage;
+    public Sprite[] selectionPanelImages;
+    public Sprite[] ReadyButtonImages;
+    public Sprite[] ReadyButtonHoverImages;
+    public bool playerReady = false;
+
+    [Header("Properties")]
+    /// index of chosen custmization of all property
+    public int[] customIndex = new int[3];
+    /// index of highlighted property
+    private int customizePropertiesIndex;
+     /// length of property of all property
+    private int[] propertiesLength = new int[3];
+    public Sprite[] hatCustom;
+    public Sprite[] colorCustom;
+    public Sprite[] vicCustom;
+
+    // ref to other
+    private CharacterSceneGUI _characterSceneGUI;
+    private CharacterSceneGUI CharacterSceneGUI
+    {
+        get
         {
-            hat =0,
-            color,
-            koeffect,
-            victoryintro
-        };
-        public int playerCustomizeMenuID;
-        public float inputDelay = 0.75f;
-        private bool ignorInput = false;
-        public GameObject playerModel;
+            if (!_characterSceneGUI)
+            {
+                _characterSceneGUI = FindObjectOfType<CharacterSceneGUI>();
+            }
+            return _characterSceneGUI;
+        }
+    }
+    
+    public void AddCustomizePropertiesIndex(int increment)
+    {
+        int customizeProperties_Ready = customizePropertiesImage.Length + 1;
+        customizePropertiesIndex = (customizeProperties_Ready
+            + customizePropertiesIndex
+            + increment)
+            % customizeProperties_Ready;
+    }
 
-        public Image propertiesHighlight;
-        public Image[] customizePropertiesImage;
+    public void AddCustomizeIndex(int customizePropertiesIndex, int increment)
+    {
+        int beforeChangedIndex = customIndex[customizePropertiesIndex];
+        int changedIndex = (propertiesLength[customizePropertiesIndex]
+            + customIndex[customizePropertiesIndex]
+            + increment)
+            % propertiesLength[customizePropertiesIndex];
 
-        [Header("Properties")]
-        public int[] customIndex = new int[4];  
-        public int[] propertiesLength = new int[4];
-        public Sprite[] hatCustom;
-        public Color[] colorCustom;
-        public Sprite[] koCustom;
-        public Sprite[] vicCustom;
-
-        private int customizePropertiesIndex;
-
-        public void AddCustomizePropertiesIndex(int increment)
+        if (customizePropertiesIndex == (int)CustomProperties.color)
         {
-            customizePropertiesIndex = (customizePropertiesImage.Length
-                + customizePropertiesIndex 
-                + increment) 
-                % customizePropertiesImage.Length;
+            CharacterSceneGUI.RemoveTakenId(beforeChangedIndex);
+            SetSkinColorIndex(changedIndex, increment);
+            return;
+        }
+        customIndex[customizePropertiesIndex] = changedIndex;
+    }
+
+    public void SetSkinColorIndex(int changeToIndex, int increment)
+    {
+        customIndex[(int)CustomProperties.color] = changeToIndex;
+        if (CharacterSceneGUI.takenSkinColorId.Contains(changeToIndex))
+        {
+            AddCustomizeIndex((int)CustomProperties.color, increment);
+        }else
+        {
+            customIndex[(int)CustomProperties.color] = changeToIndex;
+            CharacterSceneGUI.takenSkinColorId.Add(changeToIndex);
         }
 
-        public void AddCustomizeIndex(int customizePropertiesIndex, int increment)
+    }
+
+    void Awake()
+    {
+        if(propertiesLength.Length != customizePropertiesImage.Length ||
+            customizePropertiesImage.Length != customIndex.Length ||
+            propertiesLength.Length != customIndex.Length)
         {
-            customIndex[customizePropertiesIndex] = (propertiesLength[customizePropertiesIndex] 
-                + customIndex[customizePropertiesIndex] 
-                + increment) 
-                % propertiesLength[customizePropertiesIndex];
+            Debug.LogWarning("length no equal");
+        }
+        propertiesLength[(int)CustomProperties.color] = colorCustom.Length;
+        propertiesLength[(int)CustomProperties.hat] = hatCustom.Length;
+        propertiesLength[(int)CustomProperties.victoryintro] = vicCustom.Length;
+
+        selectionPanelUIImage.sprite = selectionPanelImages[playerCustomizeMenuID];
+        ReadyButtonUIImage.sprite = ReadyButtonImages[playerCustomizeMenuID];
+
+        UpdatePropertiesHighlight();
+        UpdateCustomizeImage();
+
+    }
+
+    void Update()
+    {
+        ChangeCustomizeProperties();
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    void ChangeCustomizeProperties()
+    {
+        if (ignorInput)
+        {
+            return;
         }
 
-        void Start()
+        float axisRawX = JoystickManager.Instance.GetAxisRaw("Hori", playerCustomizeMenuID);
+        float axisRawY = JoystickManager.Instance.GetAxisRaw("Verti", playerCustomizeMenuID);
+        if (sClass.intervalCheck(axisRawX, -0.9f, 0.9f, true))
         {
-            UpdatePropertiesHighlight();
+            AddCustomizeIndex(customizePropertiesIndex, sClass.getSign(axisRawX, 0.015f));
             UpdateCustomizeImage();
-
+            StartCoroutine(ieIgnoreInput());
         }
-
-        void Update()
+        if (sClass.intervalCheck(axisRawY, -0.9f, 0.9f, true))
         {
-            ChangeCustomizeProperties();
+            AddCustomizePropertiesIndex(-sClass.getSign(axisRawY, 0.015f));
+            UpdatePropertiesHighlight();
+            StartCoroutine(ieIgnoreInput());
         }
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        void ChangeCustomizeProperties()
+    void UpdatePropertiesHighlight()
+    {
+        if(customizePropertiesIndex >= customizePropertiesImage.Length)
         {
-            if (ignorInput)
-            {
-                return;
-            }
-
-            float axisRawX = JoystickManager.Instance.GetAxisRaw("Hori", playerCustomizeMenuID);
-            float axisRawY = JoystickManager.Instance.GetAxisRaw("Verti", playerCustomizeMenuID);
-            if (sClass.intervalCheck(axisRawX, -0.9f, 0.9f, true))
-            {
-                AddCustomizeIndex(customizePropertiesIndex, sClass.getSign(axisRawX, 0.015f));
-                UpdateCustomizeImage();
-                StartCoroutine(ieIgnoreInput());
-            }
-            if (sClass.intervalCheck(axisRawY, -0.9f, 0.9f, true))
-            {
-                AddCustomizePropertiesIndex(-sClass.getSign(axisRawY, 0.015f));
-                UpdatePropertiesHighlight();
-                StartCoroutine(ieIgnoreInput());
-            }
+            propertiesHighlight.position = Vector3.one * 10000;
+            ReadyButtonUIImage.sprite = ReadyButtonHoverImages[playerCustomizeMenuID];
         }
-
-        void UpdatePropertiesHighlight()
+        else
         {
-            propertiesHighlight.rectTransform.position = customizePropertiesImage[customizePropertiesIndex].rectTransform.position;
+            ReadyButtonUIImage.sprite = ReadyButtonImages[playerCustomizeMenuID];
+            propertiesHighlight.position = customizePropertiesImage[customizePropertiesIndex].rectTransform.position;
         }
+    }
 
-        void UpdateCustomizeImage()
-        {
-            customizePropertiesImage[(int)CustomProperties.color].color = colorCustom[customIndex[(int)CustomProperties.color]];
-            MaterialManager.Instance.GetChangedColorPlayer(playerModel, customIndex[(int)CustomProperties.color]);
-            PlayerData.Instance.playerSkinId[playerCustomizeMenuID] = customIndex[(int)CustomProperties.color];
-        }
+    void UpdateCustomizeImage()
+    {
+        customizePropertiesImage[(int)CustomProperties.hat].sprite = hatCustom[customIndex[(int)CustomProperties.hat]];
+        customizePropertiesImage[(int)CustomProperties.color].sprite = colorCustom[customIndex[(int)CustomProperties.color]];
+        customizePropertiesImage[(int)CustomProperties.victoryintro].sprite = vicCustom[customIndex[(int)CustomProperties.victoryintro]];
+        MaterialManager.Instance.GetChangedColorPlayer(playerModel, customIndex[(int)CustomProperties.color]);
+        PlayerData.Instance.playerSkinId[playerCustomizeMenuID] = customIndex[(int)CustomProperties.color];
+    }
 
-        IEnumerator ieIgnoreInput()
-        {
-            ignorInput = true;
-            yield return new WaitForSeconds(inputDelay);
-            ignorInput = false;
-        }
+    IEnumerator ieIgnoreInput()
+    {
+        ignorInput = true;
+        yield return new WaitForSeconds(inputDelay);
+        ignorInput = false;
     }
 }
 

@@ -46,6 +46,7 @@ public class JoystickRegister : MonoBehaviour
                     registeredJoystick.Add(joyName);
                     JoystickManager.Instance.AssignPlayerButton(numPlayerInMatch, i);
                     AddInMatchPlayerNum(1);
+
                     gameSceneGui.OnJoystickRegister(numPlayerInMatch);
                 }
                 else

@@ -5,8 +5,9 @@ using UnityEngine;
 public class CharacterSceneGUI : GameSceneGUI
 {
     public int maxPlayer;
-    public GameObject[] playersCustomizationMenu;
+    public CustomizationMenu[] playersCustomizationMenu;
     public GameObject addPlayerLayout;
+    public List<int> takenSkinColorId;
 
     // Use this for initialization
     void Start () {
@@ -33,10 +34,19 @@ public class CharacterSceneGUI : GameSceneGUI
 
     void ShowPlayerLayout(int currentPlayerNumber)
     {
-        playersCustomizationMenu[currentPlayerNumber - 1].SetActive(true);
-        if(currentPlayerNumber == maxPlayer)
+        playersCustomizationMenu[currentPlayerNumber - 1].gameObject.SetActive(true);
+        playersCustomizationMenu[currentPlayerNumber - 1].SetSkinColorIndex(currentPlayerNumber - 1,1);
+        if (currentPlayerNumber == maxPlayer)
         {
             addPlayerLayout.SetActive(false);
+        }
+    }
+
+    public void RemoveTakenId(int remove)
+    {
+        if (takenSkinColorId.Contains(remove))
+        {
+            takenSkinColorId.Remove(remove);
         }
     }
 }
