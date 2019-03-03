@@ -89,6 +89,7 @@ public class CustomizationMenu : MonoBehaviour
             customIndex[(int)CustomProperties.color] = changeToIndex;
             CharacterSceneGUI.takenSkinColorId.Add(changeToIndex);
         }
+        UpdateCustomizeImage();
 
     }
 
@@ -108,7 +109,6 @@ public class CustomizationMenu : MonoBehaviour
         ReadyButtonUIImage.sprite = ReadyButtonImages[playerCustomizeMenuID];
 
         UpdatePropertiesHighlight();
-        UpdateCustomizeImage();
 
     }
 

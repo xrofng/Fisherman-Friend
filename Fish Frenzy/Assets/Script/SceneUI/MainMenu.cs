@@ -12,13 +12,15 @@ public class MainMenu : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.anyKey)
+        for(int i= 0 ; i < PlayerData.Instance.maxNumPlayer; i++)
         {
-            GetComponent<AudioSource>().Play();
-            Initiate.Fade("Gameplay", Color.white, 2.0f);
-            //GameLoop.Instance.Reset();
-
+            if (JoystickManager.Instance.GetButtonDown("Pause",i))
+            {
+                GetComponent<AudioSource>().Play();
+                Initiate.Fade("CharacterSelect", Color.white, 2.0f);
+            }
         }
+        
     }
     
 }

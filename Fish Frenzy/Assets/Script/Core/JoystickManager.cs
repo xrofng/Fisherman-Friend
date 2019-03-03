@@ -24,6 +24,7 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
     public string Hori = "Hori";
     public string Verti = "Verti";
     public string Pause = "Pause";
+    public string R2 = "R2";
 
     /* /// <summary>
             X = 1
@@ -77,7 +78,8 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
         playerButton.Add(AltSwitch, KeyCode.Joystick1Button4);
         playerButton.Add(Hori, KeyCode.Joystick1Button18);
         playerButton.Add(Verti, KeyCode.Joystick1Button19);
-        playerButton.Add(Pause, KeyCode.Joystick1Button7);
+        playerButton.Add(Pause, KeyCode.Joystick1Button9);
+        playerButton.Add(R2, KeyCode.Joystick1Button7);
         ButtonList.Add(playerButton);
         UnregisterButtonList.Add(playerButton);
 
@@ -94,6 +96,8 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
             ButtonList.Add(newKeyDict);
             UnregisterButtonList.Add(newKeyDict);
         }
+
+        
     }
 
     /// <summary>
@@ -120,6 +124,7 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
             {
                 SwapButton(Jump, Throw, i);
                 SwapButton(Throw, Fishing, i);
+                SwapButton(R2, Pause, i);
             }
         }
     }
