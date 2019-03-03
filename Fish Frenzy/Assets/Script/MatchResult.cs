@@ -7,8 +7,14 @@ public class MatchResult : PersistentSingleton<MatchResult>
     [Header("Kill Count")]
     public bool unTagEnable = false;
     public float untagAttackerDuration = 5.0f;
-    public int maxNumPlayer = 4;
-    public int numPlayer = 4;
+    public int maxNumPlayer
+    {
+        get { return PlayerData.Instance.maxNumPlayer; }
+    }
+    public int numPlayer
+    {
+        get { return PlayerData.Instance.numPlayer; }
+    }
 
     protected GUIManager _guiManager;
     public GUIManager GUIManager

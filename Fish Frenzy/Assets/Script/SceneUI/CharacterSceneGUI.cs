@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterSceneGUI : GameSceneGUI
 {
     public int maxPlayer;
-    public GameObject[] playersLayout;
+    public GameObject[] playersCustomizationMenu;
     public GameObject addPlayerLayout;
 
     // Use this for initialization
@@ -17,10 +17,11 @@ public class CharacterSceneGUI : GameSceneGUI
 	void Update () {
         for (int i = 0; i < Input.GetJoystickNames().Length; i++)
         {
-            if (JoystickManager.Instance.GetButtonDown("Pause", i) || Input.GetKeyDown(KeyCode.G))
+            if (JoystickManager.Instance.GetButtonDown("Pause", i, true) || Input.GetKeyDown(KeyCode.G))
             {
                 Initiate.Fade("Gameplay", Color.white, 2.0f);
             }
+
         }
     }
 
@@ -32,7 +33,7 @@ public class CharacterSceneGUI : GameSceneGUI
 
     void ShowPlayerLayout(int currentPlayerNumber)
     {
-        playersLayout[currentPlayerNumber - 1].SetActive(true);
+        playersCustomizationMenu[currentPlayerNumber - 1].SetActive(true);
         if(currentPlayerNumber == maxPlayer)
         {
             addPlayerLayout.SetActive(false);

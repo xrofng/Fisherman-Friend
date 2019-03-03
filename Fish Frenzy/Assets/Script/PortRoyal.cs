@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class PortRoyal : MonoBehaviour
 {
-    public int numPlayer = 4;
-    public int maxNumPlayer = 4;
-
     public float characterMass;
 
     public bool debugMode;
@@ -24,7 +21,7 @@ public class PortRoyal : MonoBehaviour
 
     public Player[] Player
     {
-        get { return StartupPlayer.Instance.player; }
+        get { return PlayerData.Instance.player; }
     }
     public Transform[] spawnPoint;
     public Transform underWater;

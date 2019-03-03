@@ -8,12 +8,11 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
 {
     int numPlayer = 4;
 
-    public Dictionary<string, KeyCode> Player1Button = new Dictionary<string, KeyCode>();
-    public Dictionary<string, KeyCode> Player2Button = new Dictionary<string, KeyCode>();
-    public Dictionary<string, KeyCode> Player3Button = new Dictionary<string, KeyCode>();
-    public Dictionary<string, KeyCode> Player4Button = new Dictionary<string, KeyCode>();
+    public Dictionary<string, KeyCode> playerButton = new Dictionary<string, KeyCode>();
 
     public List<Dictionary<string, KeyCode>> ButtonList = new List<Dictionary<string, KeyCode>>();
+
+    public List<Dictionary<string, KeyCode>> UnregisterButtonList = new List<Dictionary<string, KeyCode>>();
 
     [Header("Button Key")]
     public string Fishing = "Fishing";
@@ -62,38 +61,38 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
     /// </summary>
     protected virtual void Start()
     {
-        InitializeInput();
-        RemapButton();
+         InitializeInput();
+         
+         RemapButton();
     }
 
     protected virtual void InitializeInput()
     {
-        ButtonList.Add(Player1Button);
-        ButtonList.Add(Player2Button);
-        ButtonList.Add(Player3Button);
-        ButtonList.Add(Player4Button);
-
         // specify button of 1st joystick
-        Player1Button.Add(Fishing, KeyCode.Joystick1Button2);
-        Player1Button.Add(Jump, KeyCode.Joystick1Button1);
-        Player1Button.Add(Special, KeyCode.Joystick1Button3);
-        Player1Button.Add(Throw, KeyCode.Joystick1Button0);
-        Player1Button.Add(Switch, KeyCode.Joystick1Button5);
-        Player1Button.Add(AltSwitch, KeyCode.Joystick1Button4);
-        Player1Button.Add(Hori, KeyCode.Joystick1Button18);
-        Player1Button.Add(Verti, KeyCode.Joystick1Button19);
-        Player1Button.Add(Pause, KeyCode.Joystick1Button7);
+        playerButton.Add(Fishing, KeyCode.Joystick1Button2);
+        playerButton.Add(Jump, KeyCode.Joystick1Button1);
+        playerButton.Add(Special, KeyCode.Joystick1Button3);
+        playerButton.Add(Throw, KeyCode.Joystick1Button0);
+        playerButton.Add(Switch, KeyCode.Joystick1Button5);
+        playerButton.Add(AltSwitch, KeyCode.Joystick1Button4);
+        playerButton.Add(Hori, KeyCode.Joystick1Button18);
+        playerButton.Add(Verti, KeyCode.Joystick1Button19);
+        playerButton.Add(Pause, KeyCode.Joystick1Button7);
+        ButtonList.Add(playerButton);
+        UnregisterButtonList.Add(playerButton);
+
         // duplicate input from 1st to other but increase key code by offsetToNextPlayerKeycode
 
         int offsetToNextPlayerKeycode = KeyCode.Joystick2Button0 - KeyCode.Joystick1Button0;
         for (int i = 1; i < numPlayer; i++)
         {
             Dictionary<string, KeyCode> newKeyDict = new Dictionary<string, KeyCode>();
-            foreach (string key in Player1Button.Keys)
+            foreach (string key in playerButton.Keys)
             {
-                newKeyDict.Add(key, Player1Button[key] + offsetToNextPlayerKeycode * i);
+                newKeyDict.Add(key, playerButton[key] + offsetToNextPlayerKeycode * i);
             }
-            ButtonList[i] = newKeyDict;
+            ButtonList.Add(newKeyDict);
+            UnregisterButtonList.Add(newKeyDict);
         }
     }
 
@@ -136,21 +135,9 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
     /// </summary>
     /// <param name="playerID_1"></param>
     /// <param name="playerID_2"></param>
-    public void AssignPlayerButton(int playerID_1, int playerID_2)
+    public void AssignPlayerButton(int playerID, int unregisJoyID)
     {
-        Debug.Log(playerID_1);
-        Debug.Log(playerID_2);
-        if (playerID_1 == playerID_2)
-        {
-            return;
-        }
-        List<string> buttonKeys = new List<string>(Player1Button.Keys);
-        foreach (string key in buttonKeys)
-        {
-            KeyCode temp = ButtonList[playerID_1][key];
-            ButtonList[playerID_1][key] = ButtonList[playerID_2][key];
-            ButtonList[playerID_2][key] = temp;
-        }
+        ButtonList[playerID] = UnregisterButtonList[unregisJoyID];
     }
 
     /// <summary>
@@ -165,7 +152,7 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
     }
     void PrintPlayerButton(int playerID)
     {
-        foreach (string key in Player1Button.Keys)
+        foreach (string key in playerButton.Keys)
         {
             print(playerID + " " + key + "   " + ButtonList[playerID][key]);
         }
@@ -177,11 +164,12 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
     /// <param name="buttonName"></param>
     /// <param name="playerID"></param>
     /// <returns></returns>
-    public bool GetAnyButtonDown(int playerID)
+    public bool GetAnyButtonDown(int playerID , bool isUnregistered = false)
     {
-        foreach (string key in Player1Button.Keys)
+        List<Dictionary<string, KeyCode>> _buttonList = GetButtonList(isUnregistered);
+        foreach (string key in playerButton.Keys)
         {
-            if (Input.GetKeyDown(ButtonList[playerID][key]))
+            if (Input.GetKeyDown(_buttonList[playerID][key]))
             {
                 return true;
             }
@@ -189,27 +177,32 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
         return false;
     }
 
-    public bool GetButtonDown(string buttonName, int playerID)
+    public bool GetButtonDown(string buttonName, int playerID, bool isUnregistered = false)
     {
-        return Input.GetKeyDown(ButtonList[playerID][buttonName]);
+        List<Dictionary<string, KeyCode>> _buttonList = GetButtonList(isUnregistered);
+        return Input.GetKeyDown(_buttonList[playerID][buttonName]);
     }
 
-    public bool GetButton(string buttonName, int playerID)
+    public bool GetButton(string buttonName, int playerID, bool isUnregistered = false)
     {
-        return Input.GetKey(ButtonList[playerID][buttonName]);
+        List<Dictionary<string, KeyCode>> _buttonList = GetButtonList(isUnregistered);
+        return Input.GetKey(_buttonList[playerID][buttonName]);
     }
 
-    public bool GetButtonUp(string buttonName, int playerID)
+    public bool GetButtonUp(string buttonName, int playerID, bool isUnregistered = false)
     {
-        return Input.GetKeyUp(ButtonList[playerID][buttonName]);
+        List<Dictionary<string, KeyCode>> _buttonList = GetButtonList(isUnregistered);
+        return Input.GetKeyUp(_buttonList[playerID][buttonName]);
     }
 
-    public bool GetOneButtonsDown(string[] buttonName, int playerID)
+    public bool GetOneButtonsDown(string[] buttonName, int playerID, bool isUnregistered = false)
     {
+        List<Dictionary<string, KeyCode>> _buttonList = GetButtonList(isUnregistered);
         for (int i = 0; i < buttonName.Length; i++)
         {
-            if (Input.GetKeyDown(ButtonList[playerID][buttonName[i]]))
+            if (Input.GetKeyDown(_buttonList[playerID][buttonName[i]]))
             {
+                Debug.Log(_buttonList[playerID][buttonName[i]]);
                 return true;
             }
         }
@@ -248,6 +241,18 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
             axisName = "Verti" + playerIDfromButton;
         }
         return Input.GetAxis(axisName);
+    }
+
+    List<Dictionary<string, KeyCode>> GetButtonList(bool isUnregister)
+    {
+        if (isUnregister)
+        {
+             return UnregisterButtonList;
+        }
+        else
+        {
+            return ButtonList;
+        }
     }
 }
 

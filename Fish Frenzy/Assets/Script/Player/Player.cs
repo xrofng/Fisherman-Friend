@@ -137,7 +137,7 @@ public class Player : Creature {
         playerID = gameObject.name[6] - 48;
         this.gameObject.layer = LayerMask.NameToLayer("Player" + playerID);
         fixedFPS_DT = 0.016f;
-        playerIndicator.sprite = StartupPlayer.Instance.playerIndicator[playerID-1];
+        playerIndicator.sprite = PlayerData.Instance.playerIndicator[playerID-1];
         rigid = GetComponent<Rigidbody>();
         rigid.mass = portRoyal.characterMass;
         _collider = GetComponent<BoxCollider>();

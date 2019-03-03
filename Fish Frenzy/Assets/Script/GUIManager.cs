@@ -51,6 +51,8 @@ public class GUIManager : MonoBehaviour
     public List<Sprite> DamagedSprite;
     /// list of list of sprite 0=normal 1=death 2=damaged
     protected List<List<Sprite>> PlayerSpriteSet = new List<List<Sprite>>();
+    ///
+    protected int numPlayer;
 
     [Header("Player UI")]
     public Sprite transparentSprite;
@@ -94,6 +96,7 @@ public class GUIManager : MonoBehaviour
     /// </summary>
     protected void Awake()
     {
+        numPlayer = PlayerData.Instance.numPlayer;
 
         InitImageList();
 
@@ -117,10 +120,10 @@ public class GUIManager : MonoBehaviour
     /// </summary>
     protected virtual void Start()
     {
-        for (int playerID = 0; playerID < 4; playerID++)
+        for (int playerID = 0; playerID < numPlayer; playerID++)
         {
             float a = DurabilityImage[playerID].color.a;
-            Color pColor= StartupPlayer.Instance.playerColor[playerID];
+            Color pColor= PlayerData.Instance.playerColor[playerID];
             DurabilityImage[playerID].color = new Color(pColor.r, pColor.g, pColor.b, a);
         }
         
@@ -133,7 +136,7 @@ public class GUIManager : MonoBehaviour
         PlayerUIList.Add(Player3_GUI);
         PlayerUIList.Add(Player4_GUI);
 
-        for(int i=0;i<4; i++)
+        for (int i = 0; i < numPlayer; i++)
         {
             scoreChangeList.Add(new List<RectTransform>());
         }
@@ -171,7 +174,7 @@ public class GUIManager : MonoBehaviour
     {
         if (gameLoop.state == GameLoop.GameState.playing)
         {
-            for (int playerID = 0; playerID < 4; playerID++)
+            for (int playerID = 0; playerID < numPlayer; playerID++)
             {
                 UpdateDamagePercent(playerID);
                 UpdateFaceSprite(playerID);
