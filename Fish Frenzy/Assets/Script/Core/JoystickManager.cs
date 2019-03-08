@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class JoystickManager : PersistentSingleton<JoystickManager>
 {
-    int numPlayer = 4;
-
     public Dictionary<string, KeyCode> playerButton = new Dictionary<string, KeyCode>();
 
     public List<Dictionary<string, KeyCode>> ButtonList = new List<Dictionary<string, KeyCode>>();
@@ -84,9 +82,10 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
         UnregisterButtonList.Add(playerButton);
 
         // duplicate input from 1st to other but increase key code by offsetToNextPlayerKeycode
-
+        
         int offsetToNextPlayerKeycode = KeyCode.Joystick2Button0 - KeyCode.Joystick1Button0;
-        for (int i = 1; i < numPlayer; i++)
+        int maxJoystickDetected = 8;
+        for (int i = 1; i <= maxJoystickDetected; i++)
         {
             Dictionary<string, KeyCode> newKeyDict = new Dictionary<string, KeyCode>();
             foreach (string key in playerButton.Keys)
@@ -150,7 +149,7 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
     /// </summary>
     public void PrintAllPlayerButton()
     {
-        for (int i = 0; i < numPlayer; i++)
+        for (int i = 0; i < PlayerData.Instance.numPlayer; i++)
         {
             PrintPlayerButton(i);
         }

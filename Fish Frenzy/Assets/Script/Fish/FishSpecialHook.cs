@@ -19,6 +19,7 @@ public class FishSpecialHook : FishSpecialThrow {
 
     protected override void OnThrowEnd()
     {
+        Debug.Log("HookIn");
         hookedPlayer = currentMovingObj.GetComponent<MovingObjHook>().HookedPlayer;
         if (hookedPlayer != null)
         {
@@ -57,6 +58,7 @@ public class FishSpecialHook : FishSpecialThrow {
 
     public void ReleaseHook()
     {
+        Debug.Log("Release");
         if (hookedPlayer)
         {
             hookedPlayer.RemoveAbilityInputIntercepter(this);

@@ -5941,8 +5941,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unTagEnable: 0
   untagAttackerDuration: 15
-  maxNumPlayer: 4
-  numPlayer: 4
   printLog: 0
 --- !u!114 &552195891
 MonoBehaviour:
@@ -12325,26 +12323,6 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4258717447166722, guid: 37a5eec4b16ac0340a05e1e79840ec0d, type: 2}
       propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114930179200439546, guid: 37a5eec4b16ac0340a05e1e79840ec0d,
-        type: 2}
-      propertyPath: gizmoSize.z
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 114930179200439546, guid: 37a5eec4b16ac0340a05e1e79840ec0d,
-        type: 2}
-      propertyPath: maxYPos
-      value: 13.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 114930179200439546, guid: 37a5eec4b16ac0340a05e1e79840ec0d,
-        type: 2}
-      propertyPath: RayColor.a
-      value: 0.11764706
-      objectReference: {fileID: 0}
-    - target: {fileID: 114200709442061076, guid: 37a5eec4b16ac0340a05e1e79840ec0d,
-        type: 2}
-      propertyPath: playerFocusingTime
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -19048,6 +19026,7 @@ MonoBehaviour:
   Hori: Hori
   Verti: Verti
   Pause: Pause
+  R2: R2
 --- !u!1 &2128297630
 GameObject:
   m_ObjectHideFlags: 0

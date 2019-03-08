@@ -1216,7 +1216,7 @@ AudioSource:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 487023773}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8109faa2ce8db1a468466d06c195228e, type: 3}
@@ -1958,6 +1958,7 @@ GameObject:
   m_Component:
   - component: {fileID: 644053747}
   - component: {fileID: 644053746}
+  - component: {fileID: 644053748}
   m_Layer: 0
   m_Name: Brazilian Sun Guitar 04_1
   m_TagString: Untagged
@@ -1974,7 +1975,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d4124c22dbb78804a9f0582e769e1fef, type: 3}
+  m_audioClip: {fileID: 8300000, guid: d50b1e3ed08a21a438da33d8d1c00fe5, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.75
   m_Pitch: 1
@@ -2073,6 +2074,18 @@ Transform:
   m_Father: {fileID: 554959410}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &644053748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 644053745}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba2362f22ce043b4f9d5631e6ea81655, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skipTime: 3.9
 --- !u!1 &662337595
 GameObject:
   m_ObjectHideFlags: 0
@@ -5301,6 +5314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62872d160421f104fb6f1f6cb7243619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ignoreInputDuration: 3
 --- !u!82 &1849158991
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6160,7 +6174,7 @@ AudioSource:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2073349501}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7d4805eca0ad5214f9adbe4db205dd7e, type: 3}

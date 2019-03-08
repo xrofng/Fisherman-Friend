@@ -47,7 +47,6 @@ public class SI_JellyFish : StageInteraction {
     {
         if (ignoreBounceList.Contains(_player))
         {
-            Debug.Log("No more bounce");
             return;
         }
 

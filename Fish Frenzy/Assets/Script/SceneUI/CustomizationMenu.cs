@@ -20,6 +20,7 @@ public class CustomizationMenu : MonoBehaviour
     [Header("Menu")]
     public RectTransform propertiesHighlight;
     public Image[] customizePropertiesImage;
+    private int customizePropertesNum;
     public Image selectionPanelUIImage;
     public Image ReadyButtonUIImage;
     public Sprite[] selectionPanelImages;
@@ -83,6 +84,7 @@ public class CustomizationMenu : MonoBehaviour
         customIndex[(int)CustomProperties.color] = changeToIndex;
         if (CharacterSceneGUI.takenSkinColorId.Contains(changeToIndex))
         {
+            CharacterSceneGUI.takenSkinColorId.Add(changeToIndex);
             AddCustomizeIndex((int)CustomProperties.color, increment);
         }else
         {
@@ -90,7 +92,6 @@ public class CustomizationMenu : MonoBehaviour
             CharacterSceneGUI.takenSkinColorId.Add(changeToIndex);
         }
         UpdateCustomizeImage();
-
     }
 
     void Awake()
@@ -104,6 +105,7 @@ public class CustomizationMenu : MonoBehaviour
         propertiesLength[(int)CustomProperties.color] = colorCustom.Length;
         propertiesLength[(int)CustomProperties.hat] = hatCustom.Length;
         propertiesLength[(int)CustomProperties.victoryintro] = vicCustom.Length;
+        customizePropertesNum = customizePropertiesImage.Length;
 
         selectionPanelUIImage.sprite = selectionPanelImages[playerCustomizeMenuID];
         ReadyButtonUIImage.sprite = ReadyButtonImages[playerCustomizeMenuID];
@@ -129,7 +131,7 @@ public class CustomizationMenu : MonoBehaviour
 
         float axisRawX = JoystickManager.Instance.GetAxisRaw("Hori", playerCustomizeMenuID);
         float axisRawY = JoystickManager.Instance.GetAxisRaw("Verti", playerCustomizeMenuID);
-        if (sClass.intervalCheck(axisRawX, -0.9f, 0.9f, true))
+        if (sClass.intervalCheck(axisRawX, -0.9f, 0.9f, true) && !CheckPropertiesIndexIsAtReady())
         {
             AddCustomizeIndex(customizePropertiesIndex, sClass.getSign(axisRawX, 0.015f));
             UpdateCustomizeImage();
@@ -171,6 +173,11 @@ public class CustomizationMenu : MonoBehaviour
         ignorInput = true;
         yield return new WaitForSeconds(inputDelay);
         ignorInput = false;
+    }
+
+    bool CheckPropertiesIndexIsAtReady()
+    {
+        return customizePropertiesIndex == customizePropertesNum;
     }
 }
 

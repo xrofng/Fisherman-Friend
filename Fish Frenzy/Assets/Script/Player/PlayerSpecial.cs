@@ -38,10 +38,16 @@ public class PlayerSpecial : PlayerAbility
     void SpecialFish()
     {
         string special = "Fishing" + _player.playerID;
-        if (_player.mainFish == null || !_player.mainFish.GetComponent<FishSpecial>())
+        if (_player.mainFish == null)
         {
             return;
         }
+
+        if(_player.mainFish.state == Fish.fState.dehydrate || !_player.mainFish.GetComponent<FishSpecial>())
+        {
+            return;
+        }
+
         SpecialMelee(special);
         SpecialThrow(special);
     }

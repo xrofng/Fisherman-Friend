@@ -92,5 +92,14 @@ public static class sClass {
         changed[3] = Mathf.Clamp01(changed[3]);
         return changed;
     }
+
+    public static void PrintListContent<T>(List<T> list, string listTitle)
+    {
+        foreach (T element in list)
+        {
+            listTitle += element + ",";
+        }
+        Debug.Log(listTitle);
+    }
 }
 

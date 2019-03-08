@@ -98,6 +98,7 @@ public class FishSpecialThrow : FishSpecial {
 
     protected virtual void OnThrowStart()
     {
+
         currentMovingObj = Instantiate(movingobject, this.transform.position, Quaternion.identity);// add pos set lyr
         currentMovingObj.gameObject.layer = LayerMask.NameToLayer("Fish" + _player.playerID);
         currentMovingObj.HitBox.Owner = _player.gameObject;

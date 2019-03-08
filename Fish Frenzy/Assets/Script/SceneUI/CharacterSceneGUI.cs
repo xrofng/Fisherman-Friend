@@ -49,4 +49,7 @@ public class CharacterSceneGUI : GameSceneGUI
             takenSkinColorId.Remove(remove);
         }
     }
+
+
+  
 }

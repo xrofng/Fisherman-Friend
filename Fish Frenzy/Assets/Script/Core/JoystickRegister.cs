@@ -41,9 +41,9 @@ public class JoystickRegister : MonoBehaviour
 
             if (JoystickManager.Instance.GetButtonDown("Jump", i, true))
             {
-                if (!registeredJoystick.Contains(joyName))
+                if (!registeredJoystick.Contains(joyName+i))
                 {
-                    registeredJoystick.Add(joyName);
+                    registeredJoystick.Add(joyName+i);
                     JoystickManager.Instance.AssignPlayerButton(numPlayerInMatch, i);
                     AddInMatchPlayerNum(1);
 
