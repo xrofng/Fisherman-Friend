@@ -127,7 +127,7 @@ public class GameLoop : MonoBehaviour
         {
             sceneChanging = true;            
             FrenzySpawner.StartFrenzy(false);
-            Initiate.Fade("Result", Color.white, 2.0f);
+            Initiate.Fade("Result", Color.white, 5.0f);
             OnChangeScene();
             
         }

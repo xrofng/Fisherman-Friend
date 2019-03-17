@@ -20,7 +20,7 @@ public class CharacterSceneGUI : GameSceneGUI
         {
             if (JoystickManager.Instance.GetButtonDown("Pause", i, true) || Input.GetKeyDown(KeyCode.G))
             {
-                Initiate.Fade("Gameplay", Color.white, 2.0f);
+                Initiate.FadeToLoading("Gameplay", Color.white, 2.0f);
             }
 
         }

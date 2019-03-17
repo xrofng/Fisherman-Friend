@@ -1,12 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Result : MonoBehaviour
+public class ResultSceneGUI : MonoBehaviour
 {
+    [Header("UI_Timing")]
     public float ignoreInputDuration;
     public float victoryAnimDuration;
+    public float hideLoserDuration;
+
     public ResultPanel resultPanelRef;
     //private List<ResultPanel> panelList = new List<ResultPanel>();
     public Canvas resultCanvas;
@@ -18,26 +22,32 @@ public class Result : MonoBehaviour
     public List<ResultPanel> playerPanel = new List<ResultPanel>();
 
     protected int winnerId;
+
     protected int maxNumPlayer;
     protected int numPlayer;
     public GameObject playerPrefab;
     public List<string> stageEnvironmentName = new List<string>();
+
+    [Header("Model")]
+    public List<ResultIntro> playerIntro = new List<ResultIntro>();
+    private List<int> playerIdByRank = new List<int>();
+    private bool showLoser;
+
     // Use this for initialization
     void Start () {
         maxNumPlayer = PlayerData.Instance.maxNumPlayer;
         numPlayer = PlayerData.Instance.numPlayer;
-
+        
         float offsetX = (panelDistance / 2) * (maxNumPlayer - numPlayer);
         for(int i = 0; i < numPlayer; i++)
         {
             ResultPanel thisPanel = Instantiate(resultPanelRef, resultCanvas.transform) as ResultPanel;
-            thisPanel.myRect.anchoredPosition += Vector2.right * offsetX;
-            thisPanel.myRect.anchoredPosition += Vector2.right * panelDistance * i;
+            thisPanel.Rect.anchoredPosition += Vector2.right * offsetX;
+            thisPanel.Rect.anchoredPosition += Vector2.right * panelDistance * i;
             thisPanel.panel.sprite = panelSprite[i];
             thisPanel.playerId = i+1;
             playerPanel.Add(thisPanel);
         }
-        Destroy(resultPanelRef.gameObject);
 
         ComputeResultValue();
 
@@ -45,11 +55,14 @@ public class Result : MonoBehaviour
 
         EvaluateScore();
 
-        // TODO play vic of winner
-        // spawn winner
-        SpawnWinner(winnerId);
+        //MaterialManager.Instance.GetChangedColorPlayer(playerIntro[0].characterModel, PlayerData.Instance.playerSkinId[playerIdByRank[0]]);
 
-
+        for (int i = 0; i < numPlayer; i++)
+        {
+            MaterialManager.Instance.GetChangedColorPlayer(playerIntro[i].characterModel, PlayerData.Instance.playerSkinId[playerIdByRank[i]]);
+            playerIntro[i].ChangeBackDropColor(playerIdByRank[i]);
+        }
+        
         resultCanvas.gameObject.SetActive(false);
     }
     /// <summary>
@@ -88,21 +101,14 @@ public class Result : MonoBehaviour
             return y.matchScore.CompareTo(x.matchScore);
         });
         // loop through panel check KnockBy list of each player
-        for (int pId = 0; pId < playerPanel.Count; pId++)
+        for (int pId = 0; pId < numPlayer; pId++)
         {
+            playerIdByRank.Add(sortPanel[pId].playerId-1);
             sortPanel[pId].rank.sprite = rankSpriteList[pId];
         }
 
-        winnerId = sortPanel[0].playerId-1;
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    void SpawnWinner(int winerId)
-    {
-        GameObject playerObject = Instantiate(playerPrefab);
-        playerObject = MaterialManager.Instance.GetChangedColorPlayer(playerObject, PlayerData.Instance.playerSkinId[winnerId]);
+        winnerId = playerIdByRank[0];
+        
     }
 
     void StageEnviKnockerCheck(int pId, string knockerName)
@@ -158,12 +164,25 @@ public class Result : MonoBehaviour
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
+        hideLoserDuration -= Time.deltaTime;
+        if (hideLoserDuration <= 0)
+        {
+            if (!showLoser)
+            {
+                ShowAllResultIntro();
+                showLoser = true;
+            }
+        }
 
         victoryAnimDuration -= Time.deltaTime;
         if (victoryAnimDuration <= 0)
         {
-            resultCanvas.gameObject.SetActive(true);
+            if (JoystickManager.Instance.GetAnyPlayerButtonDown("Jump"))
+            {
+                resultCanvas.gameObject.SetActive(true);
+            }
         }
         else
         {
@@ -174,12 +193,16 @@ public class Result : MonoBehaviour
         if (Input.anyKey && ignoreInputDuration<=0)
         {
             GetComponent<AudioSource>().Play();
-            Initiate.Fade("Start Menu", Color.white, 2.0f);
+            Initiate.FadeToLoading("CharacterSelect", Color.white, 2.0f);
         }
-
-
-        
 
     }
 
+    private void ShowAllResultIntro()
+    {
+        for (int i = 0; i < numPlayer; i++)
+        {
+            playerIntro[i].gameObject.SetActive(true);
+        }
+    }
 }

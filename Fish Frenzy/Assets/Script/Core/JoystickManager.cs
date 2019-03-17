@@ -168,9 +168,9 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
     /// <param name="buttonName"></param>
     /// <param name="playerID"></param>
     /// <returns></returns>
-    public bool GetAnyButtonDown(int playerID , bool isUnregistered = false)
+    public bool GetAnyButtonDown(int playerID , bool isSwapped = false)
     {
-        List<Dictionary<string, KeyCode>> _buttonList = GetButtonList(isUnregistered);
+        List<Dictionary<string, KeyCode>> _buttonList = GetButtonList(isSwapped);
         foreach (string key in playerButton.Keys)
         {
             if (Input.GetKeyDown(_buttonList[playerID][key]))
@@ -185,6 +185,19 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
     {
         List<Dictionary<string, KeyCode>> _buttonList = GetButtonList(isUnregistered);
         return Input.GetKeyDown(_buttonList[playerID][buttonName]);
+    }
+
+    public bool GetAnyPlayerButtonDown(string buttonName, bool isUnregistered = false)
+    {
+        List<Dictionary<string, KeyCode>> _buttonList = GetButtonList(isUnregistered);
+        for(int i = 0; i < _buttonList.Count; i++)
+        {
+            if (Input.GetKeyDown(_buttonList[i][buttonName]))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public bool GetButton(string buttonName, int playerID, bool isUnregistered = false)
@@ -247,9 +260,9 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
         return Input.GetAxis(axisName);
     }
 
-    List<Dictionary<string, KeyCode>> GetButtonList(bool isUnregister)
+    List<Dictionary<string, KeyCode>> GetButtonList(bool isSwapped)
     {
-        if (isUnregister)
+        if (isSwapped)
         {
              return UnregisterButtonList;
         }

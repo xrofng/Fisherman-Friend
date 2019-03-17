@@ -15,6 +15,8 @@ public class Fader : MonoBehaviour {
     public Color fadeColor;
     [HideInInspector]
     public bool isFadeIn = false;
+    [HideInInspector]
+    public bool toLoading = false;
 
     //Set callback
     void OnEnable()
@@ -48,7 +50,7 @@ public class Fader : MonoBehaviour {
 			alpha = Mathf.Lerp (alpha, 1.1f, fadeDamp * Time.deltaTime);
         //Load scene
 		if (alpha >= 1 && !isFadeIn) {
-            SceneManager.LoadScene(fadeScene);
+            LoadScene();
             DontDestroyOnLoad(gameObject);		
 		} else
 		if (alpha <= 0 && isFadeIn) {
@@ -61,6 +63,19 @@ public class Fader : MonoBehaviour {
     {
         //We can now fade in
         isFadeIn = true;
+    }
+
+    void LoadScene()
+    {
+        if (toLoading)
+        {
+            LoadingSceneManager.LoadScene(fadeScene);
+        }
+        else
+        {
+            SceneManager.LoadScene(fadeScene);
+
+        }
     }
 
 }

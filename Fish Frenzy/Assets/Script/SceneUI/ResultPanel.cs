@@ -6,8 +6,18 @@ using UnityEngine.UI;
 public class ResultPanel : MonoBehaviour
 {
     public int playerId;
-    [HideInInspector]
-    public RectTransform myRect;
+    private RectTransform _rect;
+    public RectTransform Rect
+    {
+        get
+        {
+            if(_rect == null)
+            {
+                return _rect = GetComponent<RectTransform>();
+            }
+            return _rect;
+        }
+    }
 
     public Image panel;
     public Image rank;
@@ -26,8 +36,8 @@ public class ResultPanel : MonoBehaviour
     public Text totalStageText;
     public Text totalScoreText;
 
-    void Start () {
-        myRect = GetComponent<RectTransform>();
+    void Start ()
+    {
 
     }
 	

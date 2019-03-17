@@ -26,7 +26,8 @@ public class MainMenu : MonoBehaviour
             if (JoystickManager.Instance.GetAnyButtonDown(i))
             {
                 GetComponent<AudioSource>().Play();
-                Initiate.Fade("CharacterSelect", Color.white, 2.0f);
+                Debug.Log("s");
+                Initiate.FadeToLoading("CharacterSelect", Color.white, 2.0f);
             }
         }
         
