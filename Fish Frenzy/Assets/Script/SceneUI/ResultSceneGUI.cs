@@ -28,10 +28,11 @@ public class ResultSceneGUI : MonoBehaviour
     public GameObject playerPrefab;
     public List<string> stageEnvironmentName = new List<string>();
 
-    [Header("Model")]
+    [Header("Intro")]
     public List<ResultIntro> playerIntro = new List<ResultIntro>();
     private List<int> playerIdByRank = new List<int>();
     private bool showLoser;
+    public List<Text> playerTextIndencator = new List<Text>();
 
     // Use this for initialization
     void Start () {
@@ -172,6 +173,7 @@ public class ResultSceneGUI : MonoBehaviour
             if (!showLoser)
             {
                 ShowAllResultIntro();
+                ShowResultDecoratedHud();
                 showLoser = true;
             }
         }
@@ -202,7 +204,26 @@ public class ResultSceneGUI : MonoBehaviour
     {
         for (int i = 0; i < numPlayer; i++)
         {
+            int pNumber = playerIdByRank[i] + 1;
+            string prefix = "P";
+            if ( i == 0)
+            {
+                prefix = "Player ";
+            }
+            playerTextIndencator[i].text = prefix + pNumber;
+        }
+
+        for (int i = 0; i < numPlayer; i++)
+        {
             playerIntro[i].gameObject.SetActive(true);
+        }
+    }
+
+    void ShowResultDecoratedHud()
+    {
+        foreach (GameObjectMovement moveiObj in FindObjectsOfType<GameObjectMovement>())
+        {
+            moveiObj.StartMove();
         }
     }
 }

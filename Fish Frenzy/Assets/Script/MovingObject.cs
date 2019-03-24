@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingObject : MonoBehaviour {
+public class MovingObject : MonoBehaviour
+{
     public float speed;
     public Vector3 direction;
     private bool moveEnd;

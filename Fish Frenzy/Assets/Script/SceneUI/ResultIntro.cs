@@ -7,13 +7,16 @@ public class ResultIntro : CharacterAnimation {
     public GameObject characterModel;
 
     public Transform playerColorBackDrop;
-
+    [Range(0.0f, 1.0f)]
+    public float backDropAlpha = 1.0f;
 
     public void ChangeBackDropColor(int playerId)
     {
         foreach (SpriteRenderer backDrop in playerColorBackDrop.GetComponentsInChildren<SpriteRenderer>())
         {
-            backDrop.color = PlayerData.Instance.playerColor[playerId];
+            Color c = PlayerData.Instance.playerColor[playerId];
+            c.a = backDropAlpha;
+            backDrop.color = c;
         }
     }
 }

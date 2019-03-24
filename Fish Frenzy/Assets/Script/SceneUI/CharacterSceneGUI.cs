@@ -8,28 +8,36 @@ public class CharacterSceneGUI : GameSceneGUI
     public CustomizationMenu[] playersCustomizationMenu;
     public GameObject addPlayerLayout;
     public List<int> takenSkinColorId;
+    public GameObject allReadyBanner;
+    private bool allPlayerReady;
 
     // Use this for initialization
     void Start () {
 		
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
+        if (!allPlayerReady)
+        {
+            return;
+        }
         for (int i = 0; i < Input.GetJoystickNames().Length; i++)
         {
             if (JoystickManager.Instance.GetButtonDown("Pause", i, true) || Input.GetKeyDown(KeyCode.G))
             {
                 Initiate.FadeToLoading("Gameplay", Color.white, 2.0f);
             }
-
         }
+
+        
     }
 
     public override void OnJoystickRegister(int currentPlayerNumber)
     {
         base.OnJoystickRegister(currentPlayerNumber);
         ShowPlayerLayout(currentPlayerNumber);
+        CheckAllPlayerReady();
     }
 
     void ShowPlayerLayout(int currentPlayerNumber)
@@ -50,6 +58,19 @@ public class CharacterSceneGUI : GameSceneGUI
         }
     }
 
-
+    public bool CheckAllPlayerReady()
+    {
+        int readyCount = 0;
+        foreach(CustomizationMenu cus in playersCustomizationMenu)
+        {
+            if (cus.playerReady)
+            {
+                readyCount += 1;
+            }
+        }
+        allPlayerReady = readyCount >= PlayerData.Instance.numPlayer;
+        allReadyBanner.SetActive(allPlayerReady);
+        return allPlayerReady;
+    }
   
 }

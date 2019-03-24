@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,6 +39,7 @@ public class CustomizationMenu : MonoBehaviour
     public Sprite[] hatCustom;
     public Sprite[] colorCustom;
     public Sprite[] vicCustom;
+    public Image readyBanner;
 
     // ref to other
     private CharacterSceneGUI _characterSceneGUI;
@@ -117,6 +119,25 @@ public class CustomizationMenu : MonoBehaviour
     void Update()
     {
         ChangeCustomizeProperties();
+        PressReady();
+    }
+
+    private void PressReady()
+    {
+        if (!CheckPropertiesIndexIsAtReady())
+        {
+            return;
+        }
+        if (JoystickManager.Instance.GetButtonDown("Jump", playerCustomizeMenuID) && !playerReady)
+        {
+            playerReady = true;
+        }
+        if (JoystickManager.Instance.GetButtonDown("Fishing", playerCustomizeMenuID))
+        {
+            playerReady = false;
+        }
+        readyBanner.gameObject.SetActive(playerReady);
+        CharacterSceneGUI.CheckAllPlayerReady();
     }
 
     /// <summary>
@@ -124,7 +145,7 @@ public class CustomizationMenu : MonoBehaviour
     /// </summary>
     void ChangeCustomizeProperties()
     {
-        if (ignorInput)
+        if (ignorInput || playerReady)
         {
             return;
         }

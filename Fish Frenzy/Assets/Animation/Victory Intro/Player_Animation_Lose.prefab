@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 20635215570833426}
   - component: {fileID: 124367861763083438}
   - component: {fileID: 114465927232883278}
+  - component: {fileID: 114692639612021040}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -302,7 +303,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1891399461490108
 GameObject:
   m_ObjectHideFlags: 1
@@ -454,7 +455,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1200613741718884}
   m_LocalRotation: {x: -0.032314338, y: 0.25135577, z: 0.038836718, w: 0.96657526}
-  m_LocalPosition: {x: -0.0237, y: 0.0072, z: -0.0392}
+  m_LocalPosition: {x: -0.0171, y: 0.0072, z: -0.0392}
   m_LocalScale: {x: 0.0059180227, y: 0.007561583, z: 0.006184058}
   m_Children: []
   m_Father: {fileID: 4278495425805920}
@@ -545,7 +546,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1790314364555350}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -88.7, y: 7.65, z: 4.28}
+  m_LocalPosition: {x: -19.3, y: 48.8, z: 24.000002}
   m_LocalScale: {x: 52, y: 52, z: 52}
   m_Children:
   - {fileID: 4583908003684792}
@@ -560,8 +561,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1218764363026050}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.041}
-  m_LocalScale: {x: 25.54084, y: 25.54084, z: 25.54084}
+  m_LocalPosition: {x: -0.0221, y: 0, z: 0.041}
+  m_LocalScale: {x: 0.099831, y: 0.099831, z: 0.099831}
   m_Children: []
   m_Father: {fileID: 4547127572756752}
   m_RootOrder: 0
@@ -645,7 +646,7 @@ Camera:
   m_GameObject: {fileID: 1200613741718884}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 4
   m_BackGroundColor: {r: 1, g: 0.6647059, b: 0.3602941, a: 0}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
@@ -665,7 +666,7 @@ Camera:
   m_Depth: 2
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 512
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1349,6 +1350,7 @@ MonoBehaviour:
   animClipList: []
   characterModel: {fileID: 1518013759550980}
   playerColorBackDrop: {fileID: 4583908003684792}
+  backDropAlpha: 1
   loseIntro: 0
 --- !u!114 &114465927232883278
 MonoBehaviour:
@@ -1362,6 +1364,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aspect: {x: 15, y: 9}
+--- !u!114 &114692639612021040
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1200613741718884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50b56502b915ed44fa9cddfb98bdceed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ScriptActivated: 1
+  moveFactor: 0
+  moveDuration: 0.25
+  moveSpeed: 100
+  move_Position: 0
+  fromPosition: {x: 0, y: 10, z: 0}
+  toPosition: {x: 0, y: 0, z: 0}
+  drawGizmo: 0
+  gizmoColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &114748463435391610
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1512,7 +1534,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 804b7b3bb1d21534aa99b498a2b184ee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f84207367fde1564c85c8422993a6295, type: 3}
   m_Color: {r: 0.2783019, g: 0.3015742, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
