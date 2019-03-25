@@ -6,7 +6,11 @@ public class GameObjectMovement : MonoBehaviour
 {
     /// If true, this platform will only moved when commanded to by another script
     public bool ScriptActivated = false;
+
+    public bool isLoop = false;
+
     private bool startedMove;
+    private bool finishedMove;
 
     public enum MoveFactor
     {
@@ -71,12 +75,32 @@ public class GameObjectMovement : MonoBehaviour
             movingCount += Time.deltaTime;
             float fracJourney = movingCount / moveDuration;
             transform.position = Vector3.Lerp(originPosition, targetPosition, fracJourney);
+            if (fracJourney == 1)
+            {
+                FinishMove();
+            }
         }
         if (moveFactor == MoveFactor.Speed)
         {
             transform.Translate(moveDirection*moveSpeed*Time.deltaTime);
+            if (Vector3.Distance(this.transform.position, targetPosition) < 1.0f)
+            {
+                FinishMove();
+            }
         }
 
+    }
+
+    void FinishMove()
+    {
+        if (!isLoop)
+        {
+            finishedMove = true;
+        }
+        else
+        {
+            transform.position = originPosition;
+        }
     }
 
     void FixedUpdate()
@@ -87,6 +111,7 @@ public class GameObjectMovement : MonoBehaviour
     [Header("Debug")]
     public bool drawGizmo;
     public Color gizmoColor = Color.white;
+    public Color gizmoSelectColor = Color.grey;
 
     void OnDrawGizmos()
     {
@@ -95,6 +120,21 @@ public class GameObjectMovement : MonoBehaviour
             return;
         }
         Gizmos.color = gizmoColor;
+        Vector3 offset = fromPosition;
+        if (move_Position == Move_Position.To)
+        {
+            offset = toPosition;
+        }
+        Gizmos.DrawWireSphere(offset + transform.position, 1);
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (!drawGizmo)
+        {
+            return;
+        }
+        Gizmos.color = gizmoSelectColor;
         Vector3 offset = fromPosition;
         if (move_Position == Move_Position.To)
         {

@@ -546,7 +546,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1790314364555350}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.3, y: 48.8, z: 24.000002}
+  m_LocalPosition: {x: -27.83, y: 48.8, z: 24.000002}
   m_LocalScale: {x: 52, y: 52, z: 52}
   m_Children:
   - {fileID: 4583908003684792}
@@ -1382,7 +1382,7 @@ MonoBehaviour:
   move_Position: 0
   fromPosition: {x: 0, y: 10, z: 0}
   toPosition: {x: 0, y: 0, z: 0}
-  drawGizmo: 0
+  drawGizmo: 1
   gizmoColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &114748463435391610
 MonoBehaviour:
