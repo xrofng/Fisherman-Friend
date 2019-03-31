@@ -65,7 +65,10 @@ public class ResultSceneGUI : MonoBehaviour
             MaterialManager.Instance.GetChangedColorPlayer(playerIntro[i].characterModel, PlayerData.Instance.playerSkinId[playerIdByRank[i]]);
             playerIntro[i].ChangeBackDropColor(playerIdByRank[i]);
         }
+        // winner update
         winnerTabImage.color = PlayerData.Instance.GetColorById(playerIdByRank[0]);
+        int winnerNumber = playerIdByRank[0] + 1;
+        playerTextIndencator[0].text = "Player " + winnerNumber;
         playerIntro[0].Initialize();
         
         resultCanvas.gameObject.SetActive(false);

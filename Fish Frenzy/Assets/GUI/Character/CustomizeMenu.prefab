@@ -148,7 +148,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1237669126642516
 GameObject:
   m_ObjectHideFlags: 1
@@ -314,6 +314,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224600922104840558}
   - component: {fileID: 222288788053505130}
+  - component: {fileID: 95516709716282964}
   m_Layer: 5
   m_Name: PropertiesHighlight
   m_TagString: Untagged
@@ -1440,6 +1441,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!95 &95516709716282964
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1477317809322488}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 04d5b4b3b71775e488881e99551be8c5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!95 &95851441684220878
 Animator:
   serializedVersion: 3
@@ -1738,7 +1757,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1235419229000344}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -1809,7 +1828,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ae48495d864b70e45b7f0428b413061e, type: 3}
   - {fileID: 21300000, guid: 0fa0b4f0f010ed34eb19432c4560aa91, type: 3}
   vicCustom:
-  - {fileID: 21300000, guid: 136e002062f718d4b8fdde9f263f425f, type: 3}
+  - {fileID: 21300000, guid: ecdee73d46d3474488cc85113c8c59e4, type: 3}
+  - {fileID: 21300000, guid: 3e026791dddd8f64fb0638cb3111051d, type: 3}
+  - {fileID: 21300000, guid: 1185dba843f94ef448214bdce0099a79, type: 3}
+  - {fileID: 21300000, guid: 4af488da395195749b467ee69f47525a, type: 3}
+  - {fileID: 21300000, guid: 7268ee04fa168134c90e776c60aa4704, type: 3}
   readyBanner: {fileID: 114699339191472420}
 --- !u!114 &114777978972017636
 MonoBehaviour:
