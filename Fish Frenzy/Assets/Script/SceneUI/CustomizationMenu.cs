@@ -152,6 +152,10 @@ public class CustomizationMenu : MonoBehaviour
 
         float axisRawX = JoystickManager.Instance.GetAxisRaw("Hori", playerCustomizeMenuID);
         float axisRawY = JoystickManager.Instance.GetAxisRaw("Verti", playerCustomizeMenuID);
+
+        if (axisRawX == 0.0f) { axisRawX = JoystickManager.Instance.GetAxisRaw("Dhori", playerCustomizeMenuID); }
+        if (axisRawX == 0.0f) { axisRawY = JoystickManager.Instance.GetAxisRaw("Dverti", playerCustomizeMenuID); }
+
         if (sClass.intervalCheck(axisRawX, -0.9f, 0.9f, true) && !CheckPropertiesIndexIsAtReady())
         {
             AddCustomizeIndex(customizePropertiesIndex, sClass.getSign(axisRawX, 0.015f));

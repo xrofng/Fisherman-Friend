@@ -323,7 +323,7 @@ Prefab:
     - target: {fileID: 224320919014925694, guid: 259dd70d41602b8489762647e28bf17c,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 50
+      value: 110
       objectReference: {fileID: 0}
     - target: {fileID: 224320919014925694, guid: 259dd70d41602b8489762647e28bf17c,
         type: 2}
@@ -1424,6 +1424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1706dfb0435475d4ab0a28902edab886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onlyJoysticky: 0
   m_SetCode: 0
 --- !u!4 &1477841871
 Transform:

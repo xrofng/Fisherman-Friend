@@ -91,12 +91,14 @@ public class GUIManager : MonoBehaviour
     protected GameLoop gameLoop;
     protected PortRoyal portRoyal;
     protected KnockData knockData;
+    protected PlayerData playerData;
     /// <summary>
     /// Initialization
     /// </summary>
     protected void Awake()
     {
-        numPlayer = PlayerData.Instance.numPlayer;
+        playerData = PlayerData.Instance;
+        numPlayer = playerData.numPlayer;
 
         InitImageList();
 
@@ -123,7 +125,7 @@ public class GUIManager : MonoBehaviour
         for (int playerID = 0; playerID < numPlayer; playerID++)
         {
             float a = DurabilityImage[playerID].color.a;
-            Color pColor= PlayerData.Instance.playerColor[playerID];
+            Color pColor= playerData.playerColor[playerData.playerSkinId[playerID]];
             DurabilityImage[playerID].color = new Color(pColor.r, pColor.g, pColor.b, a);
         }
         

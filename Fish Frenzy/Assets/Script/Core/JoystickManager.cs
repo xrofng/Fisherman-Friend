@@ -23,6 +23,8 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
     public string Verti = "Verti";
     public string Pause = "Pause";
     public string R2 = "R2";
+    public string Dhori = "Dhori";
+    public string Dverti = "Dverti";
 
     /* /// <summary>
             X = 1
@@ -42,17 +44,19 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
             Options=9
             Share= 8
 
-            DPadX = 7th Axis
-            DPadY = 8th Axis
-
-            LeftStickX=XAxis - 18
-            LeftStickY = Yaxis(must invert) -19
-
-            RightStickX=3rd Axis
-            RightStickY=6th Axis(must invert)
+            LeftStickX = 1st XAxis = 18
+            LeftStickY = 2nd Yaxis(must invert) =19
 
             L3=4th Axis(-1,1 not 0,1)
             R3=5th Axis(-1,1 not 0,1)
+
+            DPadX = 6th Axis =16
+            DPadY = 7th Axis =17
+
+            RightStickX=8th Axis
+            RightStickY=9th Axis(must invert)
+
+            
         /// </summary> */
 
     /// <summary>
@@ -74,10 +78,15 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
         playerButton.Add(Throw, KeyCode.Joystick1Button0);
         playerButton.Add(Switch, KeyCode.Joystick1Button5);
         playerButton.Add(AltSwitch, KeyCode.Joystick1Button4);
-        playerButton.Add(Hori, KeyCode.Joystick1Button18);
-        playerButton.Add(Verti, KeyCode.Joystick1Button19);
         playerButton.Add(Pause, KeyCode.Joystick1Button9);
         playerButton.Add(R2, KeyCode.Joystick1Button7);
+
+        // substitute button to be axis
+        playerButton.Add(Dhori, KeyCode.Joystick1Button16);
+        playerButton.Add(Dverti, KeyCode.Joystick1Button17);
+        playerButton.Add(Hori, KeyCode.Joystick1Button18);
+        playerButton.Add(Verti, KeyCode.Joystick1Button19);
+
         ButtonList.Add(playerButton);
         UnregisterButtonList.Add(playerButton);
 
@@ -239,6 +248,14 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
         else if (buttonName == Verti)
         {
             axisName = "Verti" + playerIDfromButton;
+        }
+        else if (buttonName == Dhori)
+        {
+            axisName = "Dhori" + playerIDfromButton;
+        }
+        else if (buttonName == Dverti)
+        {
+            axisName = "Dverti" + playerIDfromButton;
         }
         return Input.GetAxisRaw(axisName);
     }

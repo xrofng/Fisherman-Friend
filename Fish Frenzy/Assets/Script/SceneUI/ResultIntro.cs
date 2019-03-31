@@ -14,7 +14,7 @@ public class ResultIntro : CharacterAnimation {
     {
         foreach (SpriteRenderer backDrop in playerColorBackDrop.GetComponentsInChildren<SpriteRenderer>())
         {
-            Color c = PlayerData.Instance.playerColor[playerId];
+            Color c = PlayerData.Instance.playerColor[PlayerData.Instance.playerSkinId[playerId]];
             c.a = backDropAlpha;
             backDrop.color = c;
         }

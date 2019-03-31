@@ -51,6 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 341ffd61f061d2a44b570125ed4689c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numPlayer: 4
+  maxNumPlayer: 4
   player:
   - {fileID: 0}
   - {fileID: 0}
@@ -61,6 +63,10 @@ MonoBehaviour:
   - {r: 0.1764706, g: 0.58431375, b: 1, a: 1}
   - {r: 1, g: 0.92156863, b: 0.1764706, a: 1}
   - {r: 0.31764707, g: 0.9372549, b: 0.23921569, a: 1}
+  - {r: 1, g: 0.36320752, b: 0.78523886, a: 1}
+  - {r: 0.9372549, g: 0.67125523, b: 0.23921569, a: 1}
+  - {r: 0.7721518, g: 0.23921569, b: 0.9372549, a: 1}
+  - {r: 0, g: 0.13042653, b: 0.13207549, a: 1}
   playerSkinId: 00000000010000000200000003000000
   playerIndicator:
   - {fileID: 21300000, guid: 2c40fdf4f6fa12a4f98967880d4fa2d2, type: 3}
@@ -72,3 +78,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 46210caeeb2cf8643a8d26ebcba83c70, type: 2}
   - {fileID: 2100000, guid: 5a973d9cd19dc86468184f738014d0cd, type: 2}
   - {fileID: 2100000, guid: eb33ddfa6e883254b9ed65d18c7c39a5, type: 2}
+  - {fileID: 2100000, guid: 5ebd865f0738ed14e81d8146814465d8, type: 2}
+  - {fileID: 2100000, guid: a34430f634153df42a321dab4f97c624, type: 2}
+  - {fileID: 2100000, guid: 357e83bedc325a749bb228bd96f4d296, type: 2}
+  - {fileID: 2100000, guid: 89a207ce2a020fa4099e9961137eeccf, type: 2}

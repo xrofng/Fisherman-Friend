@@ -10,6 +10,7 @@ public class ResultSceneGUI : MonoBehaviour
     public float ignoreInputDuration;
     public float victoryAnimDuration;
     public float hideLoserDuration;
+    private bool resultShow;
 
     public ResultPanel resultPanelRef;
     //private List<ResultPanel> panelList = new List<ResultPanel>();
@@ -179,25 +180,28 @@ public class ResultSceneGUI : MonoBehaviour
         }
 
         victoryAnimDuration -= Time.deltaTime;
-        if (victoryAnimDuration <= 0)
-        {
-            if (JoystickManager.Instance.GetAnyPlayerButtonDown("Jump"))
-            {
-                resultCanvas.gameObject.SetActive(true);
-            }
-        }
-        else
+        ignoreInputDuration -= Time.deltaTime;
+        if (ignoreInputDuration > 0 || victoryAnimDuration >0)
         {
             return;
         }
 
-        ignoreInputDuration -= Time.deltaTime;
-        if (Input.anyKey && ignoreInputDuration<=0)
+        if (!JoystickManager.Instance.GetAnyPlayerButtonDown("Jump"))
         {
+            return;
+        }
+        if (!resultShow)
+        {
+            ignoreInputDuration = 0.75f;
+            resultShow = true;
+            resultCanvas.gameObject.SetActive(true);
+        }
+        else
+        {
+            ignoreInputDuration = 10000;
             GetComponent<AudioSource>().Play();
             Initiate.FadeToLoading("CharacterSelect", Color.white, 2.0f);
         }
-
     }
 
     private void ShowAllResultIntro()

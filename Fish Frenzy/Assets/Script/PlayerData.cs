@@ -9,7 +9,7 @@ public class PlayerData : PersistentSingleton<PlayerData> {
 
 
     public Player[] player = new Player[4];
-    public Color[] playerColor = new Color[4];
+    public Color[] playerColor = new Color[8];
     public int[] playerSkinId = new int[4];
     public Sprite[] playerIndicator = new Sprite[4];
     public Material[] playerMaterial = new Material[4];
