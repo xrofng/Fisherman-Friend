@@ -2,18 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResultLoseIntro : ResultIntro
+public enum LoserIntro
 {
-    public enum LoserIntro
-    {
-        OscarClap = 0,
-    }
+    None = 0,
+    OscarClap,
+    NormalClap,
+    DontWantClap
+}
 
+public class ResultIntroLose : ResultIntro
+{
     public LoserIntro loseIntro;
 
-    protected override void Start()
+    public override void Initialize()
     {
-        base.Start();
+        base.Initialize();
         ChangeAnimState((int)loseIntro);
     }
 
@@ -21,4 +24,5 @@ public class ResultLoseIntro : ResultIntro
     {
         base.Update();
     }
+
 }

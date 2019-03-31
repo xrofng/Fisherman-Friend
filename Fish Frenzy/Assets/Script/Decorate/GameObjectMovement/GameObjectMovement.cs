@@ -6,6 +6,7 @@ public class GameObjectMovement : MonoBehaviour
 {
     /// If true, this platform will only moved when commanded to by another script
     public bool ScriptActivated = false;
+    public float autoActivateTime = 0.0f;
 
     public bool isLoop = false;
 
@@ -54,16 +55,26 @@ public class GameObjectMovement : MonoBehaviour
 
         if (!ScriptActivated)
         {
-            StartMove();
+            StartMove(autoActivateTime);
         }
     }
 
-    public void StartMove()
+    public void StartMove(float delay=0.0f)
     {
+        if(delay != 0.0f)
+        {
+            StartCoroutine(ieStartMove(delay));
+            return;
+        }
         startedMove = true;
     }
 
-    // Update is called once per frame
+    IEnumerator ieStartMove(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        startedMove = true;
+    }
+
     void Update ()
     {
         if (!startedMove)

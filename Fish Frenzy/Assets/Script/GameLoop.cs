@@ -42,7 +42,6 @@ public class GameLoop : MonoBehaviour
     protected PortRoyal portRoyal;
     protected GUIManager guiManager;
 
-
     public float Time_Minute
     {
         get { return timeCountDown / 60; }

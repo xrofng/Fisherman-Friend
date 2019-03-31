@@ -10,10 +10,10 @@ public class ResultSceneGUI : MonoBehaviour
     public float ignoreInputDuration;
     public float victoryAnimDuration;
     public float hideLoserDuration;
+    private float timeCount = 0.0f;
     private bool resultShow;
 
     public ResultPanel resultPanelRef;
-    //private List<ResultPanel> panelList = new List<ResultPanel>();
     public Canvas resultCanvas;
 
     public float panelDistance;
@@ -23,10 +23,10 @@ public class ResultSceneGUI : MonoBehaviour
     public List<ResultPanel> playerPanel = new List<ResultPanel>();
 
     protected int winnerId;
+    public Image winnerTabImage;
 
     protected int maxNumPlayer;
     protected int numPlayer;
-    public GameObject playerPrefab;
     public List<string> stageEnvironmentName = new List<string>();
 
     [Header("Intro")]
@@ -36,7 +36,8 @@ public class ResultSceneGUI : MonoBehaviour
     public List<Text> playerTextIndencator = new List<Text>();
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
         maxNumPlayer = PlayerData.Instance.maxNumPlayer;
         numPlayer = PlayerData.Instance.numPlayer;
         
@@ -64,6 +65,8 @@ public class ResultSceneGUI : MonoBehaviour
             MaterialManager.Instance.GetChangedColorPlayer(playerIntro[i].characterModel, PlayerData.Instance.playerSkinId[playerIdByRank[i]]);
             playerIntro[i].ChangeBackDropColor(playerIdByRank[i]);
         }
+        winnerTabImage.color = PlayerData.Instance.GetColorById(playerIdByRank[0]);
+        playerIntro[0].Initialize();
         
         resultCanvas.gameObject.SetActive(false);
     }
@@ -110,7 +113,6 @@ public class ResultSceneGUI : MonoBehaviour
         }
 
         winnerId = playerIdByRank[0];
-        
     }
 
     void StageEnviKnockerCheck(int pId, string knockerName)
@@ -168,8 +170,8 @@ public class ResultSceneGUI : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        hideLoserDuration -= Time.deltaTime;
-        if (hideLoserDuration <= 0)
+        timeCount += Time.deltaTime;
+        if (timeCount> hideLoserDuration)
         {
             if (!showLoser)
             {
@@ -179,9 +181,7 @@ public class ResultSceneGUI : MonoBehaviour
             }
         }
 
-        victoryAnimDuration -= Time.deltaTime;
-        ignoreInputDuration -= Time.deltaTime;
-        if (ignoreInputDuration > 0 || victoryAnimDuration >0)
+        if (timeCount <= ignoreInputDuration || timeCount <= victoryAnimDuration)
         {
             return;
         }
@@ -220,6 +220,7 @@ public class ResultSceneGUI : MonoBehaviour
         for (int i = 0; i < numPlayer; i++)
         {
             playerIntro[i].gameObject.SetActive(true);
+            playerIntro[i].Initialize();
         }
     }
 

@@ -31,9 +31,7 @@ public class MaterialManager : PersistentSingleton<MaterialManager>
 
         if (mSwap != null)
         {
-
             ChangeMaterial(mSwap, colorIndex);
-
         }
         else
         {

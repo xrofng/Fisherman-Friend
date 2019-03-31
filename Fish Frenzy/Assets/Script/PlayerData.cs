@@ -22,4 +22,8 @@ public class PlayerData : PersistentSingleton<PlayerData> {
 	void Update () {
 		
 	}
+    public Color GetColorById(int playerId)
+    {
+        return playerColor[playerSkinId[ playerId]];
+    }
 }

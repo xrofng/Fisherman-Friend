@@ -2,23 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum VictoryAnimation
+{
+    None = 0,
+    Generic,
+    Starfish,
+    Hammerhead,
+    Swordfish,
+    Eel
+}
+
 public class ResultIntroVictory : ResultIntro
 {
-    public enum VictoryAnimation
-    {
-        Generic = 0,
-        Starfish,
-        Hammerhead,
-        Swordfish,
-        Eel
-    }
-
     public VictoryAnimation vicIntro;
 
-
-    protected override void Start()
+    public override void Initialize()
     {
-        base.Start();
+        base.Initialize();
         ChangeAnimState((int)vicIntro);
     }
 

@@ -10,6 +10,11 @@ public class ResultIntro : CharacterAnimation {
     [Range(0.0f, 1.0f)]
     public float backDropAlpha = 1.0f;
 
+    public virtual void Initialize()
+    {
+
+    }
+
     public void ChangeBackDropColor(int playerId)
     {
         foreach (SpriteRenderer backDrop in playerColorBackDrop.GetComponentsInChildren<SpriteRenderer>())
