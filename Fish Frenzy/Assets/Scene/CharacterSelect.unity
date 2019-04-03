@@ -283,6 +283,15 @@ Prefab:
       propertyPath: m_Name
       value: CustomizeMenu1
       objectReference: {fileID: 0}
+    - target: {fileID: 1366749195225722, guid: 259dd70d41602b8489762647e28bf17c, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114708115318157070, guid: 259dd70d41602b8489762647e28bf17c,
+        type: 2}
+      propertyPath: arrowAnim
+      value: 
+      objectReference: {fileID: 1401192488}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 259dd70d41602b8489762647e28bf17c, type: 2}
   m_IsPrefabAsset: 0
@@ -870,6 +879,26 @@ Prefab:
 
 '
       objectReference: {fileID: 0}
+    - target: {fileID: 114322672734360848, guid: e2916cf6dac71494eb6d581b55dc2665,
+        type: 2}
+      propertyPath: m_FontData.m_FontSize
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 114322672734360848, guid: e2916cf6dac71494eb6d581b55dc2665,
+        type: 2}
+      propertyPath: m_FontData.m_MaxSize
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 224033492939714898, guid: e2916cf6dac71494eb6d581b55dc2665,
+        type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224033492939714898, guid: e2916cf6dac71494eb6d581b55dc2665,
+        type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2916cf6dac71494eb6d581b55dc2665, type: 2}
   m_IsPrefabAsset: 0
@@ -1118,6 +1147,11 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8cbed68061224c4c858383bad86a564, type: 2}
   m_IsPrefabAsset: 0
+--- !u!95 &1401192488 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 95516709716282964, guid: 259dd70d41602b8489762647e28bf17c,
+    type: 2}
+  m_PrefabInternal: {fileID: 202988999}
 --- !u!1 &1477841869
 GameObject:
   m_ObjectHideFlags: 0

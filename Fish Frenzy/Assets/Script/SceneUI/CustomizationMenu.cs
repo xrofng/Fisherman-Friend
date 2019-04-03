@@ -28,6 +28,8 @@ public class CustomizationMenu : MonoBehaviour
     public Sprite[] ReadyButtonImages;
     public Sprite[] ReadyButtonHoverImages;
     public bool playerReady = false;
+    public Animator arrowAnim;
+    public AudioSource audioSource;
 
     [Header("Properties")]
     /// index of chosen custmization of all property
@@ -40,6 +42,8 @@ public class CustomizationMenu : MonoBehaviour
     public Sprite[] colorCustom;
     public Sprite[] vicCustom;
     public Image readyBanner;
+
+
 
     // ref to other
     private CharacterSceneGUI _characterSceneGUI;
@@ -159,6 +163,7 @@ public class CustomizationMenu : MonoBehaviour
         if (sClass.intervalCheck(axisRawX, -0.9f, 0.9f, true) && !CheckPropertiesIndexIsAtReady())
         {
             AddCustomizeIndex(customizePropertiesIndex, sClass.getSign(axisRawX, 0.015f));
+            StartCoroutine(ieArrowState(0.1f, (int)axisRawX+2));
             UpdateCustomizeImage();
             StartCoroutine(ieIgnoreInput());
         }
@@ -198,6 +203,13 @@ public class CustomizationMenu : MonoBehaviour
         ignorInput = true;
         yield return new WaitForSeconds(inputDelay);
         ignorInput = false;
+    }
+
+    IEnumerator ieArrowState(float delay,int state)
+    {
+        arrowAnim.SetInteger("State", state);
+        yield return new WaitForSeconds(delay);
+        arrowAnim.SetInteger("State", 0);
     }
 
     bool CheckPropertiesIndexIsAtReady()

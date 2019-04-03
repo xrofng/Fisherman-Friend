@@ -14,6 +14,9 @@ public class ResultIntroLose : ResultIntro
 {
     public LoserIntro loseIntro;
 
+    public GameObjectMovement subCamera;
+    public GameObjectMovement frame;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -25,4 +28,9 @@ public class ResultIntroLose : ResultIntro
         base.Update();
     }
 
+    public void StartShowResultIntro()
+    {
+        subCamera.StartMove();
+        frame.StartMove();
+    }
 }

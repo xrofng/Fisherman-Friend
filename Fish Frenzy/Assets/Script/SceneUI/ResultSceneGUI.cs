@@ -13,34 +13,37 @@ public class ResultSceneGUI : MonoBehaviour
     private float timeCount = 0.0f;
     private bool resultShow;
 
+    [Header("Result Panel")]
     public ResultPanel resultPanelRef;
     public Canvas resultCanvas;
-
     public float panelDistance;
-    //
     public List<Sprite> panelSprite = new List<Sprite>();
     public List<Sprite> rankSpriteList = new List<Sprite>();
     public List<ResultPanel> playerPanel = new List<ResultPanel>();
 
+
+    [Header("Decorate")]
+    public List<ResultIntro> playerIntro = new List<ResultIntro>();
+    public List<Text> playerTextIndencator = new List<Text>();
     protected int winnerId;
     public Image winnerTabImage;
+    public List<ResultIntroLose> loserObjMoves = new List<ResultIntroLose>();
+    public List<GameObjectMovement> decorateObjMoves = new List<GameObjectMovement>();
 
+
+    [Header("General For Result Screen")]
+    private List<int> playerIdByRank = new List<int>();
+    private bool showLoser;
     protected int maxNumPlayer;
     protected int numPlayer;
     public List<string> stageEnvironmentName = new List<string>();
-
-    [Header("Intro")]
-    public List<ResultIntro> playerIntro = new List<ResultIntro>();
-    private List<int> playerIdByRank = new List<int>();
-    private bool showLoser;
-    public List<Text> playerTextIndencator = new List<Text>();
 
     // Use this for initialization
     void Start ()
     {
         maxNumPlayer = PlayerData.Instance.maxNumPlayer;
         numPlayer = PlayerData.Instance.numPlayer;
-        
+
         float offsetX = (panelDistance / 2) * (maxNumPlayer - numPlayer);
         for(int i = 0; i < numPlayer; i++)
         {
@@ -73,6 +76,7 @@ public class ResultSceneGUI : MonoBehaviour
         
         resultCanvas.gameObject.SetActive(false);
     }
+
     /// <summary>
     /// store id
     /// </summary>
@@ -229,9 +233,19 @@ public class ResultSceneGUI : MonoBehaviour
 
     void ShowResultDecoratedHud()
     {
-        foreach (GameObjectMovement moveiObj in FindObjectsOfType<GameObjectMovement>())
+        // Losers fanfare
+        for (int i = 0; i < loserObjMoves.Count; i++)
         {
-            moveiObj.StartMove();
+            if (i+1< numPlayer)
+            {
+                loserObjMoves[i].StartShowResultIntro();
+            }
         }
+
+        foreach (GameObjectMovement decorateObjMove in decorateObjMoves)
+        {
+            decorateObjMove.StartMove();
+        }
+        
     }
 }

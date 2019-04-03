@@ -1351,7 +1351,9 @@ MonoBehaviour:
   characterModel: {fileID: 1518013759550980}
   playerColorBackDrop: {fileID: 4583908003684792}
   backDropAlpha: 1
-  loseIntro: 0
+  loseIntro: 1
+  subCamera: {fileID: 114692639612021040}
+  frame: {fileID: 0}
 --- !u!114 &114465927232883278
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1376,6 +1378,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScriptActivated: 1
+  autoActivateTime: 0
   isLoop: 0
   moveFactor: 0
   moveDuration: 0.25
