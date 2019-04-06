@@ -23,15 +23,9 @@ public class HitBoxMelee : DamageOnHit
         }
     }
 
-    [Header("Sound")]
-    protected AudioSource _SFX;
-    public AudioClip _SFXclip;
-    protected virtual void PlaySFX(AudioClip SFXclip)
-    {
-        if (_SFX.isPlaying) { return; }
-        _SFX.clip = SFXclip;
-        _SFX.Play();
-    }
+    [Header("SFX")]
+    public SoundEffect _SFX;
+
     /// <summary>
     /// Initialization
     /// </summary>
@@ -47,7 +41,6 @@ public class HitBoxMelee : DamageOnHit
         {
             this.gameObject.AddComponent<AudioSource>();
         }
-        _SFX = GetComponent<AudioSource>();
     }
 
     protected override void Colliding(Collider collider)
@@ -136,7 +129,7 @@ public class HitBoxMelee : DamageOnHit
 
     void OnEnemyHit(GameObject damageDealer)
     {
-        PlaySFX(_SFXclip);
+        SoundManager.Instance.PlaySound(_SFX,this.transform.position);
         Vector3 forcesource = this.transform.position;
         if (damageFromOwner)
         {

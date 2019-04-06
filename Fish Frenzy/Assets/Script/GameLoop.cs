@@ -16,7 +16,8 @@ public class GameLoop : MonoBehaviour
     public float Round_Time_Limit = 300;
     public float startCountDown = 4.5f;
     public float playerSpawnRate = 0.55f;
-    private float timeCountDown;
+    public float timeCountDown;
+
     public float timeBeforeChangeScene = 2.5f;
     public bool timeUp;
     public bool sceneChanging;
@@ -102,7 +103,7 @@ public class GameLoop : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            timeCountDown = 70;
+            timeCountDown = 46;
         }
         if (Input.GetKeyDown(KeyCode.O))
         {
@@ -130,18 +131,6 @@ public class GameLoop : MonoBehaviour
             OnChangeScene();
             
         }
-
-        if (!FrenzySpawner.Frenzying) {
-            if (timeCountDown < FrenzySpawner.timeFrenzy)
-            {
-                FrenzySpawner.StartFrenzy(true);
-            }
-            if (timeCountDown < FrenzySpawner.timeFrenzy + FrenzySpawner.timeAnimationOverhead)
-            {
-                FrenzySpawner.PlayWhaleAnimation();
-            }
-        }
-       
       
         if (timeCountDown <= 0)
         {

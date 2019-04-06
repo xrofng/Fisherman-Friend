@@ -35,13 +35,9 @@ public class PlayerAbility : MonoBehaviour
         get { return _player._cPlayerAnimator; }
     }
 
-    protected AudioSource _SFX;
-
-    protected virtual void PlaySFX(AudioClip SFXclip)
-    { 
-        if (_SFX.isPlaying) { return; }
-        _SFX.clip = SFXclip;
-        _SFX.Play();
+    protected virtual void PlaySFX(SoundEffect SFXclip)
+    {
+        SoundManager.Instance.PlaySound(SFXclip, transform.position);
     }
 
     /// <summary>
@@ -65,13 +61,10 @@ public class PlayerAbility : MonoBehaviour
     protected virtual void Initialization()
     {
         _player = GetComponent<Player>();
-        _SFX = GetComponent<AudioSource>();
         gameLoop = FFGameManager.Instance.GameLoop;
         portRoyal = FFGameManager.Instance.PortRoyal;
         guiManager = FFGameManager.Instance.GUIManager;
     }
-
-    
 
     public void IgnoreInputFor(int ignoreFrame)
     {

@@ -29,7 +29,7 @@ public class CustomizationMenu : MonoBehaviour
     public Sprite[] ReadyButtonHoverImages;
     public bool playerReady = false;
     public Animator arrowAnim;
-    public AudioSource audioSource;
+    public SoundEffect arrowSfx;
 
     [Header("Properties")]
     /// index of chosen custmization of all property
@@ -42,6 +42,7 @@ public class CustomizationMenu : MonoBehaviour
     public Sprite[] colorCustom;
     public Sprite[] vicCustom;
     public Image readyBanner;
+
 
 
 
@@ -166,6 +167,7 @@ public class CustomizationMenu : MonoBehaviour
             StartCoroutine(ieArrowState(0.1f, (int)axisRawX+2));
             UpdateCustomizeImage();
             StartCoroutine(ieIgnoreInput());
+            SoundManager.Instance.PlaySound(arrowSfx, this.transform.position);
         }
         if (sClass.intervalCheck(axisRawY, -0.9f, 0.9f, true))
         {

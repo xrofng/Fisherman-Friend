@@ -49,13 +49,13 @@ public class FishSpecialThrow : FishSpecial {
         movingobject.HitBox.FreezeFramesOnHit = freezeFrame;
         movingobject.HitBox.InvincibilityFrame = invicibilityFrame;
         movingobject.HitBox.DamageCaused = attack;
-        if (_fish.sfx_Special)
+        if (_fish.sfx_Special.clip)
         {
-            movingobject.HitBox._SFXclip = _fish.sfx_Special;
+            movingobject.HitBox._SFX = _fish.sfx_Special;
         }
         else
         {
-            movingobject.HitBox._SFXclip = _playerFishSpecial.sfx_Special;
+            movingobject.HitBox._SFX = _playerFishSpecial.sfx_Special;
         }
     }
 
@@ -98,11 +98,10 @@ public class FishSpecialThrow : FishSpecial {
 
     protected virtual void OnThrowStart()
     {
-
         currentMovingObj = Instantiate(movingobject, this.transform.position, Quaternion.identity);// add pos set lyr
         currentMovingObj.gameObject.layer = LayerMask.NameToLayer("Fish" + _player.playerID);
         currentMovingObj.HitBox.Owner = _player.gameObject;
-        currentMovingObj.HitBox._SFXclip = _playerFishSpecial.sfx_Special;
+        //currentMovingObj.HitBox._SFX = _playerFishSpecial.sfx_Special;
         currentMovingObj.direction = currentMovingObj.HitBox.OwnerPlayer.GetPart(Player.ePart.body).transform.TransformDirection(-Vector3.forward);
         currentMovingObj.transform.LookAt(currentMovingObj.direction + transform.position);
         _fish.MeshRenderer.enabled = false;

@@ -116,7 +116,7 @@ public class Player : Creature {
     public eState state;
 
     [Header("SFX")]
-    public AudioClip sfx_Death;
+    public SoundEffect sfx_Death;
 
     [Header("Other Class Ref")]
     protected GameLoop gameLoop;
@@ -262,7 +262,8 @@ public class Player : Creature {
     {
         Death = true;
         _cPlayerFishInteraction.SetPlayerCollideEverything(false);
-        PlaySFX(sfx_Death);
+        SoundManager.Instance.PlaySound(sfx_Death, this.transform.position);
+
         GameObject latest = MatchResult.Instance.GetLatestDamager(playerID,false);
         if (latest)
         {

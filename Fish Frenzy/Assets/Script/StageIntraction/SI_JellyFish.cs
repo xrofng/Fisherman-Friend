@@ -6,8 +6,8 @@ public class SI_JellyFish : StageInteraction {
 
     public Vector3 bounceForce = new Vector3(0,5,0);
     public int ShockingFrame = 10;
-    public AudioClip sfx_Shock;
-    public List<AudioClip> sfx_Bounces = new List<AudioClip>();
+    public SoundEffect sfx_Shock;
+    public List<SoundEffect> sfx_Bounces = new List<SoundEffect>();
     protected int recentSfxIndex;
 
     protected List<Player> ignoreBounceList = new List<Player>();
@@ -55,17 +55,17 @@ public class SI_JellyFish : StageInteraction {
             StartCoroutine(IgnorePlayerFor(ignoreBounceFrame, _player));
             // play animation feedback
             Animation.ChangeAnimState(1, true, 0);
-            PlaySFX(RandomAudioClip());
+            SoundManager.Instance.PlaySound(RandomAudioClip(), this.transform.position);
             _player._cPlayerMovement.StartJumping(bounceForce);
         }
         else 
         {
-            PlaySFX(sfx_Shock);
+            SoundManager.Instance.PlaySound(sfx_Shock, this.transform.position);
             hitBox.CauseDamage();
         }
     }
 
-    AudioClip RandomAudioClip()
+    SoundEffect RandomAudioClip()
     {
         int auidoIndex = (int)Random.Range(0, sfx_Bounces.Count);
         while(auidoIndex == recentSfxIndex)

@@ -138,18 +138,7 @@ public class PlayerSpecial : PlayerAbility
     }
     
     [Header("SFX")]
-    public AudioClip sfx_Special;
-    public void PlaySlapSFX()
-    {
-        if (_player.mainFish.sfx_Special)
-        {
-            PlaySFX(_player.mainFish.sfx_Special);
-        }
-        else
-        {
-            PlaySFX(sfx_Special);
-        }
-    }
+    public SoundEffect sfx_Special;
 
     [Header("Debug")]
     public bool showHitBox;

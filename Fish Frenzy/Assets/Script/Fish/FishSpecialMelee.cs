@@ -99,13 +99,13 @@ public class FishSpecialMelee : FishSpecial {
         playerHitBox.FreezeFramesOnHit = freezeFrame;
         playerHitBox.InvincibilityFrame = invicibilityFrame;
         playerHitBox.DamageCaused = attack;
-        if (_fish.sfx_Special)
+        if (_fish.sfx_Special.clip)
         {
-            playerHitBox._SFXclip = _fish.sfx_Special;
+            playerHitBox._SFX = _fish.sfx_Special;
         }
         else
         {
-            playerHitBox._SFXclip = _playerFishSpecial.sfx_Special;
+            playerHitBox._SFX = _playerFishSpecial.sfx_Special;
         }
     }
 

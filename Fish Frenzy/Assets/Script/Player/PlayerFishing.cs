@@ -11,8 +11,8 @@ public class PlayerFishing : PlayerAbility
     public int delayFrame;
 
     [Header("SFX")]
-    public AudioClip sfx_RodSwing;
-    public AudioClip sfx_WaterTouch;
+    public SoundEffect sfx_RodSwing;
+    public SoundEffect sfx_WaterTouch;
     // Use this for initialization
     protected override void Start()
     {

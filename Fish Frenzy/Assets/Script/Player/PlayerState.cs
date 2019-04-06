@@ -44,7 +44,7 @@ public class PlayerState : PlayerAbility
     public bool JustGotGrounded { get; set; }
 
     [Header("SFX")]
-    public AudioClip sfx_WaterJump;
+    public SoundEffect sfx_WaterJump;
 
     protected override void Start()
     {

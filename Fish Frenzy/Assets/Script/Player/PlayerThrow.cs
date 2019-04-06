@@ -27,7 +27,7 @@ public class PlayerThrow : PlayerAbility {
     public int assistDirection = 16;
 
     [Header("SFX")]
-    public AudioClip sfx_Throw;
+    public SoundEffect sfx_Throw;
 
     // Use this for initialization
     protected override void Start () {
@@ -117,7 +117,7 @@ public class PlayerThrow : PlayerAbility {
 
     public void PlayThrowSFX()
     {
-        if (_player.mainFish.sfx_Throw)
+        if (_player.mainFish.sfx_Throw.clip)
         {
             PlaySFX(_player.mainFish.sfx_Throw);
         }
