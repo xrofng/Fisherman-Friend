@@ -1828,8 +1828,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d092fa8b9fac35847a0cdd2526dfef78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardMultiplier: 50
-  upMultiplier: 5
+  maxForwardMultiplier: 21
+  minForwardMultiplier: 20
+  upMultiplier: 3
   aiming: 0
   aimArrow: {fileID: 4069011007333360, guid: 761621eb1408f9d469b98c24fa0d3a54, type: 2}
   arrowPositioningOffset: {x: 0, y: -0.002, z: -0.0279}
@@ -1839,7 +1840,7 @@ MonoBehaviour:
   additionOverUp: 0.25
   assistDirection: 16
   sfx_Throw:
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 43523274498e82f4e990bf7dcc388f27, type: 3}
     volume: 1
 --- !u!114 &114029355444865128
 MonoBehaviour:
@@ -1865,7 +1866,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damagedFrameDuration: 4
   eatenFrameDuration: 40
-  sfx_WaterJump: {fileID: 8300000, guid: 8d08f95415bd65b4fa13e099457abb5d, type: 3}
+  sfx_WaterJump:
+    clip: {fileID: 8300000, guid: 8d08f95415bd65b4fa13e099457abb5d, type: 3}
+    volume: 1
 --- !u!114 &114080718980803230
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2066,7 +2069,7 @@ MonoBehaviour:
   - {fileID: 4126871171258258}
   state: 0
   sfx_Death:
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 8ddf30244bfadbe40a9fb00dec90be75, type: 3}
     volume: 1
 --- !u!114 &114651210123651802
 MonoBehaviour:
@@ -2154,8 +2157,12 @@ MonoBehaviour:
   fishPoint: {fileID: 4489670666853294}
   fishPoint_finder: {fileID: 4984766661524430}
   delayFrame: 20
-  sfx_RodSwing: {fileID: 8300000, guid: 02d1c2c2a3bc49a4a8ed40d4b8f86659, type: 3}
-  sfx_WaterTouch: {fileID: 8300000, guid: 6aec0d02799124641afcab3ffbd21b78, type: 3}
+  sfx_RodSwing:
+    clip: {fileID: 8300000, guid: 02d1c2c2a3bc49a4a8ed40d4b8f86659, type: 3}
+    volume: 1
+  sfx_WaterTouch:
+    clip: {fileID: 8300000, guid: 6aec0d02799124641afcab3ffbd21b78, type: 3}
+    volume: 1
 --- !u!114 &114899905681714738
 MonoBehaviour:
   m_ObjectHideFlags: 1

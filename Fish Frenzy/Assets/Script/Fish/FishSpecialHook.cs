@@ -19,7 +19,6 @@ public class FishSpecialHook : FishSpecialThrow {
 
     protected override void OnThrowEnd()
     {
-        Debug.Log("HookIn");
         hookedPlayer = currentMovingObj.GetComponent<MovingObjHook>().HookedPlayer;
         if (hookedPlayer != null)
         {
@@ -44,6 +43,7 @@ public class FishSpecialHook : FishSpecialThrow {
             yield return new WaitForEndOfFrame();
             frameCount += 1;
         }
+
         PlaySFX(_fish.sfx_Special);
         hookedPlayer.recieveDamage(attack, _player.gameObject, hookedPlayer.transform.position + Vector3.up, invicibilityFrame, true , finalBlowForce);
 
@@ -58,7 +58,6 @@ public class FishSpecialHook : FishSpecialThrow {
 
     public void ReleaseHook()
     {
-        Debug.Log("Release");
         if (hookedPlayer)
         {
             hookedPlayer.RemoveAbilityInputIntercepter(this);

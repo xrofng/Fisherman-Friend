@@ -107,7 +107,7 @@ public class PlayerHUD : MonoBehaviour {
         }
         if (currentFaceExpression != previousFaceExpression)
         {
-            faceImage.sprite = faceList[(int)currentFaceExpression];
+            //faceImage.sprite = faceList[(int)currentFaceExpression];
             previousFaceExpression = currentFaceExpression;
         }
     }

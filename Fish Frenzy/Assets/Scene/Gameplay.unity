@@ -1658,14 +1658,6 @@ MonoBehaviour:
   - {fileID: 135115426}
   - {fileID: 2086822110}
   spawnedPoint: 
-  timeToNextWave: 15
-  timeAnimationOverhead: 9.3
-  timeFrenzy: 30
-  whale: {fileID: 0}
-  sfx_Whale:
-    clip: {fileID: 8300000, guid: ac11c25c64966094695518a75439eac7, type: 3}
-    volume: 1
-  whaleAnimFrame: 200
   rayColor: {r: 0.745283, g: 0.6082088, b: 0, a: 1}
   wireSphereRadius: 1
   showRay: 1
@@ -10186,14 +10178,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentWhaleState: 0
-  TimeFrenzyStarted: 40
+  FirstFrenzyTime: 30
   waitNextWaveDuration: 6
   comingDuration: 9
   whaleAnim: {fileID: 2017298288}
   sfx_Whale:
     clip: {fileID: 8300000, guid: ac11c25c64966094695518a75439eac7, type: 3}
     volume: 1
-  whaleAnimFrame: 718
+  whaleAnimFrame: 605
 --- !u!1 &1134442454
 GameObject:
   m_ObjectHideFlags: 0

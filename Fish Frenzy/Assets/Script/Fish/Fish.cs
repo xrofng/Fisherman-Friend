@@ -260,7 +260,7 @@ public class Fish : Creature {
         _collider.enabled = false;
     }
 
-    public void FishThrow(float duration , float forwardMultiplier , float upMultiplier)
+    public void FishThrow(float duration , float minForwardMultiplier, float maxForwardMultiplier, float upMultiplier)
     {
         duration = Mathf.Clamp(duration, 0.5f, maxHolding);
         transform.parent = null;
@@ -269,7 +269,8 @@ public class Fish : Creature {
         float scaleToDuration = duration / maxHolding;
         chargePercent = (int)scaleToDuration *100;
         float chargePer = Mathf.Lerp(0.1f, 1, scaleToDuration);
-        _rigid.velocity = -transform.forward * -(forwardMultiplier * chargePer) + (transform.up* upMultiplier);
+        float forwardMultiplier = minForwardMultiplier + (maxForwardMultiplier - minForwardMultiplier)*chargePer;
+        _rigid.velocity = -transform.forward * -(  forwardMultiplier) + (transform.up* upMultiplier);
         throwAttack = _cSpecial.attack * scaleToDuration;
     }
 
