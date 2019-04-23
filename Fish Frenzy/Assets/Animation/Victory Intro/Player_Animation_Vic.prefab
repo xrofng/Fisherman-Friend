@@ -656,7 +656,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1853217424256760}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.808353, y: 3.5357373, z: 0.6219255}
+  m_LocalPosition: {x: -18.24387, y: 2.9041731, z: 18.045067}
   m_LocalScale: {x: 52, y: 52, z: 52}
   m_Children:
   - {fileID: 4591843733246180}
@@ -676,7 +676,7 @@ Transform:
   m_Children:
   - {fileID: 4470830709928956}
   m_Father: {fileID: 4591843733246180}
-  m_RootOrder: 11
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 4.2310004, y: 270.107, z: -331.248}
 --- !u!4 &4142761616663374
 Transform:
@@ -697,13 +697,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1911393910433738}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 26.466883, y: 29.391651, z: 29.391651}
+  m_LocalScale: {x: -59.55673, y: 51.760296, z: 63.29384}
   m_Children:
   - {fileID: 4933188657280024}
-  m_Father: {fileID: 4591843733246180}
-  m_RootOrder: 8
+  m_Father: {fileID: 4368026238331096}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4190064255039354
 Transform:
@@ -793,13 +793,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1575098795413186}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 131.59367, y: 131.5937, z: 131.5937}
+  m_LocalScale: {x: -296.11682, y: 231.74367, z: 283.3822}
   m_Children:
   - {fileID: 4985897207511620}
-  m_Father: {fileID: 4591843733246180}
-  m_RootOrder: 9
+  m_Father: {fileID: 4368026238331096}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4368026238331096
 Transform:
@@ -810,7 +810,11 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.005306404, y: 0.00266601, z: 0}
   m_LocalScale: {x: -0.44439775, y: 0.56784165, z: 0.46436825}
-  m_Children: []
+  m_Children:
+  - {fileID: 4407368126928066}
+  - {fileID: 4181480895269412}
+  - {fileID: 4308479421692652}
+  - {fileID: 4860684347858638}
   m_Father: {fileID: 4591843733246180}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -836,13 +840,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1571495358752920}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 41.66005, y: 42.77786, z: 273.59497}
+  m_LocalScale: {x: -93.74495, y: 75.33414, z: 589.1767}
   m_Children:
   - {fileID: 4110236610618486}
-  m_Father: {fileID: 4591843733246180}
-  m_RootOrder: 7
+  m_Father: {fileID: 4368026238331096}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4418393931088158
 Transform:
@@ -914,10 +918,6 @@ Transform:
   - {fileID: 4505756005880056}
   - {fileID: 4368026238331096}
   - {fileID: 4912390183850762}
-  - {fileID: 4407368126928066}
-  - {fileID: 4181480895269412}
-  - {fileID: 4308479421692652}
-  - {fileID: 4860684347858638}
   - {fileID: 4113152577255006}
   m_Father: {fileID: 4110562647057822}
   m_RootOrder: 0
@@ -980,13 +980,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1777934554455276}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 107.68273, y: 104.88048, z: 670.7856}
+  m_LocalScale: {x: -242.31155, y: 184.70023, z: 1444.5121}
   m_Children:
   - {fileID: 4222642397102494}
-  m_Father: {fileID: 4591843733246180}
-  m_RootOrder: 10
+  m_Father: {fileID: 4368026238331096}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4912390183850762
 Transform:
@@ -2008,6 +2008,7 @@ MonoBehaviour:
   animClipList: []
   characterModel: {fileID: 1858165783687426}
   playerColorBackDrop: {fileID: 4231461123738748}
+  backDropAlpha: 1
   vicIntro: 1
 --- !u!114 &114789960416558580
 MonoBehaviour:
