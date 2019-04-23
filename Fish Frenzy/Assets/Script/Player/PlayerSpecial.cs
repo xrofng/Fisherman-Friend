@@ -21,6 +21,32 @@ public class PlayerSpecial : PlayerAbility
         base.Initialization();
     }
 
+    /// <summary>
+    /// is player performing any fish special ability
+    /// </summary>
+    /// <returns></returns>
+    public bool GetSpecialing()
+    {
+        if (_player.mainFish)
+        {
+            return _player.mainFish._cSpecial.GetSpecialing();
+        }
+        return false;
+    }
+    public bool GetSpecialing<T>() where T : FishSpecial
+    {
+        if (!_player.mainFish)
+        {
+            return false;
+        }
+        T specialComponent = _player.mainFish.GetComponent<T>();
+        if (specialComponent != null)
+        {
+            specialComponent.GetSpecialing();
+        }
+        return false;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -34,7 +60,6 @@ public class PlayerSpecial : PlayerAbility
         }
     }
 
-    // Update is called once per frame
     void SpecialFish()
     {
         string special = "Fishing" + _player.playerID;
@@ -56,35 +81,6 @@ public class PlayerSpecial : PlayerAbility
     public Transform hitBoxParent;
     public HitBoxMelee specialHitBox;
     public Animation specialTrail;
-    public bool MeleeSpecialing
-    {
-        get
-        {
-            if (_player.mainFish && _player.mainFish.GetComponent<FishSpecialMelee>())
-            {
-                return _player.mainFish.GetComponent<FishSpecialMelee>().MeleeSpecialing;
-            }
-            return false;
-        }
-    }
-    public bool ThrowSpecialing
-    {
-        get
-        {
-            if (_player.mainFish && _player.mainFish.GetComponent<FishSpecialThrow>())
-            {
-                return _player.mainFish.GetComponent<FishSpecialThrow>().ThrowSpecialing;
-            }
-            return false;
-        }
-    }
-    public bool Specialing
-    {
-        get
-        {
-            return  MeleeSpecialing || ThrowSpecialing;
-        }
-    }
 
     void SpecialMelee(string special)
     {
@@ -95,17 +91,14 @@ public class PlayerSpecial : PlayerAbility
 
         if (_pInput.GetButtonDown(_pInput.Special, _player.playerID - 1))
         {
+            _player.mainFish._cSpecial.IgnoreInputFrameDuration = ignoreSpecialFrame;
+            _player.mainFish._cSpecial.OnSpecialActivated();
             // Ignore Input
-            ActionForFrame(FishSpecial<FishSpecialMelee>().SpeiclaClipFrameCount + ignoreSpecialFrame,
-                  () => { _player.mainFish.GetComponent<FishSpecialMelee>().MeleeSpecialing = true;  },
-                  () => { _player.mainFish.GetComponent<FishSpecialMelee>().MeleeSpecialing = false;  });
+           
             // enable trail
             //ActionForFrame(FishSpecial<FishSpecialMelee>().SpeiclaClipFrameCount,
             //      () => { specialTrail.gameObject.SetActive(true); specialTrail.Play(); },
             //      () => { specialTrail.gameObject.SetActive(false); specialTrail.Stop(); });
-
-            _player.mainFish.GetComponent<FishSpecialMelee>().SpecialMeleeAttack(_player);
-
         }
     }
 
@@ -131,8 +124,7 @@ public class PlayerSpecial : PlayerAbility
         }
         else if (_pInput.GetButtonUp(_pInput.Special, _player.playerID - 1))
         {
-            //PlayThrowSFX();
-            _player.mainFish.GetComponent<FishSpecialThrow>().SpecialThrowAttack(_player);
+            _player.mainFish._cSpecial.OnSpecialActivated();
             GetCrossZComponent<PlayerThrow>().ChangeToUnAim();
         }        
     }

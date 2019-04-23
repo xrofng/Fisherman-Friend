@@ -27,6 +27,11 @@ public class FishSpecial : MonoBehaviour
     {
         get { return _player.GetAnimator<PlayerAnimation>().AnimationFrame[(int)specialClip]; }
     }
+    public int IgnoreInputFrameDuration
+    {
+        get;
+        set;
+    }
 
     public Rigidbody _pRigid
     {
@@ -103,4 +108,13 @@ public class FishSpecial : MonoBehaviour
         }
     }
 
+    public virtual void OnSpecialActivated()
+    {
+
+    }
+
+    public virtual bool GetSpecialing()
+    {
+        return false;
+    }
 }

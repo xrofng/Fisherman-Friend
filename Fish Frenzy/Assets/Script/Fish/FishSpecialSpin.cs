@@ -26,19 +26,20 @@ public class FishSpecialSpin : FishSpecialMelee {
         base.SetUpFishSpecial();
     }
 
-    public override void SpecialMeleeAttack(Player _player)
+    public override void OnSpecialActivated()
     {
-        // dont call base.SpecialMeleeAttack to not change to holdfish after finish 1st animation clip
+        ActionForFrame(SpeiclaClipFrameCount + IgnoreInputFrameDuration,
+                 () => { MeleeSpecialing = true; },
+                 () => { MeleeSpecialing = false; });
+        // dont call base.OnSpecialActivated to not change to holdfish after finish 1st animation clip
+        // inorder to change to looping animation
         _player._cPlayerAnimator.ChangeAnimState((int)specialClip, SpeiclaClipFrameCount, true, (int)PlayerAnimation.Anim.Spinning);
-        // _player.Rigidbody.AddForce(, ForceMode.Impulse);
         playerPositionY = _player.transform.position.y;
-         StartCoroutine(Spining());
+        StartCoroutine(Spining());
     }
 
     IEnumerator Spining()
     {
-//        _player.GetCollider<BoxCollider>().size = playerColliderSize + Vector3.up* floorOffset/ floorRatio;
-        
         _player.AddAbilityInputIntercepter(this);
         int frameCount = 0;
         while (frameCount < spiningFrameDuration + SpeiclaClipFrameCount)

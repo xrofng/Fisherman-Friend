@@ -59,21 +59,22 @@ public class FishSpecialThrow : FishSpecial {
         }
     }
 
-    protected override void Update()
+    public override bool GetSpecialing()
     {
-
+        return ThrowSpecialing;
     }
 
-    public virtual void SpecialThrowAttack(Player _player)
+    public override void OnSpecialActivated()
     {
+        base.OnSpecialActivated();
         _player._cPlayerAnimator.ChangeAnimState((int)specialClip, SpeiclaClipFrameCount, true);
         StartCoroutine(ieSpecialThrowAttack(throwFrameDuration, channelingFrameDuration));
+        
     }
 
     IEnumerator ieSpecialThrowAttack(int frameDuration, int channelFrameDuration)
     {
         ThrowSpecialing = true;
-
         IgnoreInputFor(channelFrameDuration);
         int frameCount = 0;
         while (frameCount < channelFrameDuration)
@@ -119,10 +120,10 @@ public class FishSpecialThrow : FishSpecial {
         {
             return;
         }
-        StartCoroutine(InvokeIgnoreInput(ignoreFrame));
+        StartCoroutine(ieIgnoreInput(ignoreFrame));
     }
 
-    IEnumerator InvokeIgnoreInput(int frameDuration)
+    IEnumerator ieIgnoreInput(int frameDuration)
     {
         int frameCount = 0;
         _player.AddAbilityInputIntercepter(this);

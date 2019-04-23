@@ -64,7 +64,8 @@ public class PlayerThrow : PlayerAbility {
         {
             return;
         }
-        if (GetCrossZComponent<PlayerState>().IsJumping)
+
+        if (GetCrossZComponent<PlayerState>().IsJumping || GetCrossZComponent<PlayerSpecial>().GetSpecialing())
         {
             return;
         }
