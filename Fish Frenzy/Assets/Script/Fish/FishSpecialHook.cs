@@ -20,11 +20,15 @@ public class FishSpecialHook : FishSpecialThrow {
     protected override void OnThrowEnd()
     {
         hookedPlayer = currentMovingObj.GetComponent<MovingObjHook>().HookedPlayer;
+        base.OnThrowEnd();
         if (hookedPlayer != null)
         {
             StartCoroutine(FinalBlow());
+        }else
+        {
+            _player._cPlayerAnimator.ChangeAnimState((int)_player._cPlayerAnimator.GetIdleAnimation());
         }
-        base.OnThrowEnd();
+
         Destroy(currentMovingObj.gameObject);
     }
 

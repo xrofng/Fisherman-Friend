@@ -13,7 +13,7 @@ public class Fish : Creature {
         ground,
         kept,
         dehydrate,
-        fall
+        fall,
     }
     public GameObject temp;
     [Header("Info")]
@@ -366,6 +366,7 @@ public class Fish : Creature {
             {
                 if (hit.transform.gameObject.tag == "Sea" && _rigid.velocity.y < 0)
                 {
+                    state = fState.swim;
                     GetCollider<BoxCollider>().enabled = false;
                     SoundManager.Instance.PlaySound(sfx_WaterJump,transform.position);
                 }
