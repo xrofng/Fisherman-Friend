@@ -3,22 +3,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon_Rocket : Weapon
+public class Desirable_Rocke : Desirable
 {
     public int ammo = 8;
     public float dis = 200;
 
-    void Start()
+    protected enum FLV_NAME
     {
-        Ammo = ammo;
-        InitFuzzy();
-        double desire = GetDesirability(dis);
-        Debug.Log("desire" + desire);
+        // input
+        DISTANCE_TO_TARGET, AMMO,
+        // output
+        DESIRABILITY
+    }
+
+    protected enum FZ_SET_DISTANCE
+    {
+        CLOSE, MEDIUM, FAR
+    }
+    protected enum FZ_SET_AMMO
+    {
+        LOW, OKAY, LOADS
+    }
+
+    protected override bool IsValid()
+    {
+        return base.IsValid();
+    }
+
+    protected override void Fuzzificate()
+    {
+        base.Fuzzificate();
+        fuzzyModule.Fuzzification(FLV_NAME.DISTANCE_TO_TARGET.ToString("F"), dis);
+        fuzzyModule.Fuzzification(FLV_NAME.AMMO.ToString("F"), ammo);
     }
 
     public override void InitFuzzy()
     {
-        fuzzyModule = new FuzzyModule();
+        base.InitFuzzy();
 
         // create all flv
         FuzzyVariable FLV_Distance = fuzzyModule.CreateFLV(FLV_NAME.DISTANCE_TO_TARGET.ToString("F"));
@@ -28,7 +49,7 @@ public class Weapon_Rocket : Weapon
         // fill fuzzy set
         FuzzySet distance_close = FLV_Distance.AddLeftShoulderSet(
                                    FZ_SET_DISTANCE.CLOSE.ToString("F"),
-                                   0,25,150);
+                                   0, 25, 150);
         FuzzySet distance_med = FLV_Distance.AddTriangularSet(
                                    FZ_SET_DISTANCE.MEDIUM.ToString("F"),
                                    25, 150, 300);
@@ -53,21 +74,22 @@ public class Weapon_Rocket : Weapon
                                    FZ_SET_DESIRE.DESIRABLE.ToString("F"),
                                    25, 50, 75);
         FuzzySet veryDesire = FLV_Desire.AddRightShoulderSet(
-                                   FZ_SET_DESIRE.VERY_DESIRABLE.ToString("F"),
+                                   FZ_SET_DESIRE.VERYDESIRABLE.ToString("F"),
                                    50, 75, 100);
 
         // rule
-        fuzzyModule.AddRule(new FuzzyRule(distance_far, ammo_low, desire));
-        fuzzyModule.AddRule(new FuzzyRule(distance_far, ammo_ok, unDesire));
-        fuzzyModule.AddRule(new FuzzyRule(distance_far, ammo_loads, unDesire));
+        AddRule(new FuzzySet[] { distance_far, ammo_low }, desire);
+        AddRule(new FuzzySet[] { distance_far, ammo_ok }, unDesire);
+        AddRule(new FuzzySet[] { distance_far, ammo_loads }, unDesire);
 
-        fuzzyModule.AddRule(new FuzzyRule(distance_med, ammo_low, veryDesire));
-        fuzzyModule.AddRule(new FuzzyRule(distance_med, ammo_ok, veryDesire));
-        fuzzyModule.AddRule(new FuzzyRule(distance_med, ammo_loads, desire));
+        AddRule(new FuzzySet[] { distance_med, ammo_low }, veryDesire);
+        AddRule(new FuzzySet[] { distance_med, ammo_ok }, veryDesire);
+        AddRule(new FuzzySet[] { distance_med, ammo_loads }, desire);
 
-        fuzzyModule.AddRule(new FuzzyRule(distance_close, ammo_low, desire));
-        fuzzyModule.AddRule(new FuzzyRule(distance_close, ammo_ok, unDesire));
-        fuzzyModule.AddRule(new FuzzyRule(distance_close, ammo_loads, unDesire));
+        AddRule(new FuzzySet[] { distance_close, ammo_low }, desire);
+        AddRule(new FuzzySet[] { distance_close, ammo_ok }, unDesire);
+        AddRule(new FuzzySet[] { distance_close, ammo_loads }, unDesire);
+
     }
 
 }

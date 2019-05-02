@@ -1,14 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
-[Serializable]
-public class FuzzyRule
-{
-    [SerializeField]
+public class FuzzyRule {
+
     private List<FuzzySet> conditions;
-    [SerializeField]
     private FuzzySet consequence;
 
     public FuzzyRule(FuzzySet condition1, FuzzySet condition2, FuzzySet consequence)
@@ -19,21 +15,20 @@ public class FuzzyRule
         SetConsequence(consequence);
     }
 
-    public FuzzyRule(List<FuzzySet> addConditions, FuzzySet consequence)
+    public FuzzyRule(FuzzySet[] addConditions, FuzzySet consequence)
     {
         conditions = new List<FuzzySet>();
-        Debug.Log(conditions.Count);
 
         foreach (FuzzySet condition in addConditions)
         {
             AddCondition(condition);
         }
-        Debug.Log(conditions.Count);
-        if(conditions.Count > 1)
+        if (conditions.Count > 1)
         {
         }
         SetConsequence(consequence);
     }
+
 
     private void AddCondition(FuzzySet fz)
     {

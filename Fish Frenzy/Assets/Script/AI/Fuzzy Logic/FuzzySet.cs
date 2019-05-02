@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
-public abstract class FuzzySet
-{
+public abstract class FuzzySet {
+
 	public double RepresentativeValue { get; set; }
 
 	// Degree of Membership

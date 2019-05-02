@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Creature {
+public class Player : Creature
+{
     public float testForce;
     public float upLaunchingMultiplier;
     public int playerID;
@@ -11,7 +12,6 @@ public class Player : Creature {
     public bool Death { get { return _cPlayerState.IsDeath; } set { _cPlayerState.IsDeath = value; } }
 
     public SpriteRenderer playerIndicator; 
-    public static float fixedFPS_DT;    
 
     public bool Aiming
     {
@@ -136,7 +136,6 @@ public class Player : Creature {
 
         playerID = gameObject.name[6] - 48;
         this.gameObject.layer = LayerMask.NameToLayer("Player" + playerID);
-        fixedFPS_DT = 0.016f;
         playerIndicator.sprite = PlayerData.Instance.playerIndicator[playerID-1];
         rigid = GetComponent<Rigidbody>();
         rigid.mass = portRoyal.characterMass;

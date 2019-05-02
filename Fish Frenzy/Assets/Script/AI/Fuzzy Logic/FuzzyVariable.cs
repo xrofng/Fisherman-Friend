@@ -1,61 +1,20 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "FuzzyVariable", menuName = "FuzzyVariable", order = 52)]
-public class FuzzyVariable : ScriptableObject
-{
-    /// <summary>
-    /// name of fuzzy variable
-    /// </summary>
-    [SerializeField]
-    public FuzzyVariableIdentifier variableId;
+public class FuzzyVariable : MonoBehaviour {
 
-    /// <summary>
-    /// Fuzzy Sets in this variable
-    /// </summary>
-    [SerializeField]
-    public List<FuzzyGraphData> Members = new List<FuzzyGraphData>();
-
-    /// <summary>
-    /// Cached Fuzzy Sets
-    /// Key is name of Set
-    /// </summary>
-	private Dictionary<FuzzySetIdentifier, FuzzySet> MemberSets;
-
+	private Dictionary<string, FuzzySet> MemberSets;
 	private double minRange, maxRange;
 
-	public FuzzyVariable(){
+	public FuzzyVariable()
+    {
 		minRange = 0.0;
 		maxRange = 0.0;
-		MemberSets = new Dictionary<FuzzySetIdentifier, FuzzySet> ();
+		MemberSets = new Dictionary<string, FuzzySet> ();
+	}
 
-        Members.Add(new FuzzyGraphData(FuzzyGraphData.FuzzySetType.LeftShoulder));
-        Members.Add(new FuzzyGraphData(FuzzyGraphData.FuzzySetType.Triangle));
-        Members.Add(new FuzzyGraphData(FuzzyGraphData.FuzzySetType.RightShoulder));
-    }
-
-    public void ConstructSets()
-    {
-        foreach(FuzzyGraphData graphData in Members)
-        {
-            if(graphData.setType == FuzzyGraphData.FuzzySetType.LeftShoulder)
-            {
-                AddLeftShoulderSet(graphData.setIdentifier, graphData.leftValue, graphData.midValue, graphData.rightValue);
-            }
-            if (graphData.setType == FuzzyGraphData.FuzzySetType.Triangle)
-            {
-                AddTriangularSet(graphData.setIdentifier, graphData.leftValue, graphData.midValue, graphData.rightValue);
-            }
-            if (graphData.setType == FuzzyGraphData.FuzzySetType.RightShoulder)
-            {
-                AddRightShoulderSet(graphData.setIdentifier, graphData.leftValue, graphData.midValue, graphData.rightValue);
-            }
-        }
-    }
-
-    public FuzzySet AddLeftShoulderSet(FuzzySetIdentifier name, double minBound, 
+	public FuzzySet AddLeftShoulderSet( string name, double minBound, 
 										double peak, double maxBound){
 		FuzzySet_LeftShoulder leftSet = new FuzzySet_LeftShoulder ( peak, 
 																	peak - minBound, 
@@ -64,7 +23,7 @@ public class FuzzyVariable : ScriptableObject
 		return leftSet;
 	}
 
-    public FuzzySet AddRightShoulderSet(FuzzySetIdentifier name, double minBound, 
+	public FuzzySet AddRightShoulderSet( string name, double minBound, 
 											double peak, double maxBound){
 		FuzzySet_RightShoulder rightSet = new FuzzySet_RightShoulder ( peak, 
 			peak - minBound, 
@@ -73,7 +32,7 @@ public class FuzzyVariable : ScriptableObject
 		return rightSet;
 	}
 
-	public FuzzySet AddTriangularSet( FuzzySetIdentifier name, double minBound, 
+	public FuzzySet AddTriangularSet( string name, double minBound, 
 									double peak, double maxBound){
 		FuzzySet_Triangle triangleSet = new FuzzySet_Triangle ( peak, 
 			peak - minBound, 
@@ -103,14 +62,4 @@ public class FuzzyVariable : ScriptableObject
     {
 		return 0.0;
 	}
-
-    public FuzzySet GetMember(FuzzySetIdentifier memberSetId)
-    {
-        if (MemberSets.ContainsKey(memberSetId))
-        {
-            return MemberSets[memberSetId];
-        }
-        return null;
-    }
-
 }
