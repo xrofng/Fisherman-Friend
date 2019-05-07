@@ -50,6 +50,10 @@ namespace GOAP
             }
         }
 
+        public override bool IsValid()
+        {
+            return TargetEnemy;
+        }
 
     }
 

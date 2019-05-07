@@ -16,7 +16,7 @@ namespace GOAP
 
         public override bool IsValid()
         {
-            return base.IsValid() && TargetEnemy;
+            return TargetEnemy;
         }
     }
 

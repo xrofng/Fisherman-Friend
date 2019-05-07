@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerData : PersistentSingleton<PlayerData> {
 
     public int numPlayer = 4;
+    public int numBot = 0;
     public int maxNumPlayer = 4;
 
 

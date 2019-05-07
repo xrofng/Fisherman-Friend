@@ -46,11 +46,11 @@ public class FishSpecialSpin : FishSpecialMelee {
         {
             yield return new WaitForEndOfFrame();
             _player.transform.Translate(_player.playerForward * Speed);
-            _player.transform.position = sClass.setVector3(_player.transform.position, sClass.vectorComponent.y, playerPositionY + floorOffset);
+            _player.transform.position = sClass.SetVector3(_player.transform.position, VectorComponent.y, playerPositionY + floorOffset);
             _fish.transform.Rotate(Vector3.forward * fishSpinSpeed, Space.Self);
             frameCount += 1;
         }
-        _player.transform.position = sClass.setVector3(_player.transform.position, sClass.vectorComponent.y, playerPositionY);
+        _player.transform.position = sClass.SetVector3(_player.transform.position, VectorComponent.y, playerPositionY);
         _player._cPlayerAnimator.ChangeAnimState((int)_player._cPlayerAnimator.GetIdleAnimation());
         _player.RemoveAbilityInputIntercepter(this);
         _fish.SnapTransform();

@@ -69,9 +69,9 @@ public class MultiPlayerCamera : MonoBehaviour
         transform.position = Vector3.SmoothDamp(transform.position, GetNewPosition(), ref velocity, smoothTime);
 
         float clampedY = Mathf.Clamp(transform.position.y, minYPos, maxYPos);
-        transform.position = sClass.setVector3(transform.position, sClass.vectorComponent.y, clampedY);
+        transform.position = sClass.SetVector3(transform.position, VectorComponent.y, clampedY);
         float clampedZ = Mathf.Clamp(transform.position.z, minZPos, maxZPos);
-        transform.position = sClass.setVector3(transform.position, sClass.vectorComponent.z, clampedZ);
+        transform.position = sClass.SetVector3(transform.position, VectorComponent.z, clampedZ);
 
     }
 

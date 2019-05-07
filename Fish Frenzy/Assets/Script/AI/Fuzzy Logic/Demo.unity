@@ -125,6 +125,8 @@ GameObject:
   - component: {fileID: 45104131}
   - component: {fileID: 45104130}
   - component: {fileID: 45104134}
+  - component: {fileID: 45104136}
+  - component: {fileID: 45104135}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -212,6 +214,56 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   desireKeeper: {fileID: 1185404472}
+--- !u!114 &45104135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 45104129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f80dc1eff9501934d8a3a0f6c97f9283, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  testForce: 0
+  upLaunchingMultiplier: 0
+  playerID: 0
+  dPercent: 50
+  playerIndicator: {fileID: 0}
+  _linkedInputManager: {fileID: 0}
+  holdingFish: 0
+  mainFish: {fileID: 0}
+  subFish: {fileID: 0}
+  baitedFish: {fileID: 0}
+  rigid: {fileID: 0}
+  _cPlayerAnimator: {fileID: 0}
+  _cPlayerInvincibility: {fileID: 0}
+  _cPlayerThrow: {fileID: 0}
+  _cPlayerState: {fileID: 0}
+  _cPlayerSlap: {fileID: 0}
+  _cPlayerFishing: {fileID: 0}
+  _cPlayerMovement: {fileID: 0}
+  _cPlayerSwitch: {fileID: 0}
+  _cPlayerFishInteraction: {fileID: 0}
+  _cPlayerFishSpecial: {fileID: 0}
+  knockBackOrigin: {fileID: 0}
+  part: []
+  state: 0
+  sfx_Death:
+    clip: {fileID: 0}
+    volume: 1
+--- !u!114 &45104136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 45104129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d20a3fdb2e051d4795d3aeef83a2f24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iq: 150
 --- !u!1 &212998667
 GameObject:
   m_ObjectHideFlags: 0
@@ -311,7 +363,6 @@ GameObject:
   - component: {fileID: 625007259}
   - component: {fileID: 625007258}
   - component: {fileID: 625007263}
-  - component: {fileID: 625007262}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -402,17 +453,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 625007256}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &625007262
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 625007256}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d20a3fdb2e051d4795d3aeef83a2f24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &625007263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -427,7 +467,7 @@ MonoBehaviour:
   testForce: 0
   upLaunchingMultiplier: 0
   playerID: 10
-  dPercent: 0
+  dPercent: 25
   playerIndicator: {fileID: 0}
   _linkedInputManager: {fileID: 0}
   holdingFish: 0
@@ -526,6 +566,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1185404473}
   - component: {fileID: 1185404474}
+  - component: {fileID: 1185404475}
   m_Layer: 0
   m_Name: Desirablity
   m_TagString: Untagged
@@ -558,6 +599,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPlayer: {fileID: 625007263}
+  botPlayer: {fileID: 45104136}
+--- !u!114 &1185404475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1185404472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 189908f0fcab3c34fb56457f10ca8cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ammo: 29
+  dis: 400
 --- !u!1 &1257572646
 GameObject:
   m_ObjectHideFlags: 0

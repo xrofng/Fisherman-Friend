@@ -22,6 +22,7 @@ public class GameLoop : MonoBehaviour
     public bool timeUp;
     public bool sceneChanging;
     public GameObject playerPrefab;
+    public GameObject playerBotPrefab;
     public CamTarget playerFollowPrefab;
     public Transform LevelCenter;
     protected FrenzySpawner _frenzySpawner;
@@ -141,9 +142,9 @@ public class GameLoop : MonoBehaviour
     }
 
     List<int> takenPos = new List<int>();
-    void SpawnPlayers(int playerID)
+    void SpawnPlayers(int playerID, GameObject spawnCharacter)
     {
-        Player p = MaterialManager.Instance.InstantiatePlayer(playerPrefab, PlayerData.Instance.playerSkinId[playerID]).GetComponent<Player>();
+        Player p = MaterialManager.Instance.InstantiatePlayer(spawnCharacter, PlayerData.Instance.playerSkinId[playerID]).GetComponent<Player>();
         portRoyal.Player[playerID] = p;
         p.playerID = playerID + 1;
         p.gameObject.name = "Player" + p.playerID;
@@ -169,17 +170,25 @@ public class GameLoop : MonoBehaviour
 
     IEnumerator ieSpawnPlayer(float waitTime)
     {
+        PlayerData playerData = PlayerData.Instance;
         multiplayerCamera.enabled = true;
         multiplayerCamera.ClearTarget();
-        float _playerSpawnRate = playerSpawnRate * PlayerData.Instance.maxNumPlayer / PlayerData.Instance.numPlayer;
-        yield return new WaitForSeconds(playerSpawnRate);
+        float _playerSpawnRate = playerSpawnRate * playerData.maxNumPlayer / (playerData.numPlayer + playerData.numBot);
+        yield return new WaitForSeconds(_playerSpawnRate);
         for (int i = 0; i < PlayerData.Instance.numPlayer; i++)
         {
-            SpawnPlayers(i);
+            SpawnPlayers(i, playerPrefab);
+            yield return new WaitForSeconds(_playerSpawnRate);
+        }
+        for (int i = PlayerData.Instance.numPlayer; i < PlayerData.Instance.numBot+ PlayerData.Instance.numPlayer; i++)
+        {
+            SpawnPlayers(i, playerBotPrefab);
             yield return new WaitForSeconds(_playerSpawnRate);
         }
         focusCamera.MoveCameraTo(multiplayerCamera.GetNewPosition(),false);
+        MMEventManager.TriggerEvent(new PlayerSpawnedEvent(portRoyal.Player));
     }
+
     IEnumerator CountDown(float waitTime)
     { 
         yield return new WaitForSeconds(waitTime );

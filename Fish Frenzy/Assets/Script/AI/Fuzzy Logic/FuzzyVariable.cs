@@ -32,8 +32,8 @@ public class FuzzyVariable : MonoBehaviour {
 		return rightSet;
 	}
 
-	public FuzzySet AddTriangularSet( string name, double minBound, 
-									double peak, double maxBound){
+	public FuzzySet AddTriangularSet( string name, double minBound, double peak, double maxBound)
+    {
 		FuzzySet_Triangle triangleSet = new FuzzySet_Triangle ( peak, 
 			peak - minBound, 
 			maxBound - peak);
@@ -41,11 +41,14 @@ public class FuzzyVariable : MonoBehaviour {
 		return triangleSet;
 	}
 
-	public void Fuzzify( double val ){
-		foreach (FuzzySet fuzzySet in MemberSets.Values) {
+	public void Fuzzify( double val )
+    {
+		foreach (FuzzySet fuzzySet in MemberSets.Values)
+        {
 			fuzzySet.DOM = fuzzySet.CalculateDOM (val);
 		}
 	}
+
 	public double DeFuzzifyMaxAvg()
     {
         double sum_repTimeConfidence = 0.0f;
@@ -55,6 +58,7 @@ public class FuzzyVariable : MonoBehaviour {
             sum_repTimeConfidence += fz.DOM * fz.RepresentativeValue;
             sum_confidence += fz.DOM;
         }
+        sum_confidence = sum_confidence == 0 ? 1 : sum_confidence;
         return sum_repTimeConfidence / sum_confidence;
 	}
 

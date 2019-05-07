@@ -10,6 +10,13 @@ using UnityEditor;
 
 public class ReadOnlyAttribute : PropertyAttribute { }
 
+public enum VectorComponent
+{
+    x = 0,
+    y,
+    z,
+}
+
 public static class sClass {
 
     // Use this for initialization
@@ -59,18 +66,26 @@ public static class sClass {
         }
         return index;
     }
-    public enum vectorComponent
-    {
-        x=0,
-        y,
-        z,
-    }
-    public static Vector3 setVector3(Vector3 original , vectorComponent vc, float value)
+
+
+    
+    public static Vector3 SetVector3(Vector3 original , VectorComponent vc, float value)
     {
         Vector3 changed = original;
         changed[(int)vc] = value;
         return changed;
     }
+    public static Vector3 GetVector3_IgnoreElement(Vector3 original, VectorComponent vc)
+    {
+        return SetVector3(original, vc, 0);
+    }
+    public static float DistanceIgnored(VectorComponent vc, Vector3 start, Vector3 end)
+    {
+        Vector3 endIgnored_Pos = SetVector3(end, VectorComponent.y, 0);
+        Vector3 startIgnored_Pos = SetVector3(start, VectorComponent.y, 0);
+        return Vector3.Distance(endIgnored_Pos, startIgnored_Pos);
+    }
+
     public enum quaternionComponent
     {
         x = 0,

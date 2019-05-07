@@ -8,6 +8,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 496e493cac87c8d418719ad5e9890069, type: 3}
-  m_Name: WorldState_NearEnemy
+  m_Script: {fileID: 11500000, guid: 9b7b71697e0001440aebcd8abf64e765, type: 3}
+  m_Name: WorldState_FaceTarget_Fisherman
   m_EditorClassIdentifier: 
+  target: {fileID: 0}

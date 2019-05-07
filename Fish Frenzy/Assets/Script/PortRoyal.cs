@@ -115,8 +115,8 @@ public class PortRoyal : MonoBehaviour
     void ForceSpawnFish(Fish spawnFish)
     {
         Fish f = Instantiate(spawnFish, Player[0].transform.position + Vector3.up * 5, Random.rotation) as Fish;
-        f.gameObject.transform.localEulerAngles = sClass.setVector3(f.gameObject.transform.localEulerAngles, sClass.vectorComponent.x, 0);
-        f.gameObject.transform.localEulerAngles = sClass.setVector3(f.gameObject.transform.localEulerAngles, sClass.vectorComponent.z, 0);
+        f.gameObject.transform.localEulerAngles = sClass.SetVector3(f.gameObject.transform.localEulerAngles, VectorComponent.x, 0);
+        f.gameObject.transform.localEulerAngles = sClass.SetVector3(f.gameObject.transform.localEulerAngles, VectorComponent.z, 0);
         f.ChangeState(Fish.fState.fall);
         f.gameObject.AddComponent<Rigidbody>();
         f.Rigidbody.freezeRotation = true;

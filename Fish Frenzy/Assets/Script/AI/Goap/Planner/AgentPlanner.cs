@@ -7,6 +7,18 @@ namespace GOAP
 {
     public class AgentPlanner : MonoBehaviour
     {
+        public bool planAtStart;
+        /// <summary>
+        /// a flag prevent the plan process
+        /// </summary>
+        protected bool startPlanning;
+
+        public Agent agent;
+        public T GetAgent<T>() where T : Agent
+        {
+            return agent as T;
+        }
+
         [SerializeField]
         public List<Goal> Goals = new List<Goal>();
         public Dictionary<Type,Goal> GoalsDict = new Dictionary<Type, Goal>();
@@ -28,19 +40,6 @@ namespace GOAP
 
         protected bool isPlanReady;
 
-        //protected SM_Agent _smAgent;
-        //public SM_Agent SMAgent
-        //{
-        //    get
-        //    {
-        //        if(_smAgent == null)
-        //        {
-        //            _smAgent = GetComponent<SM_Agent>();
-        //        }
-        //        return _smAgent;
-        //    }
-        //}
-
         protected AgentAnimator _agentAnimator;
         public AgentAnimator AgentAnimator
         {
@@ -61,14 +60,26 @@ namespace GOAP
 
         void Update()
         {
-            StartPlan();
+            if (!startPlanning)
+            {
+                return;
+            }
+
+            PlanPreparation();
+
+            ProcessPlan();
             PerformActionAsPlan();
             CheckActionCancel();
+
+        }
+
+        protected virtual void PlanPreparation()
+        {
+
         }
 
         protected virtual void Initialize()
         {
-            Debug.Log("base Initialize");
             foreach (Goal goal in Goals)
             {
                 goal.Planner = this;
@@ -79,26 +90,22 @@ namespace GOAP
                 action.Planner = this;
                 ActionsDict.Add(action.GetType(), action);
             }
+
+            startPlanning = planAtStart;
+
         }
 
 
         private void PerformActionAsPlan()
         {
-            //Action prevAction = null;
-            //Action currentAction = goalAction;
-            //while(currentAction != null)
-            //{
-            //    Debug.Log("Try Do " + currentAction);
-            //    prevAction = currentAction;
-            //    currentAction = ActionPlan[currentAction];
-            //}
-            //currentAction = prevAction;
-            //currentAction.OnActionTick();
-            processingAction.OnActionTick();
-            Debug.Log("Really Do " + processingAction);
+            if (processingAction)
+            {
+                processingAction.OnActionTick();
+                Debug.Log("Really Do " + processingAction);
+            }
         }
 
-        protected void StartPlan()
+        protected void ProcessPlan()
         {
             foreach(Goal goal in Goals)
             {
@@ -121,7 +128,10 @@ namespace GOAP
         {
             foreach (Action action in Actions)
             {
-                action.OnActionCancel();
+                if (action.IsValid())
+                {
+                    action.OnActionCancel();
+                }
             }
         }
 

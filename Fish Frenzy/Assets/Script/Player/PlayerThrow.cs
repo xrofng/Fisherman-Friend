@@ -160,7 +160,7 @@ public class PlayerThrow : PlayerAbility {
             }
         }
         // set position Y
-        _aimArrow.transform.position = sClass.setVector3(_aimArrow.transform.position, sClass.vectorComponent.y, highest + additionOverUp);
+        _aimArrow.transform.position = sClass.SetVector3(_aimArrow.transform.position, VectorComponent.y, highest + additionOverUp);
     }
 
     public void ChangeToUnAim()

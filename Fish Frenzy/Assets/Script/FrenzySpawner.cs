@@ -35,7 +35,7 @@ public class FrenzySpawner : MonoBehaviour
             spawnedPoint.Add(spawnPointIndex);
 
             Vector3 spawnPos = SpawnPoints[spawnPointIndex].position;
-            spawnPos = sClass.setVector3(spawnPos, sClass.vectorComponent.y, transform.position.y);
+            spawnPos = sClass.SetVector3(spawnPos, VectorComponent.y, transform.position.y);
 
             SpawnFish(spawnPos);
         }
@@ -44,8 +44,8 @@ public class FrenzySpawner : MonoBehaviour
     void SpawnFish(Vector3 spawnPos)
     {
         Fish spawnFish = Instantiate(portRoyal.randomFish(), spawnPos, Random.rotation) as Fish;
-        spawnFish.gameObject.transform.localEulerAngles = sClass.setVector3(spawnFish.gameObject.transform.localEulerAngles, sClass.vectorComponent.x, 0);
-        spawnFish.gameObject.transform.localEulerAngles = sClass.setVector3(spawnFish.gameObject.transform.localEulerAngles, sClass.vectorComponent.z, 0);
+        spawnFish.gameObject.transform.localEulerAngles = sClass.SetVector3(spawnFish.gameObject.transform.localEulerAngles, VectorComponent.x, 0);
+        spawnFish.gameObject.transform.localEulerAngles = sClass.SetVector3(spawnFish.gameObject.transform.localEulerAngles, VectorComponent.z, 0);
         spawnFish.ChangeState(Fish.fState.fall);
         //spawnFish.GetCollider<BoxCollider>().isTrigger = true;
 
