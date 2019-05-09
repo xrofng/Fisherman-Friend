@@ -33,6 +33,11 @@ namespace GOAP
             return requirementInPlanner == requiresWorldState.Count;
         }
 
+        public virtual void OnActionInit()
+        {
+
+        }
+
         public virtual void OnActionStart()
         {
             
@@ -40,7 +45,10 @@ namespace GOAP
 
         public virtual void OnActionCancel()
         {
-            
+            if (ActionCancelationCondition())
+            {
+                Planner.RemoveCurrentWorldState(this);
+            }
         }
 
         public virtual void OnActionTick()
@@ -50,12 +58,22 @@ namespace GOAP
 
         public virtual void OnActionDone()
         {
+            Planner.ProcessingAction = null;
             foreach(WorldState satisfyState in satisfiesWorldState)
             {
                 Planner.AddCurrentWorldState(satisfyState);
             }
         }
 
+        protected virtual bool ActionCancelationCondition()
+        {
+            return false;
+        }
+
+        public T CastAction<T>() where T : Action
+        {
+            return this as T;
+        }
     }
 
 }

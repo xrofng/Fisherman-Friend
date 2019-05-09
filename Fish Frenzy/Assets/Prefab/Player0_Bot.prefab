@@ -1869,9 +1869,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coastHolder: {fileID: 0}
-  rayColor: {r: 1, g: 0, b: 0, a: 1}
-  wireSphereRadius: 1
-  showRay: 0
 --- !u!114 &114065444778560276
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2162,10 +2159,14 @@ MonoBehaviour:
   agent: {fileID: 0}
   Goals:
   - {fileID: 11400000, guid: c12ca336ea5635b43bab0e129b471c66, type: 2}
+  - {fileID: 11400000, guid: 0037a522d230aa9498d35d73675ae458, type: 2}
   - {fileID: 11400000, guid: c3c5765fea323474399aea58fffbc003, type: 2}
   Actions:
   - {fileID: 11400000, guid: 799dd169b8c64494191aa50a2213d3be, type: 2}
-  - {fileID: 11400000, guid: 8cef636b8b696c9438ed619db666b1f4, type: 2}
+  - {fileID: 11400000, guid: 1d41cc893e6c0ed47ab2126caa0a4190, type: 2}
+  - {fileID: 11400000, guid: dff5a45a1fb754e408fa321d0fc4354f, type: 2}
+  - {fileID: 11400000, guid: 4946376f39d21e042b2cde0f6c4ca6ce, type: 2}
+  - {fileID: 11400000, guid: 0bba6fde855cbc247956ab0449ddc9ae, type: 2}
   currentWorldStates: []
   targetEnemy: {fileID: 0}
 --- !u!114 &114629561778297108

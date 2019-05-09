@@ -45,14 +45,29 @@ namespace GOAP
         {
             base.PrepareAction(action);
 
-            if (action.GetType() == typeof(Action_FaceTarget))
+            if (action.CastAction<Action_FaceTarget>() )
             {
-                GetAction<Action_FaceTarget>().target = targetEnemy;
+                action.CastAction<Action_FaceTarget>().target = targetEnemy;
             }
 
-            if (action.GetType() == typeof(Action_FaceCoast))
+            if (action.CastAction<Action_GoToTarget>())
             {
-                GetAction<Action_FaceCoast>().target = OwnerPlayer._cPlayerEnvironmentInteraction.GetNearestCoast();
+                action.CastAction<Action_GoToTarget>().target = targetEnemy;
+            }
+
+            if (action.CastAction<Action_FaceCoast>())
+            {
+                action.CastAction<Action_FaceCoast>().target = OwnerPlayer._cPlayerEnvironmentInteraction.GetNearestCoast();
+            }
+
+            if (action.CastAction<Action_HeadTarget>())
+            {
+                action.CastAction<Action_HeadTarget>().target = targetEnemy;
+            }
+
+            if (action.CastAction<Action_HeadTarget_Coast>())
+            {
+                action.CastAction<Action_HeadTarget_Coast>().target = OwnerPlayer._cPlayerEnvironmentInteraction.GetNearestCoast();
             }
         }
 
@@ -60,12 +75,20 @@ namespace GOAP
         {
             base.PrepareGoal(goal);
 
-            if (goal.GetType() == typeof(Goal_KillEnemy))
+            if (goal.CastGoal<Goal_KillEnemy>())
             {
-                GetGoal<Goal_KillEnemy>().TargetEnemy = targetEnemy;
+                goal.CastGoal<Goal_KillEnemy>().TargetEnemy = targetEnemy;
             }
         }
 
+        protected override void InitGoal(Goal goal)
+        {
+            base.InitGoal(goal);
+            if (goal.CastGoal<Goal_Fisherman>())
+            {
+                goal.CastGoal<Goal_Fisherman>().ownerPlayer = OwnerPlayer;
+            }
+        }
 
 
     }

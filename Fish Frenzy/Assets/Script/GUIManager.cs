@@ -50,7 +50,7 @@ public class GUIManager : MonoBehaviour
     /// list of list of sprite 0=normal 1=death 2=damaged
     protected List<List<Sprite>> PlayerSpriteSet = new List<List<Sprite>>();
     ///
-    protected int numPlayer;
+    protected int numFisherman;
 
     [Header("Player HUD")]
     public PlayerHUD Player1_HUD;
@@ -83,7 +83,7 @@ public class GUIManager : MonoBehaviour
     protected void Awake()
     {
         playerData = PlayerData.Instance;
-        numPlayer = playerData.numPlayer;
+        numFisherman = playerData.numPlayer + playerData.numBot;
 
         InitImageList();
 
@@ -111,7 +111,7 @@ public class GUIManager : MonoBehaviour
         {
             PlayerHudList[i].gameObject.SetActive(false);
         }
-        for (int pId = 0; pId < numPlayer; pId++)
+        for (int pId = 0; pId < numFisherman; pId++)
         {
             PlayerHudList[pId].gameObject.SetActive(true);
             PlayerHudList[pId].Initialize(pId);
@@ -130,7 +130,7 @@ public class GUIManager : MonoBehaviour
     {
         if (gameLoop.state == GameLoop.GameState.playing)
         {
-            for (int pId = 0; pId < numPlayer; pId++)
+            for (int pId = 0; pId < numFisherman; pId++)
             {
                 PlayerHudList[pId].UpdatePlayerHUD();
             }

@@ -11,9 +11,9 @@ public class MatchResult : PersistentSingleton<MatchResult>
     {
         get { return PlayerData.Instance.maxNumPlayer; }
     }
-    public int numPlayer
+    public int numFisherman
     {
-        get { return PlayerData.Instance.numPlayer; }
+        get { return PlayerData.Instance.numPlayer + PlayerData.Instance.numBot; }
     }
 
     protected GUIManager _guiManager;
@@ -36,7 +36,7 @@ public class MatchResult : PersistentSingleton<MatchResult>
         {
             if (knockByList_Name.Count == 0)
             {
-                for (int i = 0; i < numPlayer; i++)
+                for (int i = 0; i < numFisherman; i++)
                 {
                     knockByList_Name.Add(new List<string>());
                 }
@@ -52,7 +52,7 @@ public class MatchResult : PersistentSingleton<MatchResult>
         {
             if (knockByList.Count == 0)
             {
-                for (int i = 0; i < numPlayer; i++)
+                for (int i = 0; i < numFisherman; i++)
                 {
                     knockByList.Add(new List<GameObject>());
                 }
@@ -67,7 +67,7 @@ public class MatchResult : PersistentSingleton<MatchResult>
         {
             if (latestAttackerList.Count == 0)
             {
-                for (int i = 0; i < numPlayer; i++)
+                for (int i = 0; i < numFisherman; i++)
                 {
                     latestAttackerList.Add(new List<GameObject>());
                 }
@@ -147,7 +147,7 @@ public class MatchResult : PersistentSingleton<MatchResult>
 
     public void KnockerObjToName()
     {
-        for (int i = 0; i < numPlayer; i++)
+        for (int i = 0; i < numFisherman; i++)
         {
             foreach (GameObject go in KnockByList[i])
             {

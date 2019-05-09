@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerFishing : PlayerAbility
+public class PlayerFishing : PlayerAbility, MMEventListener<PlayerInputEvent>
 {
     public bool nearCoast;
 
@@ -22,6 +23,7 @@ public class PlayerFishing : PlayerAbility
     protected override void Initialization()
     {
         base.Initialization();
+        this.MMEventStartListening<PlayerInputEvent>();
     }
 
     // Update is called once per frame
@@ -29,43 +31,49 @@ public class PlayerFishing : PlayerAbility
         if (_player.state == Player.eState.ground)
         {
             coastCheck();
-            Fishing();
+            //Fishing();
+            if (_pInput.GetButtonDown(_pInput.Fishing, _player.playerID - 1))
+            {
+                MMEventManager.TriggerEvent(new PlayerInputEvent(_pInput.Fishing, _player.playerID - 1));
+            }
         }
         if (_player.state == Player.eState.fishing)
         {
-            Fishing();
+            //Fishing();
+            if (_pInput.GetButtonDown(_pInput.Fishing, _player.playerID - 1))
+            {
+                MMEventManager.TriggerEvent(new PlayerInputEvent(_pInput.Fishing, _player.playerID - 1));
+            }
         }
+        
     }
 
 
     void Fishing()
     {
-        if (_pInput.GetButtonDown(_pInput.Fishing, _player.playerID-1)) 
+        switch (_player.state)
         {
-            switch (_player.state)
-            {
-                case Player.eState.ground:
-                    if (nearCoast == true && !_player.holdingFish)
-                    {
-                        guiManager.UpdateFishButtonIndicator(_player.playerID, fishPoint.position, false);
-                        _player.ChangeState(Player.eState.rodSwinging);
-                        StartCoroutine(StartFishing(delayFrame));
-                    }
-                    break;
-                case Player.eState.fishing:
-                    if (_player.baitedFish.MashForCatch())
-                    {
-                        _player.baitedFish.fishMeshRenderer.enabled = true;
-                        _player.ChangeState(Player.eState.waitForFish);
-                        _player.Animation.ChangeAnimState((int)PlayerAnimation.Anim.FishingEnd, true, (int)PlayerAnimation.Anim.HoldFish);
+            case Player.eState.ground:
+                if (nearCoast == true && !_player.holdingFish)
+                {
+                    guiManager.UpdateFishButtonIndicator(_player.playerID, fishPoint.position, false);
+                    _player.ChangeState(Player.eState.rodSwinging);
+                    StartCoroutine(StartFishing(delayFrame));
+                }
+                break;
+            case Player.eState.fishing:
+                if (_player.baitedFish.MashForCatch())
+                {
+                    _player.baitedFish.fishMeshRenderer.enabled = true;
+                    _player.ChangeState(Player.eState.waitForFish);
+                    _player.Animation.ChangeAnimState((int)PlayerAnimation.Anim.FishingEnd, true, (int)PlayerAnimation.Anim.HoldFish);
 
-                        GetCrossZComponent<PlayerFishInteraction>().FinishFishing();
-                        guiManager.UpdateMashFishingButtonIndicator(_player.playerID, fishPoint.position, false);
-                    }
-                    break;
-                case Player.eState.waitForFish:
-                    break;
-            }
+                    GetCrossZComponent<PlayerFishInteraction>().FinishFishing();
+                    guiManager.UpdateMashFishingButtonIndicator(_player.playerID, fishPoint.position, false);
+                }
+                break;
+            case Player.eState.waitForFish:
+                break;
         }
     }
 
@@ -130,5 +138,13 @@ public class PlayerFishing : PlayerAbility
             return;
         }
         _player.ChangeState(Player.eState.ground);
+    }
+
+    public void OnMMEvent(PlayerInputEvent eventType)
+    {
+        if(eventType.buttonName == _pInput.Fishing && eventType.playerId == _player.playerID - 1)
+        {
+            Fishing();
+        }
     }
 }

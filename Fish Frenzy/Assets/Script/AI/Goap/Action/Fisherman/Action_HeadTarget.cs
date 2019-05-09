@@ -4,12 +4,13 @@ using UnityEngine;
 
 namespace GOAP
 {
-    [CreateAssetMenu(fileName = "Action_FaceTarget", menuName = "Action/Fisherman/FaceTarget", order = 52)]
-    public class Action_FaceTarget : Action_Fisherman
+    [CreateAssetMenu(fileName = "Action_HeadTarget", menuName = "Action/Fisherman/HeadTarget", order = 52)]
+    public class Action_HeadTarget : Action_Fisherman
     {
         [Header("Properties")]
         public float rotationSpeed = 5.0f;
         public float faceAngle = 10.0f;
+        public float nearRadius = 2.0f;
 
         private Vector3 targetNonY_Pos;
         private Vector3 plannerNonY_Pos;
@@ -30,9 +31,12 @@ namespace GOAP
             Vector3 direction = DirectionToTarget();
             Vector3 smoothDirection = Vector3.Slerp(ownerPlayer.PlayerForward, direction, rotationSpeed);
 
+            ownerPlayer._cPlayerMovement.Move(direction);
+
             ownerPlayer._cPlayerMovement.ChangeDirection(smoothDirection.x, smoothDirection.z);
 
-            if (AngleToTarget() <= faceAngle)
+            if (AngleToTarget() <= faceAngle
+                && Vector3.Distance(Planner.transform.position, target.transform.position) < nearRadius)
             {
                 OnActionDone();
             }
@@ -40,7 +44,7 @@ namespace GOAP
 
         protected override bool ActionCancelationCondition()
         {
-            return AngleToTarget() > faceAngle;
+            return AngleToTarget() > faceAngle || Vector3.Distance(Planner.transform.position, target.transform.position) >= nearRadius;
         }
 
         protected Vector3 DirectionToTarget()

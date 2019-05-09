@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace GOAP
 {
-    [CreateAssetMenu(fileName = "Goal_KillEnemy", menuName = "Goal/KillEnemy", order = 50)]
-    public class Goal_KillEnemy : Goal
+    [CreateAssetMenu(fileName = "Goal_KillEnemy", menuName = "Goal/Fisherman/KillEnemy", order = 50)]
+    public class Goal_KillEnemy : Goal_Fisherman
     {
         protected GameObject _targetEnemy;
         public GameObject TargetEnemy
@@ -16,7 +16,7 @@ namespace GOAP
 
         public override bool IsValid()
         {
-            return TargetEnemy;
+            return TargetEnemy && ownerPlayer;
         }
     }
 

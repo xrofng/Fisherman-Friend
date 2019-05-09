@@ -34,6 +34,14 @@ namespace GOAP
         protected Dictionary<Action, Action> ActionPlan = new Dictionary<Action, Action>();
         protected Action goalAction;
         protected Action processingAction;
+        public Action ProcessingAction
+        {
+            get { return processingAction; }
+            set { processingAction = value; }
+        }
+
+        private FFList<WorldState> allRequiredWorldState = new FFList<WorldState>();
+        private FFList<WorldState> satisfiableWorldState = new FFList<WorldState>();
 
         [SerializeField]
         public List<WorldState> currentWorldStates = new List<WorldState>();
@@ -105,19 +113,17 @@ namespace GOAP
         /// 
         /// </summary>
         /// <param name="action"></param>
-        protected virtual void PrepareAction(Action action)
-        {
-
-        }
+        /// <param name="goal"></param>
+        protected virtual void PrepareAction(Action action) { }
+        protected virtual void PrepareGoal(Goal goal) { }
 
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="action"></param>
         /// <param name="goal"></param>
-        protected virtual void PrepareGoal(Goal goal)
-        {
-
-        }
+        protected virtual void InitAction(Action action) { }
+        protected virtual void InitGoal(Goal goal) { }
 
         protected virtual void Initialize()
         {
@@ -125,11 +131,14 @@ namespace GOAP
             {
                 goal.Planner = this;
                 GoalsDict.Add(goal.GetType(), goal);
+                InitGoal(goal);
             }
             foreach (Action action in Actions)
             {
                 action.Planner = this;
                 ActionsDict.Add(action.GetType(), action);
+                InitAction(action);
+                action.OnActionInit();
             }
 
             startPlanning = planAtStart;
@@ -156,15 +165,13 @@ namespace GOAP
             foreach(Goal goal in Goals)
             {
                 ActionPlan.Clear();
-                Debug.Log("CheckValid: "+goal.name+" "+goal.IsValid());
                 if (goal.IsValid())
                 {
-                    Debug.Log("AStar on " + goal.name + " witd desired " + goal.desiredWorldState);
                     A_STAR(goal.desiredWorldState);
                 }
                 if (isPlanReady)
                 {
-
+                    Debug.Log("Plan ready from " + goal.name + " witd desired " + goal.desiredWorldState);
                     return;
                 }
             }
@@ -190,6 +197,9 @@ namespace GOAP
         /// <param name="goalDesire"></param>
         void A_STAR(WorldState goalDesire)
         {
+            allRequiredWorldState.List.Clear();
+            satisfiableWorldState.List.Clear();
+
             List<Action> openSet = new List<Action>();
             openSet.AddRange(FindActionSatisfy(goalDesire));
 
@@ -208,10 +218,14 @@ namespace GOAP
             while (openSet.Count > 0)
             {
                 Action current = GetLowestFscoreAction(openSet, gScore);
-                //Debug.Log(current.name + " gscore:" + gScore[current]);
-                if (GetHeuristic(current) <= 0)
+                satisfiableWorldState.AddRange(current.satisfiesWorldState);
+
+                if (GetHeuristic(current) <= 0 && allRequiredWorldState.Count <= satisfiableWorldState.Count)
                 {
-                    Debug.Log("Plan Ready last action is: " + current.name);
+                    Debug.Log("allre"+allRequiredWorldState.List.Count);
+                    allRequiredWorldState.PrintItems();
+                    Debug.Log("satis"+satisfiableWorldState.List.Count);
+                    satisfiableWorldState.PrintItems();
                     if (processingAction != current)
                     {
                         processingAction = current;
@@ -227,6 +241,8 @@ namespace GOAP
 
                 A_STAR_NeighborCheck(current, closedSet, openSet, gScore);
             }
+            isPlanReady = false;
+            return;
         }
 
         private Action GetLowestFscoreAction(List<Action> openSet, Dictionary<Action, float> gScore)
@@ -255,7 +271,11 @@ namespace GOAP
         {
             foreach (WorldState requireState in current.requiresWorldState)
             {
-                foreach (Action satisfyAction in FindActionSatisfy( requireState))
+                if (currentWorldStates.Contains(requireState))
+                {
+                    continue;
+                }
+                foreach (Action satisfyAction in FindActionSatisfy(requireState))
                 {
                     if (!closedSet.Contains(satisfyAction))
                     {
@@ -283,6 +303,8 @@ namespace GOAP
         /// <returns></returns>
         private List<Action> FindActionSatisfy(WorldState requireState)
         {
+            allRequiredWorldState.Add(requireState);
+            
             List<Action> satisfyActions = new List<Action>();
             foreach(Action action in Actions)
             {
@@ -309,7 +331,6 @@ namespace GOAP
                     hScore += 1;
                 }
             }
-            Debug.Log(action + "has heu" + hScore);
             return hScore;
         }
 

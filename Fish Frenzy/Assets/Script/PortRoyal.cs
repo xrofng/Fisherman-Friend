@@ -26,8 +26,13 @@ public class PortRoyal : MonoBehaviour
     public Transform[] spawnPoint;
     public Transform underWater;
 
+    [Header("Camera")]
     public Camera mainCamera;
     public MultiPlayerCamera multiPCamera;
+
+    [Header("Coast")]
+    public GameObject coastHolder;
+    public List<Transform> coastPoints = new List<Transform>();
 
     [Header("Debug")]
     public bool FixedFish = false;
@@ -41,6 +46,13 @@ public class PortRoyal : MonoBehaviour
             totalSpawnRate += fishPool[i].spawnRate;
         }
 
+        foreach (Transform child in coastHolder.transform)
+        {
+            if (child != coastHolder.transform)
+            {
+                coastPoints.Add(child);
+            }
+        }
 
     }
 	

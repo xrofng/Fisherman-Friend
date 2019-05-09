@@ -14,7 +14,7 @@ namespace GOAP
         {
             base.Initialize();
             GetGoal<Goal_KillEnemy>().TargetEnemy = targetEnemy;
-            GetAction<Action_GoToTarget>().SetProperties(targetEnemy, meleeRangeRadius, moveSpeed);
+            //GetAction<Action_GoToTarget>().SetProperties(targetEnemy, meleeRangeRadius, moveSpeed);
 
         }
     }

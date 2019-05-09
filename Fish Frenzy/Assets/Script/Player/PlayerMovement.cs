@@ -59,15 +59,7 @@ public class PlayerMovement : PlayerAbility
         float axisX = _pInput.GetAxis(_pInput.Hori, _player.playerID-1);
         float axisY = _pInput.GetAxis(_pInput.Verti, _player.playerID-1);
 
-        Vector3 mov = new Vector3(axisRawX * speed.x, 0.0f, axisRawY*speed.z );
-
-        //Vector3 mov = new Vector3(Input.GetAxisRaw(hori) * speed.x, 0.0f, Input.GetAxisRaw(verti) * speed.z);
-        mov = mov * Time.deltaTime;
-        if (!freezeMovement && !GetCrossZComponent<PlayerState>().IsAttacking && !GetCrossZComponent<PlayerState>().IsDamaged)
-        {
-            this.transform.Translate(mov);
-        }
-
+        Move(new Vector3(axisRawX, 0.0f, axisRawY));
         
         playerDirection = lookTo;
         if (sClass.getSign(axisX, 0.015f) != 0 || sClass.getSign(axisY, 0.015f) != 0)
@@ -92,6 +84,15 @@ public class PlayerMovement : PlayerAbility
             }
         }
         
+    }
+
+    public void Move(Vector3 mov)
+    {
+        if (!freezeMovement && !GetCrossZComponent<PlayerState>().IsAttacking && !GetCrossZComponent<PlayerState>().IsDamaged)
+        {
+            mov *= Time.deltaTime;
+            this.transform.Translate(mov.x * speed.x, 0.0f, mov.z * speed.z);
+        }
     }
 
     public void ChangeDirection(float dirX,float dirZ)

@@ -22,6 +22,11 @@ namespace GOAP
         {
             return Planner;
         }
+
+        public T CastGoal<T>() where T : Goal
+        {
+            return this as T;
+        }
     }
 }
 

@@ -8,12 +8,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80751b4682168da4b9f00308916c3ef9, type: 3}
-  m_Name: Action_FaceTarget
+  m_Script: {fileID: 11500000, guid: 297dd62d0369c9d49b66dca5347f8a9e, type: 3}
+  m_Name: Action_HeadTarget
   m_EditorClassIdentifier: 
   satisfiesWorldState:
   - {fileID: 11400000, guid: 6e82286b15f6d034786e18204a4f08ed, type: 2}
+  - {fileID: 11400000, guid: 47db2bb80edf4db4d9861a9e42076919, type: 2}
   requiresWorldState: []
-  rotationSpeed: 0.025
+  rotationSpeed: 5
   faceAngle: 10
+  nearRadius: 4
   target: {fileID: 0}
