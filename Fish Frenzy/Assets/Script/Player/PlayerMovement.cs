@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : PlayerAbility {
+public class PlayerMovement : PlayerAbility
+{
     public Vector3 speed;
     public Vector3 jumpForce;
     public float jumpFaster;
@@ -11,6 +12,7 @@ public class PlayerMovement : PlayerAbility {
     public bool freezeMovement;
 
     public Vector3 lookTo;
+    Vector3 playerDirection;
 
     // Use this for initialization
     protected override void Start()
@@ -63,18 +65,16 @@ public class PlayerMovement : PlayerAbility {
         mov = mov * Time.deltaTime;
         if (!freezeMovement && !GetCrossZComponent<PlayerState>().IsAttacking && !GetCrossZComponent<PlayerState>().IsDamaged)
         {
-
             this.transform.Translate(mov);
         }
 
         
-        Vector3 playerDirection = lookTo;
+        playerDirection = lookTo;
         if (sClass.getSign(axisX, 0.015f) != 0 || sClass.getSign(axisY, 0.015f) != 0)
         {
             if (sClass.intervalCheck(axisRawX, -0.9f, 0.9f, true) || sClass.intervalCheck(axisRawY, -0.9f, 0.9f, true))
             {
-                playerDirection = Vector3.right * -axisRawX + Vector3.forward * -axisRawY;
-                lookTo = playerDirection;
+                ChangeDirection(axisRawX, axisRawY);
             }
         }
 
@@ -92,6 +92,13 @@ public class PlayerMovement : PlayerAbility {
             }
         }
         
+    }
+
+    public void ChangeDirection(float dirX,float dirZ)
+    {
+        playerDirection = lookTo;
+        playerDirection = Vector3.right * -dirX + Vector3.forward * -dirZ;
+        lookTo = playerDirection;
     }
 
     void Jump()

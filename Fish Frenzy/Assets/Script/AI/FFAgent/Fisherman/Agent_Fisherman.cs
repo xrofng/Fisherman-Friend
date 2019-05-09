@@ -9,13 +9,11 @@ public class Agent_Fisherman : Agent
     {
         base.InitFuzzy();
         _fuzzy = GetComponent<Agent_Fisherman_Fuzzy>();
-        
     }
 
     protected override void InitPlanner()
     {
         base.InitPlanner();
-
         _planner = GetComponent<Agent_Fisherman_Planner>();
     }
 

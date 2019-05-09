@@ -25,6 +25,7 @@ public class PortRoyal : MonoBehaviour
     }
     public Transform[] spawnPoint;
     public Transform underWater;
+
     public Camera mainCamera;
     public MultiPlayerCamera multiPCamera;
 
@@ -39,6 +40,8 @@ public class PortRoyal : MonoBehaviour
         {
             totalSpawnRate += fishPool[i].spawnRate;
         }
+
+
     }
 	
 	// Update is called once per frame

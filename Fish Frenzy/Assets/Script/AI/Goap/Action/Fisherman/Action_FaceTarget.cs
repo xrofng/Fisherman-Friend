@@ -17,11 +17,6 @@ namespace GOAP
 
         public GameObject target;
 
-        public void SetProperties(GameObject target)
-        { 
-            this.target = target;
-        }
-
         public override void OnActionStart()
         {
             base.OnActionStart();
@@ -31,17 +26,22 @@ namespace GOAP
         public override void OnActionTick()
         {
             base.OnActionTick();
+            Player fisherman = Planner.GetAgent<Agent_Fisherman>().OwnerPlayer;
 
             // ignore y-axis position
             targetNonY_Pos = sClass.SetVector3(target.transform.position, VectorComponent.y, 0);
             plannerNonY_Pos = sClass.SetVector3(Planner.transform.position, VectorComponent.y, 0);
 
-            Quaternion rotation = Quaternion.LookRotation(targetNonY_Pos - plannerNonY_Pos);
+            Vector3 dir = (targetNonY_Pos - plannerNonY_Pos).normalized;
 
-            Planner.transform.rotation = Quaternion.Slerp(Planner.transform.rotation, rotation, Time.deltaTime * rotationSpeed);
+            Vector3 dirr = Vector3.Slerp(fisherman.PlayerForward, dir, rotationSpeed);
 
-            plannerNonY_Forward = sClass.SetVector3(Planner.transform.forward, VectorComponent.y, 0);
-            if (Vector3.Angle(targetNonY_Pos, plannerNonY_Forward) <= faceAngle)
+            fisherman._cPlayerMovement.ChangeDirection(dirr.x, dirr.z);
+
+            float dot = Vector3.Dot(dirr, fisherman.PlayerForward);
+            float angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
+
+            if (angle <= faceAngle)
             {
                 OnActionDone();
             }

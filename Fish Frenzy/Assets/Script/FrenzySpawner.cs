@@ -60,7 +60,7 @@ public class FrenzySpawner : MonoBehaviour
         frenzyStarted = b;
     }
 
-    // Draw Path
+    // Draw Point
     [Header("Debug")]
     public Color rayColor;
     public float wireSphereRadius = 1.0f;

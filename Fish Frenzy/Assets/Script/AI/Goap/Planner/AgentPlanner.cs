@@ -73,7 +73,48 @@ namespace GOAP
 
         }
 
-        protected virtual void PlanPreparation()
+        protected void PlanPreparation()
+        {
+            if (Time.frameCount % 10 != 0)
+            {
+                return;
+            }
+
+            PreparePlanner();
+
+            foreach (Goal goal in Goals)
+            {
+                PrepareGoal(goal);
+            }
+
+            foreach (Action action in Actions)
+            {
+                PrepareAction(action);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected virtual void PreparePlanner()
+        {
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="action"></param>
+        protected virtual void PrepareAction(Action action)
+        {
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="goal"></param>
+        protected virtual void PrepareGoal(Goal goal)
         {
 
         }
@@ -95,7 +136,9 @@ namespace GOAP
 
         }
 
-
+        /// <summary>
+        /// Perform current action
+        /// </summary>
         private void PerformActionAsPlan()
         {
             if (processingAction)
@@ -105,6 +148,9 @@ namespace GOAP
             }
         }
 
+        /// <summary>
+        /// Check for valid goal and use astar to find action satisfy
+        /// </summary>
         protected void ProcessPlan()
         {
             foreach(Goal goal in Goals)
@@ -124,6 +170,9 @@ namespace GOAP
             }
         }
 
+        /// <summary>
+        /// See whether action conditon is not success, remove it's satisfy world state
+        /// </summary>
         private void CheckActionCancel()
         {
             foreach (Action action in Actions)
@@ -135,6 +184,10 @@ namespace GOAP
             }
         }
 
+        /// <summary>
+        /// Use Astar to find what action to be done
+        /// </summary>
+        /// <param name="goalDesire"></param>
         void A_STAR(WorldState goalDesire)
         {
             List<Action> openSet = new List<Action>();
@@ -256,6 +309,7 @@ namespace GOAP
                     hScore += 1;
                 }
             }
+            Debug.Log(action + "has heu" + hScore);
             return hScore;
         }
 

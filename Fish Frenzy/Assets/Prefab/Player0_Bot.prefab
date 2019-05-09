@@ -176,6 +176,7 @@ GameObject:
   - component: {fileID: 114047201574400112}
   - component: {fileID: 114356388788563072}
   - component: {fileID: 114629561778297108}
+  - component: {fileID: 114058704261736230}
   - component: {fileID: 95087809265775328}
   - component: {fileID: 114211146498797350}
   - component: {fileID: 114089546764865766}
@@ -756,7 +757,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1415720679952874}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.01, y: 0, z: 0}
   m_LocalScale: {x: 52, y: 52, z: 52}
   m_Children:
   - {fileID: 4137145926898340}
@@ -1856,6 +1857,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
   initOnStart: 0
+--- !u!114 &114058704261736230
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1415720679952874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecd701b30052f814ea3b07d81ce032be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coastHolder: {fileID: 0}
+  rayColor: {r: 1, g: 0, b: 0, a: 1}
+  wireSphereRadius: 1
+  showRay: 0
 --- !u!114 &114065444778560276
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2088,6 +2104,7 @@ MonoBehaviour:
   _cPlayerMovement: {fileID: 0}
   _cPlayerSwitch: {fileID: 0}
   _cPlayerFishInteraction: {fileID: 0}
+  _cPlayerEnvironmentInteraction: {fileID: 0}
   _cPlayerFishSpecial: {fileID: 0}
   knockBackOrigin: {fileID: 1741521758649520, guid: 5f192c056a302e9418bd3b64d9801479,
     type: 2}
@@ -2141,6 +2158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 056d0be9fba36514a94029d064fd6aee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  planAtStart: 0
   agent: {fileID: 0}
   Goals:
   - {fileID: 11400000, guid: c12ca336ea5635b43bab0e129b471c66, type: 2}

@@ -45,7 +45,7 @@ public class FishSpecialSpin : FishSpecialMelee {
         while (frameCount < spiningFrameDuration + SpeiclaClipFrameCount)
         {
             yield return new WaitForEndOfFrame();
-            _player.transform.Translate(_player.playerForward * Speed);
+            _player.transform.Translate(_player.PlayerForward * Speed);
             _player.transform.position = sClass.SetVector3(_player.transform.position, VectorComponent.y, playerPositionY + floorOffset);
             _fish.transform.Rotate(Vector3.forward * fishSpinSpeed, Space.Self);
             frameCount += 1;
