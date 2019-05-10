@@ -1,11 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Player))]
 
-public class PlayerAbility : MonoBehaviour
+public class PlayerAbility : MonoBehaviour, MMEventListener<PlayerInputEvent>
+    ,MMEventListener<PlayerInputDownEvent>, MMEventListener<PlayerInputHoldEvent>, MMEventListener<PlayerInputUpEvent>
 {
+    protected string inputName;
+
     protected Player _player;
     public Player Player
     {
@@ -64,13 +68,36 @@ public class PlayerAbility : MonoBehaviour
         gameLoop = FFGameManager.Instance.GameLoop;
         portRoyal = FFGameManager.Instance.PortRoyal;
         guiManager = FFGameManager.Instance.GUIManager;
+        this.MMEventStartListening<PlayerInputEvent>();
+        this.MMEventStartListening<PlayerInputDownEvent>();
+        this.MMEventStartListening<PlayerInputHoldEvent>();
+        this.MMEventStartListening<PlayerInputUpEvent>();
+    }
+
+    protected virtual void HandleInput()
+    {
+        if (_player.IgnoreInputForAbilities || IgnoreInput)
+        {
+            return;
+        }
+        if (_pInput.GetButtonDown(inputName, _player.playerID - 1))
+        {
+            MMEventManager.TriggerEvent(new PlayerInputDownEvent(inputName, _player.playerID - 1));
+        }
+        if (_pInput.GetButton(inputName, _player.playerID - 1))
+        {
+            MMEventManager.TriggerEvent(new PlayerInputHoldEvent(inputName, _player.playerID - 1));
+        }
+        if (_pInput.GetButtonUp(inputName, _player.playerID - 1))
+        {
+            MMEventManager.TriggerEvent(new PlayerInputUpEvent(inputName, _player.playerID - 1));
+        }
     }
 
     public void IgnoreInputFor(int ignoreFrame)
     {
         StartCoroutine(InvokeIgnoreInput(ignoreFrame));
     }
-    
 
     IEnumerator InvokeIgnoreInput(int frameDuration)
     {
@@ -111,10 +138,57 @@ public class PlayerAbility : MonoBehaviour
         if (typeof(T) == typeof(PlayerInvincibility)) { return _player._cPlayerInvincibility as T; }
         if (typeof(T) == typeof(PlayerState)) { return _player._cPlayerState as T; }
         if (typeof(T) == typeof(PlayerFishInteraction)) { return _player._cPlayerFishInteraction as T; }
-        if (typeof(T) == typeof(PlayerSpecial)) { return _player._cPlayerFishSpecial as T; }
+        if (typeof(T) == typeof(PlayerSpecial)) { return _player._cPlayerSpecial as T; }
 
         return this as T;
     }
 
-    
+    protected virtual void OnInputDown() { }
+    protected virtual void OnInputHold() { }
+    protected virtual void OnInputUp() { }
+
+    public void OnMMEvent(PlayerInputEvent eventType)
+    {
+        if (eventType.buttonName == inputName && eventType.playerId == _player.playerID - 1)
+        {
+            MMEventManager.TriggerEvent(new PlayerInputDownEvent(inputName, _player.playerID - 1));
+            StartCoroutine(PressInputFor(eventType.holdingFrame));
+        }
+    }
+
+    IEnumerator PressInputFor(int frameDuration)
+    {
+        int frameCount = 0;
+        while(frameCount < frameDuration)
+        {
+            MMEventManager.TriggerEvent(new PlayerInputHoldEvent(inputName, _player.playerID - 1));
+            frameCount += 1;
+            yield return new WaitForEndOfFrame();
+        }
+        MMEventManager.TriggerEvent(new PlayerInputUpEvent(inputName, _player.playerID - 1));
+    }
+
+    public void OnMMEvent(PlayerInputUpEvent eventType)
+    {
+        if (eventType.buttonName == inputName && eventType.playerId == _player.playerID - 1)
+        {
+            OnInputUp();
+        }
+    }
+
+    public void OnMMEvent(PlayerInputDownEvent eventType)
+    {
+        if (eventType.buttonName == inputName && eventType.playerId == _player.playerID - 1)
+        {
+            OnInputDown();
+        }
+    }
+
+    public void OnMMEvent(PlayerInputHoldEvent eventType)
+    {
+        if (eventType.buttonName == inputName && eventType.playerId == _player.playerID - 1)
+        {
+            OnInputHold();
+        }
+    }
 }

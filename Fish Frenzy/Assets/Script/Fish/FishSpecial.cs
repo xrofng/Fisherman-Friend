@@ -9,7 +9,7 @@ public class FishSpecial : MonoBehaviour
 
     protected PlayerSpecial _playerFishSpecial
     {
-        get { return _player._cPlayerFishSpecial; }
+        get { return _player._cPlayerSpecial; }
     }
     protected Player _player
     {

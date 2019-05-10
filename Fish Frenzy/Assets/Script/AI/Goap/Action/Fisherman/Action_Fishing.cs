@@ -38,9 +38,8 @@ namespace GOAP
             if(mashingDelayCount <= 0)
             {
                 mashingDelayCount = mashingDelay;
-                MMEventManager.TriggerEvent(new PlayerInputEvent(PlayerFishing._pInput.Fishing, ownerPlayer.playerID - 1));
+                MMEventManager.TriggerEvent(new PlayerInputDownEvent(PlayerFishing._pInput.Fishing, ownerPlayer.playerID - 1));
             }
-
 
             if (ownerPlayer.holdingFish)
             {

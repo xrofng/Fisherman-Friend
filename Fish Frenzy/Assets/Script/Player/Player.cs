@@ -78,7 +78,7 @@ public class Player : Creature
     [HideInInspector]
     public PlayerEnvironmentInteraction _cPlayerEnvironmentInteraction;
     [HideInInspector]
-    public PlayerSpecial _cPlayerFishSpecial;
+    public PlayerSpecial _cPlayerSpecial;
 
 
     public GameObject knockBackOrigin;
@@ -151,7 +151,7 @@ public class Player : Creature
         _cPlayerMovement = GetComponent<PlayerMovement>();
         _cPlayerFishInteraction = GetComponent<PlayerFishInteraction>();
         _cPlayerSwitch = GetComponent<PlayerSwitchFish>();
-        _cPlayerFishSpecial = GetComponent<PlayerSpecial>();
+        _cPlayerSpecial = GetComponent<PlayerSpecial>();
         _cPlayerEnvironmentInteraction = GetComponent<PlayerEnvironmentInteraction>();
     }
 

@@ -136,6 +136,7 @@ public class HitBoxMelee : DamageOnHit
             forcesource = damageDealer.transform.position;
 
         }
+        Debug.Log(damageDealer);
         _player.recieveDamage(DamageCaused, damageDealer , forcesource, InvincibilityFrame,isLauncher);
     }
 

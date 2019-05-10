@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerFishing : PlayerAbility, MMEventListener<PlayerInputEvent>
+public class PlayerFishing : PlayerAbility
 {
     public bool nearCoast;
 
@@ -23,31 +23,31 @@ public class PlayerFishing : PlayerAbility, MMEventListener<PlayerInputEvent>
     protected override void Initialization()
     {
         base.Initialization();
-        this.MMEventStartListening<PlayerInputEvent>();
+        // setup button
+        inputName = _pInput.Fishing;
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update ()
+    {
         if (_player.state == Player.eState.ground)
         {
-            coastCheck();
+            CoastCheck();
             //Fishing();
-            if (_pInput.GetButtonDown(_pInput.Fishing, _player.playerID - 1))
-            {
-                MMEventManager.TriggerEvent(new PlayerInputEvent(_pInput.Fishing, _player.playerID - 1));
-            }
+            HandleInput();
+           
         }
         if (_player.state == Player.eState.fishing)
         {
             //Fishing();
-            if (_pInput.GetButtonDown(_pInput.Fishing, _player.playerID - 1))
-            {
-                MMEventManager.TriggerEvent(new PlayerInputEvent(_pInput.Fishing, _player.playerID - 1));
-            }
+            HandleInput();
         }
-        
     }
 
+    protected override void OnInputDown()
+    {
+        Fishing();
+    }
 
     void Fishing()
     {
@@ -103,7 +103,7 @@ public class PlayerFishing : PlayerAbility, MMEventListener<PlayerInputEvent>
         baitedFish.ChangeState(Fish.fState.baited);
     }
 
-    void coastCheck()
+    void CoastCheck()
     {
         RaycastHit hit;
         nearCoast = false;
@@ -140,11 +140,5 @@ public class PlayerFishing : PlayerAbility, MMEventListener<PlayerInputEvent>
         _player.ChangeState(Player.eState.ground);
     }
 
-    public void OnMMEvent(PlayerInputEvent eventType)
-    {
-        if(eventType.buttonName == _pInput.Fishing && eventType.playerId == _player.playerID - 1)
-        {
-            Fishing();
-        }
-    }
+    
 }
