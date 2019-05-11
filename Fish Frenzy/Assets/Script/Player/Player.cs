@@ -7,7 +7,7 @@ public class Player : Creature
     public float testForce;
     public float upLaunchingMultiplier;
     public int playerID;
-    public int dPercent;
+    public int damagePercent;
     /// Is the character daeth ? 
     public bool Death { get { return _cPlayerState.IsDeath; } set { _cPlayerState.IsDeath = value; } }
 
@@ -162,9 +162,9 @@ public class Player : Creature
 
     public void recieveDamage(float damage , GameObject damageDealer, Vector3 damageDealerPos,  int recoveryFrame , bool launchingDamage)
     {
-        dPercent += (int)damage;
+        damagePercent += (int)damage;
         //Instantiate(knockBackOrigin, center ,Quaternion.identity);
-        Vector2 knockBackForce = knockData.getSlapKnockForce((int)damage, dPercent);
+        Vector2 knockBackForce = knockData.getSlapKnockForce((int)damage, damagePercent);
 
         //print(launchingDamage);
 
@@ -182,9 +182,9 @@ public class Player : Creature
 
     public void recieveDamage(float damage, GameObject damageDealer, Vector3 damageDealerPos, int recoveryFrame, bool launchingDamage, float upMultiplier)
     {
-        dPercent += (int)damage;
-        Vector2 knockBackForce = knockData.getSlapKnockForce((int)damage, dPercent);
-        knockBackForce += Vector2.up * knockData.getVerticalKnockForce(dPercent) * upMultiplier;
+        damagePercent += (int)damage;
+        Vector2 knockBackForce = knockData.getSlapKnockForce((int)damage, damagePercent);
+        knockBackForce += Vector2.up * knockData.getVerticalKnockForce(damagePercent) * upMultiplier;
 
         if (launchingDamage)
         {
@@ -218,7 +218,7 @@ public class Player : Creature
 
     public void DamagePercentClamp()
     {
-        dPercent = Mathf.Clamp(dPercent, 0, 999);
+        damagePercent = Mathf.Clamp(damagePercent, 0, 999);
     }
 
     public void AddKnockBackForce( float damge ,Vector3 forceSourcePos, Vector2 knockBackForce)
@@ -281,7 +281,7 @@ public class Player : Creature
         this.transform.position = portRoyal.randomSpawnPosition(Vector3.up * portRoyal.respawnPositionOffset);
         Death = false;
         _cPlayerFishInteraction.SetHoldFish(false);
-        this.dPercent = 0;
+        this.damagePercent = 0;
         MatchResult.Instance.ClearRecentDamager(playerID);
         yield return new WaitForSeconds(waitBeforeCancelInvinc);
         _cPlayerFishInteraction.SetPlayerCollideEverything(true);

@@ -70,13 +70,13 @@ public class Desirable_TargetPlayer_Fisherman : Desirable
         ///-------- SET_DISTANCE
         FuzzySet SET_DISTANCE_CLOSE = FLV_DISTANCE.AddLeftShoulderSet(
                                   FZ_SET_DISTANCE.CLOSE.ToString("F"),
-                                  0, 0, 150);
+                                  0, 0, 5);
         FuzzySet SET_DISTANCE_MID = FLV_DISTANCE.AddTriangularSet(
                                    FZ_SET_DISTANCE.MID.ToString("F"),
-                                   0, 250, 500);
+                                   0, 5, 30);
         FuzzySet SET_DISTANCE_FAR = FLV_DISTANCE.AddRightShoulderSet(
                                    FZ_SET_DISTANCE.FAR.ToString("F"),
-                                   250, 500, 500);
+                                   5, 30, 30);
 
         ///-------- SET_DAMAGE
         FuzzySet SET_DAMAGE_LOW = FLV_DAMAGE.AddLeftShoulderSet(
@@ -119,7 +119,7 @@ public class Desirable_TargetPlayer_Fisherman : Desirable
     {
         base.Fuzzificate();
 
-        fuzzyModule.Fuzzification(FLV_NAME.DAMAGE.ToString("F"), targetPlayer.dPercent);
+        fuzzyModule.Fuzzification(FLV_NAME.DAMAGE.ToString("F"), targetPlayer.damagePercent);
 
         float distanceToTarget = sClass.DistanceIgnored(VectorComponent.y, transform.position, targetPlayer.transform.position);
         fuzzyModule.Fuzzification(FLV_NAME.DISTANCE.ToString("F"),distanceToTarget);

@@ -57,7 +57,7 @@ namespace GOAP
             if (action.CastAction<Action_GoToCoast>())
             {
                 action.CastAction<Action_GoToCoast>().target = OwnerPlayer._cPlayerEnvironmentInteraction.GetNearestCoast().gameObject;
-                }
+            }
 
             if (action.CastAction<Action_FaceCoast>())
             {

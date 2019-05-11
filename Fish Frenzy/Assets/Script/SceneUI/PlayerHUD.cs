@@ -84,8 +84,8 @@ public class PlayerHUD : MonoBehaviour {
     /// </summary>
     void UpdateDamagePercent()
     {
-        percentText.text = HudOwner.dPercent + "%";
-        percentText.color = knockData.GetColor(HudOwner.dPercent);
+        percentText.text = HudOwner.damagePercent + "%";
+        percentText.color = knockData.GetColor(HudOwner.damagePercent);
     }
 
     /// <summary>

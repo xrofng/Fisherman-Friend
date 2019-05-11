@@ -48,19 +48,6 @@ namespace GOAP
 
         protected bool isPlanReady;
 
-        protected AgentAnimator _agentAnimator;
-        public AgentAnimator AgentAnimator
-        {
-            get
-            {
-                if (_agentAnimator == null)
-                {
-                    _agentAnimator = GetComponent<AgentAnimator>();
-                }
-                return _agentAnimator;
-            }
-        }
-
         void Start()
         {
             Initialize();

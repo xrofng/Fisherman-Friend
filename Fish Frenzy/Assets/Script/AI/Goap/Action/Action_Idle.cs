@@ -10,7 +10,6 @@ namespace GOAP
         public override void OnActionStart()
         {
             base.OnActionStart();
-            Planner.AgentAnimator.ChangeState(0);
         }
     }
 
