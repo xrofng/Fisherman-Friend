@@ -15,7 +15,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6e82286b15f6d034786e18204a4f08ed, type: 2}
   - {fileID: 11400000, guid: 47db2bb80edf4db4d9861a9e42076919, type: 2}
   requiresWorldState: []
-  rotationSpeed: 5
+  rotationSpeed: 0.025
   faceAngle: 10
   nearRadius: 4
   target: {fileID: 0}
+  faceTo: {x: 0, y: 0, z: 0}

@@ -7,6 +7,8 @@ namespace GOAP
     [CreateAssetMenu(fileName = "Action_FishSpecial", menuName = "Action/Fisherman/FishSpecial", order = 52)]
     public class Action_FishSpecial : Action_Fisherman
     {
+        FFRandom autoThrowFrame;
+
         private PlayerSpecial _cSpecial;
         public PlayerSpecial PlayerSpecial
         {
@@ -20,10 +22,22 @@ namespace GOAP
             }
         }
 
+        
+
+        public override void OnActionInit()
+        {
+            base.OnActionInit();
+            
+        }
+
         public override void OnActionStart()
         {
             base.OnActionStart();
-            MMEventManager.TriggerEvent(new PlayerInputDownEvent(PlayerSpecial._pInput.Special, ownerPlayer.playerID - 1));
+            if (PlayerSpecial.Player.mainFish)
+            {
+                autoThrowFrame = new FFRandom(0, PlayerSpecial.Player.mainFish.durability / Time.deltaTime);
+                MMEventManager.TriggerEvent(new PlayerInputEvent(PlayerSpecial._pInput.Special, ownerPlayer.playerID - 1, autoThrowFrame.RandomInt()));
+            }
         }
 
     }

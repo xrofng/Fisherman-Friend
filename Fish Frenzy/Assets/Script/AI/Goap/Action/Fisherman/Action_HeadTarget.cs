@@ -8,7 +8,7 @@ namespace GOAP
     public class Action_HeadTarget : Action_Fisherman
     {
         [Header("Properties")]
-        public float rotationSpeed = 5.0f;
+        public float rotationSpeed = 0.025f;
         public float faceAngle = 10.0f;
         public float nearRadius = 2.0f;
 
@@ -17,23 +17,23 @@ namespace GOAP
         private Vector3 plannerNonY_Forward;
 
         public GameObject target;
+        public Vector3 faceTo;
 
         public override void OnActionStart()
         {
             base.OnActionStart();
-            //Planner.AgentAnimator.ChangeState(1);
         }
 
         public override void OnActionTick()
         {
             base.OnActionTick();
 
-            Vector3 direction = DirectionToTarget();
+            Vector3 direction = DirectionToTarget().normalized;
             Vector3 smoothDirection = Vector3.Slerp(ownerPlayer.PlayerForward, direction, rotationSpeed);
 
-            ownerPlayer._cPlayerMovement.Move(direction);
-
             ownerPlayer._cPlayerMovement.ChangeDirection(smoothDirection.x, smoothDirection.z);
+
+            ownerPlayer._cPlayerMovement.Move(direction);
 
             if (AngleToTarget() <= faceAngle
                 && Vector3.Distance(Planner.transform.position, target.transform.position) < nearRadius)

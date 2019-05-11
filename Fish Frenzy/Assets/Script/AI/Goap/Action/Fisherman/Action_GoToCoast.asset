@@ -8,11 +8,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ada2b2fbbf7f234e8cb6115d4869753, type: 3}
-  m_Name: Action_GoToTarget
+  m_Script: {fileID: 11500000, guid: ecae052ec94ac084abf9d629087bf987, type: 3}
+  m_Name: Action_GoToCoast
   m_EditorClassIdentifier: 
   satisfiesWorldState:
-  - {fileID: 11400000, guid: 47db2bb80edf4db4d9861a9e42076919, type: 2}
+  - {fileID: 11400000, guid: dc36a575459c0e947b5a23b3776f0db9, type: 2}
   requiresWorldState: []
-  nearRadius: 4
+  nearRadius: 3
   target: {fileID: 0}

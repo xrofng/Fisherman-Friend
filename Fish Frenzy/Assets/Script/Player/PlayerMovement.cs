@@ -43,7 +43,7 @@ public class PlayerMovement : PlayerAbility
         {
             if (_player.IgnoreInputForAbilities || IgnoreInput)
             {
-
+                return;
             }else
             {
                 Move();

@@ -73,7 +73,10 @@ namespace GOAP
                 return;
             }
 
-            PlanPreparation();
+            if (Time.frameCount % 10 == 0)
+            {
+                PlanPreparation();
+            }
 
             ProcessPlan();
             PerformActionAsPlan();
@@ -83,11 +86,6 @@ namespace GOAP
 
         protected void PlanPreparation()
         {
-            if (Time.frameCount % 10 != 0)
-            {
-                return;
-            }
-
             PreparePlanner();
 
             foreach (Goal goal in Goals)
@@ -99,6 +97,12 @@ namespace GOAP
             {
                 PrepareAction(action);
             }
+        }
+
+        protected virtual void StartPlan()
+        {
+            startPlanning = true;
+            PlanPreparation();
         }
 
         /// <summary>
@@ -171,7 +175,6 @@ namespace GOAP
                 }
                 if (isPlanReady)
                 {
-                    Debug.Log("Plan ready from " + goal.name + " witd desired " + goal.desiredWorldState);
                     return;
                 }
             }
@@ -222,10 +225,8 @@ namespace GOAP
 
                 if (GetHeuristic(current) <= 0 && allRequiredWorldState.Count <= satisfiableWorldState.Count)
                 {
-                    Debug.Log("allre"+allRequiredWorldState.List.Count);
-                    allRequiredWorldState.PrintItems();
-                    Debug.Log("satis"+satisfiableWorldState.List.Count);
-                    satisfiableWorldState.PrintItems();
+                    //allRequiredWorldState.PrintItems();
+                    //satisfiableWorldState.PrintItems();
                     if (processingAction != current)
                     {
                         processingAction = current;

@@ -2102,7 +2102,7 @@ MonoBehaviour:
   _cPlayerSwitch: {fileID: 0}
   _cPlayerFishInteraction: {fileID: 0}
   _cPlayerEnvironmentInteraction: {fileID: 0}
-  _cPlayerFishSpecial: {fileID: 0}
+  _cPlayerSpecial: {fileID: 0}
   knockBackOrigin: {fileID: 1741521758649520, guid: 5f192c056a302e9418bd3b64d9801479,
     type: 2}
   part:
@@ -2163,9 +2163,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c3c5765fea323474399aea58fffbc003, type: 2}
   Actions:
   - {fileID: 11400000, guid: 799dd169b8c64494191aa50a2213d3be, type: 2}
-  - {fileID: 11400000, guid: 1d41cc893e6c0ed47ab2126caa0a4190, type: 2}
   - {fileID: 11400000, guid: dff5a45a1fb754e408fa321d0fc4354f, type: 2}
-  - {fileID: 11400000, guid: 4946376f39d21e042b2cde0f6c4ca6ce, type: 2}
+  - {fileID: 11400000, guid: 3478432984cc54e4abc3209c437048a3, type: 2}
+  - {fileID: 11400000, guid: 56cfb930cc63a8e4396bc41c21b276b6, type: 2}
+  - {fileID: 11400000, guid: 8cef636b8b696c9438ed619db666b1f4, type: 2}
+  - {fileID: 11400000, guid: d614952bfb8002b42af1dca2d0044850, type: 2}
   - {fileID: 11400000, guid: 0bba6fde855cbc247956ab0449ddc9ae, type: 2}
   currentWorldStates: []
   targetEnemy: {fileID: 0}

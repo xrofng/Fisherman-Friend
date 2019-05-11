@@ -19,9 +19,9 @@ public class PlayerEnvironmentInteraction : PlayerAbility
         
     }
 
-    public GameObject GetNearestCoast()
+    public Coast GetNearestCoast()
     {
-        return portRoyal.coastPoints[0].gameObject;
+        return portRoyal.coastPoints[0];
     }
 
    

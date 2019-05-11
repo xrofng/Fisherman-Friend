@@ -41,7 +41,7 @@ public class Agent_Fisherman_Fuzzy : AgentFuzzy,MMEventListener<PlayerSpawnedEve
                 mostDesirabilityPlayers.Add(desire.targetPlayer.gameObject);
             }
         }
-        Debug.Log(agent.name + " find " + mostDesirabilityPlayers.Count + " max desirablity");
+
         if (mostDesirabilityPlayers.Count <= 1)
         {
             return mostDesirabilityPlayers[0];

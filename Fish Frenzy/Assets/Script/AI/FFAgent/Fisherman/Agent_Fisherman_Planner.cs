@@ -32,7 +32,7 @@ namespace GOAP
 
         public void OnMMEvent(PlayerSpawnedEvent eventType)
         {
-            startPlanning = true;
+            StartPlan();
         }
 
         protected override void PreparePlanner()
@@ -44,7 +44,6 @@ namespace GOAP
         protected override void PrepareAction(Action action)
         {
             base.PrepareAction(action);
-
             if (action.CastAction<Action_FaceTarget>() )
             {
                 action.CastAction<Action_FaceTarget>().target = targetEnemy;
@@ -55,9 +54,15 @@ namespace GOAP
                 action.CastAction<Action_GoToTarget>().target = targetEnemy;
             }
 
+            if (action.CastAction<Action_GoToCoast>())
+            {
+                action.CastAction<Action_GoToCoast>().target = OwnerPlayer._cPlayerEnvironmentInteraction.GetNearestCoast().gameObject;
+                }
+
             if (action.CastAction<Action_FaceCoast>())
             {
-                action.CastAction<Action_FaceCoast>().target = OwnerPlayer._cPlayerEnvironmentInteraction.GetNearestCoast();
+                Coast coast = OwnerPlayer._cPlayerEnvironmentInteraction.GetNearestCoast();
+                action.CastAction<Action_FaceCoast>().target = coast.FaceSea;
             }
 
             if (action.CastAction<Action_HeadTarget>())
@@ -67,7 +72,7 @@ namespace GOAP
 
             if (action.CastAction<Action_HeadTarget_Coast>())
             {
-                action.CastAction<Action_HeadTarget_Coast>().target = OwnerPlayer._cPlayerEnvironmentInteraction.GetNearestCoast();
+                action.CastAction<Action_HeadTarget_Coast>().target = OwnerPlayer._cPlayerEnvironmentInteraction.GetNearestCoast().gameObject;
             }
         }
 

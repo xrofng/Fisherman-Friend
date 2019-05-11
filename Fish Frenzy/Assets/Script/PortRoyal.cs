@@ -32,7 +32,7 @@ public class PortRoyal : MonoBehaviour
 
     [Header("Coast")]
     public GameObject coastHolder;
-    public List<Transform> coastPoints = new List<Transform>();
+    public List<Coast> coastPoints = new List<Coast>();
 
     [Header("Debug")]
     public bool FixedFish = false;
@@ -46,12 +46,9 @@ public class PortRoyal : MonoBehaviour
             totalSpawnRate += fishPool[i].spawnRate;
         }
 
-        foreach (Transform child in coastHolder.transform)
+        foreach (Coast coast in coastHolder.GetComponentsInChildren<Coast>())
         {
-            if (child != coastHolder.transform)
-            {
-                coastPoints.Add(child);
-            }
+            coastPoints.Add(coast);
         }
 
     }
@@ -137,5 +134,18 @@ public class PortRoyal : MonoBehaviour
         f.Rigidbody.freezeRotation = true;
         f.gameObject.layer = LayerMask.NameToLayer("Fish_All");
         f.GetCollider<BoxCollider>().isTrigger = true;
+    }
+
+    void OnDrawGizmos()
+    {
+        // Draw a yellow sphere at the transform's position
+        foreach(Transform point in coastHolder.GetComponentInChildren<Transform>())
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(point.position, 1);
+            Gizmos.color += new Color(0, 0.2f, 0.2f);
+            Gizmos.DrawWireSphere(point.position+point.forward*5, 1);
+        }
+
     }
 }
