@@ -31,9 +31,7 @@ public class GUIManager : MonoBehaviour
     public Text TimeText;
 
     [Header("Player UI")]
-    /// players damage percent
-    public List<Text> PercentText;
-    /// players damage percent
+    /// button indicator of fishing and pickup
     public List<RectTransform> ButtonIndicators;
     /// players damage percent
     public List<RectTransform> MashButtonIndicators;
@@ -51,32 +49,21 @@ public class GUIManager : MonoBehaviour
     public List<Sprite> DamagedSprite;
     /// list of list of sprite 0=normal 1=death 2=damaged
     protected List<List<Sprite>> PlayerSpriteSet = new List<List<Sprite>>();
+    ///
+    protected int numFisherman;
 
-    [Header("Player UI")]
-    public Sprite transparentSprite;
-    public RectTransform Player1_GUI;
-    public RectTransform Player2_GUI;
-    public RectTransform Player3_GUI;
-    public RectTransform Player4_GUI;
-    List<RectTransform> PlayerUIList = new List<RectTransform>();
-    /// UI image
-    private List<Image> DurabilityImage = new List<Image>();
-    private List<Image> IconImage = new List<Image>();
-    private List<Image> NameImage = new List<Image>();
-    private List<Image> StoreIconImage = new List<Image>();
-    private List<RectTransform> ScoreChangeRect = new List<RectTransform>();
+    [Header("Player HUD")]
+    public PlayerHUD Player1_HUD;
+    public PlayerHUD Player2_HUD;
+    public PlayerHUD Player3_HUD;
+    public PlayerHUD Player4_HUD;
+    private List<PlayerHUD> PlayerHudList = new List<PlayerHUD>();
 
-    /// 
-    protected int[] currentFaceIndex = new int[4];
-    protected int[] previousFaceIndex = new int[4];
-    protected List<List<RectTransform>> scoreChangeList = new List<List<RectTransform>>();
     [Header("Score Change")]
-    public RectTransform scoreChange_Decrease;
-    public RectTransform scoreChange_Increase;
+    public GameObject scoreChange_Decrease;
+    public GameObject scoreChange_Increase;
     public int scoreChangeFrameDuration = 150;
     public Vector3 scoreChangeOffsetDistance;
-
-
 
     [Header("Settings")]
     /// the pattern to apply when displaying the score
@@ -89,11 +76,14 @@ public class GUIManager : MonoBehaviour
     protected GameLoop gameLoop;
     protected PortRoyal portRoyal;
     protected KnockData knockData;
+    protected PlayerData playerData;
     /// <summary>
     /// Initialization
     /// </summary>
     protected void Awake()
     {
+        playerData = PlayerData.Instance;
+        numFisherman = playerData.numPlayer + playerData.numBot;
 
         InitImageList();
 
@@ -117,96 +107,41 @@ public class GUIManager : MonoBehaviour
     /// </summary>
     protected virtual void Start()
     {
-        for (int playerID = 0; playerID < 4; playerID++)
+        for (int i = 0; i < PlayerHudList.Count; i++)
         {
-            float a = DurabilityImage[playerID].color.a;
-            Color pColor= StartupPlayer.Instance.playerColor[playerID];
-            DurabilityImage[playerID].color = new Color(pColor.r, pColor.g, pColor.b, a);
+            PlayerHudList[i].gameObject.SetActive(false);
         }
-        
+        for (int pId = 0; pId < numFisherman; pId++)
+        {
+            PlayerHudList[pId].gameObject.SetActive(true);
+            PlayerHudList[pId].Initialize(pId);
+        }
     }
 
     void InitImageList()
     {
-        PlayerUIList.Add(Player1_GUI);
-        PlayerUIList.Add(Player2_GUI);
-        PlayerUIList.Add(Player3_GUI);
-        PlayerUIList.Add(Player4_GUI);
-
-        for(int i=0;i<4; i++)
-        {
-            scoreChangeList.Add(new List<RectTransform>());
-        }
-
-        for (int i = 0; i < PlayerUIList.Count; i++)
-        {
-            RectTransform[] rectInSet = PlayerUIList[i].gameObject.GetComponentsInChildren<RectTransform>();
-            foreach (RectTransform rt in rectInSet)
-            {
-                if (rt.gameObject.name.Contains("FishDurability"))
-                {
-                    DurabilityImage.Add(rt.GetComponent<Image>());
-                }
-                if (rt.gameObject.name.Contains("Icon"))
-                {
-                    IconImage.Add(rt.GetComponent<Image>());
-                }
-                if (rt.gameObject.name.Contains("Name"))
-                {
-                    NameImage.Add(rt.GetComponent<Image>());
-                }
-                if (rt.gameObject.name.Contains("Store"))
-                {
-                    StoreIconImage.Add(rt.GetComponent<Image>());
-                }
-                if (rt.gameObject.name.Contains("ScoreChange"))
-                {
-                    ScoreChangeRect.Add(rt);
-                }
-            }
-        }
+        PlayerHudList.Add(Player1_HUD);
+        PlayerHudList.Add(Player2_HUD);
+        PlayerHudList.Add(Player3_HUD);
+        PlayerHudList.Add(Player4_HUD);
     }
 
     protected virtual void Update()
     {
         if (gameLoop.state == GameLoop.GameState.playing)
         {
-            for (int playerID = 0; playerID < 4; playerID++)
+            for (int pId = 0; pId < numFisherman; pId++)
             {
-                UpdateDamagePercent(playerID);
-                UpdateFaceSprite(playerID);
-                UpdateFishDurability(playerID);
-                UpdateFishIcon(playerID);
-                
+                PlayerHudList[pId].UpdatePlayerHUD();
             }
                
             UpdateGameTime();
-            
         }
         if (gameLoop.state == GameLoop.GameState.beforeStart ||
             gameLoop.state == GameLoop.GameState.gameEnd)
         {
             UpdateGrandText();
             UpdateGameTime();
-        }
-    }
-    /// <summary>
-    /// Sets the HUD active or inactive
-    /// </summary>
-    /// <param name="state">If set to <c>true</c> turns the HUD active, turns it off otherwise.</param>
-    public virtual void SetHUDActive(bool state)
-    {
-        if (HUD != null)
-        {
-            HUD.SetActive(state);
-        }
-        if (PointsText != null)
-        {
-            PointsText.enabled = state;
-        }
-        if (LevelText != null)
-        {
-            LevelText.enabled = state;
         }
     }
 
@@ -218,112 +153,19 @@ public class GUIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Change face expression due to player state
-    /// </summary>
-    /// <param name="playerID"></param>
-    public virtual void UpdateFaceSprite(int playerID)
-    {
-        Player _player = portRoyal.Player[playerID];
-        if (_player._cPlayerState.IsDeath)
-        {
-            currentFaceIndex[playerID] = 1;
-        }
-        else if (_player._cPlayerState.IsDamaged)
-        {
-            currentFaceIndex[playerID] = 2;
-        }
-        else
-        {
-            currentFaceIndex[playerID] = 0;
-        }
-        if (currentFaceIndex[playerID] != previousFaceIndex[playerID])
-        {
-            PlayerImage[playerID].sprite = PlayerSpriteSet[currentFaceIndex[playerID]][playerID];
-            previousFaceIndex[playerID] = currentFaceIndex[playerID];
-        }
-    }
-
-    /// <summary>
-    /// show main/sub fish icon, if player have them . If not show transparent
-    /// </summary>
-    /// <param name="playerID"></param>
-    public virtual void UpdateFishIcon(int playerID)
-    {
-        Player _player = portRoyal.Player[playerID];
-        if (_player.subFish)
-        {
-            StoreIconImage[playerID].sprite = _player.subFish.fishStored;
-        }else
-        {
-            StoreIconImage[playerID].sprite = transparentSprite;
-        }
-        if (!_player.holdingFish)
-        {
-            IconImage[playerID].sprite = transparentSprite;
-            NameImage[playerID].sprite = transparentSprite;           
-            return;
-        }
-        IconImage[playerID].sprite = _player.mainFish.fishIcon;
-        NameImage[playerID].sprite = _player.mainFish.fishName;
-      
-    }
-
-    /// <summary>
-    /// update damage percent text and color
-    /// </summary>
-    /// <param name="playerID"></param>
-    public virtual void UpdateDamagePercent(int playerID)
-    {
-        PercentText[playerID].text = portRoyal.Player[playerID].dPercent + "%";
-        PercentText[playerID].color = knockData.GetColor(portRoyal.Player[playerID].dPercent);
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="playerID"></param>
-    public virtual void UpdateFishDurability(int playerID)
-    {
-        Player _player = portRoyal.Player[playerID];
-        if (_player.holdingFish)
-        {
-            DurabilityImage[playerID].fillAmount = _player.mainFish.GetDurabilityRatio;
-            return;
-        }
-        DurabilityImage[playerID].fillAmount = 0;
-    }
-
-    /// <summary>
     /// 
     /// </summary>
     /// <param name="playerID"></param>
     public virtual void AddScoreChange(int playerID , int changeValue)
     {
-        RectTransform prompt = scoreChange_Decrease;
+        GameObject scoreChange = scoreChange_Decrease;
         if (changeValue > 0)
         {
-            prompt = scoreChange_Increase;
+            scoreChange = scoreChange_Increase;
         }
-        StartCoroutine(ieShowScoreChange(playerID, prompt, scoreChangeFrameDuration, scoreChangeList[playerID].Count));
+        PlayerHudList[playerID].UpdateScoreChange(scoreChange, scoreChangeFrameDuration);
     }
 
-    IEnumerator ieShowScoreChange(int playerID,RectTransform promptObj , int frameDuration , int queueIndex)
-    {
-        RectTransform spawnPrompt = Instantiate(promptObj, ScoreChangeRect[playerID].transform);
-
-        scoreChangeList[playerID].Add(spawnPrompt);
-        int frameCount = 0;
-        while (frameCount < frameDuration)
-        {
-            yield return new WaitForEndOfFrame();
-            frameCount++;
-        }
-        if (scoreChangeList[playerID].Contains(spawnPrompt))
-        {
-            scoreChangeList[playerID].Remove(spawnPrompt);
-            Destroy(spawnPrompt.gameObject, 2.0f);
-        }
-    }
 
     /// <summary>
     /// 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,8 +12,8 @@ public class PlayerFishing : PlayerAbility
     public int delayFrame;
 
     [Header("SFX")]
-    public AudioClip sfx_RodSwing;
-    public AudioClip sfx_WaterTouch;
+    public SoundEffect sfx_RodSwing;
+    public SoundEffect sfx_WaterTouch;
     // Use this for initialization
     protected override void Start()
     {
@@ -22,50 +23,57 @@ public class PlayerFishing : PlayerAbility
     protected override void Initialization()
     {
         base.Initialization();
+        // setup button
+        inputName = _pInput.Fishing;
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update ()
+    {
         if (_player.state == Player.eState.ground)
         {
-            coastCheck();
-            Fishing();
+            CoastCheck();
+            //Fishing();
+            HandleInput();
+           
         }
         if (_player.state == Player.eState.fishing)
         {
-            Fishing();
+            //Fishing();
+            HandleInput();
         }
     }
 
+    protected override void OnInputDown()
+    {
+        Fishing();
+    }
 
     void Fishing()
     {
-        if (_pInput.GetButtonDown(_pInput.Fishing, _player.playerID-1)) 
+        switch (_player.state)
         {
-            switch (_player.state)
-            {
-                case Player.eState.ground:
-                    if (nearCoast == true && !_player.holdingFish)
-                    {
-                        guiManager.UpdateFishButtonIndicator(_player.playerID, fishPoint.position, false);
-                        _player.ChangeState(Player.eState.rodSwinging);
-                        StartCoroutine(StartFishing(delayFrame));
-                    }
-                    break;
-                case Player.eState.fishing:
-                    if (_player.baitedFish.MashForCatch())
-                    {
-                        _player.baitedFish.fishMeshRenderer.enabled = true;
-                        _player.ChangeState(Player.eState.waitForFish);
-                        _player.Animation.ChangeAnimState((int)PlayerAnimation.Anim.FishingEnd, true, (int)PlayerAnimation.Anim.HoldFish);
+            case Player.eState.ground:
+                if (nearCoast == true && !_player.holdingFish)
+                {
+                    guiManager.UpdateFishButtonIndicator(_player.playerID, fishPoint.position, false);
+                    _player.ChangeState(Player.eState.rodSwinging);
+                    StartCoroutine(StartFishing(delayFrame));
+                }
+                break;
+            case Player.eState.fishing:
+                if (_player.baitedFish.MashForCatch())
+                {
+                    _player.baitedFish.fishMeshRenderer.enabled = true;
+                    _player.ChangeState(Player.eState.waitForFish);
+                    _player.Animation.ChangeAnimState((int)PlayerAnimation.Anim.FishingEnd, true, (int)PlayerAnimation.Anim.HoldFish);
 
-                        GetCrossZComponent<PlayerFishInteraction>().FinishFishing();
-                        guiManager.UpdateMashFishingButtonIndicator(_player.playerID, fishPoint.position, false);
-                    }
-                    break;
-                case Player.eState.waitForFish:
-                    break;
-            }
+                    GetCrossZComponent<PlayerFishInteraction>().FinishFishing();
+                    guiManager.UpdateMashFishingButtonIndicator(_player.playerID, fishPoint.position, false);
+                }
+                break;
+            case Player.eState.waitForFish:
+                break;
         }
     }
 
@@ -95,7 +103,7 @@ public class PlayerFishing : PlayerAbility
         baitedFish.ChangeState(Fish.fState.baited);
     }
 
-    void coastCheck()
+    void CoastCheck()
     {
         RaycastHit hit;
         nearCoast = false;
@@ -131,4 +139,6 @@ public class PlayerFishing : PlayerAbility
         }
         _player.ChangeState(Player.eState.ground);
     }
+
+    
 }

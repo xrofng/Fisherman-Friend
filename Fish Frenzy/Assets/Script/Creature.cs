@@ -19,7 +19,6 @@ public class Creature : MonoBehaviour
                     gameObject.AddComponent<Rigidbody>();
                 }
                 _rigid = GetComponent<Rigidbody>();
-
             }
             return _rigid;
         }
@@ -45,30 +44,6 @@ public class Creature : MonoBehaviour
     public T GetCollider<T>() where T : Collider
     {
         return Collider as T;
-    }
-
-    /// <summary>
-    /// Audio of creature
-    /// </summary>
-    protected AudioSource _audioSource;
-    public AudioSource SFX
-    {
-        get
-        {
-            if (!_audioSource)
-            {
-                _audioSource = GetComponent<AudioSource>();
-
-            }
-            return _audioSource;
-        }
-    }
-
-    protected virtual void PlaySFX(AudioClip SFXclip)
-    {
-        if (SFX.isPlaying) { return; }
-        SFX.clip = SFXclip;
-        SFX.Play();
     }
 
     /// <summary>

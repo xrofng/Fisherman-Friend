@@ -16,11 +16,13 @@ public class GameLoop : MonoBehaviour
     public float Round_Time_Limit = 300;
     public float startCountDown = 4.5f;
     public float playerSpawnRate = 0.55f;
-    private float timeCountDown;
+    public float timeCountDown;
+
     public float timeBeforeChangeScene = 2.5f;
     public bool timeUp;
     public bool sceneChanging;
     public GameObject playerPrefab;
+    public GameObject playerBotPrefab;
     public CamTarget playerFollowPrefab;
     public Transform LevelCenter;
     protected FrenzySpawner _frenzySpawner;
@@ -41,7 +43,6 @@ public class GameLoop : MonoBehaviour
     protected FocusCamera focusCamera;
     protected PortRoyal portRoyal;
     protected GUIManager guiManager;
-
 
     public float Time_Minute
     {
@@ -66,7 +67,7 @@ public class GameLoop : MonoBehaviour
         timeCountDown = Round_Time_Limit;
 
         StartCoroutine(CountDown(startCountDown));
-        StartCoroutine(SpawnPlayer(startCountDown));
+        StartCoroutine(ieSpawnPlayer(startCountDown));
     }
 
     public void Reset()
@@ -103,7 +104,7 @@ public class GameLoop : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            timeCountDown = 70;
+            timeCountDown = 46;
         }
         if (Input.GetKeyDown(KeyCode.O))
         {
@@ -127,22 +128,10 @@ public class GameLoop : MonoBehaviour
         {
             sceneChanging = true;            
             FrenzySpawner.StartFrenzy(false);
-            Initiate.Fade("Result", Color.white, 2.0f);
+            Initiate.Fade("Result", Color.white, 5.0f);
             OnChangeScene();
             
         }
-
-        if (!FrenzySpawner.Frenzying) {
-            if (timeCountDown < FrenzySpawner.timeFrenzy)
-            {
-                FrenzySpawner.StartFrenzy(true);
-            }
-            if (timeCountDown < FrenzySpawner.timeFrenzy + FrenzySpawner.timeAnimationOverhead)
-            {
-                FrenzySpawner.PlayWhaleAnimation();
-            }
-        }
-       
       
         if (timeCountDown <= 0)
         {
@@ -153,9 +142,9 @@ public class GameLoop : MonoBehaviour
     }
 
     List<int> takenPos = new List<int>();
-    void spawnPlayers(int playerID)
+    void SpawnPlayers(int playerID, GameObject spawnCharacter)
     {
-        Player p = MaterialManager.Instance.InstantiatePlayer(playerPrefab, playerID).GetComponent<Player>();
+        Player p = MaterialManager.Instance.InstantiatePlayer(spawnCharacter, PlayerData.Instance.playerSkinId[playerID]).GetComponent<Player>();
         portRoyal.Player[playerID] = p;
         p.playerID = playerID + 1;
         p.gameObject.name = "Player" + p.playerID;
@@ -179,18 +168,27 @@ public class GameLoop : MonoBehaviour
         focusCamera.MoveCameraTo(p.gameObject.transform.position,true);
     }
 
-    IEnumerator SpawnPlayer(float waitTime)
+    IEnumerator ieSpawnPlayer(float waitTime)
     {
+        PlayerData playerData = PlayerData.Instance;
         multiplayerCamera.enabled = true;
         multiplayerCamera.ClearTarget();
-        for (int i = 0; i < portRoyal.numPlayer; i++)
+        float _playerSpawnRate = playerSpawnRate * playerData.maxNumPlayer / (playerData.numPlayer + playerData.numBot);
+        yield return new WaitForSeconds(_playerSpawnRate);
+        for (int i = 0; i < PlayerData.Instance.numPlayer; i++)
         {
-            yield return new WaitForSeconds(playerSpawnRate);
-            spawnPlayers(i);
+            SpawnPlayers(i, playerPrefab);
+            yield return new WaitForSeconds(_playerSpawnRate);
         }
-        yield return new WaitForSeconds(playerSpawnRate);
+        for (int i = PlayerData.Instance.numPlayer; i < PlayerData.Instance.numBot+ PlayerData.Instance.numPlayer; i++)
+        {
+            SpawnPlayers(i, playerBotPrefab);
+            yield return new WaitForSeconds(_playerSpawnRate);
+        }
         focusCamera.MoveCameraTo(multiplayerCamera.GetNewPosition(),false);
+        MMEventManager.TriggerEvent(new PlayerSpawnedEvent(portRoyal.Player));
     }
+
     IEnumerator CountDown(float waitTime)
     { 
         yield return new WaitForSeconds(waitTime );

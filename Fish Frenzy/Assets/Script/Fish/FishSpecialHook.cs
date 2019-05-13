@@ -20,11 +20,15 @@ public class FishSpecialHook : FishSpecialThrow {
     protected override void OnThrowEnd()
     {
         hookedPlayer = currentMovingObj.GetComponent<MovingObjHook>().HookedPlayer;
+        base.OnThrowEnd();
         if (hookedPlayer != null)
         {
             StartCoroutine(FinalBlow());
+        }else
+        {
+            _player._cPlayerAnimator.ChangeAnimState((int)_player._cPlayerAnimator.GetIdleAnimation());
         }
-        base.OnThrowEnd();
+
         Destroy(currentMovingObj.gameObject);
     }
 
@@ -43,6 +47,7 @@ public class FishSpecialHook : FishSpecialThrow {
             yield return new WaitForEndOfFrame();
             frameCount += 1;
         }
+
         PlaySFX(_fish.sfx_Special);
         hookedPlayer.recieveDamage(attack, _player.gameObject, hookedPlayer.transform.position + Vector3.up, invicibilityFrame, true , finalBlowForce);
 

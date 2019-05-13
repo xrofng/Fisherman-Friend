@@ -24,7 +24,6 @@ GameObject:
   - component: {fileID: 114165130875738714}
   - component: {fileID: 65648701876479538}
   - component: {fileID: 95214367901251180}
-  - component: {fileID: 82610425234197824}
   - component: {fileID: 114812884268322648}
   m_Layer: 24
   m_Name: Jellyfish
@@ -146,101 +145,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.013000004, y: 0.0047, z: 0.013000004}
   m_Center: {x: 0, y: 0.002, z: 0}
---- !u!82 &82610425234197824
-AudioSource:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1704475588332172}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!95 &95214367901251180
 Animator:
   serializedVersion: 3
@@ -275,12 +179,18 @@ MonoBehaviour:
   ignorePlayerFrame: 10
   bounceForce: {x: 0, y: 20, z: 0}
   ShockingFrame: 10
-  sfx_Shock: {fileID: 8300000, guid: 83c2c9cf12e1e634796c49ce699aaa86, type: 3}
+  sfx_Shock:
+    clip: {fileID: 8300000, guid: 83c2c9cf12e1e634796c49ce699aaa86, type: 3}
+    volume: 1
   sfx_Bounces:
-  - {fileID: 8300000, guid: 5c0479ffb3d7fdd45a9cf00b1523f43d, type: 3}
-  - {fileID: 8300000, guid: 869d40a8c0aa8cc4fa3a95bfd03267d4, type: 3}
-  - {fileID: 8300000, guid: af70bd630801c2c41ad6ccf048b2ff1b, type: 3}
-  - {fileID: 8300000, guid: cb8aa2fa1f22804439ca73d3060bc371, type: 3}
+  - clip: {fileID: 8300000, guid: 5c0479ffb3d7fdd45a9cf00b1523f43d, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: 869d40a8c0aa8cc4fa3a95bfd03267d4, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: af70bd630801c2c41ad6ccf048b2ff1b, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: cb8aa2fa1f22804439ca73d3060bc371, type: 3}
+    volume: 1
   ignoreBounceFrame: 4
   drowningSpeed: 4
   sharkDetectRadius: 10

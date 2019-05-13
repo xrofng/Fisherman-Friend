@@ -24,7 +24,7 @@ public class PlayerSwitchFish : PlayerAbility
             {
                 return;
             }
-            if (GetCrossZComponent<PlayerSpecial>().Specialing)
+            if (GetCrossZComponent<PlayerSpecial>().GetSpecialing())
             {
                 return;
             }

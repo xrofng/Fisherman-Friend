@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : PlayerAbility {
+public class PlayerMovement : PlayerAbility
+{
     public Vector3 speed;
     public Vector3 jumpForce;
     public float jumpFaster;
@@ -11,6 +12,7 @@ public class PlayerMovement : PlayerAbility {
     public bool freezeMovement;
 
     public Vector3 lookTo;
+    Vector3 playerDirection;
 
     // Use this for initialization
     protected override void Start()
@@ -41,7 +43,7 @@ public class PlayerMovement : PlayerAbility {
         {
             if (_player.IgnoreInputForAbilities || IgnoreInput)
             {
-
+                return;
             }else
             {
                 Move();
@@ -57,24 +59,14 @@ public class PlayerMovement : PlayerAbility {
         float axisX = _pInput.GetAxis(_pInput.Hori, _player.playerID-1);
         float axisY = _pInput.GetAxis(_pInput.Verti, _player.playerID-1);
 
-        Vector3 mov = new Vector3(axisRawX * speed.x, 0.0f, axisRawY*speed.z );
-
-        //Vector3 mov = new Vector3(Input.GetAxisRaw(hori) * speed.x, 0.0f, Input.GetAxisRaw(verti) * speed.z);
-        mov = mov * Time.deltaTime;
-        if (!freezeMovement && !GetCrossZComponent<PlayerState>().IsAttacking && !GetCrossZComponent<PlayerState>().IsDamaged)
-        {
-
-            this.transform.Translate(mov);
-        }
-
+        Move(new Vector3(axisRawX, 0.0f, axisRawY));
         
-        Vector3 playerDirection = lookTo;
+        playerDirection = lookTo;
         if (sClass.getSign(axisX, 0.015f) != 0 || sClass.getSign(axisY, 0.015f) != 0)
         {
             if (sClass.intervalCheck(axisRawX, -0.9f, 0.9f, true) || sClass.intervalCheck(axisRawY, -0.9f, 0.9f, true))
             {
-                playerDirection = Vector3.right * -axisRawX + Vector3.forward * -axisRawY;
-                lookTo = playerDirection;
+                ChangeDirection(axisRawX, axisRawY);
             }
         }
 
@@ -92,6 +84,22 @@ public class PlayerMovement : PlayerAbility {
             }
         }
         
+    }
+
+    public void Move(Vector3 mov)
+    {
+        if (!freezeMovement && !GetCrossZComponent<PlayerState>().IsAttacking && !GetCrossZComponent<PlayerState>().IsDamaged)
+        {
+            mov *= Time.deltaTime;
+            this.transform.Translate(mov.x * speed.x, 0.0f, mov.z * speed.z);
+        }
+    }
+
+    public void ChangeDirection(float dirX,float dirZ)
+    {
+        playerDirection = lookTo;
+        playerDirection = Vector3.right * -dirX + Vector3.forward * -dirZ;
+        lookTo = playerDirection;
     }
 
     void Jump()

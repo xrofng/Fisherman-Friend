@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class PortRoyal : MonoBehaviour
 {
-    public int numPlayer = 4;
-    public int maxNumPlayer = 4;
-
     public float characterMass;
 
     public bool debugMode;
@@ -24,12 +21,18 @@ public class PortRoyal : MonoBehaviour
 
     public Player[] Player
     {
-        get { return StartupPlayer.Instance.player; }
+        get { return PlayerData.Instance.player; }
     }
     public Transform[] spawnPoint;
     public Transform underWater;
+
+    [Header("Camera")]
     public Camera mainCamera;
     public MultiPlayerCamera multiPCamera;
+
+    [Header("Coast")]
+    public GameObject coastHolder;
+    public List<Coast> coastPoints = new List<Coast>();
 
     [Header("Debug")]
     public bool FixedFish = false;
@@ -42,6 +45,12 @@ public class PortRoyal : MonoBehaviour
         {
             totalSpawnRate += fishPool[i].spawnRate;
         }
+
+        foreach (Coast coast in coastHolder.GetComponentsInChildren<Coast>())
+        {
+            coastPoints.Add(coast);
+        }
+
     }
 	
 	// Update is called once per frame
@@ -118,12 +127,25 @@ public class PortRoyal : MonoBehaviour
     void ForceSpawnFish(Fish spawnFish)
     {
         Fish f = Instantiate(spawnFish, Player[0].transform.position + Vector3.up * 5, Random.rotation) as Fish;
-        f.gameObject.transform.localEulerAngles = sClass.setVector3(f.gameObject.transform.localEulerAngles, sClass.vectorComponent.x, 0);
-        f.gameObject.transform.localEulerAngles = sClass.setVector3(f.gameObject.transform.localEulerAngles, sClass.vectorComponent.z, 0);
+        f.gameObject.transform.localEulerAngles = sClass.SetVector3(f.gameObject.transform.localEulerAngles, VectorComponent.x, 0);
+        f.gameObject.transform.localEulerAngles = sClass.SetVector3(f.gameObject.transform.localEulerAngles, VectorComponent.z, 0);
         f.ChangeState(Fish.fState.fall);
         f.gameObject.AddComponent<Rigidbody>();
         f.Rigidbody.freezeRotation = true;
         f.gameObject.layer = LayerMask.NameToLayer("Fish_All");
         f.GetCollider<BoxCollider>().isTrigger = true;
+    }
+
+    void OnDrawGizmos()
+    {
+        // Draw a yellow sphere at the transform's position
+        foreach(Transform point in coastHolder.GetComponentInChildren<Transform>())
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(point.position, 1);
+            Gizmos.color += new Color(0, 0.2f, 0.2f);
+            Gizmos.DrawWireSphere(point.position+point.forward*5, 1);
+        }
+
     }
 }

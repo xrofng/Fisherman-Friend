@@ -137,8 +137,6 @@ public class DamageOnHit : MonoBehaviour
         _lastPosition = transform.position;
     }
 
-  
-
     public virtual void OnTriggerEnter(Collider collider)
     {
         Colliding(collider);

@@ -13,7 +13,7 @@ public class Fish : Creature {
         ground,
         kept,
         dehydrate,
-        fall
+        fall,
     }
     public GameObject temp;
     [Header("Info")]
@@ -68,10 +68,10 @@ public class Fish : Creature {
     private PickupFish _pickupFish;
 
     [Header("SFX")]
-    public AudioClip sfx_WaterJump;   [Range(0.0f, 1.0f)]    public float volume_wj; 
-    public AudioClip sfx_Slap;[Range(0.0f, 1.0f)]    public float volume_slap;
-    public AudioClip sfx_Throw;[Range(0.0f, 1.0f)]    public float volume_throw;
-    public AudioClip sfx_Special;[Range(0.0f, 1.0f)]    public float volume_special;
+    public SoundEffect sfx_WaterJump;
+    public SoundEffect sfx_Slap;
+    public SoundEffect sfx_Throw;
+    public SoundEffect sfx_Special;
 
     [Header("Picture")]
     public Sprite fishIcon;
@@ -260,7 +260,7 @@ public class Fish : Creature {
         _collider.enabled = false;
     }
 
-    public void FishThrow(float duration , float forwardMultiplier , float upMultiplier)
+    public void FishThrow(float duration , float minForwardMultiplier, float maxForwardMultiplier, float upMultiplier)
     {
         duration = Mathf.Clamp(duration, 0.5f, maxHolding);
         transform.parent = null;
@@ -269,7 +269,8 @@ public class Fish : Creature {
         float scaleToDuration = duration / maxHolding;
         chargePercent = (int)scaleToDuration *100;
         float chargePer = Mathf.Lerp(0.1f, 1, scaleToDuration);
-        _rigid.velocity = -transform.forward * -(forwardMultiplier * chargePer) + (transform.up* upMultiplier);
+        float forwardMultiplier = minForwardMultiplier + (maxForwardMultiplier - minForwardMultiplier)*chargePer;
+        _rigid.velocity = -transform.forward * -(  forwardMultiplier) + (transform.up* upMultiplier);
         throwAttack = _cSpecial.attack * scaleToDuration;
     }
 
@@ -365,8 +366,9 @@ public class Fish : Creature {
             {
                 if (hit.transform.gameObject.tag == "Sea" && _rigid.velocity.y < 0)
                 {
+                    state = fState.swim;
                     GetCollider<BoxCollider>().enabled = false;
-                    PlaySFX(sfx_WaterJump);
+                    SoundManager.Instance.PlaySound(sfx_WaterJump,transform.position);
                 }
             }
         }

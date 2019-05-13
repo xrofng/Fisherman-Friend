@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerThrow : PlayerAbility {
 
     private float holdToThrow;
-    public float forwardMultiplier = 50.0f;
+    public float maxForwardMultiplier = 80.0f;
+    public float minForwardMultiplier = 30.0f;
     public float upMultiplier = 5.0f;
 
     private float aimRadius;
@@ -27,13 +28,12 @@ public class PlayerThrow : PlayerAbility {
     public int assistDirection = 16;
 
     [Header("SFX")]
-    public AudioClip sfx_Throw;
+    public SoundEffect sfx_Throw;
 
     // Use this for initialization
-    protected override void Start () {
-        
+    protected override void Start ()
+    {
         Initialization();
-        
     }
 
     protected override void Initialization()
@@ -41,13 +41,13 @@ public class PlayerThrow : PlayerAbility {
         base.Initialization();
         _aimArrow = Instantiate(aimArrow);
         _aimArrow.transform.SetParent( _player.GetPart(Player.ePart.body) );
-        _aimArrow.GetComponent<SpriteRenderer>().color = StartupPlayer.Instance.playerColor[_player.playerID-1];
-        _aimArrow.localPosition =  arrowPositioningOffset;
+        _aimArrow.GetComponent<SpriteRenderer>().color = PlayerData.Instance.playerColor[_player.playerID-1];
+        _aimArrow.localPosition = arrowPositioningOffset;
         _aimArrow.gameObject.SetActive(false);
     }
 
-        // Update is called once per frame
-    void Update () {
+    void Update ()
+    {
         if(_player.state == Player.eState.ground)
         {
             if (_player.IgnoreInputForAbilities || IgnoreInput)
@@ -64,7 +64,8 @@ public class PlayerThrow : PlayerAbility {
         {
             return;
         }
-        if (GetCrossZComponent<PlayerState>().IsJumping)
+
+        if (GetCrossZComponent<PlayerState>().IsJumping || GetCrossZComponent<PlayerSpecial>().GetSpecialing())
         {
             return;
         }
@@ -92,12 +93,13 @@ public class PlayerThrow : PlayerAbility {
         _aimArrow.gameObject.SetActive(true);
         aiming = true;
     }
+
     public void OnButtonHold()
     {
         holdToThrow += Time.deltaTime;
         EvaluateAimArrowPosition();
-     //   AimAssist();
     }
+
     public void OnButtonUp()
     {
         PlayThrowSFX();
@@ -107,17 +109,14 @@ public class PlayerThrow : PlayerAbility {
 
         GetCrossZComponent<PlayerFishInteraction>().SetFishCollideType(PlayerFishInteraction.CollideType.Collide_Opponent,_player.mainFish, _player);
 
-        _player.mainFish.FishThrow(holdToThrow, forwardMultiplier, upMultiplier);
+        _player.mainFish.FishThrow(holdToThrow, minForwardMultiplier,maxForwardMultiplier, upMultiplier);
         _player.mainFish.ChangeState(Fish.fState.threw);
         GetCrossZComponent<PlayerFishInteraction>().SetHoldFish(false);
     }
 
-
-
-
     public void PlayThrowSFX()
     {
-        if (_player.mainFish.sfx_Throw)
+        if (_player.mainFish.sfx_Throw.clip)
         {
             PlaySFX(_player.mainFish.sfx_Throw);
         }
@@ -161,10 +160,8 @@ public class PlayerThrow : PlayerAbility {
             }
         }
         // set position Y
-        _aimArrow.transform.position = sClass.setVector3(_aimArrow.transform.position, sClass.vectorComponent.y, highest + additionOverUp);
+        _aimArrow.transform.position = sClass.SetVector3(_aimArrow.transform.position, VectorComponent.y, highest + additionOverUp);
     }
-
-
 
     public void ChangeToUnAim()
     {

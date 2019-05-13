@@ -11,7 +11,7 @@ public class PlayerSlap : PlayerAbility
     public int ignoreSlapFrame = 4;
 
     [Header("SFX")]
-    public AudioClip sfx_Slap;
+    public SoundEffect sfx_Slap;
 
     [Header("Debug")]
     public bool showHitBox;
@@ -88,7 +88,7 @@ public class PlayerSlap : PlayerAbility
 
     public void PlaySlapSFX()
     {
-        if (_player.mainFish.sfx_Slap)
+        if (_player.mainFish.sfx_Slap.clip)
         {
             PlaySFX(_player.mainFish.sfx_Slap);
         }

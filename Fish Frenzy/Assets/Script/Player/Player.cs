@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Creature {
+public class Player : Creature
+{
     public float testForce;
     public float upLaunchingMultiplier;
     public int playerID;
-    public int dPercent;
+    public int damagePercent;
     /// Is the character daeth ? 
     public bool Death { get { return _cPlayerState.IsDeath; } set { _cPlayerState.IsDeath = value; } }
 
     public SpriteRenderer playerIndicator; 
-    public static float fixedFPS_DT;    
 
     public bool Aiming
     {
@@ -76,7 +76,9 @@ public class Player : Creature {
     [HideInInspector]
     public PlayerFishInteraction _cPlayerFishInteraction;
     [HideInInspector]
-    public PlayerSpecial _cPlayerFishSpecial;
+    public PlayerEnvironmentInteraction _cPlayerEnvironmentInteraction;
+    [HideInInspector]
+    public PlayerSpecial _cPlayerSpecial;
 
 
     public GameObject knockBackOrigin;
@@ -97,7 +99,7 @@ public class Player : Creature {
         int index = (int)p;
         return part[index];
     }
-    public Vector3 playerForward
+    public Vector3 PlayerForward
     {
         get
         {
@@ -116,7 +118,7 @@ public class Player : Creature {
     public eState state;
 
     [Header("SFX")]
-    public AudioClip sfx_Death;
+    public SoundEffect sfx_Death;
 
     [Header("Other Class Ref")]
     protected GameLoop gameLoop;
@@ -136,8 +138,7 @@ public class Player : Creature {
 
         playerID = gameObject.name[6] - 48;
         this.gameObject.layer = LayerMask.NameToLayer("Player" + playerID);
-        fixedFPS_DT = 0.016f;
-        playerIndicator.sprite = StartupPlayer.Instance.playerIndicator[playerID-1];
+        playerIndicator.sprite = PlayerData.Instance.playerIndicator[playerID-1];
         rigid = GetComponent<Rigidbody>();
         rigid.mass = portRoyal.characterMass;
         _collider = GetComponent<BoxCollider>();
@@ -150,22 +151,8 @@ public class Player : Creature {
         _cPlayerMovement = GetComponent<PlayerMovement>();
         _cPlayerFishInteraction = GetComponent<PlayerFishInteraction>();
         _cPlayerSwitch = GetComponent<PlayerSwitchFish>();
-        _cPlayerFishSpecial = GetComponent<PlayerSpecial>();
-    }
-
-    // Update is called once per frame
-    void Update() {
-        switch (state)
-        {
-            case eState.ground:
-               // checkInput();
-                break;
-            case eState.fishing:
-                break;
-        }
-    }
-    void FixedUpdate() {
-
+        _cPlayerSpecial = GetComponent<PlayerSpecial>();
+        _cPlayerEnvironmentInteraction = GetComponent<PlayerEnvironmentInteraction>();
     }
 
     public void ChangeState(eState staTE)
@@ -175,9 +162,9 @@ public class Player : Creature {
 
     public void recieveDamage(float damage , GameObject damageDealer, Vector3 damageDealerPos,  int recoveryFrame , bool launchingDamage)
     {
-        dPercent += (int)damage;
+        damagePercent += (int)damage;
         //Instantiate(knockBackOrigin, center ,Quaternion.identity);
-        Vector2 knockBackForce = knockData.getSlapKnockForce((int)damage, dPercent);
+        Vector2 knockBackForce = knockData.getSlapKnockForce((int)damage, damagePercent);
 
         //print(launchingDamage);
 
@@ -192,11 +179,12 @@ public class Player : Creature {
 
         DamagePercentClamp();
     }
+
     public void recieveDamage(float damage, GameObject damageDealer, Vector3 damageDealerPos, int recoveryFrame, bool launchingDamage, float upMultiplier)
     {
-        dPercent += (int)damage;
-        Vector2 knockBackForce = knockData.getSlapKnockForce((int)damage, dPercent);
-        knockBackForce += Vector2.up * knockData.getVerticalKnockForce(dPercent) * upMultiplier;
+        damagePercent += (int)damage;
+        Vector2 knockBackForce = knockData.getSlapKnockForce((int)damage, damagePercent);
+        knockBackForce += Vector2.up * knockData.getVerticalKnockForce(damagePercent) * upMultiplier;
 
         if (launchingDamage)
         {
@@ -216,11 +204,11 @@ public class Player : Creature {
         recieveDamage(damage, damageDealer, damageDealerPos,recoveryFrame,launchingDamage);
     }
 
-    IEnumerator IgnoreAbilityInput(object intercepter , int FreezeFramesOnHitDuration  )
+    IEnumerator IgnoreAbilityInput(object intercepter , int ignoreFrameDuration )
     {
         AddAbilityInputIntercepter(intercepter);
         int frameCount = 0;
-        while (frameCount < FreezeFramesOnHitDuration)
+        while (frameCount < ignoreFrameDuration)
         {
             yield return new WaitForEndOfFrame();
             frameCount++;
@@ -230,7 +218,7 @@ public class Player : Creature {
 
     public void DamagePercentClamp()
     {
-        dPercent = Mathf.Clamp(dPercent, 0, 999);
+        damagePercent = Mathf.Clamp(damagePercent, 0, 999);
     }
 
     public void AddKnockBackForce( float damge ,Vector3 forceSourcePos, Vector2 knockBackForce)
@@ -262,7 +250,8 @@ public class Player : Creature {
     {
         Death = true;
         _cPlayerFishInteraction.SetPlayerCollideEverything(false);
-        PlaySFX(sfx_Death);
+        SoundManager.Instance.PlaySound(sfx_Death, this.transform.position);
+
         GameObject latest = MatchResult.Instance.GetLatestDamager(playerID,false);
         if (latest)
         {
@@ -292,7 +281,7 @@ public class Player : Creature {
         this.transform.position = portRoyal.randomSpawnPosition(Vector3.up * portRoyal.respawnPositionOffset);
         Death = false;
         _cPlayerFishInteraction.SetHoldFish(false);
-        this.dPercent = 0;
+        this.damagePercent = 0;
         MatchResult.Instance.ClearRecentDamager(playerID);
         yield return new WaitForSeconds(waitBeforeCancelInvinc);
         _cPlayerFishInteraction.SetPlayerCollideEverything(true);

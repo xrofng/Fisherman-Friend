@@ -9,11 +9,15 @@ public class FishSpecial : MonoBehaviour
 
     protected PlayerSpecial _playerFishSpecial
     {
-        get { return _player._cPlayerFishSpecial; }
+        get { return _player._cPlayerSpecial; }
     }
     protected Player _player
     {
         get { return _fish.GetPlayerHolder; }
+    }
+    protected virtual void PlaySFX(SoundEffect SFXclip)
+    {
+        SoundManager.Instance.PlaySound(SFXclip, transform.position);
     }
 
     [Header("Special")]
@@ -23,19 +27,15 @@ public class FishSpecial : MonoBehaviour
     {
         get { return _player.GetAnimator<PlayerAnimation>().AnimationFrame[(int)specialClip]; }
     }
+    public int IgnoreInputFrameDuration
+    {
+        get;
+        set;
+    }
 
     public Rigidbody _pRigid
     {
         get { return _fish.Rigidbody; }
-    }
-
-    protected AudioSource _SFX;
-
-    protected virtual void PlaySFX(AudioClip SFXclip)
-    {
-        if (_SFX.isPlaying) { return; }
-        _SFX.clip = SFXclip;
-        _SFX.Play();
     }
 
     /// <summary>
@@ -56,7 +56,6 @@ public class FishSpecial : MonoBehaviour
     protected virtual void Initialization()
     {
         _fish = GetComponent<Fish>();
-        _SFX = GetComponent<AudioSource>();
     }
 
     protected virtual void IgnoreInputFor(int ignoreFrame)
@@ -95,7 +94,7 @@ public class FishSpecial : MonoBehaviour
 
     public virtual void OnDehydrate()
     {
-        if ( _player )
+        if ( _player)
         {
             _player._cPlayerAnimator.ChangeAnimState((int)PlayerAnimation.Anim.Idle);
         }
@@ -107,5 +106,15 @@ public class FishSpecial : MonoBehaviour
         {
             _player.RemoveAbilityInputIntercepter(this);
         }
+    }
+
+    public virtual void OnSpecialActivated()
+    {
+
+    }
+
+    public virtual bool GetSpecialing()
+    {
+        return false;
     }
 }

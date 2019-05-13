@@ -36,13 +36,13 @@ public class FishSpecialSpawn : FishSpecial
         movingobject.HitBox.FreezeFramesOnHit = freezeFrame;
         movingobject.HitBox.InvincibilityFrame = invicibilityFrame;
         movingobject.HitBox.DamageCaused = attack;
-        if (_fish.sfx_Special)
+        if (_fish.sfx_Special.clip)
         {
-            movingobject.HitBox._SFXclip = _fish.sfx_Special;
+            movingobject.HitBox._SFX = _fish.sfx_Special;
         }
         else
         {
-            movingobject.HitBox._SFXclip = _playerFishSpecial.sfx_Special;
+            movingobject.HitBox._SFX = _playerFishSpecial.sfx_Special;
         }
 
     }

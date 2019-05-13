@@ -10,65 +10,53 @@ public class MaterialManager : PersistentSingleton<MaterialManager>
     public Material[] materialSet0;
     public Material[] materialSet1;
 
-    protected int elementX;
-    protected int elementY;
-
-    protected Material targetMaterial
-    {
-        get
-        {
-            InitMaterialSetList();
-            return materialSetList[elementX][elementY];
-        }
-    }
-
-    public void InitMaterialSetList()
-    {
-        if(materialSetList.Count == 0)
-        {
-            materialSetList.Add(materialSet0);
-            materialSetList.Add(materialSet1);
-        }
-      
-    }
-
-    public GameObject InstantiatePlayer(GameObject go , int tempId)
+    public GameObject InstantiatePlayer(GameObject go , int colorIndex)
     {
         GameObject create = Instantiate(go);
         
-            create.SetActive(true);
+        create.SetActive(true);
         
         if (go.GetComponent<Player>())
         {
-           
-            MaterialSwapper[] mSwap;
-            mSwap = create.GetComponentsInChildren<MaterialSwapper>();
-            
-            if (mSwap != null)
-            {
-                
-                changeMaterial(mSwap,tempId);
-                
-            }
-            else
-            {
-                // Try again, looking for inactive GameObjects
-                MaterialSwapper[] mSwapInactive = GetComponentsInChildren<MaterialSwapper>(true);
-                changeMaterial(mSwapInactive, tempId);
-            }
-            return create ;
+            return GetChangedColorPlayer(create, colorIndex);
         }
         return null;
 
     }
 
-    void changeMaterial(MaterialSwapper[] mSwap,int subIndex)
+    public GameObject GetChangedColorPlayer(GameObject player , int colorIndex)
+    {
+        MaterialSwapper[] mSwap;
+        mSwap = player.GetComponentsInChildren<MaterialSwapper>();
+
+        if (mSwap != null)
+        {
+            ChangeMaterial(mSwap, colorIndex);
+        }
+        else
+        {
+            // Try again, looking for inactive GameObjects
+            MaterialSwapper[] mSwapInactive = GetComponentsInChildren<MaterialSwapper>(true);
+            ChangeMaterial(mSwapInactive, colorIndex);
+        }
+        return player;
+    }
+
+    void ChangeMaterial(MaterialSwapper[] mSwap,int colorIndex)
     {
         foreach(MaterialSwapper m in mSwap)
         {
-            elementX = m.materialSetIndex;
-            elementY = subIndex;
-            m.setMaterial(targetMaterial);
+            m.setMaterial(GetTargetMaterial(m.materialSetIndex , colorIndex));
         }
+    }
+
+    Material GetTargetMaterial(int setIndex,int colorIndex)
+    {
+        if (materialSetList.Count == 0)
+        {
+            materialSetList.Add(materialSet0);
+            materialSetList.Add(materialSet1);
+        }
+        return materialSetList[setIndex][colorIndex];
     }
 }

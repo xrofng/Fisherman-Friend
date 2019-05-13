@@ -308,7 +308,6 @@ GameObject:
   - component: {fileID: 54216731285493838}
   - component: {fileID: 65398378398704450}
   - component: {fileID: 135176067904847010}
-  - component: {fileID: 82953668400481300}
   - component: {fileID: 114598192372927898}
   - component: {fileID: 114666727697241614}
   - component: {fileID: 114080718980803230}
@@ -1770,101 +1769,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!82 &82953668400481300
-AudioSource:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1727452470752796}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!95 &95935791461085208
 Animator:
   serializedVersion: 3
@@ -1924,8 +1828,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d092fa8b9fac35847a0cdd2526dfef78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardMultiplier: 50
-  upMultiplier: 5
+  maxForwardMultiplier: 21
+  minForwardMultiplier: 20
+  upMultiplier: 3
   aiming: 0
   aimArrow: {fileID: 4069011007333360, guid: 761621eb1408f9d469b98c24fa0d3a54, type: 2}
   arrowPositioningOffset: {x: 0, y: -0.002, z: -0.0279}
@@ -1934,7 +1839,9 @@ MonoBehaviour:
   rayDistanceFrequent: 0.1
   additionOverUp: 0.25
   assistDirection: 16
-  sfx_Throw: {fileID: 8300000, guid: 43523274498e82f4e990bf7dcc388f27, type: 3}
+  sfx_Throw:
+    clip: {fileID: 8300000, guid: 43523274498e82f4e990bf7dcc388f27, type: 3}
+    volume: 1
 --- !u!114 &114029355444865128
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1959,7 +1866,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damagedFrameDuration: 4
   eatenFrameDuration: 40
-  sfx_WaterJump: {fileID: 8300000, guid: 8d08f95415bd65b4fa13e099457abb5d, type: 3}
+  sfx_WaterJump:
+    clip: {fileID: 8300000, guid: 8d08f95415bd65b4fa13e099457abb5d, type: 3}
+    volume: 1
 --- !u!114 &114080718980803230
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1974,7 +1883,9 @@ MonoBehaviour:
   hitBox: {fileID: 114344913012789986}
   slapTrail: {fileID: 111999984646838202}
   ignoreSlapFrame: 4
-  sfx_Slap: {fileID: 8300000, guid: 76d3523a591904046bc04aace0181371, type: 3}
+  sfx_Slap:
+    clip: {fileID: 0}
+    volume: 1
   showHitBox: 0
 --- !u!114 &114120352571177444
 MonoBehaviour:
@@ -2015,7 +1926,9 @@ MonoBehaviour:
   damageFromOwner: 1
   isLauncher: 1
   Owner: {fileID: 0}
-  _SFXclip: {fileID: 0}
+  _SFX:
+    clip: {fileID: 0}
+    volume: 1
 --- !u!114 &114300933567003324
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2067,7 +1980,9 @@ MonoBehaviour:
   damageFromOwner: 1
   isLauncher: 1
   Owner: {fileID: 1727452470752796}
-  _SFXclip: {fileID: 0}
+  _SFX:
+    clip: {fileID: 0}
+    volume: 1
 --- !u!114 &114419155862270234
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2153,7 +2068,9 @@ MonoBehaviour:
   - {fileID: 4666289591519604}
   - {fileID: 4126871171258258}
   state: 0
-  sfx_Death: {fileID: 8300000, guid: 8ddf30244bfadbe40a9fb00dec90be75, type: 3}
+  sfx_Death:
+    clip: {fileID: 8300000, guid: 8ddf30244bfadbe40a9fb00dec90be75, type: 3}
+    volume: 1
 --- !u!114 &114651210123651802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2205,7 +2122,9 @@ MonoBehaviour:
   damageFromOwner: 1
   isLauncher: 1
   Owner: {fileID: 0}
-  _SFXclip: {fileID: 0}
+  _SFX:
+    clip: {fileID: 0}
+    volume: 1
 --- !u!114 &114691492094371878
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2238,8 +2157,12 @@ MonoBehaviour:
   fishPoint: {fileID: 4489670666853294}
   fishPoint_finder: {fileID: 4984766661524430}
   delayFrame: 20
-  sfx_RodSwing: {fileID: 8300000, guid: 02d1c2c2a3bc49a4a8ed40d4b8f86659, type: 3}
-  sfx_WaterTouch: {fileID: 8300000, guid: 6aec0d02799124641afcab3ffbd21b78, type: 3}
+  sfx_RodSwing:
+    clip: {fileID: 8300000, guid: 02d1c2c2a3bc49a4a8ed40d4b8f86659, type: 3}
+    volume: 1
+  sfx_WaterTouch:
+    clip: {fileID: 8300000, guid: 6aec0d02799124641afcab3ffbd21b78, type: 3}
+    volume: 1
 --- !u!114 &114899905681714738
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2267,7 +2190,9 @@ MonoBehaviour:
   hitBoxParent: {fileID: 4126871171258258}
   specialHitBox: {fileID: 0}
   specialTrail: {fileID: 0}
-  sfx_Special: {fileID: 8300000, guid: 76d3523a591904046bc04aace0181371, type: 3}
+  sfx_Special:
+    clip: {fileID: 0}
+    volume: 1
   showHitBox: 0
 --- !u!114 &114977554907942170
 MonoBehaviour:

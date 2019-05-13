@@ -49,31 +49,32 @@ public class FishSpecialThrow : FishSpecial {
         movingobject.HitBox.FreezeFramesOnHit = freezeFrame;
         movingobject.HitBox.InvincibilityFrame = invicibilityFrame;
         movingobject.HitBox.DamageCaused = attack;
-        if (_fish.sfx_Special)
+        if (_fish.sfx_Special.clip)
         {
-            movingobject.HitBox._SFXclip = _fish.sfx_Special;
+            movingobject.HitBox._SFX = _fish.sfx_Special;
         }
         else
         {
-            movingobject.HitBox._SFXclip = _playerFishSpecial.sfx_Special;
+            movingobject.HitBox._SFX = _playerFishSpecial.sfx_Special;
         }
     }
 
-    protected override void Update()
+    public override bool GetSpecialing()
     {
-
+        return ThrowSpecialing;
     }
 
-    public virtual void SpecialThrowAttack(Player _player)
+    public override void OnSpecialActivated()
     {
+        base.OnSpecialActivated();
         _player._cPlayerAnimator.ChangeAnimState((int)specialClip, SpeiclaClipFrameCount, true);
         StartCoroutine(ieSpecialThrowAttack(throwFrameDuration, channelingFrameDuration));
+        
     }
 
     IEnumerator ieSpecialThrowAttack(int frameDuration, int channelFrameDuration)
     {
         ThrowSpecialing = true;
-
         IgnoreInputFor(channelFrameDuration);
         int frameCount = 0;
         while (frameCount < channelFrameDuration)
@@ -101,7 +102,7 @@ public class FishSpecialThrow : FishSpecial {
         currentMovingObj = Instantiate(movingobject, this.transform.position, Quaternion.identity);// add pos set lyr
         currentMovingObj.gameObject.layer = LayerMask.NameToLayer("Fish" + _player.playerID);
         currentMovingObj.HitBox.Owner = _player.gameObject;
-        currentMovingObj.HitBox._SFXclip = _playerFishSpecial.sfx_Special;
+        //currentMovingObj.HitBox._SFX = _playerFishSpecial.sfx_Special;
         currentMovingObj.direction = currentMovingObj.HitBox.OwnerPlayer.GetPart(Player.ePart.body).transform.TransformDirection(-Vector3.forward);
         currentMovingObj.transform.LookAt(currentMovingObj.direction + transform.position);
         _fish.MeshRenderer.enabled = false;
@@ -119,10 +120,10 @@ public class FishSpecialThrow : FishSpecial {
         {
             return;
         }
-        StartCoroutine(InvokeIgnoreInput(ignoreFrame));
+        StartCoroutine(ieIgnoreInput(ignoreFrame));
     }
 
-    IEnumerator InvokeIgnoreInput(int frameDuration)
+    IEnumerator ieIgnoreInput(int frameDuration)
     {
         int frameCount = 0;
         _player.AddAbilityInputIntercepter(this);

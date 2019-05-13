@@ -8,7 +8,7 @@ public class JoystickRegister : MonoBehaviour
 
     public int numPlayerInMatch;
     private List<string> registeredJoystick = new List<string>();
-    
+
     // Use this for initialization
     void Start()
     {
@@ -23,14 +23,14 @@ public class JoystickRegister : MonoBehaviour
         {
             for (int i = 0; i < Input.GetJoystickNames().Length; i++)
             {
-                Debug.Log(i+Input.GetJoystickNames()[i]);
+                Debug.Log(i + Input.GetJoystickNames()[i]);
             }
         }
         if (Input.GetKeyDown(KeyCode.J))
         {
             JoystickManager.Instance.PrintAllPlayerButton();
         }
-        
+
     }
 
     void CheckFirsyJoystickInput()
@@ -39,23 +39,38 @@ public class JoystickRegister : MonoBehaviour
         {
             string joyName = Input.GetJoystickNames()[i];
 
-            if (JoystickManager.Instance.GetButtonDown("Jump",i) )
+            if (JoystickManager.Instance.GetButtonDown("Jump", i, true))
             {
-                if (!registeredJoystick.Contains(joyName))
+                if (!registeredJoystick.Contains(joyName+i))
                 {
-                    registeredJoystick.Add(joyName);
+                    registeredJoystick.Add(joyName+i);
                     JoystickManager.Instance.AssignPlayerButton(numPlayerInMatch, i);
-                    numPlayerInMatch += 1;
+                    AddInMatchPlayerNum(1);
+
                     gameSceneGui.OnJoystickRegister(numPlayerInMatch);
                 }
                 else
                 {
-                    Debug.Log("contain" + joyName);
+                    Debug.Log("contain" + i + joyName);
                 }
-               
-
+                //PrintRegisJoySticksName();
             }
         }
+    }
+
+    public void PrintRegisJoySticksName()
+    {
+        for (int i = 0; i < registeredJoystick.Count; i++)
+        {
+            string joyName = registeredJoystick[i];
+            Debug.Log(i + joyName);
+        }
+    }
+
+    public void AddInMatchPlayerNum(int increment)
+    {
+        numPlayerInMatch += increment;
+        PlayerData.Instance.numPlayer = numPlayerInMatch;
     }
 }
 

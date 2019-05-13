@@ -17,10 +17,6 @@ public class FishSpecialMelee : FishSpecial {
         set { mSpecialing = value; }
     }
 
-    protected Vector3 snapPosition;
-    protected Vector3 snapRotation;
-    protected Vector3 snapScale;
-
     [Header("Prefab Ref")]
     public Transform hitBoxRef;
 
@@ -34,7 +30,6 @@ public class FishSpecialMelee : FishSpecial {
         base.Initialization();
     }
 
-
     public virtual void SetUpFishSpecial()
     {
         SetUpSpecialHitBox();
@@ -43,8 +38,6 @@ public class FishSpecialMelee : FishSpecial {
 
     protected void SetUpSpecialHitBox()
     {
-        //SetSnapFromRef(hitBoxRef.transform);
-
         foreach (Transform hb in _fish.GetPlayerHolder.GetPart(Player.ePart.hitBox))
         {
             if(hb.gameObject.name == thisSpecialHitBox.gameObject.name)
@@ -57,36 +50,6 @@ public class FishSpecialMelee : FishSpecial {
         _playerFishSpecial.specialHitBox.transform.SetParent(_playerFishSpecial.hitBoxParent);
         _playerFishSpecial.specialHitBox.Owner = _fish.holder;
         _playerFishSpecial.specialHitBox.isLauncher = launchingDamage;
-
-        //Snap(_playerFishSpecial.specialHitBox.transform);
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="tRef"></param>
-    void SetSnapFromRef(Transform tRef)
-    {
-        snapPosition = tRef.localPosition;
-        snapRotation = tRef.localEulerAngles;
-        snapScale    =  tRef.localScale;
-    }
-
-
-    public virtual void SpecialMeleeAttack(Player _player)
-    {
-        _player._cPlayerAnimator.ChangeAnimState((int)specialClip, SpeiclaClipFrameCount, true);      
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="t"></param>
-    void Snap(Transform t)
-    {
-        t.localPosition = snapPosition;
-        t.localEulerAngles = snapRotation;
-        t.localScale = snapScale;
     }
 
     /// <summary>
@@ -99,14 +62,29 @@ public class FishSpecialMelee : FishSpecial {
         playerHitBox.FreezeFramesOnHit = freezeFrame;
         playerHitBox.InvincibilityFrame = invicibilityFrame;
         playerHitBox.DamageCaused = attack;
-        if (_fish.sfx_Special)
+        if (_fish.sfx_Special.clip)
         {
-            playerHitBox._SFXclip = _fish.sfx_Special;
+            playerHitBox._SFX = _fish.sfx_Special;
         }
         else
         {
-            playerHitBox._SFXclip = _playerFishSpecial.sfx_Special;
+            playerHitBox._SFX = _playerFishSpecial.sfx_Special;
         }
+    }
+
+    public override void OnSpecialActivated()
+    {
+        base.OnSpecialActivated();
+        ActionForFrame(SpeiclaClipFrameCount + IgnoreInputFrameDuration,
+                 () => { MeleeSpecialing = true; },
+                 () => { MeleeSpecialing = false; });
+
+        _player._cPlayerAnimator.ChangeAnimState((int)specialClip, SpeiclaClipFrameCount, true);
+    }
+
+    public override bool GetSpecialing()
+    {
+        return MeleeSpecialing;
     }
 
     protected override void Update()
@@ -114,4 +92,5 @@ public class FishSpecialMelee : FishSpecial {
 
     }
    
+    
 }

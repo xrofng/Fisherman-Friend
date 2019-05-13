@@ -260,7 +260,7 @@ MonoBehaviour:
   holder: {fileID: 0}
   ignorePlayerFrame: 0
   fishMeshRenderer: {fileID: 23386506973063562}
-  durability: 15
+  durability: 10
   weight: 0
   mashCountDown: 8
   spawnRate: 10
@@ -274,14 +274,18 @@ MonoBehaviour:
   holdPosition: {x: -0.0059, y: 0.022, z: -0.0193}
   holdRotation: {x: -50, y: 180, z: -90}
   aimPositioningOffset: {x: 0, y: 0.5, z: 0}
-  sfx_WaterJump: {fileID: 8300000, guid: 391886dd2fd156a44873b2eeeb6d6248, type: 3}
-  volume_wj: 0
-  sfx_Slap: {fileID: 0}
-  volume_slap: 0
-  sfx_Throw: {fileID: 0}
-  volume_throw: 0
-  sfx_Special: {fileID: 8300000, guid: 76d3523a591904046bc04aace0181371, type: 3}
-  volume_special: 1
+  sfx_WaterJump:
+    clip: {fileID: 8300000, guid: 391886dd2fd156a44873b2eeeb6d6248, type: 3}
+    volume: 1
+  sfx_Slap:
+    clip: {fileID: 8300000, guid: 76d3523a591904046bc04aace0181371, type: 3}
+    volume: 1
+  sfx_Throw:
+    clip: {fileID: 8300000, guid: 43523274498e82f4e990bf7dcc388f27, type: 3}
+    volume: 1
+  sfx_Special:
+    clip: {fileID: 8300000, guid: 76d3523a591904046bc04aace0181371, type: 3}
+    volume: 1
   fishIcon: {fileID: 21300000, guid: a38c3d5014bb782449d38c99601b022b, type: 3}
   fishName: {fileID: 21300000, guid: 9dbb8e5e55689e248a9a30cc39e10257, type: 3}
   fishStored: {fileID: 21300000, guid: a83a0e62f1fc7024f879d0ac960a4cf8, type: 3}

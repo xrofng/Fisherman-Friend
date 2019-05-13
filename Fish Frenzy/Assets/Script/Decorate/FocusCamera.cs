@@ -10,10 +10,13 @@ public class FocusCamera : MonoBehaviour
 
     private Queue<Vector3> focusQueue = new Queue<Vector3>();
 
-    public float timeToNextTarget = 0.1f;
-
     public float smoothTime;
     public Vector3 velocity;
+
+    private bool focusingTarget = false;
+    private float focusingTime = 0.0f;
+    public float playerFocusingTime = 0.1f;
+    private float focusingTimeCountDown = 0.0f;
 
     /// <summary>
     /// 
@@ -34,6 +37,11 @@ public class FocusCamera : MonoBehaviour
         focusQueue.Enqueue(newPos);
     }
 
+    void Start()
+    {
+         focusingTime = playerFocusingTime * (PlayerData.Instance.maxNumPlayer+1 - PlayerData.Instance.numPlayer);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -42,11 +50,7 @@ public class FocusCamera : MonoBehaviour
 
     void Update_Game()
     {
-        if (SceneManager.GetActiveScene().name != "Gameplay")
-        {
-            return;
-        }
-
+        
         if (focusQueue.Count != 0)
         {
             Vector3 newPosition = focusQueue.Peek();

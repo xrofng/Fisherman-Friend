@@ -61,11 +61,14 @@ public class PlayerFishInteraction : PlayerAbility {
         return this.gameObject.name == f.holder.gameObject.name;
     }
 
-    public void SetHoldFish(bool b)
+    public void SetHoldFish(bool isHoldingFish)
     {
         GetCrossZComponent<PlayerThrow>().ChangeToUnAim();
-        _player.holdingFish = b;
-
+        _player.holdingFish = isHoldingFish;
+        if (!isHoldingFish)
+        {
+            _player.mainFish = null;
+        }
         _pAnimator.ChangeAnimState((int)_player._cPlayerAnimator.GetIdleAnimation());
     }
 
