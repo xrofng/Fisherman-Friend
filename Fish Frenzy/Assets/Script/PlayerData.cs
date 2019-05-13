@@ -13,6 +13,7 @@ public class PlayerData : PersistentSingleton<PlayerData> {
     public Color[] playerColor = new Color[8];
     public int[] playerSkinId = new int[4];
     public Sprite[] playerIndicator = new Sprite[4];
+    public Sprite[] playerIndicatorBorder = new Sprite[4];
     public Material[] playerMaterial = new Material[4];
     // Use this for initialization
     void Start () {

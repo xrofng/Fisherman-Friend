@@ -4,10 +4,19 @@ using System.Collections;
 
 public struct PlayerSpawnedEvent
 {
-    Player[] players;
-    public PlayerSpawnedEvent(Player[] spawnedPlayer)
+    public Player[] players;
+    public int spawnedPlayerId;
+
+    /// <summary>
+    /// event when specify id player spawned
+    /// playerId >= 4 means everyoneSpawned
+    /// </summary>
+    /// <param name="playerId"></param>
+    /// <param name="spawnedPlayer"></param>
+    public PlayerSpawnedEvent(int playerId,Player[] spawnedPlayer)
     {
         players = spawnedPlayer;
+        spawnedPlayerId = playerId;
     }
 }
 

@@ -21,7 +21,6 @@ public class PlayerHUD : MonoBehaviour {
     
     */
 
-    public Image playerUiImage;
     public Text percentText;
     public Image durabilityImage;
 
@@ -64,7 +63,7 @@ public class PlayerHUD : MonoBehaviour {
         durabilityImage.color = new Color(pColor.r, pColor.g, pColor.b, a);
 
         //meter
-        playerUiImage.color = pColor;
+        GetComponent<FFgui>().GUIRecolorer.Recolor(pColor);
     }
 
     public void UpdatePlayerHUD()

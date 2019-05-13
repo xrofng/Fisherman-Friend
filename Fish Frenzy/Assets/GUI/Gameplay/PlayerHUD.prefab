@@ -107,6 +107,8 @@ GameObject:
   m_Component:
   - component: {fileID: 224204751675034442}
   - component: {fileID: 114281491809790334}
+  - component: {fileID: 114412673922741602}
+  - component: {fileID: 114522520978372624}
   m_Layer: 5
   m_Name: PlayerHUD
   m_TagString: Untagged
@@ -237,6 +239,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114412673922741602
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1581123729021664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d9154fc20f25a4429ed08df12671ad3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114430499309405862
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -291,6 +304,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114522520978372624
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1581123729021664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afcc149175a07954b8b02b5dde363cd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recolorImages:
+  - {fileID: 114361315840561434}
+  staticImages: []
 --- !u!114 &114642013024069662
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -566,7 +593,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 95.625, y: -49.999985}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 191.25, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224310730916573928
 RectTransform:

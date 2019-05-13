@@ -12,6 +12,7 @@ public class Player : Creature
     public bool Death { get { return _cPlayerState.IsDeath; } set { _cPlayerState.IsDeath = value; } }
 
     public SpriteRenderer playerIndicator; 
+    public SpriteRenderer playerIndicatorBorder;
 
     public bool Aiming
     {
@@ -138,7 +139,7 @@ public class Player : Creature
 
         playerID = gameObject.name[6] - 48;
         this.gameObject.layer = LayerMask.NameToLayer("Player" + playerID);
-        playerIndicator.sprite = PlayerData.Instance.playerIndicator[playerID-1];
+        
         rigid = GetComponent<Rigidbody>();
         rigid.mass = portRoyal.characterMass;
         _collider = GetComponent<BoxCollider>();

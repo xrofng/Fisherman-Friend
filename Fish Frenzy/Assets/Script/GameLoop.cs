@@ -178,15 +178,17 @@ public class GameLoop : MonoBehaviour
         for (int i = 0; i < PlayerData.Instance.numPlayer; i++)
         {
             SpawnPlayers(i, playerPrefab);
+            MMEventManager.TriggerEvent(new PlayerSpawnedEvent(i, portRoyal.Player));
             yield return new WaitForSeconds(_playerSpawnRate);
         }
         for (int i = PlayerData.Instance.numPlayer; i < PlayerData.Instance.numBot+ PlayerData.Instance.numPlayer; i++)
         {
             SpawnPlayers(i, playerBotPrefab);
+            MMEventManager.TriggerEvent(new PlayerSpawnedEvent(i, portRoyal.Player));
             yield return new WaitForSeconds(_playerSpawnRate);
         }
         focusCamera.MoveCameraTo(multiplayerCamera.GetNewPosition(),false);
-        MMEventManager.TriggerEvent(new PlayerSpawnedEvent(portRoyal.Player));
+        MMEventManager.TriggerEvent(new PlayerSpawnedEvent(4,portRoyal.Player));
     }
 
     IEnumerator CountDown(float waitTime)
