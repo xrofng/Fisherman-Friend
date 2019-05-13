@@ -72,7 +72,8 @@ public class ResultSceneGUI : MonoBehaviour
         winnerTabImage.color = PlayerData.Instance.GetColorById(playerIdByRank[0]);
         int winnerNumber = playerIdByRank[0] + 1;
         playerTextIndencator[0].text = "Player " + winnerNumber;
-        playerIntro[0].Initialize();
+        playerIntro[0].SetPlayerId(playerIdByRank[0]);
+        playerIntro[0].PlayResult();
         
         resultCanvas.gameObject.SetActive(false);
     }
@@ -227,7 +228,8 @@ public class ResultSceneGUI : MonoBehaviour
         for (int i = 0; i < numPlayer; i++)
         {
             playerIntro[i].gameObject.SetActive(true);
-            playerIntro[i].Initialize();
+            playerIntro[i].SetPlayerId(playerIdByRank[i]);
+            playerIntro[i].PlayResult();
         }
     }
 

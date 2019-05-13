@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum VictoryAnimation
 {
-    None = 0,
+    Random = 0,
     Generic,
     Starfish,
     Hammerhead,
@@ -14,12 +14,16 @@ public enum VictoryAnimation
 
 public class ResultIntroVictory : ResultIntro
 {
-    public VictoryAnimation vicIntro;
-
-    public override void Initialize()
+    public override void PlayResult()
     {
-        base.Initialize();
-        ChangeAnimState((int)vicIntro);
+        base.PlayResult();
+        // TODO real random
+        int vicId = PlayerData.Instance.victoryId[playerId];
+        if(vicId == (int)VictoryAnimation.Random)
+        {
+            vicId = (int)VictoryAnimation.Starfish;
+        }
+        ChangeState(vicId);
     }
 
     protected override void Update()

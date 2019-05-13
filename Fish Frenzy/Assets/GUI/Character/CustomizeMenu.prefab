@@ -254,7 +254,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1371092823618580
 GameObject:
   m_ObjectHideFlags: 1
@@ -1815,6 +1815,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 63148c9de63a96d4ea1a64f3a5431695, type: 3}
   - {fileID: 21300000, guid: f8a2573d1764af5438d3750327d8346e, type: 3}
   playerReady: 0
+  arrowAnim: {fileID: 95516709716282964}
+  arrowSfx:
+    clip: {fileID: 8300000, guid: 7ad6702939576ec409592642eabd3ee0, type: 3}
+    volume: 1
   customIndex: 000000000000000000000000
   hatCustom:
   - {fileID: 21300000, guid: 12a9b6f3cd912c84ea14d7f81f74d39c, type: 3}
@@ -1828,6 +1832,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ae48495d864b70e45b7f0428b413061e, type: 3}
   - {fileID: 21300000, guid: 0fa0b4f0f010ed34eb19432c4560aa91, type: 3}
   vicCustom:
+  - {fileID: 21300000, guid: 6a6f0a67e9d15eb4ea38d43f9ccc5c3f, type: 3}
   - {fileID: 21300000, guid: ecdee73d46d3474488cc85113c8c59e4, type: 3}
   - {fileID: 21300000, guid: 3e026791dddd8f64fb0638cb3111051d, type: 3}
   - {fileID: 21300000, guid: 1185dba843f94ef448214bdce0099a79, type: 3}

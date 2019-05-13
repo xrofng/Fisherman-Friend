@@ -197,7 +197,10 @@ public class CustomizationMenu : MonoBehaviour
         customizePropertiesImage[(int)CustomProperties.color].sprite = colorCustom[customIndex[(int)CustomProperties.color]];
         customizePropertiesImage[(int)CustomProperties.victoryintro].sprite = vicCustom[customIndex[(int)CustomProperties.victoryintro]];
         MaterialManager.Instance.GetChangedColorPlayer(playerModel, customIndex[(int)CustomProperties.color]);
+
         PlayerData.Instance.playerSkinId[playerCustomizeMenuID] = customIndex[(int)CustomProperties.color];
+        PlayerData.Instance.hatId[playerCustomizeMenuID] = customIndex[(int)CustomProperties.hat];
+        PlayerData.Instance.victoryId[playerCustomizeMenuID] = customIndex[(int)CustomProperties.victoryintro];
     }
 
     IEnumerator ieIgnoreInput()

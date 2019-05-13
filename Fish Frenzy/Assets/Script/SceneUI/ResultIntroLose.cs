@@ -17,9 +17,9 @@ public class ResultIntroLose : ResultIntro
     public GameObjectMovement subCamera;
     public GameObjectMovement frame;
 
-    public override void Initialize()
+    public override void PlayResult()
     {
-        base.Initialize();
+        base.PlayResult();
         ChangeAnimState((int)loseIntro);
     }
 
