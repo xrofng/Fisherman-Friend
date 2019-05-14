@@ -1,21 +1,46 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
+[Serializable]
+public class MaterialSwapIdentifier
+{
+    public string swapName;
+    public Material swappedMat;
+    public Material[] resultMat = new Material[8];
+}
 
 public class MaterialManager : PersistentSingleton<MaterialManager>
 {
-    //direct by element X
-    private List<Material[]> materialSetList = new List<Material[]>();
-    //direct by element Y
-    public Material[] materialSet0;
-    public Material[] materialSet1;
+    [SerializeField]
+    public List<MaterialSwapIdentifier> materialSwaps = new List<MaterialSwapIdentifier>();
+    // Cache of materialSwaps
+    // Key is name of material will be swapped
+    public Dictionary<string, MaterialSwapIdentifier> cacheMaterialSwap = new Dictionary<string, MaterialSwapIdentifier>();
 
-    public GameObject InstantiatePlayer(GameObject go , int colorIndex)
+    protected override void Awake()
+    {
+        base.Awake();
+        foreach (MaterialSwapIdentifier identifier in materialSwaps)
+        {
+            if (cacheMaterialSwap.ContainsKey(identifier.swapName))
+            {
+                Debug.LogWarning("2 or more swap material used");
+            }
+            else
+            {
+                cacheMaterialSwap.Add(identifier.swapName, identifier);
+            }
+        }
+    }
+
+    public GameObject InstantiatePlayer(GameObject go, int colorIndex)
     {
         GameObject create = Instantiate(go);
-        
+
         create.SetActive(true);
-        
+
         if (go.GetComponent<Player>())
         {
             return GetChangedColorPlayer(create, colorIndex);
@@ -24,7 +49,7 @@ public class MaterialManager : PersistentSingleton<MaterialManager>
 
     }
 
-    public GameObject GetChangedColorPlayer(GameObject player , int colorIndex)
+    public GameObject GetChangedColorPlayer(GameObject player, int colorIndex)
     {
         MaterialSwapper[] mSwap;
         mSwap = player.GetComponentsInChildren<MaterialSwapper>();
@@ -42,21 +67,50 @@ public class MaterialManager : PersistentSingleton<MaterialManager>
         return player;
     }
 
-    void ChangeMaterial(MaterialSwapper[] mSwap,int colorIndex)
+    void ChangeMaterial(MaterialSwapper[] mSwap, int colorIndex)
     {
-        foreach(MaterialSwapper m in mSwap)
+        foreach (MaterialSwapper m in mSwap)
         {
-            m.setMaterial(GetTargetMaterial(m.materialSetIndex , colorIndex));
+            if (cacheMaterialSwap.ContainsKey(m.swapperName))
+            {
+                Material[] subMats = null;
+
+                if (m.subSwapperName.Length > 0)
+                {
+                    subMats = GetSubSwapperMaterials(m.subSwapperName,colorIndex);
+                }
+
+                m.SetMaterial(GetTargetMaterial(m.swapperName, colorIndex), subMats);
+            }
+
         }
     }
 
-    Material GetTargetMaterial(int setIndex,int colorIndex)
+    /// <summary>
+    /// evaluate material array for second-last materials
+    /// </summary>
+    /// <param name="subSwapperName"></param>
+    /// <param name="colorIndex"></param>
+    /// <returns></returns>
+    Material[] GetSubSwapperMaterials(string[] subSwapperName, int colorIndex)
     {
-        if (materialSetList.Count == 0)
+        List<Material> subMats = new List<Material>();
+        for (int i = 0; i < subSwapperName.Length; i++)
         {
-            materialSetList.Add(materialSet0);
-            materialSetList.Add(materialSet1);
+            if (cacheMaterialSwap.ContainsKey(subSwapperName[i]))
+            {
+                subMats.Add(GetTargetMaterial(subSwapperName[i], colorIndex));
+            }else
+            {
+                subMats.Add(null);
+            }
         }
-        return materialSetList[setIndex][colorIndex];
+        return subMats.ToArray();
+    }
+
+
+    Material GetTargetMaterial(string swapperName, int colorIndex)
+    {
+        return cacheMaterialSwap[swapperName].resultMat[colorIndex];
     }
 }

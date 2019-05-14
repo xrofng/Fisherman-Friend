@@ -5,27 +5,46 @@ using UnityEngine;
 
 
 [RequireComponent(typeof(MeshRenderer))]
-public class MaterialSwapper : MonoBehaviour {
+public class MaterialSwapper : MonoBehaviour
+{
+    // name of swapper for first material
+    public string swapperName;
+    // name of swapper from second - last material, if empty use what's in mesh
+    public string[] subSwapperName;
 
-    public int materialSetIndex;
-
-    private MeshRenderer meshrenderer;
-    // Use this for initialization
-    void Start () {
-        meshrenderer = GetComponent<MeshRenderer>();
-    }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-    public void setMaterial(Material m)
+    private MeshRenderer _meshrenderer;
+    public MeshRenderer MeshRenderer
     {
-        if (meshrenderer == null)
+        get
         {
-            meshrenderer = GetComponent<MeshRenderer>();
+            if (!_meshrenderer)
+            {
+                _meshrenderer = GetComponent<MeshRenderer>();
+            }
+            return _meshrenderer;
         }
-        meshrenderer.material = m;
+    }
+
+    public void SetMaterial(Material m,Material[] subMats)
+    {
+        if (subMats != null)
+        {
+            // mats size has to include first element
+            Material[] mats = new Material[subMats.Length+1];
+            for (int i=0;i<subMats.Length;i++)
+            {
+                // i+1 to assigne from second index
+                if(subMats[i] != null)
+                {
+                    mats[i+1] = subMats[i];
+                }else
+                {
+                    mats[i+1] = MeshRenderer.materials[i+1];
+                }
+            }
+            MeshRenderer.materials = mats;
+        }
+        MeshRenderer.material = m;
+
     }
 }
