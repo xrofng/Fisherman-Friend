@@ -19,7 +19,8 @@ public class Agent_Fisherman : Agent
 
     protected override void Initialize()
     {
-        base.Initialize();
+        InitFuzzy();
+        InitPlanner();
     }
 
     private Player _ownerPlayer;

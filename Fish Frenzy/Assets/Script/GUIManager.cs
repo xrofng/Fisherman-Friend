@@ -122,7 +122,7 @@ public class GUIManager : MonoBehaviour, MMEventListener<PlayerSpawnedEvent>
         // change button indicator color
         for (int pId = 0; pId < numFisherman; pId++)
         {
-            Color changeToColor = playerData.GetColorById(pId);
+            Color changeToColor = playerData.GetColor(pId);
             ButtonIndicators[pId].GUIRecolorer.Recolor(changeToColor);
             MashButtonIndicators[pId].GUIRecolorer.Recolor(changeToColor);
         }
@@ -150,7 +150,7 @@ public class GUIManager : MonoBehaviour, MMEventListener<PlayerSpawnedEvent>
         {
             portRoyal.Player[playerId].playerIndicator.sprite = PlayerData.Instance.playerIndicator[playerId];
             portRoyal.Player[playerId].playerIndicatorBorder.sprite = PlayerData.Instance.playerIndicatorBorder[playerId];
-            Color changeToColor = playerData.GetColorById(playerId);
+            Color changeToColor = playerData.GetColor(playerId);
             portRoyal.Player[playerId].playerIndicator.color = changeToColor;
         }
     }

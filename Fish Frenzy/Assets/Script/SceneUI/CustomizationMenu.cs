@@ -22,11 +22,15 @@ public class CustomizationMenu : MonoBehaviour
     public RectTransform propertiesHighlight;
     public Image[] customizePropertiesImage;
     private int customizePropertesNum;
-    public Image selectionPanelUIImage;
+
+    public Image customTopic;
+    public Sprite[] customTopicSprites;
+
+    public GUIRecolorer guiRecolor;
     public Image ReadyButtonUIImage;
-    public Sprite[] selectionPanelImages;
-    public Sprite[] ReadyButtonImages;
-    public Sprite[] ReadyButtonHoverImages;
+    public Sprite readyHoverSprites;
+    public Sprite readyUnhoverSprites;
+
     public bool playerReady = false;
     public Animator arrowAnim;
     public SoundEffect arrowSfx;
@@ -114,8 +118,7 @@ public class CustomizationMenu : MonoBehaviour
         propertiesLength[(int)CustomProperties.victoryintro] = vicCustom.Length;
         customizePropertesNum = customizePropertiesImage.Length;
 
-        selectionPanelUIImage.sprite = selectionPanelImages[playerCustomizeMenuID];
-        ReadyButtonUIImage.sprite = ReadyButtonImages[playerCustomizeMenuID];
+        customTopic.sprite = customTopicSprites[playerCustomizeMenuID];
 
         UpdatePropertiesHighlight();
 
@@ -141,7 +144,8 @@ public class CustomizationMenu : MonoBehaviour
         {
             playerReady = false;
         }
-        readyBanner.gameObject.SetActive(playerReady);
+
+        readyBanner.enabled = playerReady;
         CharacterSceneGUI.CheckAllPlayerReady();
     }
 
@@ -182,11 +186,11 @@ public class CustomizationMenu : MonoBehaviour
         if(customizePropertiesIndex >= customizePropertiesImage.Length)
         {
             propertiesHighlight.position = Vector3.one * 10000;
-            ReadyButtonUIImage.sprite = ReadyButtonHoverImages[playerCustomizeMenuID];
+            ReadyButtonUIImage.sprite = readyHoverSprites;
         }
         else
         {
-            ReadyButtonUIImage.sprite = ReadyButtonImages[playerCustomizeMenuID];
+            ReadyButtonUIImage.sprite = readyUnhoverSprites;
             propertiesHighlight.position = customizePropertiesImage[customizePropertiesIndex].rectTransform.position;
         }
     }
@@ -194,13 +198,18 @@ public class CustomizationMenu : MonoBehaviour
     void UpdateCustomizeImage()
     {
         customizePropertiesImage[(int)CustomProperties.hat].sprite = hatCustom[customIndex[(int)CustomProperties.hat]];
-        customizePropertiesImage[(int)CustomProperties.color].sprite = colorCustom[customIndex[(int)CustomProperties.color]];
         customizePropertiesImage[(int)CustomProperties.victoryintro].sprite = vicCustom[customIndex[(int)CustomProperties.victoryintro]];
+
+        customizePropertiesImage[(int)CustomProperties.color].sprite = colorCustom[customIndex[(int)CustomProperties.color]];
         MaterialManager.Instance.GetChangedColorPlayer(playerModel, customIndex[(int)CustomProperties.color]);
 
         PlayerData.Instance.playerSkinId[playerCustomizeMenuID] = customIndex[(int)CustomProperties.color];
         PlayerData.Instance.hatId[playerCustomizeMenuID] = customIndex[(int)CustomProperties.hat];
         PlayerData.Instance.victoryId[playerCustomizeMenuID] = customIndex[(int)CustomProperties.victoryintro];
+
+        // Update Ui Color
+        Color changeToColor = PlayerData.Instance.GetColor(playerCustomizeMenuID);
+        guiRecolor.Recolor(changeToColor);
     }
 
     IEnumerator ieIgnoreInput()

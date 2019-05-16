@@ -7,7 +7,6 @@ using System;
 public class MaterialSwapIdentifier
 {
     public string swapName;
-    public Material swappedMat;
     public Material[] resultMat = new Material[8];
 }
 

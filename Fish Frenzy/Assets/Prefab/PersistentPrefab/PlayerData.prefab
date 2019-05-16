@@ -67,8 +67,8 @@ MonoBehaviour:
   - {r: 1, g: 0.36320752, b: 0.78523886, a: 1}
   - {r: 0.9372549, g: 0.67125523, b: 0.23921569, a: 1}
   - {r: 0.7721518, g: 0.23921569, b: 0.9372549, a: 1}
-  - {r: 0, g: 0.13042653, b: 0.13207549, a: 1}
-  playerSkinId: 07000000050000000200000004000000
+  - {r: 0, g: 0, b: 0, a: 1}
+  playerSkinId: 07000000050000000600000004000000
   hatId: 00000000000000000000000000000000
   victoryId: 00000000000000000000000000000000
   playerIndicator:
@@ -90,3 +90,10 @@ MonoBehaviour:
   - {fileID: 2100000, guid: a34430f634153df42a321dab4f97c624, type: 2}
   - {fileID: 2100000, guid: 357e83bedc325a749bb228bd96f4d296, type: 2}
   - {fileID: 2100000, guid: 89a207ce2a020fa4099e9961137eeccf, type: 2}
+  hatSprite:
+  - {fileID: 21300000, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
+  - {fileID: 21300002, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
+  - {fileID: 21300004, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
+  - {fileID: 21300006, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
+  - {fileID: 21300008, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
+  - {fileID: 21300010, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}

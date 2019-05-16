@@ -165,7 +165,7 @@ public class Player : Creature
     {
         damagePercent += (int)damage;
         //Instantiate(knockBackOrigin, center ,Quaternion.identity);
-        Vector2 knockBackForce = knockData.getSlapKnockForce((int)damage, damagePercent);
+        Vector2 knockBackForce = knockData.GetSlapKnockForce((int)damage, damagePercent);
 
         //print(launchingDamage);
 
@@ -184,8 +184,8 @@ public class Player : Creature
     public void recieveDamage(float damage, GameObject damageDealer, Vector3 damageDealerPos, int recoveryFrame, bool launchingDamage, float upMultiplier)
     {
         damagePercent += (int)damage;
-        Vector2 knockBackForce = knockData.getSlapKnockForce((int)damage, damagePercent);
-        knockBackForce += Vector2.up * knockData.getVerticalKnockForce(damagePercent) * upMultiplier;
+        Vector2 knockBackForce = knockData.GetSlapKnockForce((int)damage, damagePercent);
+        knockBackForce += Vector2.up * knockData.GetVerticalKnockForce(damagePercent) * upMultiplier;
 
         if (launchingDamage)
         {
@@ -227,7 +227,7 @@ public class Player : Creature
         Vector3 knockBackDirection = this.transform.position - forceSourcePos;
         Vector3 nKnockBackDirection = Vector3.Normalize(knockBackDirection);
         Vector3 upLaunching = Vector3.up * knockBackForce.y;
-        rigid.AddForce(nKnockBackDirection * knockBackForce.x + upLaunching, ForceMode.Impulse);
+        rigid.AddForce(nKnockBackDirection * knockBackForce.x + upLaunching, ForceMode.VelocityChange);
     }   
 
    

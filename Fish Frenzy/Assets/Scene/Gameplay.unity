@@ -3164,7 +3164,7 @@ MonoBehaviour:
   - {r: 0.627451, g: 0, b: 0, a: 75}
   - {r: 0.2901961, g: 0, b: 0, a: 75}
   Knock: 0
-  SlapScale_tier1: 0000000000000000000000000000000001000000010000000200000003000000
+  SlapScale_tier1: 00000000000000000000000000000000
   SlapScale_tier2: 0000000000000000000000000100000001000000020000000200000003000000
   SlapScale_tier3: 0000000000000000010000000100000002000000020000000300000003000000
   SlapScale_tier4: 0000000001000000020000000200000002000000030000000300000005000000
@@ -7177,6 +7177,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 46210caeeb2cf8643a8d26ebcba83c70, type: 2}
   - {fileID: 2100000, guid: 5a973d9cd19dc86468184f738014d0cd, type: 2}
   - {fileID: 2100000, guid: eb33ddfa6e883254b9ed65d18c7c39a5, type: 2}
+  hatSprite: []
 --- !u!1 &558894141
 GameObject:
   m_ObjectHideFlags: 0
@@ -18863,21 +18864,6 @@ Prefab:
       propertyPath: m_Name
       value: PlayerHUD (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 224204751675034442, guid: 8457687dad742354780df25209721c1f,
-        type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.9999998
-      objectReference: {fileID: 0}
-    - target: {fileID: 224204751675034442, guid: 8457687dad742354780df25209721c1f,
-        type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.9999998
-      objectReference: {fileID: 0}
-    - target: {fileID: 224204751675034442, guid: 8457687dad742354780df25209721c1f,
-        type: 2}
-      propertyPath: m_LocalScale.z
-      value: 0.9999998
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8457687dad742354780df25209721c1f, type: 2}
   m_IsPrefabAsset: 0
@@ -21838,21 +21824,6 @@ Prefab:
     - target: {fileID: 4612667595151156, guid: b8cbed68061224c4c858383bad86a564, type: 2}
       propertyPath: m_RootOrder
       value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 114894236116428748, guid: b8cbed68061224c4c858383bad86a564,
-        type: 2}
-      propertyPath: playerColor.Array.data[7].r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114894236116428748, guid: b8cbed68061224c4c858383bad86a564,
-        type: 2}
-      propertyPath: playerColor.Array.data[7].g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114894236116428748, guid: b8cbed68061224c4c858383bad86a564,
-        type: 2}
-      propertyPath: playerColor.Array.data[7].b
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8cbed68061224c4c858383bad86a564, type: 2}

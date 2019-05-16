@@ -19,9 +19,15 @@ public class PlayerData : PersistentSingleton<PlayerData> {
     public Sprite[] playerIndicator = new Sprite[4];
     public Sprite[] playerIndicatorBorder = new Sprite[4];
     public Material[] playerMaterial = new Material[4];
+    public Sprite[] hatSprite;
 
-    public Color GetColorById(int playerId)
+    public Color GetColor(int playerId)
     {
         return playerColor[playerSkinId[ playerId]];
+    }
+
+    public Sprite GetHatSprite(int playerId)
+    {
+        return hatSprite[hatId[playerId]];
     }
 }
