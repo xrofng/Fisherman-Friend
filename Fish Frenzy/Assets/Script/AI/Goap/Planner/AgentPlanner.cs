@@ -14,10 +14,6 @@ namespace GOAP
         protected bool startPlanning;
 
         public Agent agent;
-        public T GetAgent<T>() where T : Agent
-        {
-            return agent as T;
-        }
 
         [SerializeField]
         public List<Goal> Goals = new List<Goal>();

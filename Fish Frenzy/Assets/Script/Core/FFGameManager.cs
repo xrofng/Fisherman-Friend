@@ -69,6 +69,19 @@ public class FFGameManager : PersistentSingleton<FFGameManager>
         }
     }
 
+    protected PathManager _pathManager;
+    public PathManager PathManager
+    {
+        get
+        {
+            if (_pathManager == null)
+            {
+                _pathManager = FindObjectOfType<PathManager>();
+            }
+            return _pathManager;
+        }
+    }
+
     protected GUIManager _guiManager;
     public GUIManager GUIManager
     {

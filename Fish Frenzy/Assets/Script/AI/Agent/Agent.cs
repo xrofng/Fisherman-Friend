@@ -4,10 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using GOAP;
 
-public class Agent : MonoBehaviour {
-    
+public class Agent : MonoBehaviour
+{
+
+    public int onTickRate;
+
 	// Use this for initialization
-	void Start ()
+	void Awake ()
     {
         Initialize();
 	}
@@ -16,6 +19,7 @@ public class Agent : MonoBehaviour {
     {
         InitFuzzy();
         InitPlanner();
+        InitPahtFinder();
     }
 
     protected AgentFuzzy _fuzzy;
@@ -45,6 +49,20 @@ public class Agent : MonoBehaviour {
         }
     }
 
+    protected AgentPahtFinder _pathFinder;
+    public AgentPahtFinder PathFinder
+    {
+        get
+        {
+            if (!_pathFinder)
+            {
+                InitPahtFinder();
+                Initialize();
+            }
+            return _pathFinder;
+        }
+    }
+    
     protected virtual void InitPlanner()
     {
         _planner = GetComponent<AgentPlanner>();
@@ -57,14 +75,31 @@ public class Agent : MonoBehaviour {
         _fuzzy.agent = this;
     }
 
+    protected virtual void InitPahtFinder()
+    {
+        _pathFinder = GetComponent<AgentPahtFinder>();
+        _pathFinder.agent = this;
+    }
+
+    void Update()
+    {
+        if(onTickRate>0 && Time.frameCount % onTickRate == 0)
+        {
+            Tick();
+        }
+        else
+        {
+            Tick();
+        }
+    }
+
+    protected virtual void Tick()
+    {
+        
+    }
+
     public T CastAgent<T>() where T : Agent
     {
         return this as T;
     }
-
-    // Update is called once per frame
-    void Update ()
-    {
-		
-	}
 }

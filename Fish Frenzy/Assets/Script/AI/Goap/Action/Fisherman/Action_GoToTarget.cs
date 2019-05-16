@@ -23,7 +23,7 @@ namespace GOAP
         public override void OnActionTick()
         {
             base.OnActionTick();
-            Player fisherman = Planner.GetAgent<Agent_Fisherman>().OwnerPlayer;
+            Player fisherman = Planner.agent.CastAgent<Agent_Fisherman>().OwnerPlayer;
 
             // ignore y-axis position
             targetNonY_Pos = sClass.SetVector3(target.transform.position, VectorComponent.y, 0);
