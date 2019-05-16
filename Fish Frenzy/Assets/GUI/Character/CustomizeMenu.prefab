@@ -352,6 +352,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4839648611241814}
   - component: {fileID: 95926504102864492}
+  - component: {fileID: 114079395190482180}
   m_Layer: 0
   m_Name: Player_Animation
   m_TagString: Fisherman
@@ -1532,7 +1533,7 @@ Animator:
   m_GameObject: {fileID: 1545844234553612}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b90daeb5f105f8f4c92ef5c99e9951ba, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0f9d706a89939654fa63d6318bc24eec, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1617,6 +1618,21 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114079395190482180
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1545844234553612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b45fed72b61530748a01a392cc30d2e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentAnimationState: 0
+  animClipList:
+  - {fileID: 7400000, guid: 06ed323a50940634b913cd20dccbdb48, type: 2}
+  - {fileID: 7400000, guid: d21ea4c99040f63499971aa7909098fa, type: 2}
 --- !u!114 &114085956487403958
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1915,6 +1931,7 @@ MonoBehaviour:
   playerCustomizeMenuID: 0
   inputDelay: 0.15
   playerModel: {fileID: 1545844234553612}
+  playerAnimation: {fileID: 114079395190482180}
   propertiesHighlight: {fileID: 224600922104840558}
   customizePropertiesImage:
   - {fileID: 114063984978317656}

@@ -17,6 +17,7 @@ public class CustomizationMenu : MonoBehaviour
     public float inputDelay = 0.75f;
     private bool ignorInput = false;
     public GameObject playerModel;
+    public CharacterAnimation playerAnimation;
 
     [Header("Menu")]
     public RectTransform propertiesHighlight;
@@ -139,12 +140,13 @@ public class CustomizationMenu : MonoBehaviour
         if (JoystickManager.Instance.GetButtonDown("Jump", playerCustomizeMenuID) && !playerReady)
         {
             playerReady = true;
+            playerAnimation.ChangeState(1);
         }
         if (JoystickManager.Instance.GetButtonDown("Fishing", playerCustomizeMenuID))
         {
             playerReady = false;
+            playerAnimation.ChangeState(0);
         }
-
         readyBanner.enabled = playerReady;
         CharacterSceneGUI.CheckAllPlayerReady();
     }
