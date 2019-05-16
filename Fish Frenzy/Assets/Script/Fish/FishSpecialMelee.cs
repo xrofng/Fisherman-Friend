@@ -48,7 +48,6 @@ public class FishSpecialMelee : FishSpecial {
         if(_playerFishSpecial.specialHitBox == null) { Debug.LogError("Can't find hitbox"); }
 
         _playerFishSpecial.specialHitBox.transform.SetParent(_playerFishSpecial.hitBoxParent);
-        _playerFishSpecial.specialHitBox.Owner = _fish.holder;
         _playerFishSpecial.specialHitBox.isLauncher = launchingDamage;
     }
 

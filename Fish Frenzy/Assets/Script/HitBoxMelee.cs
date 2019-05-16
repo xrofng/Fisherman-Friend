@@ -106,6 +106,7 @@ public class HitBoxMelee : DamageOnHit
             return;
         }
         AddIgnoreGameObject(player.gameObject);
+        Debug.Log(damageDealer);
         CauseDamage(damageDealer);
     }
 
@@ -134,8 +135,8 @@ public class HitBoxMelee : DamageOnHit
         if (damageFromOwner)
         {
             forcesource = damageDealer.transform.position;
-
         }
+        Debug.Log(damageDealer);
         _player.recieveDamage(DamageCaused, damageDealer , forcesource, InvincibilityFrame,isLauncher);
     }
 
