@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 33911608170058864}
   - component: {fileID: 23887730879245552}
   m_Layer: 9
-  m_Name: Hat
+  m_Name: Hat_Strawhat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4747859735134032}
   m_Layer: 9
-  m_Name: Hat_Ref
+  m_Name: Hat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -239,6 +239,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4278495425805920}
+  - component: {fileID: 114729817293383966}
   m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
@@ -1317,7 +1318,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentAnimationState: 0
   animClipList: []
-  characterModel: {fileID: 1518013759550980}
+  characterModel: {fileID: 114729817293383966}
   playerColorBackDrop: {fileID: 4583908003684792}
   playerId: -99
   backDropAlpha: 1
@@ -1375,6 +1376,17 @@ MonoBehaviour:
   drawGizmo: 1
   gizmoColor: {r: 1, g: 1, b: 1, a: 1}
   gizmoSelectColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+--- !u!114 &114729817293383966
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1518013759550980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 604c3ad6d90754b4badfd3ed96ad3f6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114798983420198662
 MonoBehaviour:
   m_ObjectHideFlags: 1

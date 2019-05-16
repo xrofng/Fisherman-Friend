@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerData : PersistentSingleton<PlayerData> {
 
@@ -19,7 +20,8 @@ public class PlayerData : PersistentSingleton<PlayerData> {
     public Sprite[] playerIndicator = new Sprite[4];
     public Sprite[] playerIndicatorBorder = new Sprite[4];
     public Material[] playerMaterial = new Material[4];
-    public Sprite[] hatSprite;
+
+    public Hat[] hats;
 
     public Color GetColor(int playerId)
     {
@@ -28,6 +30,14 @@ public class PlayerData : PersistentSingleton<PlayerData> {
 
     public Sprite GetHatSprite(int playerId)
     {
-        return hatSprite[hatId[playerId]];
+        return hats[hatId[playerId]].hatSprite;
+    }
+
+    [Serializable]
+    public class Hat
+    {
+        public string name;
+        public Sprite hatSprite;
+        public GameObject hat;
     }
 }

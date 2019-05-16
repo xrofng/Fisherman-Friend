@@ -34,7 +34,7 @@ public class MaterialManager : PersistentSingleton<MaterialManager>
         }
     }
 
-    public GameObject InstantiatePlayer(GameObject go, int colorIndex)
+    public GameObject InstantiatePlayer(GameObject go, int colorIndex, int hatIndex)
     {
         GameObject create = Instantiate(go);
 
@@ -42,6 +42,7 @@ public class MaterialManager : PersistentSingleton<MaterialManager>
 
         if (go.GetComponent<Player>())
         {
+            create = GetChangedHatPlayer(create.GetComponent<PlayerModel>(), hatIndex, 170);
             return GetChangedColorPlayer(create, colorIndex);
         }
         return null;
@@ -65,6 +66,33 @@ public class MaterialManager : PersistentSingleton<MaterialManager>
         }
         return player;
     }
+
+    public GameObject GetChangedHatPlayer(PlayerModel playerModel, int hatIndex,float sizeMultiplier)
+    {
+        foreach(Transform child in playerModel.Hat.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        List<Transform> newHatParts = new List<Transform>();
+        GameObject newHat = Instantiate(PlayerData.Instance.hats[hatIndex].hat);
+        foreach (Transform child in newHat.transform)
+        {
+            newHatParts.Add(child);
+        }
+        newHat.transform.localScale *= sizeMultiplier;
+        newHat.gameObject.name = "new Hat";
+        newHat.transform.parent = playerModel.Hat.transform.parent.transform;
+        newHat.transform.position = playerModel.Hat.transform.position;
+        foreach (Transform newHatPart in newHatParts)
+        {
+            newHatPart.parent = playerModel.Hat.transform;
+        }
+        Destroy(newHat.gameObject);
+
+        return playerModel.gameObject;
+    }
+
 
     void ChangeMaterial(MaterialSwapper[] mSwap, int colorIndex)
     {

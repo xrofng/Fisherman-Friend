@@ -190,7 +190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4929182939163470}
   m_Layer: 9
-  m_Name: Hat_Ref
+  m_Name: Hat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -621,6 +621,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4591843733246180}
+  - component: {fileID: 114747299875154284}
   m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
@@ -662,7 +663,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1911393910433738
 GameObject:
   m_ObjectHideFlags: 1
@@ -706,7 +707,7 @@ GameObject:
   - component: {fileID: 33218476269688190}
   - component: {fileID: 23139032299220936}
   m_Layer: 9
-  m_Name: Hat
+  m_Name: Hat_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2435,6 +2436,17 @@ MonoBehaviour:
   - Base
   - 
   - Base
+--- !u!114 &114747299875154284
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1858165783687426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 604c3ad6d90754b4badfd3ed96ad3f6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114750857803115786
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2461,7 +2473,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentAnimationState: 0
   animClipList: []
-  characterModel: {fileID: 1858165783687426}
+  characterModel: {fileID: 114747299875154284}
   playerColorBackDrop: {fileID: 4231461123738748}
   playerId: -99
   backDropAlpha: 0.577

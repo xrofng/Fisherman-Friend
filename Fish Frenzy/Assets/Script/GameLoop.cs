@@ -144,7 +144,9 @@ public class GameLoop : MonoBehaviour
     List<int> takenPos = new List<int>();
     void SpawnPlayers(int playerID, GameObject spawnCharacter)
     {
-        Player p = MaterialManager.Instance.InstantiatePlayer(spawnCharacter, PlayerData.Instance.playerSkinId[playerID]).GetComponent<Player>();
+        PlayerData playerData = PlayerData.Instance;
+        Player p = MaterialManager.Instance.InstantiatePlayer(spawnCharacter, 
+            playerData.playerSkinId[playerID], playerData.hatId[playerID]).GetComponent<Player>();
         portRoyal.Player[playerID] = p;
         p.playerID = playerID + 1;
         p.gameObject.name = "Player" + p.playerID;

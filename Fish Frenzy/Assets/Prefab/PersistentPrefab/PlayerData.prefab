@@ -69,7 +69,7 @@ MonoBehaviour:
   - {r: 0.7721518, g: 0.23921569, b: 0.9372549, a: 1}
   - {r: 0, g: 0, b: 0, a: 1}
   playerSkinId: 07000000050000000600000004000000
-  hatId: 00000000000000000000000000000000
+  hatId: 00000000040000000300000001000000
   victoryId: 00000000000000000000000000000000
   playerIndicator:
   - {fileID: 21300000, guid: 57ab454225baa0745bc7f84cbf7b9f69, type: 3}
@@ -90,10 +90,28 @@ MonoBehaviour:
   - {fileID: 2100000, guid: a34430f634153df42a321dab4f97c624, type: 2}
   - {fileID: 2100000, guid: 357e83bedc325a749bb228bd96f4d296, type: 2}
   - {fileID: 2100000, guid: 89a207ce2a020fa4099e9961137eeccf, type: 2}
-  hatSprite:
-  - {fileID: 21300000, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
-  - {fileID: 21300002, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
-  - {fileID: 21300004, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
-  - {fileID: 21300006, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
-  - {fileID: 21300008, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
-  - {fileID: 21300010, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
+  hats:
+  - name: StrawHat
+    hatSprite: {fileID: 21300000, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
+    hat: {fileID: 1652483205741996, guid: 87fef2d08b918d149bc192d7b735a8f2, type: 2}
+  - name: Cone
+    hatSprite: {fileID: 21300002, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
+    hat: {fileID: 1305849078466922, guid: a83afae8ba4b66c4789009dbe9866a0a, type: 2}
+  - name: Plunger
+    hatSprite: {fileID: 21300004, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
+    hat: {fileID: 1278843189174626, guid: 2183cb2c9da46804db269b03a5d65dc1, type: 2}
+  - name: CatInTheHat
+    hatSprite: {fileID: 21300006, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
+    hat: {fileID: 1578292851801532, guid: 9c1337fe5a1cb2047957686e8c93db6b, type: 2}
+  - name: Wizard
+    hatSprite: {fileID: 21300008, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
+    hat: {fileID: 1625204569032914, guid: d3d665fee186cb14ebe5775a17588be8, type: 2}
+  - name: Cowboy
+    hatSprite: {fileID: 21300010, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
+    hat: {fileID: 1828260452755112, guid: 2bbb0c9c0ac604d4ead919cfa78d9f09, type: 2}
+  - name: Cap
+    hatSprite: {fileID: 21300012, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
+    hat: {fileID: 1436460905339660, guid: 1e84caad0c72acd45ba278d89489aa4e, type: 2}
+  - name: Bandana
+    hatSprite: {fileID: 21300014, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
+    hat: {fileID: 1967547596452642, guid: 2a54c4873df8edc41bc80d507d028fb0, type: 2}

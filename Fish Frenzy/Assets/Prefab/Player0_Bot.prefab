@@ -207,6 +207,7 @@ GameObject:
   - component: {fileID: 114489476336139290}
   - component: {fileID: 114728817292295028}
   - component: {fileID: 114680866012827480}
+  - component: {fileID: 114358444408190912}
   m_Layer: 0
   m_Name: Player0_Bot
   m_TagString: Fisherman
@@ -2056,6 +2057,17 @@ MonoBehaviour:
   - {fileID: 7400000, guid: 0539952431b7cd04f83d7d53d6c85867, type: 2}
   - {fileID: 7400000, guid: 05c0b5dbc2e0a3743b97617598271b3d, type: 2}
   AnimationFrame: 000000009dffffff0f000000280000009dffffff000000001e0000000a0000000a0000009600000036000000230000000a000000280000000a0000001e0000001e0000003c0000001e000000
+--- !u!114 &114358444408190912
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1418038178614978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 604c3ad6d90754b4badfd3ed96ad3f6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114366730690527908
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2084,6 +2096,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8aadbc34209a5f419d6b5029df5bd12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onTickRate: 0
 --- !u!114 &114538889813300126
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -5,7 +5,7 @@ using UnityEngine;
 public class ResultIntro : CharacterAnimation
 {
 
-    public GameObject characterModel;
+    public PlayerModel characterModel;
 
     public Transform playerColorBackDrop;
 

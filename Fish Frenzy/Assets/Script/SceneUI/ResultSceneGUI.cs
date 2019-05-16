@@ -68,11 +68,15 @@ public class ResultSceneGUI : MonoBehaviour
 
         EvaluateScore();
 
-        MaterialManager.Instance.GetChangedColorPlayer(playerIntro[0].characterModel, PlayerData.Instance.playerSkinId[playerIdByRank[0]]);
+        PlayerData playerData = PlayerData.Instance;
+
+        MaterialManager.Instance.GetChangedHatPlayer(playerIntro[0].characterModel, playerData.hatId[playerIdByRank[0]],170);
+        MaterialManager.Instance.GetChangedColorPlayer(playerIntro[0].characterModel.gameObject, playerData.playerSkinId[playerIdByRank[0]]);
 
         for (int i = 0; i < numPlayer; i++)
         {
-            MaterialManager.Instance.GetChangedColorPlayer(playerIntro[i].characterModel, PlayerData.Instance.playerSkinId[playerIdByRank[i]]);
+            MaterialManager.Instance.GetChangedHatPlayer(playerIntro[i].characterModel, playerData.hatId[playerIdByRank[i]],170);
+            MaterialManager.Instance.GetChangedColorPlayer(playerIntro[i].characterModel.gameObject, playerData.playerSkinId[playerIdByRank[i]]);
             playerIntro[i].ChangeBackDropColor(playerIdByRank[i]);
         }
         // winner update

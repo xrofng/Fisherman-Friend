@@ -16,7 +16,7 @@ public class CustomizationMenu : MonoBehaviour
     public int playerCustomizeMenuID;
     public float inputDelay = 0.75f;
     private bool ignorInput = false;
-    public GameObject playerModel;
+    public PlayerModel playerModel;
     public CharacterAnimation playerAnimation;
 
     [Header("Menu")]
@@ -199,11 +199,14 @@ public class CustomizationMenu : MonoBehaviour
 
     void UpdateCustomizeImage()
     {
-        customizePropertiesImage[(int)CustomProperties.hat].sprite = hatCustom[customIndex[(int)CustomProperties.hat]];
         customizePropertiesImage[(int)CustomProperties.victoryintro].sprite = vicCustom[customIndex[(int)CustomProperties.victoryintro]];
 
+        customizePropertiesImage[(int)CustomProperties.hat].sprite = hatCustom[customIndex[(int)CustomProperties.hat]];
+        MaterialManager.Instance.GetChangedHatPlayer(playerModel, customIndex[(int)CustomProperties.hat],3100);
+
+
         customizePropertiesImage[(int)CustomProperties.color].sprite = colorCustom[customIndex[(int)CustomProperties.color]];
-        MaterialManager.Instance.GetChangedColorPlayer(playerModel, customIndex[(int)CustomProperties.color]);
+        MaterialManager.Instance.GetChangedColorPlayer(playerModel.gameObject,customIndex[(int)CustomProperties.color]);
 
         PlayerData.Instance.playerSkinId[playerCustomizeMenuID] = customIndex[(int)CustomProperties.color];
         PlayerData.Instance.hatId[playerCustomizeMenuID] = customIndex[(int)CustomProperties.hat];
