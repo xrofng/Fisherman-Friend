@@ -128,7 +128,7 @@ MonoBehaviour:
   TargetLayerMask:
     serializedVersion: 2
     m_Bits: 0
-  DamageCaused: 8
+  DamageCaused: 20
   DamageCausedKnockbackType: 1
   DamageCausedKnockbackDirection: 0
   DamageCausedKnockbackForce: {x: 10, y: 2}
@@ -141,7 +141,10 @@ MonoBehaviour:
   damageFromOwner: 0
   isLauncher: 1
   Owner: {fileID: 0}
-  _SFXclip: {fileID: 8300000, guid: 76d3523a591904046bc04aace0181371, type: 3}
+  _SFX:
+    clip: {fileID: 8300000, guid: 76d3523a591904046bc04aace0181371, type: 3}
+    volume: 1
+    oneTime: 0
 --- !u!114 &114717754795570986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -158,3 +161,7 @@ MonoBehaviour:
   normalTime: 0.6
   reachDistance: 2
   rotateSpeed: 10
+  sfx_boomerang:
+    clip: {fileID: 8300000, guid: b40702e99a9e77d4289ef2800ea36343, type: 3}
+    volume: 1
+    oneTime: 0

@@ -20,6 +20,9 @@ public class FishSpecialMelee : FishSpecial {
     [Header("Prefab Ref")]
     public Transform hitBoxRef;
 
+    [Header("Sound Effect")]
+    public SoundEffect sfx_startMelee;
+
     protected override void Start()
     {
         Initialization();
@@ -74,6 +77,7 @@ public class FishSpecialMelee : FishSpecial {
     public override void OnSpecialActivated()
     {
         base.OnSpecialActivated();
+        PlaySFX(sfx_startMelee);
         ActionForFrame(SpeiclaClipFrameCount + IgnoreInputFrameDuration,
                  () => { MeleeSpecialing = true; },
                  () => { MeleeSpecialing = false; });

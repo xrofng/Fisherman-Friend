@@ -10,11 +10,18 @@ public class FishSpecialHook : FishSpecialThrow {
     public int finalBlowForce = 1;
     protected Player hookedPlayer;
 
+    [Header("SoundEffect")]
+    public SoundEffect sfx_attach;
+    public SoundEffect sfx_swing;
+
     public PlayerAnimation.Anim hookSlapClip;
 
     protected override void OnThrowStart()
     {
         base.OnThrowStart();
+        PlaySFX(sfx_swing);
+        MovingObjHook hookObj = currentMovingObj as MovingObjHook;
+        hookObj.sfx_attach = sfx_attach;
     }
 
     protected override void OnThrowEnd()

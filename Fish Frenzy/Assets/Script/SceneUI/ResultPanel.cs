@@ -45,6 +45,9 @@ public class ResultPanel : MonoBehaviour
     public Text totalStageKoText;
     public Text totalScoreText;
 
+    [Header("SundEffect")]
+    public SoundEffect sfx_ready;
+
     void Start ()
     {
 
@@ -56,8 +59,9 @@ public class ResultPanel : MonoBehaviour
         {
             playerReady = !playerReady;
             readyImage.sprite = playerReady == true ? readySprites : pressXSprites;
+            SoundManager.Instance.PlaySound(sfx_ready, this.transform.position);
         }
-	}
+    }
 
     public void UpdateText()
     {

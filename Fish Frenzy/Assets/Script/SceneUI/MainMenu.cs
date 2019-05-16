@@ -7,6 +7,9 @@ public class MainMenu : MonoBehaviour
 {
     public float ignoreInputDuration = 1.5f;
 
+    [Header("SoundEffect")]
+    public SoundEffect sfx_entergame;
+
     // Use this for initialization
     void Start () {
         Cursor.visible = false;
@@ -26,7 +29,7 @@ public class MainMenu : MonoBehaviour
             if (JoystickManager.Instance.GetAnyButtonDown(i))
             {
                 GetComponent<AudioSource>().Play();
-                Debug.Log("s");
+                SoundManager.Instance.PlaySound(sfx_entergame, this.transform.position);
                 Initiate.FadeToLoading("CharacterSelect", Color.white, 2.0f);
             }
         }

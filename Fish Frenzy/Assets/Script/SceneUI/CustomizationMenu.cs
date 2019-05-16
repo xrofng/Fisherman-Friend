@@ -34,7 +34,11 @@ public class CustomizationMenu : MonoBehaviour
 
     public bool playerReady = false;
     public Animator arrowAnim;
-    public SoundEffect arrowSfx;
+
+    [Header("SoundEffect")]
+    public SoundEffect sfx_arrow;
+    public SoundEffect sfx_select;
+    public SoundEffect sfx_navigate;
 
     [Header("Properties")]
     /// index of chosen custmization of all property
@@ -141,6 +145,7 @@ public class CustomizationMenu : MonoBehaviour
         {
             playerReady = true;
             playerAnimation.ChangeState(1);
+            SoundManager.Instance.PlaySound(sfx_select, this.transform.position);
         }
         if (JoystickManager.Instance.GetButtonDown("Fishing", playerCustomizeMenuID))
         {
@@ -173,13 +178,15 @@ public class CustomizationMenu : MonoBehaviour
             StartCoroutine(ieArrowState(0.1f, (int)axisRawX+2));
             UpdateCustomizeImage();
             StartCoroutine(ieIgnoreInput());
-            SoundManager.Instance.PlaySound(arrowSfx, this.transform.position);
+            SoundManager.Instance.PlaySound(sfx_arrow, this.transform.position);
         }
         if (sClass.intervalCheck(axisRawY, -0.9f, 0.9f, true))
         {
             AddCustomizePropertiesIndex(-sClass.getSign(axisRawY, 0.015f));
             UpdatePropertiesHighlight();
             StartCoroutine(ieIgnoreInput());
+            SoundManager.Instance.PlaySound(sfx_navigate, this.transform.position);
+
         }
     }
 

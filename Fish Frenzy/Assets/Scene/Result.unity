@@ -4983,6 +4983,48 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 176705f2727b9bd48b133c5a0a33c59f, type: 3}
   m_IsPrefabAsset: 0
+--- !u!1001 &1150143079
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4007890520476874, guid: 8d9af1858785851469135e56db4f0460, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4007890520476874, guid: 8d9af1858785851469135e56db4f0460, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4007890520476874, guid: 8d9af1858785851469135e56db4f0460, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4007890520476874, guid: 8d9af1858785851469135e56db4f0460, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4007890520476874, guid: 8d9af1858785851469135e56db4f0460, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4007890520476874, guid: 8d9af1858785851469135e56db4f0460, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4007890520476874, guid: 8d9af1858785851469135e56db4f0460, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4007890520476874, guid: 8d9af1858785851469135e56db4f0460, type: 2}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8d9af1858785851469135e56db4f0460, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &1169088805
 GameObject:
   m_ObjectHideFlags: 0
@@ -7333,6 +7375,14 @@ MonoBehaviour:
   - {fileID: 394935555}
   - {fileID: 1721134442}
   pressAny: {fileID: 1586249651}
+  sfx_next:
+    clip: {fileID: 8300000, guid: 3b91d5f1bcdce4342b087ac7b56d6307, type: 3}
+    volume: 1
+    oneTime: 0
+  sfx_endScreen:
+    clip: {fileID: 8300000, guid: ca3cf96c9e6c8394388b007f20d934ea, type: 3}
+    volume: 1
+    oneTime: 0
   resultSceneState: 0
   stageEnvironmentName:
   - Megalodon_IE

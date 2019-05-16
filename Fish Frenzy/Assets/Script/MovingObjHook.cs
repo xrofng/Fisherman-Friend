@@ -20,6 +20,9 @@ public class MovingObjHook : MovingObject {
     }
     protected bool hasHooked;
 
+    [Header("SoundEffect")]
+    public SoundEffect sfx_attach;
+
     protected override void Start()
     {
         Initialization();
@@ -63,7 +66,6 @@ public class MovingObjHook : MovingObject {
         }
         return false;
     }
-
   
 
     void StopHook()
@@ -82,6 +84,7 @@ public class MovingObjHook : MovingObject {
         fowardTime = 0;
         hookedPlayer.AddAbilityInputIntercepter(this);
         hookedPlayer._cPlayerFishInteraction.SetPlayerCollideEverything(false);
+        SoundManager.Instance.PlaySound(sfx_attach, transform.position);
     }
 
     void SetBackward()

@@ -124,7 +124,6 @@ public class KnockData : MonoBehaviour {
         int ApplyDamageIndex = getDamageApplyIndex_Attack(damage, slapDamage);
         int KnockScaleIndex = getKnockScaleIndex(percent, percentList);
         KnockScale knockLevel = SlapScaleList[ApplyDamageIndex][KnockScaleIndex];
-        Debug.Log(knockLevel);
         return force[(int)knockLevel];
     }
     public Vector2 getThrowKnockForce(int chargePercent, int percent)

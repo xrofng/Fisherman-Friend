@@ -32,6 +32,10 @@ public class ResultSceneGUI : MonoBehaviour
     public List<GameObjectMovement> decorateObjMoves = new List<GameObjectMovement>();
     public GameObject pressAny;
 
+    [Header("SoundEffect")]
+    public SoundEffect sfx_next;
+    public SoundEffect sfx_endScreen;
+
 
     public enum ResultState
     {
@@ -39,6 +43,8 @@ public class ResultSceneGUI : MonoBehaviour
         finishHighlight,
         viewingResult
     }
+
+
     [Header("General For Result Screen")]
     public ResultState resultSceneState;
     public List<string> stageEnvironmentName = new List<string>();
@@ -127,7 +133,6 @@ public class ResultSceneGUI : MonoBehaviour
         // loop through panel check KnockBy list of each player
         for (int pId = 0; pId < numPlayer; pId++)
         {
-            Debug.Log("byrank" + pId);
             playerIdByRank.Add(sortPanel[pId].playerId);
             sortPanel[pId].rankImage.sprite = rankSpriteList[pId];
         }
@@ -220,6 +225,7 @@ public class ResultSceneGUI : MonoBehaviour
                 ignoreInputDuration = 0.75f;
                 resultShow = true;
                 resultCanvas.gameObject.SetActive(true);
+                SoundManager.Instance.PlaySound(sfx_next,this.transform.position);
             }
         }
 
@@ -229,6 +235,7 @@ public class ResultSceneGUI : MonoBehaviour
             {
                 ignoreInputDuration = 10000;
                 GetComponent<AudioSource>().Play();
+                SoundManager.Instance.PlaySound(sfx_endScreen, this.transform.position);
                 Initiate.FadeToLoading("CharacterSelect", Color.white, 2.0f);
             }
         }

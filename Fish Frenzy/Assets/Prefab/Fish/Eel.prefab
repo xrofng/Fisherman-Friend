@@ -331,6 +331,12 @@ MonoBehaviour:
   damageFrameDuration: 20
   releaseFrameDuration: 10
   finalBlowForce: 2
+  sfx_attach:
+    clip: {fileID: 8300000, guid: ab553917f1d24d240b7579019a7c1e08, type: 3}
+    volume: 1
+  sfx_swing:
+    clip: {fileID: 8300000, guid: e2b73d153c1a26d488b4a232decc0c5a, type: 3}
+    volume: 1
   hookSlapClip: 10
 --- !u!114 &114729089609547344
 MonoBehaviour:

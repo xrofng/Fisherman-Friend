@@ -638,6 +638,10 @@ MonoBehaviour:
   totalDeathText: {fileID: 114681541056199618}
   totalStageKoText: {fileID: 114452505800512044}
   totalScoreText: {fileID: 114063660505696688}
+  sfx_ready:
+    clip: {fileID: 8300000, guid: e6500758a6fb25a479901a5bdbd5fc62, type: 3}
+    volume: 1
+    oneTime: 0
 --- !u!114 &114847222642144738
 MonoBehaviour:
   m_ObjectHideFlags: 1

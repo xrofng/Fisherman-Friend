@@ -8,6 +8,9 @@ public class MovingObjBoomerang : MovingObject {
     public float reachDistance = 2.0f;
     public float rotateSpeed = 2;
 
+    [Header("SoundEffect")]
+    public SoundEffect sfx_boomerang;
+    private AudioSource sfx_source;
     protected override void Start()
     {
         Initialization();
@@ -29,6 +32,8 @@ public class MovingObjBoomerang : MovingObject {
         }
         transform.Rotate(Vector3.up * rotateSpeed, Space.Self);
         transform.Translate(moveDirection * speed,Space.World);
+        
+        SoundManager.Instance.PlaySound(sfx_boomerang, this.transform.position);
     }
 
     protected override bool CheckEnd()
@@ -37,6 +42,7 @@ public class MovingObjBoomerang : MovingObject {
         //transform.LookAt(targetPos, Vector3.up);
         if (distance <= reachDistance)
         {
+            SoundManager.Instance.StopSound(sfx_boomerang);
             Destroy(this.gameObject);
             return true;
         }
