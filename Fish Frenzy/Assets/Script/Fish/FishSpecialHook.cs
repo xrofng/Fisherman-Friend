@@ -70,6 +70,7 @@ public class FishSpecialHook : FishSpecialThrow {
         if (_player)
         {
             _player.RemoveAbilityInputIntercepter(this);
+            _player._cPlayerAnimator.ChangeAnimState((int)_player._cPlayerAnimator.GetIdleAnimation());
         }
     }
 
