@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 129994174}
   - component: {fileID: 129994176}
   - component: {fileID: 129994175}
+  - component: {fileID: 129994177}
   m_Layer: 5
   m_Name: AllReadyBanner
   m_TagString: Untagged
@@ -182,6 +183,24 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 129994173}
   m_CullTransparentMesh: 0
+--- !u!95 &129994177
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 129994173}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5efacbfeceae787448f8d5032dbfe78d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &270171246
 Prefab:
   m_ObjectHideFlags: 0
@@ -1614,10 +1633,6 @@ Prefab:
     - target: {fileID: 1366749195225722, guid: 259dd70d41602b8489762647e28bf17c, type: 2}
       propertyPath: m_Name
       value: CustomizeMenu1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1366749195225722, guid: 259dd70d41602b8489762647e28bf17c, type: 2}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 259dd70d41602b8489762647e28bf17c, type: 2}
