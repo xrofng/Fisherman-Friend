@@ -1383,12 +1383,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1477841869}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1706dfb0435475d4ab0a28902edab886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onlyJoysticky: 0
+  onlyJoysticky: 1
   m_SetCode: 0
 --- !u!4 &1477841871
 Transform:

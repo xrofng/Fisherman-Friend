@@ -133,6 +133,7 @@ public class CustomizationMenu : MonoBehaviour
     {
         ChangeCustomizeProperties();
         PressReady();
+
     }
 
     private void PressReady()

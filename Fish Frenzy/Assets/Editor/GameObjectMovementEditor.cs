@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using UnityEngine;
+
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 /// <summary>
 /// This class adds names for each LevelMapPathElement next to it on the scene view, for easier setup

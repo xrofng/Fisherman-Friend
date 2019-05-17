@@ -25,6 +25,7 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
     public string R2 = "R2";
     public string Dhori = "Dhori";
     public string Dverti = "Dverti";
+    public string Dfail = "Dfail";
 
     /* /// <summary>
             X = 1
@@ -82,10 +83,11 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
         playerButton.Add(R2, KeyCode.Joystick1Button7);
 
         // substitute button to be axis
-        playerButton.Add(Dhori, KeyCode.Joystick1Button16);
-        playerButton.Add(Dverti, KeyCode.Joystick1Button17);
+        playerButton.Add(Dhori, KeyCode.Joystick1Button18);
+        playerButton.Add(Dverti, KeyCode.Joystick1Button19);
         playerButton.Add(Hori, KeyCode.Joystick1Button18);
         playerButton.Add(Verti, KeyCode.Joystick1Button19);
+        playerButton.Add(Dfail, KeyCode.Joystick1Button17);
 
         ButtonList.Add(playerButton);
         UnregisterButtonList.Add(playerButton);
@@ -119,7 +121,6 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
             Debug.Log(i + joyName);
             if (joyName == "Wireless Controller")
             {
-
             }
             else
             if (joyName == ("Generic   USB  Joystick  "))
@@ -240,7 +241,12 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
         int playerIDfromButton = ((int)ButtonList[playerID][buttonName] - (int)KeyCode.Joystick1Button0) / 20;
         playerIDfromButton += 1;
         string axisName = null;
-
+        if((int)ButtonList[playerID][buttonName] == (int)KeyCode.Joystick1Button18 + 20 * playerID)
+        {
+        }
+        if ((int)ButtonList[playerID][buttonName] == (int)KeyCode.Joystick1Button17 + 20 * playerID)
+        {
+        }
         if (buttonName == Hori)
         {
             axisName = "Hori" + playerIDfromButton;
