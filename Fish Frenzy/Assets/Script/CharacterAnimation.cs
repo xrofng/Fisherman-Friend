@@ -4,8 +4,8 @@ using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 
-public class CharacterAnimation : MonoBehaviour {
-    [HideInInspector]
+public class CharacterAnimation : MonoBehaviour
+{
     private Animator _animator;
     public Animator Animator
     {
