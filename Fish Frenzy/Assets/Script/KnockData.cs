@@ -114,11 +114,11 @@ public class KnockData : MonoBehaviour {
         }
         return 0;
     }
-    public float getVerticalKnockForce(int percent)
+    public float GetVerticalKnockForce(int percent)
     {
         return Mathf.Lerp(vertiForceMin, vertiForceMax, percent / verticalInstaKillPercent);
     }
-    public Vector2 getSlapKnockForce(int damage, int percent)
+    public Vector2 GetSlapKnockForce(int damage, int percent)
     {
         // check which damage set
         int ApplyDamageIndex = getDamageApplyIndex_Attack(damage, slapDamage);

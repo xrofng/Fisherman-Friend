@@ -144,7 +144,9 @@ public class GameLoop : MonoBehaviour
     List<int> takenPos = new List<int>();
     void SpawnPlayers(int playerID, GameObject spawnCharacter)
     {
-        Player p = MaterialManager.Instance.InstantiatePlayer(spawnCharacter, PlayerData.Instance.playerSkinId[playerID]).GetComponent<Player>();
+        PlayerData playerData = PlayerData.Instance;
+        Player p = MaterialManager.Instance.InstantiatePlayer(spawnCharacter, 
+            playerData.playerSkinId[playerID], playerData.hatId[playerID]).GetComponent<Player>();
         portRoyal.Player[playerID] = p;
         p.playerID = playerID + 1;
         p.gameObject.name = "Player" + p.playerID;
@@ -178,15 +180,17 @@ public class GameLoop : MonoBehaviour
         for (int i = 0; i < PlayerData.Instance.numPlayer; i++)
         {
             SpawnPlayers(i, playerPrefab);
+            MMEventManager.TriggerEvent(new PlayerSpawnedEvent(i, portRoyal.Player));
             yield return new WaitForSeconds(_playerSpawnRate);
         }
         for (int i = PlayerData.Instance.numPlayer; i < PlayerData.Instance.numBot+ PlayerData.Instance.numPlayer; i++)
         {
             SpawnPlayers(i, playerBotPrefab);
+            MMEventManager.TriggerEvent(new PlayerSpawnedEvent(i, portRoyal.Player));
             yield return new WaitForSeconds(_playerSpawnRate);
         }
         focusCamera.MoveCameraTo(multiplayerCamera.GetNewPosition(),false);
-        MMEventManager.TriggerEvent(new PlayerSpawnedEvent(portRoyal.Player));
+        MMEventManager.TriggerEvent(new PlayerSpawnedEvent(4,portRoyal.Player));
     }
 
     IEnumerator CountDown(float waitTime)

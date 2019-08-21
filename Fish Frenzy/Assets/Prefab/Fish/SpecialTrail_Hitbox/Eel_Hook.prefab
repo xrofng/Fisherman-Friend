@@ -204,6 +204,10 @@ MonoBehaviour:
   reachDistance: 5
   trailObject: {fileID: 4422206966418936}
   stretchSpeed: 5.5
+  sfx_attach:
+    clip: {fileID: 8300000, guid: ab553917f1d24d240b7579019a7c1e08, type: 3}
+    volume: 1
+    oneTime: 0
 --- !u!114 &114725427813621776
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -231,4 +235,7 @@ MonoBehaviour:
   damageFromOwner: 0
   isLauncher: 1
   Owner: {fileID: 0}
-  _SFXclip: {fileID: 8300000, guid: 76d3523a591904046bc04aace0181371, type: 3}
+  _SFX:
+    clip: {fileID: 0}
+    volume: 1
+    oneTime: 0

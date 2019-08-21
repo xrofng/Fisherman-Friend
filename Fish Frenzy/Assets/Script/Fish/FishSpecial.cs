@@ -19,7 +19,10 @@ public class FishSpecial : MonoBehaviour
     {
         SoundManager.Instance.PlaySound(SFXclip, transform.position);
     }
-
+    protected virtual void StopSFX(SoundEffect SFXclip)
+    {
+        SoundManager.Instance.StopSound(SFXclip);
+    }
     [Header("Special")]
     public float attack;
     public PlayerAnimation.Anim specialClip;

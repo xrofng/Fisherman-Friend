@@ -19,31 +19,49 @@ public class ResultPanel : MonoBehaviour
         }
     }
 
-    public Image panel;
-    public Image rank;
-    public int matchScore = 0;
+    public Image panelTopic;
+    public Sprite[] panelTopicSprites = new Sprite[4];
+    public GUIRecolorer recolorUi;
+    public Image rankImage;
+    public Image hatImage;
+    public Image readyImage;
+    public Sprite pressXSprites;
+    public Sprite readySprites;
+    public bool playerReady;
 
+    [Header("Score")]
+    public int matchScore = 0;
     public int[] koCount = new int[3];
     public int[] deathCount = new int[3];
     public int[] stageKoCount = new int[3];
 
-    public Text[] ko = new Text[3];
-    public Text[] death = new Text[3];
-    public Text[] stage = new Text[3];
+    private Text[] ko = new Text[3];
+    private Text[] death = new Text[3];
+    private Text[] stage = new Text[3];
 
+    [Header("Score Text")]
     public Text totalKoText;
     public Text totalDeathText;
-    public Text totalStageText;
+    public Text totalStageKoText;
     public Text totalScoreText;
+
+    [Header("SundEffect")]
+    public SoundEffect sfx_ready;
 
     void Start ()
     {
 
     }
 	
-	void Update () {
-		
-	}
+	void Update ()
+    {
+        if (JoystickManager.Instance.GetButtonDown("Jump",playerId))
+        {
+            playerReady = !playerReady;
+            readyImage.sprite = playerReady == true ? readySprites : pressXSprites;
+            SoundManager.Instance.PlaySound(sfx_ready, this.transform.position);
+        }
+    }
 
     public void UpdateText()
     {
@@ -51,9 +69,13 @@ public class ResultPanel : MonoBehaviour
         int totalDeath = 0;
         int totalSko = 0;
 
+        panelTopic.sprite = panelTopicSprites[playerId];
+        recolorUi.Recolor(PlayerData.Instance.GetColor(playerId));
+        hatImage.sprite = PlayerData.Instance.GetHatSprite(playerId);
+
         for (int i = 0; i < stage.Length; i++)
         {
-            stage[i].text += stageKoCount[i];
+            //stage[i].text += stageKoCount[i];
             totalSko += stageKoCount[i];
         }
         if(death.Length != ko.Length || deathCount.Length != koCount.Length)
@@ -65,13 +87,13 @@ public class ResultPanel : MonoBehaviour
         {
             totalDeath += deathCount[i];
             totalKo += koCount[i];
-            death[i].text += deathCount[i];
-            ko[i].text += koCount[i];
+            //death[i].text += deathCount[i];
+            //ko[i].text += koCount[i];
         }
         matchScore = totalKo - totalDeath - totalSko;
         totalKoText.text = "+" + totalKo;
         totalDeathText.text = "-" + totalDeath;
-        totalStageText.text = "-" + totalSko;
-        totalScoreText.text = "" + matchScore;
+        totalStageKoText.text = "-" + totalSko;
+        //totalScoreText.text = "" + matchScore;
     }
 }

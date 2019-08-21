@@ -307,15 +307,19 @@ MonoBehaviour:
   sfx_WaterJump:
     clip: {fileID: 8300000, guid: 391886dd2fd156a44873b2eeeb6d6248, type: 3}
     volume: 1
+    oneTime: 0
   sfx_Slap:
     clip: {fileID: 8300000, guid: 76d3523a591904046bc04aace0181371, type: 3}
     volume: 1
+    oneTime: 0
   sfx_Throw:
     clip: {fileID: 8300000, guid: 43523274498e82f4e990bf7dcc388f27, type: 3}
     volume: 1
+    oneTime: 0
   sfx_Special:
     clip: {fileID: 8300000, guid: 76d3523a591904046bc04aace0181371, type: 3}
     volume: 1
+    oneTime: 0
   fishIcon: {fileID: 21300000, guid: 78eefacf09c7da44f97712d66a2abed3, type: 3}
   fishName: {fileID: 21300000, guid: f723166581a5efb48a3b41f0533870dd, type: 3}
   fishStored: {fileID: 21300000, guid: 136e002062f718d4b8fdde9f263f425f, type: 3}
@@ -331,7 +335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fe8cc6af7ab10041bf19d45db384f63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack: 4
+  attack: 20
   specialClip: 11
   movingobject: {fileID: 114717754795570986, guid: ff305f621d0c71c4598ab42daacd2a38,
     type: 2}

@@ -21,6 +21,9 @@ public class FishSpecialSpin : FishSpecialMelee {
     public float fishSpinSpeed = 10;
     public PlayerAnimation.Anim spiningClip;
 
+    [Header("SoundEffect")]
+    public SoundEffect sfx_spining;
+
     public override void SetUpFishSpecial()
     {
         base.SetUpFishSpecial();
@@ -44,6 +47,7 @@ public class FishSpecialSpin : FishSpecialMelee {
         int frameCount = 0;
         while (frameCount < spiningFrameDuration + SpeiclaClipFrameCount)
         {
+            PlaySFX(sfx_spining);
             yield return new WaitForEndOfFrame();
             _player.transform.Translate(_player.PlayerForward * Speed);
             _player.transform.position = sClass.SetVector3(_player.transform.position, VectorComponent.y, playerPositionY + floorOffset);
@@ -54,6 +58,7 @@ public class FishSpecialSpin : FishSpecialMelee {
         _player._cPlayerAnimator.ChangeAnimState((int)_player._cPlayerAnimator.GetIdleAnimation());
         _player.RemoveAbilityInputIntercepter(this);
         _fish.SnapTransform();
+        StopSFX(sfx_spining);
     }
 
 

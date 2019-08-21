@@ -277,15 +277,19 @@ MonoBehaviour:
   sfx_WaterJump:
     clip: {fileID: 8300000, guid: 391886dd2fd156a44873b2eeeb6d6248, type: 3}
     volume: 1
+    oneTime: 0
   sfx_Slap:
     clip: {fileID: 8300000, guid: 76d3523a591904046bc04aace0181371, type: 3}
     volume: 1
+    oneTime: 0
   sfx_Throw:
     clip: {fileID: 8300000, guid: 43523274498e82f4e990bf7dcc388f27, type: 3}
     volume: 1
+    oneTime: 0
   sfx_Special:
     clip: {fileID: 8300000, guid: 76d3523a591904046bc04aace0181371, type: 3}
     volume: 1
+    oneTime: 0
   fishIcon: {fileID: 21300000, guid: a38c3d5014bb782449d38c99601b022b, type: 3}
   fishName: {fileID: 21300000, guid: 9dbb8e5e55689e248a9a30cc39e10257, type: 3}
   fishStored: {fileID: 21300000, guid: a83a0e62f1fc7024f879d0ac960a4cf8, type: 3}
@@ -314,7 +318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcbb71c491f658e448fc46b5a9c5e9b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack: 10
+  attack: 50
   specialClip: 3
   thisSpecialHitBox: {fileID: 114706098538591994, guid: 66da22c8c634a2943bd2093bf7467c2b,
     type: 2}
@@ -322,6 +326,10 @@ MonoBehaviour:
   freezeFrame: 10
   launchingDamage: 1
   hitBoxRef: {fileID: 4352711589645446, guid: 66da22c8c634a2943bd2093bf7467c2b, type: 2}
+  sfx_startMelee:
+    clip: {fileID: 8300000, guid: d8e6c4141fbf0db45b2ae36293d560d8, type: 3}
+    volume: 1
+    oneTime: 0
 --- !u!114 &114671319226790252
 MonoBehaviour:
   m_ObjectHideFlags: 1

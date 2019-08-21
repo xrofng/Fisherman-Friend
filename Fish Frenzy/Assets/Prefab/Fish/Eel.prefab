@@ -318,7 +318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12e2aa3f861dbde4898c25c7c78df741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack: 7
+  attack: 35
   specialClip: 9
   movingobject: {fileID: 114532827588214438, guid: 6415abaacfab66948abfae3bbfc54429,
     type: 2}
@@ -331,6 +331,12 @@ MonoBehaviour:
   damageFrameDuration: 20
   releaseFrameDuration: 10
   finalBlowForce: 2
+  sfx_attach:
+    clip: {fileID: 8300000, guid: ab553917f1d24d240b7579019a7c1e08, type: 3}
+    volume: 1
+  sfx_swing:
+    clip: {fileID: 8300000, guid: e2b73d153c1a26d488b4a232decc0c5a, type: 3}
+    volume: 1
   hookSlapClip: 10
 --- !u!114 &114729089609547344
 MonoBehaviour:

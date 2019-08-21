@@ -14,12 +14,13 @@ public class ResultSceneGUI : MonoBehaviour
     private bool resultShow;
 
     [Header("Result Panel")]
-    public ResultPanel resultPanelRef;
+    public ResultPanel resultPanelPrefab;
+    public RectTransform resultPanelHolder;
     public Canvas resultCanvas;
     public float panelDistance;
     public List<Sprite> panelSprite = new List<Sprite>();
     public List<Sprite> rankSpriteList = new List<Sprite>();
-    public List<ResultPanel> playerPanel = new List<ResultPanel>();
+    public List<ResultPanel> resultPanels = new List<ResultPanel>();
 
 
     [Header("Decorate")]
@@ -29,14 +30,28 @@ public class ResultSceneGUI : MonoBehaviour
     public Image winnerTabImage;
     public List<ResultIntroLose> loserObjMoves = new List<ResultIntroLose>();
     public List<GameObjectMovement> decorateObjMoves = new List<GameObjectMovement>();
+    public GameObject pressAny;
+
+    [Header("SoundEffect")]
+    public SoundEffect sfx_next;
+    public SoundEffect sfx_endScreen;
+
+
+    public enum ResultState
+    {
+        highlight = 0,
+        finishHighlight,
+        viewingResult
+    }
 
 
     [Header("General For Result Screen")]
+    public ResultState resultSceneState;
+    public List<string> stageEnvironmentName = new List<string>();
     private List<int> playerIdByRank = new List<int>();
     private bool showLoser;
     protected int maxNumPlayer;
     protected int numPlayer;
-    public List<string> stageEnvironmentName = new List<string>();
 
     // Use this for initialization
     void Start ()
@@ -45,14 +60,12 @@ public class ResultSceneGUI : MonoBehaviour
         numPlayer = PlayerData.Instance.numPlayer;
 
         float offsetX = (panelDistance / 2) * (maxNumPlayer - numPlayer);
-        for(int i = 0; i < numPlayer; i++)
+
+        for (int i = 0; i < numPlayer; i++)
         {
-            ResultPanel thisPanel = Instantiate(resultPanelRef, resultCanvas.transform) as ResultPanel;
-            thisPanel.Rect.anchoredPosition += Vector2.right * offsetX;
-            thisPanel.Rect.anchoredPosition += Vector2.right * panelDistance * i;
-            thisPanel.panel.sprite = panelSprite[i];
-            thisPanel.playerId = i+1;
-            playerPanel.Add(thisPanel);
+            ResultPanel thisPanel = Instantiate(resultPanelPrefab, resultPanelHolder.transform) as ResultPanel;
+            thisPanel.playerId = i;
+            resultPanels.Add(thisPanel);
         }
 
         ComputeResultValue();
@@ -61,18 +74,23 @@ public class ResultSceneGUI : MonoBehaviour
 
         EvaluateScore();
 
-        //MaterialManager.Instance.GetChangedColorPlayer(playerIntro[0].characterModel, PlayerData.Instance.playerSkinId[playerIdByRank[0]]);
+        PlayerData playerData = PlayerData.Instance;
+
+        MaterialManager.Instance.GetChangedHatPlayer(playerIntro[0].characterModel, playerData.hatId[playerIdByRank[0]],170);
+        MaterialManager.Instance.GetChangedColorPlayer(playerIntro[0].characterModel.gameObject, playerData.playerSkinId[playerIdByRank[0]]);
 
         for (int i = 0; i < numPlayer; i++)
         {
-            MaterialManager.Instance.GetChangedColorPlayer(playerIntro[i].characterModel, PlayerData.Instance.playerSkinId[playerIdByRank[i]]);
+            MaterialManager.Instance.GetChangedHatPlayer(playerIntro[i].characterModel, playerData.hatId[playerIdByRank[i]],170);
+            MaterialManager.Instance.GetChangedColorPlayer(playerIntro[i].characterModel.gameObject, playerData.playerSkinId[playerIdByRank[i]]);
             playerIntro[i].ChangeBackDropColor(playerIdByRank[i]);
         }
         // winner update
-        winnerTabImage.color = PlayerData.Instance.GetColorById(playerIdByRank[0]);
+        winnerTabImage.color = PlayerData.Instance.GetColor(playerIdByRank[0]);
         int winnerNumber = playerIdByRank[0] + 1;
         playerTextIndencator[0].text = "Player " + winnerNumber;
-        playerIntro[0].Initialize();
+        playerIntro[0].SetPlayerId(playerIdByRank[0]);
+        playerIntro[0].PlayResult();
         
         resultCanvas.gameObject.SetActive(false);
     }
@@ -83,7 +101,7 @@ public class ResultSceneGUI : MonoBehaviour
     void ComputeResultValue()
     {
         // loop through panel check KnockBy list of each player
-        for (int pId = 0; pId < playerPanel.Count; pId++)
+        for (int pId = 0; pId < resultPanels.Count; pId++)
         {
             List<string> knockBy = MatchResult.Instance.KnockByList_Name[pId];
             foreach (string knocker in knockBy)
@@ -102,7 +120,7 @@ public class ResultSceneGUI : MonoBehaviour
     /// </summary>
     void EvaluateScore()
     {
-        List<ResultPanel> sortPanel = playerPanel;
+        List<ResultPanel> sortPanel = resultPanels;
         //sort from max to min
         sortPanel.Sort(delegate (ResultPanel x, ResultPanel y)
         {
@@ -115,8 +133,8 @@ public class ResultSceneGUI : MonoBehaviour
         // loop through panel check KnockBy list of each player
         for (int pId = 0; pId < numPlayer; pId++)
         {
-            playerIdByRank.Add(sortPanel[pId].playerId-1);
-            sortPanel[pId].rank.sprite = rankSpriteList[pId];
+            playerIdByRank.Add(sortPanel[pId].playerId);
+            sortPanel[pId].rankImage.sprite = rankSpriteList[pId];
         }
 
         winnerId = playerIdByRank[0];
@@ -129,7 +147,7 @@ public class ResultSceneGUI : MonoBehaviour
         {
             if (knockerName == stageEnvironmentName[sId])
             {
-                playerPanel[pId].stageKoCount[sId] += 1;
+                resultPanels[pId].stageKoCount[sId] += 1;
             }
         }
     }
@@ -145,12 +163,12 @@ public class ResultSceneGUI : MonoBehaviour
                 // find kill self
                 if (pId == kId)
                 {
-                    playerPanel[pId].deathCount[IndexInMyPanel(pId, kId)] += 1;
+                    resultPanels[pId].deathCount[IndexInMyPanel(pId, kId)] += 1;
                 }
                 else
                 {
-                    playerPanel[pId].deathCount[IndexInMyPanel(pId, kId)] += 1;
-                    playerPanel[kId].koCount[IndexInMyPanel(kId, pId)] += 1;
+                    resultPanels[pId].deathCount[IndexInMyPanel(pId, kId)] += 1;
+                    resultPanels[kId].koCount[IndexInMyPanel(kId, pId)] += 1;
                 }
             }
         }
@@ -168,9 +186,9 @@ public class ResultSceneGUI : MonoBehaviour
 
     void UpdateAllResultText()
     {
-        for (int pId = 0; pId < playerPanel.Count; pId++)
+        for (int pId = 0; pId < resultPanels.Count; pId++)
         {
-            playerPanel[pId].UpdateText();
+            resultPanels[pId].UpdateText();
         }
     }
 	
@@ -178,36 +196,64 @@ public class ResultSceneGUI : MonoBehaviour
 	void Update ()
     {
         timeCount += Time.deltaTime;
-        if (timeCount> hideLoserDuration)
-        {
-            if (!showLoser)
-            {
-                ShowAllResultIntro();
-                ShowResultDecoratedHud();
-                showLoser = true;
-            }
-        }
-
         if (timeCount <= ignoreInputDuration || timeCount <= victoryAnimDuration)
         {
             return;
         }
 
-        if (!JoystickManager.Instance.GetAnyPlayerButtonDown("Jump"))
+        if (resultSceneState == ResultState.highlight)
         {
-            return;
+            if (timeCount > hideLoserDuration)
+            {
+                if (!showLoser)
+                {
+                    ShowAllResultIntro();
+                    ShowResultDecoratedHud();
+                    showLoser = true;
+                    resultSceneState = ResultState.finishHighlight;
+                }
+            }
         }
-        if (!resultShow)
+
+        if (resultSceneState == ResultState.finishHighlight)
         {
-            ignoreInputDuration = 0.75f;
-            resultShow = true;
-            resultCanvas.gameObject.SetActive(true);
+            if (JoystickManager.Instance.GetAnyPlayerButtonDown("Jump"))
+            {
+                pressAny.SetActive(false);
+                resultSceneState = ResultState.viewingResult;
+
+                ignoreInputDuration = 0.75f;
+                resultShow = true;
+                resultCanvas.gameObject.SetActive(true);
+                SoundManager.Instance.PlaySound(sfx_next,this.transform.position);
+            }
         }
-        else
+
+        if (resultSceneState == ResultState.viewingResult)
         {
-            ignoreInputDuration = 10000;
-            GetComponent<AudioSource>().Play();
-            Initiate.FadeToLoading("CharacterSelect", Color.white, 2.0f);
+            if (AllPlayerReady)
+            {
+                ignoreInputDuration = 10000;
+                GetComponent<AudioSource>().Play();
+                SoundManager.Instance.PlaySound(sfx_endScreen, this.transform.position);
+                Initiate.FadeToLoading("CharacterSelect", Color.white, 2.0f);
+            }
+        }
+
+    }
+
+    private bool AllPlayerReady
+    {
+        get
+        {
+            foreach (ResultPanel resultPanel in resultPanels)
+            {
+                if (!resultPanel.playerReady)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 
@@ -227,7 +273,8 @@ public class ResultSceneGUI : MonoBehaviour
         for (int i = 0; i < numPlayer; i++)
         {
             playerIntro[i].gameObject.SetActive(true);
-            playerIntro[i].Initialize();
+            playerIntro[i].SetPlayerId(playerIdByRank[i]);
+            playerIntro[i].PlayResult();
         }
     }
 

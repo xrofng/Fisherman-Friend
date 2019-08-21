@@ -16,20 +16,29 @@ public class CustomizationMenu : MonoBehaviour
     public int playerCustomizeMenuID;
     public float inputDelay = 0.75f;
     private bool ignorInput = false;
-    public GameObject playerModel;
+    public PlayerModel playerModel;
+    public CharacterAnimation playerAnimation;
 
     [Header("Menu")]
     public RectTransform propertiesHighlight;
     public Image[] customizePropertiesImage;
     private int customizePropertesNum;
-    public Image selectionPanelUIImage;
+
+    public Image customTopic;
+    public Sprite[] customTopicSprites;
+
+    public GUIRecolorer guiRecolor;
     public Image ReadyButtonUIImage;
-    public Sprite[] selectionPanelImages;
-    public Sprite[] ReadyButtonImages;
-    public Sprite[] ReadyButtonHoverImages;
+    public Sprite readyHoverSprites;
+    public Sprite readyUnhoverSprites;
+
     public bool playerReady = false;
     public Animator arrowAnim;
-    public SoundEffect arrowSfx;
+
+    [Header("SoundEffect")]
+    public SoundEffect sfx_arrow;
+    public SoundEffect sfx_select;
+    public SoundEffect sfx_navigate;
 
     [Header("Properties")]
     /// index of chosen custmization of all property
@@ -114,8 +123,7 @@ public class CustomizationMenu : MonoBehaviour
         propertiesLength[(int)CustomProperties.victoryintro] = vicCustom.Length;
         customizePropertesNum = customizePropertiesImage.Length;
 
-        selectionPanelUIImage.sprite = selectionPanelImages[playerCustomizeMenuID];
-        ReadyButtonUIImage.sprite = ReadyButtonImages[playerCustomizeMenuID];
+        customTopic.sprite = customTopicSprites[playerCustomizeMenuID];
 
         UpdatePropertiesHighlight();
 
@@ -125,6 +133,7 @@ public class CustomizationMenu : MonoBehaviour
     {
         ChangeCustomizeProperties();
         PressReady();
+
     }
 
     private void PressReady()
@@ -136,12 +145,15 @@ public class CustomizationMenu : MonoBehaviour
         if (JoystickManager.Instance.GetButtonDown("Jump", playerCustomizeMenuID) && !playerReady)
         {
             playerReady = true;
+            playerAnimation.ChangeState(1);
+            SoundManager.Instance.PlaySound(sfx_select, this.transform.position);
         }
         if (JoystickManager.Instance.GetButtonDown("Fishing", playerCustomizeMenuID))
         {
             playerReady = false;
+            playerAnimation.ChangeState(0);
         }
-        readyBanner.gameObject.SetActive(playerReady);
+        readyBanner.enabled = playerReady;
         CharacterSceneGUI.CheckAllPlayerReady();
     }
 
@@ -167,13 +179,15 @@ public class CustomizationMenu : MonoBehaviour
             StartCoroutine(ieArrowState(0.1f, (int)axisRawX+2));
             UpdateCustomizeImage();
             StartCoroutine(ieIgnoreInput());
-            SoundManager.Instance.PlaySound(arrowSfx, this.transform.position);
+            SoundManager.Instance.PlaySound(sfx_arrow, this.transform.position);
         }
         if (sClass.intervalCheck(axisRawY, -0.9f, 0.9f, true))
         {
             AddCustomizePropertiesIndex(-sClass.getSign(axisRawY, 0.015f));
             UpdatePropertiesHighlight();
             StartCoroutine(ieIgnoreInput());
+            SoundManager.Instance.PlaySound(sfx_navigate, this.transform.position);
+
         }
     }
 
@@ -182,22 +196,33 @@ public class CustomizationMenu : MonoBehaviour
         if(customizePropertiesIndex >= customizePropertiesImage.Length)
         {
             propertiesHighlight.position = Vector3.one * 10000;
-            ReadyButtonUIImage.sprite = ReadyButtonHoverImages[playerCustomizeMenuID];
+            ReadyButtonUIImage.sprite = readyHoverSprites;
         }
         else
         {
-            ReadyButtonUIImage.sprite = ReadyButtonImages[playerCustomizeMenuID];
+            ReadyButtonUIImage.sprite = readyUnhoverSprites;
             propertiesHighlight.position = customizePropertiesImage[customizePropertiesIndex].rectTransform.position;
         }
     }
 
     void UpdateCustomizeImage()
     {
-        customizePropertiesImage[(int)CustomProperties.hat].sprite = hatCustom[customIndex[(int)CustomProperties.hat]];
-        customizePropertiesImage[(int)CustomProperties.color].sprite = colorCustom[customIndex[(int)CustomProperties.color]];
         customizePropertiesImage[(int)CustomProperties.victoryintro].sprite = vicCustom[customIndex[(int)CustomProperties.victoryintro]];
-        MaterialManager.Instance.GetChangedColorPlayer(playerModel, customIndex[(int)CustomProperties.color]);
+
+        customizePropertiesImage[(int)CustomProperties.hat].sprite = hatCustom[customIndex[(int)CustomProperties.hat]];
+        MaterialManager.Instance.GetChangedHatPlayer(playerModel, customIndex[(int)CustomProperties.hat],3100);
+
+
+        customizePropertiesImage[(int)CustomProperties.color].sprite = colorCustom[customIndex[(int)CustomProperties.color]];
+        MaterialManager.Instance.GetChangedColorPlayer(playerModel.gameObject,customIndex[(int)CustomProperties.color]);
+
         PlayerData.Instance.playerSkinId[playerCustomizeMenuID] = customIndex[(int)CustomProperties.color];
+        PlayerData.Instance.hatId[playerCustomizeMenuID] = customIndex[(int)CustomProperties.hat];
+        PlayerData.Instance.victoryId[playerCustomizeMenuID] = customIndex[(int)CustomProperties.victoryintro];
+
+        // Update Ui Color
+        Color changeToColor = PlayerData.Instance.GetColor(playerCustomizeMenuID);
+        guiRecolor.Recolor(changeToColor);
     }
 
     IEnumerator ieIgnoreInput()

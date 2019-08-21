@@ -9,6 +9,26 @@ public class SoundEffect
     public AudioClip clip;
     [Range(0, 1)]
     public float volume = 1;
+    public bool oneTime = false;
+    /// <summary>
+    /// 
+    /// </summary>
+    protected int timeCount = 0;
+    public int TimeCount
+    {
+        get { return timeCount; }
+        set { timeCount = value; }
+    }
+    public void ResetCouter() { timeCount = 0; }
+    /// <summary>
+    /// 
+    /// </summary>
+    protected AudioSource audioSource;
+    public AudioSource AudioSource
+    {
+        get { return audioSource; }
+        set { audioSource = value; }
+    }
 }
 
 [Serializable]
@@ -131,7 +151,26 @@ public class SoundManager : PersistentSingleton<SoundManager>
     {
         if (!Settings.SfxOn)
             return null;
-        return PlaySound(sfx.clip, location, loop, spartialBlend, sfx.volume);
+        if(sfx.oneTime == true && sfx.TimeCount > 0)
+        {
+            return null;
+        }
+        if(sfx.AudioSource && sfx.AudioSource.isPlaying)
+        {
+            return null;
+        }
+        sfx.TimeCount += 1;
+
+        sfx.AudioSource = PlaySound(sfx.clip, location, loop, spartialBlend, sfx.volume);
+        return sfx.AudioSource;
+    }
+
+    public void StopSound(SoundEffect sfx)
+    {
+        if (sfx.AudioSource && sfx.AudioSource.isPlaying)
+        {
+            sfx.AudioSource.Stop();
+        }
     }
 
     public virtual void Play2DSoundOneShot(AudioClip sfx)
@@ -296,4 +335,6 @@ public class SoundManager : PersistentSingleton<SoundManager>
            
         }
     }
+
+    
 }

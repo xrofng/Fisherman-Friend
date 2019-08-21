@@ -1194,6 +1194,48 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300062, guid: 60cf2b54863cf114395f55ced55e264a, type: 3}
+--- !u!1001 &442105451
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4007890520476874, guid: 8d9af1858785851469135e56db4f0460, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4007890520476874, guid: 8d9af1858785851469135e56db4f0460, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4007890520476874, guid: 8d9af1858785851469135e56db4f0460, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4007890520476874, guid: 8d9af1858785851469135e56db4f0460, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4007890520476874, guid: 8d9af1858785851469135e56db4f0460, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4007890520476874, guid: 8d9af1858785851469135e56db4f0460, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4007890520476874, guid: 8d9af1858785851469135e56db4f0460, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4007890520476874, guid: 8d9af1858785851469135e56db4f0460, type: 2}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8d9af1858785851469135e56db4f0460, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &487023773
 GameObject:
   m_ObjectHideFlags: 0
@@ -1975,7 +2017,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d50b1e3ed08a21a438da33d8d1c00fe5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 72424c24c59300c49a02229e75d168d1, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.75
   m_Pitch: 1
@@ -2080,7 +2122,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 644053745}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba2362f22ce043b4f9d5631e6ea81655, type: 3}
   m_Name: 
@@ -2888,6 +2930,10 @@ Prefab:
     - target: {fileID: 4737268773792588, guid: e975908d999cc45469dd342024852ca9, type: 2}
       propertyPath: m_RootOrder
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858014000760860, guid: e975908d999cc45469dd342024852ca9, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e975908d999cc45469dd342024852ca9, type: 2}
@@ -5315,6 +5361,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ignoreInputDuration: 3
+  sfx_entergame:
+    clip: {fileID: 8300000, guid: ca3cf96c9e6c8394388b007f20d934ea, type: 3}
+    volume: 1
+    oneTime: 0
 --- !u!82 &1849158991
 AudioSource:
   m_ObjectHideFlags: 0

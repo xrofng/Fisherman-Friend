@@ -2,17 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResultIntro : CharacterAnimation {
+public class ResultIntro : CharacterAnimation
+{
 
-    public GameObject characterModel;
+    public PlayerModel characterModel;
 
     public Transform playerColorBackDrop;
+
+    public int playerId = -99;
+
     [Range(0.0f, 1.0f)]
     public float backDropAlpha = 1.0f;
 
-    public virtual void Initialize()
+    public virtual void PlayResult()
     {
 
+    }
+
+    public void SetPlayerId(int id)
+    {
+        playerId = id;
     }
 
     public void ChangeBackDropColor(int playerId)

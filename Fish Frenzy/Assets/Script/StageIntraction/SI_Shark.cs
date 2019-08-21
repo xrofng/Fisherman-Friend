@@ -229,7 +229,7 @@ public class SI_Shark : StageInteraction
         
         if (detects.Count > 0)
         {
-            HeadToNearestPlayer(detects, wayIDs);
+            //HeadToNearestPlayer(detects, wayIDs);
             //if (DetectedPlayer == false)
             //{
             //    ChangeCurrentWayPoint(cClockwise);
@@ -240,6 +240,28 @@ public class SI_Shark : StageInteraction
         else
         {
             DetectedPlayer = false;
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public GameObject NearestPlayer
+    {
+        get
+        {
+            float nearestDistance = float.MaxValue;
+            GameObject nearestPlayer = null;
+            foreach(Player player in FFGameManager.Instance.PortRoyal.Player)
+            {
+                float distance = Vector3.Distance(this.transform.position,player.transform.position);
+                if (distance < nearestDistance)
+                {
+                    nearestDistance = distance;
+                    nearestPlayer = player.gameObject;
+                }
+            }
+            return nearestPlayer;
         }
     }
 

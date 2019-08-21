@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class FishSpecialSpawn : FishSpecial
 {
-
     [Header("Throw Seetting")]
     public MovingObject movingobject;
     public bool endByFrame;

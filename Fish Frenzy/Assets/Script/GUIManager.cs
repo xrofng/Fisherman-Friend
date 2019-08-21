@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System;
 /// <summary>
 /// Handles all GUI effects and changes
 /// </summary>
-public class GUIManager : MonoBehaviour
+public class GUIManager : MonoBehaviour, MMEventListener<PlayerSpawnedEvent>
 {
     [Header("Bindings")]
     /// the game object that contains the heads up display (avatar, health, points...)
@@ -32,9 +33,9 @@ public class GUIManager : MonoBehaviour
 
     [Header("Player UI")]
     /// button indicator of fishing and pickup
-    public List<RectTransform> ButtonIndicators;
+    public List<FFgui> ButtonIndicators;
     /// players damage percent
-    public List<RectTransform> MashButtonIndicators;
+    public List<FFgui> MashButtonIndicators;
     /// Indicator position from fish
     public Vector3 FishingIndicatorOffset;
     /// Indicator position from fish
@@ -85,21 +86,12 @@ public class GUIManager : MonoBehaviour
         playerData = PlayerData.Instance;
         numFisherman = playerData.numPlayer + playerData.numBot;
 
-        InitImageList();
-
         gameLoop = FFGameManager.Instance.GameLoop;
         portRoyal = FFGameManager.Instance.PortRoyal;
         knockData = FFGameManager.Instance.KnockData;
 
-        if (Joystick != null)
-        {
-            _initialJoystickAlpha = Joystick.alpha;
-        }
-        if (Buttons != null)
-        {
-            _initialButtonsAlpha = Buttons.alpha;
-        }
-        SetUpSpriteSet();
+        Initialize();
+
     }
 
     /// <summary>
@@ -118,12 +110,49 @@ public class GUIManager : MonoBehaviour
         }
     }
 
-    void InitImageList()
+    void Initialize()
     {
+        this.MMEventStartListening<PlayerSpawnedEvent>();
+
         PlayerHudList.Add(Player1_HUD);
         PlayerHudList.Add(Player2_HUD);
         PlayerHudList.Add(Player3_HUD);
         PlayerHudList.Add(Player4_HUD);
+
+        // change button indicator color
+        for (int pId = 0; pId < numFisherman; pId++)
+        {
+            Color changeToColor = playerData.GetColor(pId);
+            ButtonIndicators[pId].GUIRecolorer.Recolor(changeToColor);
+            MashButtonIndicators[pId].GUIRecolorer.Recolor(changeToColor);
+        }
+
+
+        if (Joystick != null)
+        {
+            _initialJoystickAlpha = Joystick.alpha;
+        }
+        if (Buttons != null)
+        {
+            _initialButtonsAlpha = Buttons.alpha;
+        }
+        SetUpSpriteSet();
+
+    }
+
+    /// <summary>
+    /// change indicator sprite and color according to playerId
+    /// </summary>
+    /// <param name="playerId"></param>
+    void SetUpPlayerIndicator(int playerId)
+    {
+        if (playerId < 4)
+        {
+            portRoyal.Player[playerId].playerIndicator.sprite = PlayerData.Instance.playerIndicator[playerId];
+            portRoyal.Player[playerId].playerIndicatorBorder.sprite = PlayerData.Instance.playerIndicatorBorder[playerId];
+            Color changeToColor = playerData.GetColor(playerId);
+            portRoyal.Player[playerId].playerIndicator.color = changeToColor;
+        }
     }
 
     protected virtual void Update()
@@ -209,7 +238,7 @@ public class GUIManager : MonoBehaviour
         {
             return;
         }
-        ButtonIndicators[playerID - 1].position = portRoyal.mainCamera.WorldToScreenPoint(fishingPosition);
+        ButtonIndicators[playerID - 1].RectTransform.position = portRoyal.mainCamera.WorldToScreenPoint(fishingPosition);
     }
 
     public virtual void UpdateMashFishingButtonIndicator(int playerID, Vector3 fishingPosition, bool isActive)
@@ -220,7 +249,7 @@ public class GUIManager : MonoBehaviour
         {
             return;
         }
-        MashButtonIndicators[playerID - 1].position = portRoyal.mainCamera.WorldToScreenPoint(fishingPosition) + FishingIndicatorOffset;
+        MashButtonIndicators[playerID - 1].RectTransform.position = portRoyal.mainCamera.WorldToScreenPoint(fishingPosition) + FishingIndicatorOffset;
     }
 
     public virtual void UpdatePickUpButtonIndicator(Vector3 fishPosition , Image buttonImage, bool isActive)
@@ -287,4 +316,11 @@ public class GUIManager : MonoBehaviour
     {
         return Instantiate(g, this.transform) as T;
     }
+
+    public void OnMMEvent(PlayerSpawnedEvent eventType)
+    {
+        SetUpPlayerIndicator(eventType.spawnedPlayerId);
+    }
+
+    
 }

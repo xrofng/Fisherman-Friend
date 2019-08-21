@@ -16,12 +16,12 @@ public class PlayerHUD : MonoBehaviour {
     public FaceExpresstion currentFaceExpression = FaceExpresstion.Idle;
     public Image faceImage;
     public List<Sprite> faceList = new List<Sprite>();
+    public Image hatImage;
     //public Animator faceAnim;
     /*
     
     */
 
-    public Image playerUiImage;
     public Text percentText;
     public Image durabilityImage;
 
@@ -64,7 +64,10 @@ public class PlayerHUD : MonoBehaviour {
         durabilityImage.color = new Color(pColor.r, pColor.g, pColor.b, a);
 
         //meter
-        playerUiImage.color = pColor;
+        GetComponent<FFgui>().GUIRecolorer.Recolor(pColor);
+
+        //face
+        hatImage.sprite = playerData.GetHatSprite(playerId);
     }
 
     public void UpdatePlayerHUD()
@@ -107,8 +110,7 @@ public class PlayerHUD : MonoBehaviour {
         }
         if (currentFaceExpression != previousFaceExpression)
         {
-            // ----TODO remoev comment
-            //faceImage.sprite = faceList[(int)currentFaceExpression];
+            faceImage.sprite = faceList[(int)currentFaceExpression];
             previousFaceExpression = currentFaceExpression;
         }
     }

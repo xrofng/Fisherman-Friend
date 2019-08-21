@@ -52,6 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numPlayer: 4
+  numBot: 0
   maxNumPlayer: 4
   player:
   - {fileID: 0}
@@ -66,13 +67,20 @@ MonoBehaviour:
   - {r: 1, g: 0.36320752, b: 0.78523886, a: 1}
   - {r: 0.9372549, g: 0.67125523, b: 0.23921569, a: 1}
   - {r: 0.7721518, g: 0.23921569, b: 0.9372549, a: 1}
-  - {r: 0, g: 0.13042653, b: 0.13207549, a: 1}
-  playerSkinId: 00000000010000000200000003000000
+  - {r: 0, g: 0, b: 0, a: 1}
+  playerSkinId: 07000000050000000600000004000000
+  hatId: 00000000040000000300000001000000
+  victoryId: 00000000000000000000000000000000
   playerIndicator:
-  - {fileID: 21300000, guid: 2c40fdf4f6fa12a4f98967880d4fa2d2, type: 3}
-  - {fileID: 21300000, guid: eabeeb19614084243a40a6f19184c76a, type: 3}
-  - {fileID: 21300000, guid: 697266a30d6352441b8a9e72f7e441b8, type: 3}
-  - {fileID: 21300000, guid: 3a5feac1c5fc63446a55554b1afd8ace, type: 3}
+  - {fileID: 21300000, guid: 57ab454225baa0745bc7f84cbf7b9f69, type: 3}
+  - {fileID: 21300000, guid: d0a1b0c419763814fac4712c78978f7b, type: 3}
+  - {fileID: 21300000, guid: cdf76867df991c7479e6b74ee0106ba7, type: 3}
+  - {fileID: 21300000, guid: 0ef84eb141cc2c241ab2d11a49d34048, type: 3}
+  playerIndicatorBorder:
+  - {fileID: 21300000, guid: 8af25a474b89fb045ab98313642fb064, type: 3}
+  - {fileID: 21300000, guid: 98b4aed7ffae85d429c502ef0b0889ac, type: 3}
+  - {fileID: 21300000, guid: 0f257d38e7cde344c84dc5fddc561f26, type: 3}
+  - {fileID: 21300000, guid: 4bf279d701714804b968db5dbbc75abb, type: 3}
   playerMaterial:
   - {fileID: 2100000, guid: 0a884ae75d16a124e9a4a447cbc0eed3, type: 2}
   - {fileID: 2100000, guid: 46210caeeb2cf8643a8d26ebcba83c70, type: 2}
@@ -82,3 +90,28 @@ MonoBehaviour:
   - {fileID: 2100000, guid: a34430f634153df42a321dab4f97c624, type: 2}
   - {fileID: 2100000, guid: 357e83bedc325a749bb228bd96f4d296, type: 2}
   - {fileID: 2100000, guid: 89a207ce2a020fa4099e9961137eeccf, type: 2}
+  hats:
+  - name: StrawHat
+    hatSprite: {fileID: 21300000, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
+    hat: {fileID: 1652483205741996, guid: 87fef2d08b918d149bc192d7b735a8f2, type: 2}
+  - name: Cone
+    hatSprite: {fileID: 21300002, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
+    hat: {fileID: 1305849078466922, guid: a83afae8ba4b66c4789009dbe9866a0a, type: 2}
+  - name: Plunger
+    hatSprite: {fileID: 21300004, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
+    hat: {fileID: 1278843189174626, guid: 2183cb2c9da46804db269b03a5d65dc1, type: 2}
+  - name: CatInTheHat
+    hatSprite: {fileID: 21300006, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
+    hat: {fileID: 1578292851801532, guid: 9c1337fe5a1cb2047957686e8c93db6b, type: 2}
+  - name: Wizard
+    hatSprite: {fileID: 21300008, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
+    hat: {fileID: 1625204569032914, guid: d3d665fee186cb14ebe5775a17588be8, type: 2}
+  - name: Cowboy
+    hatSprite: {fileID: 21300010, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
+    hat: {fileID: 1828260452755112, guid: 2bbb0c9c0ac604d4ead919cfa78d9f09, type: 2}
+  - name: Cap
+    hatSprite: {fileID: 21300012, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
+    hat: {fileID: 1436460905339660, guid: 1e84caad0c72acd45ba278d89489aa4e, type: 2}
+  - name: Bandana
+    hatSprite: {fileID: 21300014, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
+    hat: {fileID: 1967547596452642, guid: 2a54c4873df8edc41bc80d507d028fb0, type: 2}

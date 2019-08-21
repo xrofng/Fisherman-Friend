@@ -8,7 +8,8 @@ public class SceneChanger : MonoBehaviour
     public List<string> scenes = new List<string>();
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
     }
 
     void Update ()
