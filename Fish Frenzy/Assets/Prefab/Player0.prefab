@@ -1881,6 +1881,7 @@ MonoBehaviour:
   sfx_Throw:
     clip: {fileID: 8300000, guid: 43523274498e82f4e990bf7dcc388f27, type: 3}
     volume: 1
+    oneTime: 0
 --- !u!114 &114029355444865128
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1908,6 +1909,7 @@ MonoBehaviour:
   sfx_WaterJump:
     clip: {fileID: 8300000, guid: 8d08f95415bd65b4fa13e099457abb5d, type: 3}
     volume: 1
+    oneTime: 0
 --- !u!114 &114080718980803230
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1925,6 +1927,7 @@ MonoBehaviour:
   sfx_Slap:
     clip: {fileID: 0}
     volume: 1
+    oneTime: 0
   showHitBox: 0
 --- !u!114 &114113260566936514
 MonoBehaviour:
@@ -1996,6 +1999,7 @@ MonoBehaviour:
   _SFX:
     clip: {fileID: 0}
     volume: 1
+    oneTime: 0
 --- !u!114 &114305712712285014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2051,6 +2055,7 @@ MonoBehaviour:
   _SFX:
     clip: {fileID: 0}
     volume: 1
+    oneTime: 0
 --- !u!114 &114403877366973610
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2142,6 +2147,7 @@ MonoBehaviour:
   sfx_Death:
     clip: {fileID: 8300000, guid: 8ddf30244bfadbe40a9fb00dec90be75, type: 3}
     volume: 1
+    oneTime: 0
 --- !u!114 &114651210123651802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2196,6 +2202,7 @@ MonoBehaviour:
   _SFX:
     clip: {fileID: 0}
     volume: 1
+    oneTime: 0
 --- !u!114 &114691492094371878
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2231,9 +2238,11 @@ MonoBehaviour:
   sfx_RodSwing:
     clip: {fileID: 8300000, guid: 02d1c2c2a3bc49a4a8ed40d4b8f86659, type: 3}
     volume: 1
+    oneTime: 0
   sfx_WaterTouch:
     clip: {fileID: 8300000, guid: 6aec0d02799124641afcab3ffbd21b78, type: 3}
     volume: 1
+    oneTime: 0
 --- !u!114 &114934992711911732
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2252,6 +2261,7 @@ MonoBehaviour:
   sfx_Special:
     clip: {fileID: 0}
     volume: 1
+    oneTime: 0
   showHitBox: 0
 --- !u!135 &135176067904847010
 SphereCollider:

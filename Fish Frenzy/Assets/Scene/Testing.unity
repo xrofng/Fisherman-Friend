@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.40658703, g: 0.8667387, b: 1.3582686, a: 1}
+  m_IndirectSpecularColor: {r: 0.40661013, g: 0.86674637, b: 1.358268, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1282,12 +1282,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96f61a2cd80c4d4393223cc163469f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numPlayer: 4
-  maxNumPlayer: 4
   characterMass: 1
   debugMode: 1
   respawnTime: 5
   respawnInvincTime: 1
+  respawnPositionOffset: 8
   FishJumpToWaterMultiplier: {x: 8, y: 10}
   deathRealm: {fileID: 1560228767}
   fishPool:
@@ -1304,6 +1303,8 @@ MonoBehaviour:
   underWater: {fileID: 793332554}
   mainCamera: {fileID: 208782328}
   multiPCamera: {fileID: 1296815681}
+  coastHolder: {fileID: 0}
+  coastPoints: []
   FixedFish: 0
   TestingFish: {fileID: 114768006698364366, guid: adaf2cead1368e348a86e6f2202a5815,
     type: 2}
@@ -1323,11 +1324,13 @@ MonoBehaviour:
   Round_Time_Limit: 300
   startCountDown: 1
   playerSpawnRate: 0
+  timeCountDown: 0
   timeBeforeChangeScene: 2.5
   timeUp: 0
   sceneChanging: 0
   playerPrefab: {fileID: 1727452470752796, guid: 39fef1461dd626e4c869f96b5a2d7e66,
     type: 2}
+  playerBotPrefab: {fileID: 0}
   playerFollowPrefab: {fileID: 114670570665356438, guid: e7a9038685690d04fb44c86fe79f076a,
     type: 2}
   LevelCenter: {fileID: 431376570}
@@ -1530,7 +1533,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8028cd61fea6d86499dc3e5e3753fb59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Frenzying: 0
+  frenzyStarted: 0
+  jumping: 0
   spawnTime: {x: 0, y: 0.9}
   fallSpeed: {x: 0, y: 50}
   amountRange: {x: 4, y: 7}
@@ -1565,12 +1569,6 @@ MonoBehaviour:
   - {fileID: 135115426}
   - {fileID: 2086822110}
   spawnedPoint: 
-  timeToNextWave: 20
-  timeAnimationOverhead: 9.3
-  timeFrenzy: 60
-  whalePrefab: {fileID: 1488403750361722, guid: 5e780846ae5a5fb4c97f2e8d89a52bc8,
-    type: 2}
-  whaleAnimFrame: 200
   rayColor: {r: 0.745283, g: 0.6082088, b: 0, a: 1}
   wireSphereRadius: 1
   showRay: 1
@@ -6018,16 +6016,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e702271fcd441f1488490ebf47ebfed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  materialSet0:
-  - {fileID: 2100000, guid: 0a884ae75d16a124e9a4a447cbc0eed3, type: 2}
-  - {fileID: 2100000, guid: 46210caeeb2cf8643a8d26ebcba83c70, type: 2}
-  - {fileID: 2100000, guid: 5a973d9cd19dc86468184f738014d0cd, type: 2}
-  - {fileID: 2100000, guid: eb33ddfa6e883254b9ed65d18c7c39a5, type: 2}
-  materialSet1:
-  - {fileID: 2100000, guid: 9ca136a73f5606248ba388f2791d0fa9, type: 2}
-  - {fileID: 2100000, guid: 9ca136a73f5606248ba388f2791d0fa9, type: 2}
-  - {fileID: 2100000, guid: 9ca136a73f5606248ba388f2791d0fa9, type: 2}
-  - {fileID: 2100000, guid: 9ca136a73f5606248ba388f2791d0fa9, type: 2}
+  materialSwaps: []
 --- !u!114 &552195889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6044,8 +6033,14 @@ MonoBehaviour:
   Special: Special
   Throw: Throw
   Switch: Switch
+  AltSwitch: AltSwitch
   Hori: Hori
   Verti: Verti
+  Pause: Pause
+  R2: R2
+  Dhori: Dhori
+  Dverti: Dverti
+  Dfail: Dfail
 --- !u!114 &552195890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6059,8 +6054,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unTagEnable: 0
   untagAttackerDuration: 15
-  maxNumPlayer: 4
-  numPlayer: 4
   printLog: 0
 --- !u!114 &552195891
 MonoBehaviour:
@@ -6084,6 +6077,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 341ffd61f061d2a44b570125ed4689c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numPlayer: 4
+  numBot: 0
+  maxNumPlayer: 4
   player:
   - {fileID: 0}
   - {fileID: 0}
@@ -6094,16 +6090,25 @@ MonoBehaviour:
   - {r: 0.1764706, g: 0.58431375, b: 1, a: 1}
   - {r: 1, g: 0.92156863, b: 0.1764706, a: 1}
   - {r: 0.31764707, g: 0.9372549, b: 0.23921569, a: 1}
+  playerSkinId: 00000000000000000000000000000000
+  hatId: 00000000000000000000000000000000
+  victoryId: 00000000000000000000000000000000
   playerIndicator:
   - {fileID: 21300000, guid: 2c40fdf4f6fa12a4f98967880d4fa2d2, type: 3}
   - {fileID: 21300000, guid: eabeeb19614084243a40a6f19184c76a, type: 3}
   - {fileID: 21300000, guid: 697266a30d6352441b8a9e72f7e441b8, type: 3}
   - {fileID: 21300000, guid: 3a5feac1c5fc63446a55554b1afd8ace, type: 3}
+  playerIndicatorBorder:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   playerMaterial:
   - {fileID: 2100000, guid: 0a884ae75d16a124e9a4a447cbc0eed3, type: 2}
   - {fileID: 2100000, guid: 46210caeeb2cf8643a8d26ebcba83c70, type: 2}
   - {fileID: 2100000, guid: 5a973d9cd19dc86468184f738014d0cd, type: 2}
   - {fileID: 2100000, guid: eb33ddfa6e883254b9ed65d18c7c39a5, type: 2}
+  hats: []
 --- !u!1 &558894141
 GameObject:
   m_ObjectHideFlags: 0
@@ -9687,21 +9692,16 @@ MonoBehaviour:
   LevelText: {fileID: 0}
   GrandText: {fileID: 1087835545}
   TimeText: {fileID: 1782834801}
-  PercentText:
-  - {fileID: 351278289}
-  - {fileID: 1917596708}
-  - {fileID: 736303295}
-  - {fileID: 535378857}
   ButtonIndicators:
-  - {fileID: 1983769180}
-  - {fileID: 306953270}
-  - {fileID: 2010475925}
-  - {fileID: 48998266}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   MashButtonIndicators:
-  - {fileID: 1920334554}
-  - {fileID: 681460474}
-  - {fileID: 1799660477}
-  - {fileID: 208446754}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   FishingIndicatorOffset: {x: 0, y: 0, z: 0}
   PickUpIndicatorOffset: {x: 0, y: 0, z: 0}
   PlayerImage:
@@ -9724,11 +9724,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 900b0c9c78ba3a24c97aff913ad4bb8b, type: 3}
   - {fileID: 21300000, guid: 9ed21d2670d13114d89445aad51dfb05, type: 3}
   - {fileID: 21300000, guid: 603ee9ded427bfd48834a44663f8fd22, type: 3}
-  transparentSprite: {fileID: 21300000, guid: 7ed578270c0c56f47b2abb355bf93ce1, type: 3}
-  Player1_GUI: {fileID: 237862568}
-  Player2_GUI: {fileID: 117803470}
-  Player3_GUI: {fileID: 580857591}
-  Player4_GUI: {fileID: 2120926787}
+  Player1_HUD: {fileID: 0}
+  Player2_HUD: {fileID: 0}
+  Player3_HUD: {fileID: 0}
+  Player4_HUD: {fileID: 0}
   scoreChange_Decrease: {fileID: 224400105383748728, guid: d19a891d8b4c2f34ea40eb8b27d94478,
     type: 2}
   scoreChange_Increase: {fileID: 224500364877173646, guid: e50a18a604789ce42b01fe003b409ebc,
@@ -11635,7 +11634,7 @@ Transform:
   - {fileID: 585364554}
   - {fileID: 40785548}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1171781239
 GameObject:
@@ -11825,7 +11824,7 @@ Transform:
   - {fileID: 184172847}
   - {fileID: 1209956263}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1236285368
 Prefab:
@@ -15723,52 +15722,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1757086958}
   m_Mesh: {fileID: 4300000, guid: 098285706e625804facb786aef8abee7, type: 2}
---- !u!1001 &1766264060
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4776109513001538, guid: 39fef1461dd626e4c869f96b5a2d7e66, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4776109513001538, guid: 39fef1461dd626e4c869f96b5a2d7e66, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 4.27
-      objectReference: {fileID: 0}
-    - target: {fileID: 4776109513001538, guid: 39fef1461dd626e4c869f96b5a2d7e66, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4776109513001538, guid: 39fef1461dd626e4c869f96b5a2d7e66, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4776109513001538, guid: 39fef1461dd626e4c869f96b5a2d7e66, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4776109513001538, guid: 39fef1461dd626e4c869f96b5a2d7e66, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4776109513001538, guid: 39fef1461dd626e4c869f96b5a2d7e66, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4776109513001538, guid: 39fef1461dd626e4c869f96b5a2d7e66, type: 2}
-      propertyPath: m_RootOrder
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 1727452470752796, guid: 39fef1461dd626e4c869f96b5a2d7e66, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 39fef1461dd626e4c869f96b5a2d7e66, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1 &1775719603
 GameObject:
   m_ObjectHideFlags: 0
@@ -18137,7 +18090,10 @@ MonoBehaviour:
   PathSet: {fileID: 13414554}
   randomStartWayPoint: 1
   randomClockWise: 1
-  sfx_Bite: {fileID: 8300000, guid: 617e195e3def643468aa485854d09569, type: 3}
+  sfx_Bite:
+    clip: {fileID: 0}
+    volume: 1
+    oneTime: 0
   BloodThirstSpeed: 10
   NormalSwimSpeed: 5
   BiteFrame: 50
@@ -18188,7 +18144,7 @@ Transform:
   m_Children:
   - {fileID: 993368916}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1993077511
 MonoBehaviour:
