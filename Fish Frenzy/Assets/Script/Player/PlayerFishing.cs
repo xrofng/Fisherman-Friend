@@ -91,7 +91,7 @@ public class PlayerFishing : PlayerAbility
         }
         PlaySFX(sfx_WaterTouch);
 
-        _player.baitedFish = Instantiate(portRoyal.randomFish(), fishPoint.position, _player.GetPart(Player.ePart.body).transform.rotation);
+        _player.baitedFish = Instantiate(portRoyal.RandomFish(), fishPoint.position, _player.GetPart(Player.ePart.body).transform.rotation);
         _player.Animation.ChangeAnimState((int)PlayerAnimation.Anim.Fishing);
 
 

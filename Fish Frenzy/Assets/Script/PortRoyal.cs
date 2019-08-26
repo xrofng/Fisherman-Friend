@@ -11,6 +11,7 @@ public class PortRoyal : MonoBehaviour
     public float respawnTime;
     public float respawnInvincTime;
     public float respawnPositionOffset = 8;
+    public LayerMask firstSpawnFishLayer;
 
     public Vector2 FishJumpToWaterMultiplier;
 
@@ -76,21 +77,21 @@ public class PortRoyal : MonoBehaviour
         return spawnPoint[index].position;
     }
     
-    public Fish getFish(int number)
+    public Fish GetFish(int number)
     {
         return fishPool[number];
     }
-    public Fish randomFish()
+    public Fish RandomFish()
     {
         if (FixedFish)
         {
             return TestingFish;
         }
-        int fishIndex = randomFishIndex(); 
-        return getFish(fishIndex);
+        int fishIndex = GetRandomFishIndex(); 
+        return GetFish(fishIndex);
     }
 
-    public int randomFishIndex()
+    public int GetRandomFishIndex()
     {
         float ran = Random.Range(0, totalSpawnRate) ;
         float spawnPercentOffset = 0;
@@ -126,14 +127,14 @@ public class PortRoyal : MonoBehaviour
 
     void ForceSpawnFish(Fish spawnFish)
     {
-        Fish f = Instantiate(spawnFish, Player[0].transform.position + Vector3.up * 5, Random.rotation) as Fish;
-        f.gameObject.transform.localEulerAngles = sClass.SetVector3(f.gameObject.transform.localEulerAngles, VectorComponent.x, 0);
-        f.gameObject.transform.localEulerAngles = sClass.SetVector3(f.gameObject.transform.localEulerAngles, VectorComponent.z, 0);
-        f.ChangeState(Fish.fState.fall);
-        f.gameObject.AddComponent<Rigidbody>();
-        f.Rigidbody.freezeRotation = true;
-        f.gameObject.layer = LayerMask.NameToLayer("Fish_All");
-        f.GetCollider<BoxCollider>().isTrigger = true;
+        Fish newFish = Instantiate(spawnFish, Player[0].transform.position + Vector3.up * 5, Random.rotation) as Fish;
+        newFish.gameObject.transform.localEulerAngles = sClass.SetVector3(newFish.gameObject.transform.localEulerAngles, VectorComponent.x, 0);
+        newFish.gameObject.transform.localEulerAngles = sClass.SetVector3(newFish.gameObject.transform.localEulerAngles, VectorComponent.z, 0);
+        newFish.ChangeState(Fish.fState.fall);
+        newFish.gameObject.AddComponent<Rigidbody>();
+        newFish.Rigidbody.freezeRotation = true;
+        newFish.gameObject.layer = firstSpawnFishLayer;
+        newFish.GetCollider<BoxCollider>().isTrigger = true;
     }
 
     void OnDrawGizmos()

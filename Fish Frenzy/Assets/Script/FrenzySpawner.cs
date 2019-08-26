@@ -10,6 +10,10 @@ public class FrenzySpawner : MonoBehaviour
     public Vector2 fallSpeed;
     public Vector2 amountRange;
 
+    [Header("SpawnPos")]
+    public float spawnPosY;
+    public Vector3 spawnOffset;
+
     public List<Transform> SpawnPoints = new List<Transform>();
     public List<int> spawnedPoint = new List<int>();
 
@@ -35,7 +39,8 @@ public class FrenzySpawner : MonoBehaviour
             spawnedPoint.Add(spawnPointIndex);
 
             Vector3 spawnPos = SpawnPoints[spawnPointIndex].position;
-            spawnPos = sClass.SetVector3(spawnPos, VectorComponent.y, transform.position.y);
+            spawnPos.y = spawnPosY;
+            spawnPos += spawnOffset;
 
             SpawnFish(spawnPos);
         }
@@ -43,7 +48,7 @@ public class FrenzySpawner : MonoBehaviour
 
     void SpawnFish(Vector3 spawnPos)
     {
-        Fish spawnFish = Instantiate(portRoyal.randomFish(), spawnPos, Random.rotation) as Fish;
+        Fish spawnFish = Instantiate(portRoyal.RandomFish(), spawnPos, Random.rotation) as Fish;
         spawnFish.gameObject.transform.localEulerAngles = sClass.SetVector3(spawnFish.gameObject.transform.localEulerAngles, VectorComponent.x, 0);
         spawnFish.gameObject.transform.localEulerAngles = sClass.SetVector3(spawnFish.gameObject.transform.localEulerAngles, VectorComponent.z, 0);
         spawnFish.ChangeState(Fish.fState.fall);

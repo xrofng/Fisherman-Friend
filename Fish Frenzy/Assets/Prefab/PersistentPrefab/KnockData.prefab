@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1936941056309358}
+  m_IsPrefabAsset: 1
+--- !u!1 &1936941056309358
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4060679616653690}
+  - component: {fileID: 114219080403413570}
+  m_Layer: 0
+  m_Name: KnockData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4060679616653690
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1936941056309358}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.9985352, y: -6.283203, z: 4.3007812}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114219080403413570
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1936941056309358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e33d633073a9608469b537061e4081d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ___: 0
+  force:
+  - {x: 6, y: 6}
+  - {x: 10, y: 12}
+  - {x: 14, y: 18}
+  - {x: 18, y: 26}
+  - {x: 24, y: 34}
+  Apply: 0
+  slapDamage:
+  - {x: 1, y: 5}
+  - {x: 6, y: 10}
+  - {x: 11, y: 20}
+  - {x: 21, y: 999}
+  throwCharge:
+  - {x: 0, y: 25}
+  - {x: 26, y: 50}
+  - {x: 51, y: 75}
+  - {x: 76, y: 100}
+  percentList:
+  - 0
+  - 25
+  - 50
+  - 75
+  - 100
+  - 150
+  - 200
+  - 300
+  - 9999
+  colorLevel:
+  - {r: 1, g: 1, b: 1, a: 75}
+  - {r: 1, g: 1, b: 0.40000004, a: 75}
+  - {r: 1, g: 0.91764706, b: 0, a: 75}
+  - {r: 1, g: 0.75686276, b: 0, a: 75}
+  - {r: 1, g: 0.6, b: 0, a: 75}
+  - {r: 1, g: 0.35686275, b: 0, a: 75}
+  - {r: 1, g: 0, b: 0, a: 75}
+  - {r: 0.627451, g: 0, b: 0, a: 75}
+  - {r: 0.2901961, g: 0, b: 0, a: 75}
+  Knock: 0
+  SlapScale_tier1: 00000000000000000000000000000000
+  SlapScale_tier2: 0000000000000000000000000100000001000000020000000200000003000000
+  SlapScale_tier3: 0000000000000000010000000100000002000000020000000300000003000000
+  SlapScale_tier4: 0000000001000000020000000200000002000000030000000300000004000000
+  ThrowScale_tier1: 0000000000000000000000000000000001000000010000000200000003000000
+  ThrowScale_tier2: 0000000000000000000000000100000001000000020000000200000003000000
+  ThrowScale_tier3: 0000000000000000010000000100000002000000020000000300000003000000
+  ThrowScale_tier4: 0000000001000000020000000200000002000000030000000300000004000000
+  verticalInstaKillPercent: 300
+  vertiForceMin: 2
+  vertiForceMax: 20
