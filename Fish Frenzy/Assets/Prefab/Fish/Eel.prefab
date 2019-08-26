@@ -235,7 +235,7 @@ Animator:
   m_GameObject: {fileID: 1932084071963072}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a5692baac61c28f42b9401aa8efbb3b9, type: 2}
+  m_Controller: {fileID: 9100000, guid: 34906218c8e220b4a8d37159aae66599, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -278,6 +278,7 @@ MonoBehaviour:
   ignorePlayerFrame: 0
   fishMeshRenderer: {fileID: 23609865208187692}
   durability: 7
+  lowDurabilityFloor: 2
   weight: 0
   mashCountDown: 3
   spawnRate: 11
@@ -294,15 +295,19 @@ MonoBehaviour:
   sfx_WaterJump:
     clip: {fileID: 8300000, guid: 391886dd2fd156a44873b2eeeb6d6248, type: 3}
     volume: 1
+    oneTime: 0
   sfx_Slap:
     clip: {fileID: 0}
     volume: 1
+    oneTime: 0
   sfx_Throw:
     clip: {fileID: 8300000, guid: 43523274498e82f4e990bf7dcc388f27, type: 3}
     volume: 1
+    oneTime: 0
   sfx_Special:
     clip: {fileID: 8300000, guid: 76d3523a591904046bc04aace0181371, type: 3}
     volume: 1
+    oneTime: 0
   fishIcon: {fileID: 21300000, guid: b8762b7a0445331489c52b433dec9c16, type: 3}
   fishName: {fileID: 21300000, guid: 0daf92f248496a245a0c53122e15a3d8, type: 3}
   fishStored: {fileID: 21300000, guid: b1df3557e9fcbad44a7420d16e89f482, type: 3}
@@ -334,9 +339,11 @@ MonoBehaviour:
   sfx_attach:
     clip: {fileID: 8300000, guid: ab553917f1d24d240b7579019a7c1e08, type: 3}
     volume: 1
+    oneTime: 0
   sfx_swing:
     clip: {fileID: 8300000, guid: e2b73d153c1a26d488b4a232decc0c5a, type: 3}
     volume: 1
+    oneTime: 0
   hookSlapClip: 10
 --- !u!114 &114729089609547344
 MonoBehaviour:

@@ -51,7 +51,7 @@ public class FrenzySpawner : MonoBehaviour
         Fish spawnFish = Instantiate(portRoyal.RandomFish(), spawnPos, Random.rotation) as Fish;
         spawnFish.gameObject.transform.localEulerAngles = sClass.SetVector3(spawnFish.gameObject.transform.localEulerAngles, VectorComponent.x, 0);
         spawnFish.gameObject.transform.localEulerAngles = sClass.SetVector3(spawnFish.gameObject.transform.localEulerAngles, VectorComponent.z, 0);
-        spawnFish.ChangeState(Fish.fState.fall);
+        spawnFish.ChangeState(Fish.FishConditionalState.fall);
         //spawnFish.GetCollider<BoxCollider>().isTrigger = true;
 
         //spawnFish.gameObject.layer = LayerMask.NameToLayer("Fish");

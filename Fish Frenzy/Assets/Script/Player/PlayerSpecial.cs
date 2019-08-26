@@ -66,7 +66,7 @@ public class PlayerSpecial : PlayerAbility
             return false;
         }
 
-        if (_player.mainFish.state == Fish.fState.dehydrate || !_player.mainFish.GetComponent<FishSpecial>())
+        if (_player.mainFish.state == Fish.FishConditionalState.dehydrate || !_player.mainFish.GetComponent<FishSpecial>())
         {
             return false;
         }

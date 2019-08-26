@@ -51,7 +51,7 @@ public class SlidePlatform : MonoBehaviour
     public bool MoveOnStart;
 
     [Header("Debug")]
-    public GizmosShape Gizmo;
+    public GizmosShape Gizmo = new GizmosShape();
 
     /// <summary>
 	/// Initialization

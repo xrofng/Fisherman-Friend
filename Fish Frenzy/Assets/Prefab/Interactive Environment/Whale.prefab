@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 4721572487829018}
   - component: {fileID: 65829605108617976}
   - component: {fileID: 136021596886892990}
+  - component: {fileID: 114909970887747114}
   m_Layer: 0
   m_Name: Whale
   m_TagString: Untagged
@@ -56,8 +57,9 @@ GameObject:
   - component: {fileID: 33878642703291668}
   - component: {fileID: 23984641401323020}
   - component: {fileID: 95066999853090828}
+  - component: {fileID: 114089197173199324}
   m_Layer: 0
-  m_Name: Visual
+  m_Name: WhaleAnim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -226,6 +228,40 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114089197173199324
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1701900579401526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b45fed72b61530748a01a392cc30d2e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentAnimationState: 0
+  animClipList: []
+--- !u!114 &114909970887747114
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1488403750361722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76a3ac3a9deec024da7399cc9f89092d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentWhaleState: 0
+  FirstFrenzyTime: 30
+  waitNextWaveDuration: 6
+  comingDuration: 9
+  whaleAnim: {fileID: 95066999853090828}
+  sfx_Whale:
+    clip: {fileID: 8300000, guid: ac11c25c64966094695518a75439eac7, type: 3}
+    volume: 1
+    oneTime: 0
+  whaleAnimFrame: 605
 --- !u!136 &136021596886892990
 CapsuleCollider:
   m_ObjectHideFlags: 1

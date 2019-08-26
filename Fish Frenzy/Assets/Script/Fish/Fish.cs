@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fish : Creature {
-    public enum fState
+public class Fish : Creature
+{
+
+    public enum FishConditionalState
     {
         swim=0,
         baited,
@@ -12,12 +14,13 @@ public class Fish : Creature {
         threw,
         ground,
         kept,
+        lowDurability,
         dehydrate,
         fall,
     }
     public GameObject temp;
     [Header("Info")]
-    public fState state;
+    public FishConditionalState state;
     public GameObject holder;
     private Player _playerHolder;
     public Player GetPlayerHolder
@@ -40,6 +43,7 @@ public class Fish : Creature {
 
     [Header("Fishing")]
     public float durability = 7;
+    public float lowDurabilityFloor = 2;
     private float dehydration;
     public float weight;
     public int mashCountDown = 2;
@@ -117,27 +121,35 @@ public class Fish : Creature {
 
     void LeftPlayer()
     {
-        if(state != fState.ground)
+        if(state != FishConditionalState.ground)
         {
             transform.parent = null;
-            GetPlayerHolder._cPlayerFishInteraction.SetHoldFish(false);
+            if (GetPlayerHolder)
+            {
+                GetPlayerHolder._cPlayerFishInteraction.SetHoldFish(false);
+            }
         }
     }
 
     void Dehydrate()
     {
-        if (state == fState.hold || state== fState.ground)
+        if (state == FishConditionalState.hold || state== FishConditionalState.ground || state == FishConditionalState.lowDurability)
         {
             durability -= Time.deltaTime;
             if (durability <= 0)
             {
                 LeftPlayer();
-                state = fState.dehydrate;
+                state = FishConditionalState.dehydrate;
                 _pickupFish.HidePrompt();
                 JumpToWater();
 
                 _cSpecial.OnDehydrate();
             }
+            else if (durability < lowDurabilityFloor)
+            {
+                state = FishConditionalState.lowDurability;
+            }
+
         }
     }
 
@@ -153,7 +165,7 @@ public class Fish : Creature {
             mashCountDown -= 1;
             if (mashCountDown <= 0)
             {
-                ChangeState(fState.toPlayer);
+                ChangeState(FishConditionalState.toPlayer);
                 return true;
             }
         }
@@ -179,27 +191,27 @@ public class Fish : Creature {
         this.gameObject.SetActive(!keep);
         if (keep)
         {
-            state = fState.kept;
+            state = FishConditionalState.kept;
         }else
         {
-            state = fState.hold;
+            state = FishConditionalState.hold;
         }
     }
 
-    public void ChangeState(fState pState)
+    public void ChangeState(FishConditionalState pState)
     {
         OnStateChange(pState);
         state = pState;
     }
 
-    void OnStateChange(fState stateChange)
+    void OnStateChange(FishConditionalState stateChange)
     {
-        if (stateChange == fState.toPlayer)
+        if (stateChange == FishConditionalState.toPlayer)
         {
             direction = holder.transform.position - transform.position;
             FishJump(fishMass, jumpForce, direction, jumpSpeed);
         }
-        else if(stateChange == fState.ground)
+        else if(stateChange == FishConditionalState.ground)
         {
             gameObject.layer = LayerMask.NameToLayer("Fish_All");
             SetToGround(true);
@@ -246,7 +258,7 @@ public class Fish : Creature {
 
     void JumpToWater()
     {
-        if(state == fState.hold)
+        if(state == FishConditionalState.hold)
         {
             GetPlayerHolder._cPlayerFishInteraction.SetMainFishTransformAsPart(Player.ePart.body, Player.ePart.body, false);
         }
@@ -322,7 +334,7 @@ public class Fish : Creature {
 
     void CheckJustGround()
     {
-        if (state == fState.threw || state == fState.fall)
+        if (state == FishConditionalState.threw || state == FishConditionalState.fall)
         {
             RaycastHit hit;
             if (Physics.Raycast(getLowestFishPoint(), transform.TransformDirection(Vector3.down), out hit, rayDistance ))
@@ -331,13 +343,13 @@ public class Fish : Creature {
                 {
                     if (hit.transform.gameObject.tag == "Ground" && _rigid.velocity.y < 0)
                     {
-                        ChangeState(fState.ground);
+                        ChangeState(FishConditionalState.ground);
                     }
                 }else
                 {
                     if (hit.transform.gameObject.tag == "Ground")
                     {
-                        ChangeState(fState.ground);
+                        ChangeState(FishConditionalState.ground);
                     }
                 }
                
@@ -347,11 +359,11 @@ public class Fish : Creature {
 
     private void OnCollisionEnter(Collision other)
     {
-        if (state == fState.fall)
+        if (state == FishConditionalState.fall)
         {
             if (other.gameObject.tag == "Ground")
             {
-                ChangeState(fState.ground);
+                ChangeState(FishConditionalState.ground);
             }
            
         }
@@ -359,14 +371,14 @@ public class Fish : Creature {
 
     void CheckWater()
     {
-        if (state == fState.threw || state == fState.dehydrate || state == fState.fall)
+        if (state == FishConditionalState.threw || state == FishConditionalState.dehydrate || state == FishConditionalState.fall)
         {
             RaycastHit hit;
             if (Physics.Raycast(getLowestFishPoint(), transform.TransformDirection(Vector3.down), out hit, rayDistance))
             {
                 if (hit.transform.gameObject.tag == "Sea" && _rigid.velocity.y < 0)
                 {
-                    state = fState.swim;
+                    state = FishConditionalState.swim;
                     GetCollider<BoxCollider>().enabled = false;
                     SoundManager.Instance.PlaySound(sfx_WaterJump,transform.position);
                 }

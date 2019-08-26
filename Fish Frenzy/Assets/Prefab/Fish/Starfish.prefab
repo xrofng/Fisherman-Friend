@@ -235,7 +235,7 @@ Animator:
   m_GameObject: {fileID: 1611034412136168}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5a5524f730540ad42b17080d010b7406, type: 2}
+  m_Controller: {fileID: 9100000, guid: 34906218c8e220b4a8d37159aae66599, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -291,6 +291,7 @@ MonoBehaviour:
   ignorePlayerFrame: 0
   fishMeshRenderer: {fileID: 23596494890363816}
   durability: 10
+  lowDurabilityFloor: 2
   weight: 0
   mashCountDown: 3
   spawnRate: 14

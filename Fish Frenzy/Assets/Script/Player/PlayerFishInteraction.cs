@@ -28,18 +28,18 @@ public class PlayerFishInteraction : PlayerAbility {
         Fish f = g.GetComponent<Fish>();
         switch (f.state)
         {
-            case Fish.fState.swim:
+            case Fish.FishConditionalState.swim:
                 break;
 
-            case Fish.fState.baited:
+            case Fish.FishConditionalState.baited:
                 break;
-            case Fish.fState.toPlayer:
-                break;
-
-            case Fish.fState.hold:
+            case Fish.FishConditionalState.toPlayer:
                 break;
 
-            case Fish.fState.threw:
+            case Fish.FishConditionalState.hold:
+                break;
+
+            case Fish.FishConditionalState.threw:
                 if (!isOwnerFish(f) && !f.CheckIgnoredObject(_player.gameObject))
                 {
                     _player.rigid.velocity = Vector3.zero;
@@ -49,9 +49,9 @@ public class PlayerFishInteraction : PlayerAbility {
                     f.fishBounce();
                 }
                 break;
-            case Fish.fState.ground:
+            case Fish.FishConditionalState.ground:
                 break;
-            case Fish.fState.fall:
+            case Fish.FishConditionalState.fall:
                 break;
         }
     }
@@ -140,35 +140,35 @@ public class PlayerFishInteraction : PlayerAbility {
             yield return new WaitForEndOfFrame();
             frameCount++;
         }
-        HoldThatFish(_player.baitedFish);
+        HoldFish(_player.baitedFish);
     }
 
-    public void HoldThatFish(Fish f)
+    public void HoldFish(Fish fish)
     {
-        f.ChangeState(Fish.fState.hold);
-        f.gameObject.transform.parent = _player.GetPart(Player.ePart.rightArm).transform;
-        f.SnapTransform();
-        f.RemoveRigidBody();
-        f.SetToGround(false);
-        f.SetHolder(_player.gameObject);
-        _player.mainFish = f;
+        fish.ChangeState(Fish.FishConditionalState.hold);
+        fish.gameObject.transform.parent = _player.GetPart(Player.ePart.rightArm).transform;
+        fish.SnapTransform();
+        fish.RemoveRigidBody();
+        fish.SetToGround(false);
+        fish.SetHolder(_player.gameObject);
+        _player.mainFish = fish;
         _player.baitedFish = null;
         GetCrossZComponent<PlayerFishInteraction>().SetHoldFish(true);
         GetCrossZComponent<PlayerFishInteraction>().SetFishCollideType(PlayerFishInteraction.CollideType.Uncollide, _player.mainFish, _player);
         GetCrossZComponent<PlayerFishing>().SetFishing(false);
         _player.rigid.velocity = Vector3.zero;
 
-        if (f.gameObject.GetComponent<FishSpecialMelee>())
+        if (fish.gameObject.GetComponent<FishSpecialMelee>())
         {
-            f.gameObject.GetComponent<FishSpecialMelee>().SetUpFishSpecial();
+            fish.gameObject.GetComponent<FishSpecialMelee>().SetUpFishSpecial();
         }
-        if (f.gameObject.GetComponent<FishSpecialSpawn>())
+        if (fish.gameObject.GetComponent<FishSpecialSpawn>())
         {
-            f.gameObject.GetComponent<FishSpecialSpawn>().SetUpFishSpecial();
+            fish.gameObject.GetComponent<FishSpecialSpawn>().SetUpFishSpecial();
         }
-        if (f.gameObject.GetComponent<FishSpecialThrow>())
+        if (fish.gameObject.GetComponent<FishSpecialThrow>())
         {
-            f.gameObject.GetComponent<FishSpecialThrow>().SetUpFishSpecial();
+            fish.gameObject.GetComponent<FishSpecialThrow>().SetUpFishSpecial();
         }
 
         if (coroutineFinishFishing != null)

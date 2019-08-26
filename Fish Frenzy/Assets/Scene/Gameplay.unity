@@ -2047,6 +2047,9 @@ MonoBehaviour:
   respawnTime: 5
   respawnInvincTime: 1
   respawnPositionOffset: 8
+  firstSpawnFishLayer:
+    serializedVersion: 2
+    m_Bits: 0
   FishJumpToWaterMultiplier: {x: 8, y: 10}
   deathRealm: {fileID: 1560228767}
   fishPool:
@@ -2192,10 +2195,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 20
       objectReference: {fileID: 0}
-    - target: {fileID: 1701900579401526, guid: 5e780846ae5a5fb4c97f2e8d89a52bc8, type: 2}
-      propertyPath: m_Name
-      value: WhaleAnim
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e780846ae5a5fb4c97f2e8d89a52bc8, type: 2}
   m_IsPrefabAsset: 0
@@ -2280,6 +2279,8 @@ MonoBehaviour:
   spawnTime: {x: 0, y: 0.9}
   fallSpeed: {x: 0, y: 50}
   amountRange: {x: 4, y: 7}
+  spawnPosY: 0
+  spawnOffset: {x: 0, y: 0, z: 0}
   SpawnPoints:
   - {fileID: 1502559715}
   - {fileID: 1847074033}
@@ -12711,6 +12712,7 @@ MonoBehaviour:
   ignorePlayerFrame: 0
   fishMeshRenderer: {fileID: 2130809850}
   durability: 12
+  lowDurabilityFloor: 2
   weight: 0
   mashCountDown: 1
   spawnRate: 15
@@ -14212,32 +14214,6 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!1 &1133060196 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1488403750361722, guid: 5e780846ae5a5fb4c97f2e8d89a52bc8,
-    type: 2}
-  m_PrefabInternal: {fileID: 163832091}
---- !u!114 &1133060197
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1133060196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76a3ac3a9deec024da7399cc9f89092d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _currentWhaleState: 0
-  FirstFrenzyTime: 30
-  waitNextWaveDuration: 6
-  comingDuration: 9
-  whaleAnim: {fileID: 2017298288}
-  sfx_Whale:
-    clip: {fileID: 8300000, guid: ac11c25c64966094695518a75439eac7, type: 3}
-    volume: 1
-    oneTime: 0
-  whaleAnimFrame: 605
 --- !u!1 &1134442454
 GameObject:
   m_ObjectHideFlags: 0
@@ -22531,29 +22507,6 @@ Transform:
   m_Father: {fileID: 1128780479}
   m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2017298285 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1701900579401526, guid: 5e780846ae5a5fb4c97f2e8d89a52bc8,
-    type: 2}
-  m_PrefabInternal: {fileID: 163832091}
---- !u!114 &2017298286
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2017298285}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b45fed72b61530748a01a392cc30d2e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _currentAnimationState: 0
-  animClipList: []
---- !u!95 &2017298288 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 95066999853090828, guid: 5e780846ae5a5fb4c97f2e8d89a52bc8,
-    type: 2}
-  m_PrefabInternal: {fileID: 163832091}
 --- !u!1 &2019830885
 GameObject:
   m_ObjectHideFlags: 0
