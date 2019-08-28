@@ -285,13 +285,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21300686d0b82e2468e9faf58577675f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fishId: 2
   temp: {fileID: 1741521758649520, guid: 5f192c056a302e9418bd3b64d9801479, type: 2}
   state: 0
   holder: {fileID: 0}
   ignorePlayerFrame: 0
   fishMeshRenderer: {fileID: 23596494890363816}
   durability: 10
-  lowDurabilityFloor: 2
+  lowDurabilityFloor: 1
   weight: 0
   mashCountDown: 3
   spawnRate: 14
