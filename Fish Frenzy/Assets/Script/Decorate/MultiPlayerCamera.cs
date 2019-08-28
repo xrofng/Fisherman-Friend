@@ -48,10 +48,6 @@ public class MultiPlayerCamera : MonoBehaviour
 
     void Update_Game()
     {
-        if (SceneManager.GetActiveScene().name != "Gameplay")
-        {
-            return;
-        }
         if (!MultiCamEnable)
         {
             return;

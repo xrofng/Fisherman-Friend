@@ -14,8 +14,9 @@ public class FrenzySpawner : MonoBehaviour
     public float spawnPosY;
     public Vector3 spawnOffset;
 
-    public List<Transform> SpawnPoints = new List<Transform>();
-    public List<int> spawnedPoint = new List<int>();
+    public Transform frenzyPointStore;
+    private Transform[] spawnPoints;
+    private List<int> spawnedPoint = new List<int>();
 
     [Header("Other Class Ref")]
     protected PortRoyal portRoyal;
@@ -23,6 +24,7 @@ public class FrenzySpawner : MonoBehaviour
     void Start ()
     {
         portRoyal = FFGameManager.Instance.PortRoyal;
+        spawnPoints = frenzyPointStore.GetComponentsInChildren<Transform>();
     }
 	
     public void FrenzySpawnFish()
@@ -31,14 +33,14 @@ public class FrenzySpawner : MonoBehaviour
         spawnedPoint.Clear();
         for (int i = 0; i < amountFish; i++)
         {
-            int spawnPointIndex = Random.Range(0, SpawnPoints.Count - 1);
+            int spawnPointIndex = Random.Range(0, spawnPoints.Length - 1);
             while (spawnedPoint.Contains(spawnPointIndex))
             {
-                spawnPointIndex = Random.Range(0, SpawnPoints.Count - 1);
+                spawnPointIndex = Random.Range(0, spawnPoints.Length - 1);
             }
             spawnedPoint.Add(spawnPointIndex);
 
-            Vector3 spawnPos = SpawnPoints[spawnPointIndex].position;
+            Vector3 spawnPos = spawnPoints[spawnPointIndex].position;
             spawnPos.y = spawnPosY;
             spawnPos += spawnOffset;
 
@@ -73,16 +75,10 @@ public class FrenzySpawner : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.color = rayColor;
-        SpawnPoints.Clear();
 
-        foreach (Transform pointobj in transform.GetComponentsInChildren<Transform>())
+        foreach (Transform pointobj in frenzyPointStore.GetComponentsInChildren<Transform>())
         {
-            if (pointobj != this.transform)
-            {
-                SpawnPoints.Add(pointobj);
-                Gizmos.DrawWireSphere(pointobj.position, wireSphereRadius);
-            }
-           
+            Gizmos.DrawWireSphere(pointobj.position, wireSphereRadius);
         }
     }
 }

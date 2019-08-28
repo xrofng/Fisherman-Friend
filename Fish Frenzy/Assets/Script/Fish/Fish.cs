@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Fish : Creature
 {
-
+    public int fishId;
     public enum FishConditionalState
     {
         swim=0,
@@ -102,6 +102,7 @@ public class Fish : Creature
         gameLoop = FFGameManager.Instance.GameLoop;
         portRoyal = FFGameManager.Instance.PortRoyal;
         SetMesh(fishMeshRenderer);
+        Animation.Animator.SetInteger("FishId", fishId);
     }
 
     // Update is called once per frame
