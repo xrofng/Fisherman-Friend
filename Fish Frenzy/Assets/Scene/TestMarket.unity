@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.801
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.49046057, g: 0.44181448, b: 0.74276716, a: 0.801}
+  m_IndirectSpecularColor: {r: 0.5174175, g: 0.4518044, b: 0.7412683, a: 0.801}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1390,9 +1390,19 @@ Prefab:
       propertyPath: m_RootOrder
       value: 17
       objectReference: {fileID: 0}
+    - target: {fileID: 114183386673283880, guid: c5d9d871985d68e4cab1c59335e633a9,
+        type: 2}
+      propertyPath: frenzyPointStore
+      value: 
+      objectReference: {fileID: 222305756}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5d9d871985d68e4cab1c59335e633a9, type: 2}
   m_IsPrefabAsset: 0
+--- !u!4 &222305756 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4657754612760044, guid: c5d9d871985d68e4cab1c59335e633a9,
+    type: 2}
+  m_PrefabInternal: {fileID: 222305755}
 --- !u!1 &225112886
 GameObject:
   m_ObjectHideFlags: 0
@@ -7485,6 +7495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21300686d0b82e2468e9faf58577675f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fishId: 0
   temp: {fileID: 1741521758649520, guid: 5f192c056a302e9418bd3b64d9801479, type: 2}
   state: 0
   holder: {fileID: 0}

@@ -9,80 +9,80 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1932084071963072}
+  m_RootGameObject: {fileID: 1916139448920114}
   m_IsPrefabAsset: 1
---- !u!1 &1932084071963072
+--- !u!1 &1388877077081930
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4585741113791544}
-  - component: {fileID: 65925870460092574}
-  - component: {fileID: 114447408894065984}
-  - component: {fileID: 114109508714941994}
-  - component: {fileID: 82612576762288146}
-  - component: {fileID: 114515199957103786}
-  - component: {fileID: 95866220282495180}
-  - component: {fileID: 114729089609547344}
-  m_Layer: 0
-  m_Name: Eel
-  m_TagString: Fish
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1996391577515160
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4072137911606198}
-  - component: {fileID: 33363509374732098}
-  - component: {fileID: 23609865208187692}
+  - component: {fileID: 4221678765711030}
+  - component: {fileID: 33186188930718524}
+  - component: {fileID: 23271880803393762}
   m_Layer: 0
   m_Name: Model
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1916139448920114
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4801043439205422}
+  - component: {fileID: 65646660916743196}
+  - component: {fileID: 114174926280458592}
+  - component: {fileID: 114231140698944934}
+  - component: {fileID: 82276611495408260}
+  - component: {fileID: 95535419549181530}
+  - component: {fileID: 114603847899059960}
+  - component: {fileID: 114671044528080842}
+  m_Layer: 0
+  m_Name: 6_Trident
   m_TagString: Fish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4072137911606198
+--- !u!4 &4221678765711030
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1996391577515160}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 1388877077081930}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4585741113791544}
+  m_Father: {fileID: 4801043439205422}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4585741113791544
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!4 &4801043439205422
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1932084071963072}
+  m_GameObject: {fileID: 1916139448920114}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 26.466883, y: 29.391651, z: 29.391651}
+  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_Children:
-  - {fileID: 4072137911606198}
+  - {fileID: 4221678765711030}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23609865208187692
+--- !u!23 &23271880803393762
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1996391577515160}
+  m_GameObject: {fileID: 1388877077081930}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -92,7 +92,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 8a4d2fe163bb0cc469e35164817f37dd, type: 2}
+  - {fileID: 2100000, guid: 9fb65c3293b06fe4d8c4e20705717d68, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -112,31 +112,31 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33363509374732098
+--- !u!33 &33186188930718524
 MeshFilter:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1996391577515160}
-  m_Mesh: {fileID: 4300000, guid: 543b9c995f59d434ea788c352cfdf7a3, type: 3}
---- !u!65 &65925870460092574
+  m_GameObject: {fileID: 1388877077081930}
+  m_Mesh: {fileID: 4300000, guid: 9fb65c3293b06fe4d8c4e20705717d68, type: 3}
+--- !u!65 &65646660916743196
 BoxCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1932084071963072}
+  m_GameObject: {fileID: 1916139448920114}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.008997474, y: 0.009554743, z: 0.15612887}
-  m_Center: {x: 0, y: 0.0008905638, z: 0.059716012}
---- !u!82 &82612576762288146
+  m_Size: {x: 0.04, y: 0.01, z: 0.1}
+  m_Center: {x: 0, y: 0, z: 0.05}
+--- !u!82 &82276611495408260
 AudioSource:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1932084071963072}
+  m_GameObject: {fileID: 1916139448920114}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
@@ -226,13 +226,13 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!95 &95866220282495180
+--- !u!95 &95535419549181530
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1932084071963072}
+  m_GameObject: {fileID: 1916139448920114}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 34906218c8e220b4a8d37159aae66599, type: 2}
@@ -244,12 +244,64 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114109508714941994
+--- !u!114 &114174926280458592
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1932084071963072}
+  m_GameObject: {fileID: 1916139448920114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21300686d0b82e2468e9faf58577675f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fishId: 6
+  temp: {fileID: 1741521758649520, guid: 5f192c056a302e9418bd3b64d9801479, type: 2}
+  state: 0
+  holder: {fileID: 0}
+  ignorePlayerFrame: 0
+  fishMeshRenderer: {fileID: 23271880803393762}
+  durability: 30
+  lowDurabilityFloor: 1
+  weight: 0
+  mashCountDown: 1
+  spawnRate: 1
+  rayDistance: 0.25
+  maxHolding: 5
+  throwAttack: 0
+  t_invicibilityFrame: 50
+  t_launchingDamage: 1
+  lastHoldPoition: {x: 0, y: 0, z: 0}
+  chargePercent: 0
+  holdPosition: {x: 0.00006958129, y: 0.00963, z: -0.01432}
+  holdRotation: {x: -35, y: 180, z: 0}
+  aimPositioningOffset: {x: 0, y: 0, z: 0}
+  sfx_WaterJump:
+    clip: {fileID: 8300000, guid: 391886dd2fd156a44873b2eeeb6d6248, type: 3}
+    volume: 1
+    oneTime: 0
+  sfx_Slap:
+    clip: {fileID: 8300000, guid: 76d3523a591904046bc04aace0181371, type: 3}
+    volume: 1
+    oneTime: 0
+  sfx_Throw:
+    clip: {fileID: 8300000, guid: 43523274498e82f4e990bf7dcc388f27, type: 3}
+    volume: 1
+    oneTime: 0
+  sfx_Special:
+    clip: {fileID: 8300000, guid: 76d3523a591904046bc04aace0181371, type: 3}
+    volume: 1
+    oneTime: 0
+  fishIcon: {fileID: 21300000, guid: eea84c29f313da040b6f2a4457959648, type: 3}
+  fishName: {fileID: 21300000, guid: f03aaede427b1894d811bb55fc13a094, type: 3}
+  fishStored: {fileID: 21300000, guid: d6889fb5c0caca74a8d690104fc824b9, type: 3}
+  _cSpecial: {fileID: 0}
+--- !u!114 &114231140698944934
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1916139448920114}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3701a61f4a003047afca7f5c500f5ae, type: 3}
@@ -261,97 +313,12 @@ MonoBehaviour:
   pickUpImage: {fileID: 114966499513919200, guid: 30e9f486e02400240b828642365cd627,
     type: 2}
   allowToPick: 0
---- !u!114 &114447408894065984
+--- !u!114 &114603847899059960
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1932084071963072}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21300686d0b82e2468e9faf58577675f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fishId: 5
-  temp: {fileID: 1741521758649520, guid: 5f192c056a302e9418bd3b64d9801479, type: 2}
-  state: 0
-  holder: {fileID: 0}
-  ignorePlayerFrame: 0
-  fishMeshRenderer: {fileID: 23609865208187692}
-  durability: 7
-  lowDurabilityFloor: 1
-  weight: 0
-  mashCountDown: 3
-  spawnRate: 11
-  rayDistance: 0.25
-  maxHolding: 5
-  throwAttack: 0
-  t_invicibilityFrame: 50
-  t_launchingDamage: 1
-  lastHoldPoition: {x: 0, y: 0, z: 0}
-  chargePercent: 0
-  holdPosition: {x: -0.000000002095696, y: 0.01601, z: 0.01917}
-  holdRotation: {x: 145, y: 0, z: 0}
-  aimPositioningOffset: {x: 0, y: 0, z: 0}
-  sfx_WaterJump:
-    clip: {fileID: 8300000, guid: 391886dd2fd156a44873b2eeeb6d6248, type: 3}
-    volume: 1
-    oneTime: 0
-  sfx_Slap:
-    clip: {fileID: 0}
-    volume: 1
-    oneTime: 0
-  sfx_Throw:
-    clip: {fileID: 8300000, guid: 43523274498e82f4e990bf7dcc388f27, type: 3}
-    volume: 1
-    oneTime: 0
-  sfx_Special:
-    clip: {fileID: 8300000, guid: 76d3523a591904046bc04aace0181371, type: 3}
-    volume: 1
-    oneTime: 0
-  fishIcon: {fileID: 21300000, guid: b8762b7a0445331489c52b433dec9c16, type: 3}
-  fishName: {fileID: 21300000, guid: 0daf92f248496a245a0c53122e15a3d8, type: 3}
-  fishStored: {fileID: 21300000, guid: b1df3557e9fcbad44a7420d16e89f482, type: 3}
-  _cSpecial: {fileID: 0}
---- !u!114 &114515199957103786
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1932084071963072}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12e2aa3f861dbde4898c25c7c78df741, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attack: 35
-  specialClip: 9
-  movingobject: {fileID: 114532827588214438, guid: 6415abaacfab66948abfae3bbfc54429,
-    type: 2}
-  throwFrameDuration: 999
-  invicibilityFrame: 50
-  freezeFrame: 0
-  launchingDamage: 1
-  channelingFrameDuration: 30
-  ignoreInput: 1
-  damageFrameDuration: 20
-  releaseFrameDuration: 10
-  finalBlowForce: 2
-  sfx_attach:
-    clip: {fileID: 8300000, guid: ab553917f1d24d240b7579019a7c1e08, type: 3}
-    volume: 1
-    oneTime: 0
-  sfx_swing:
-    clip: {fileID: 8300000, guid: e2b73d153c1a26d488b4a232decc0c5a, type: 3}
-    volume: 1
-    oneTime: 0
-  hookSlapClip: 10
---- !u!114 &114729089609547344
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1932084071963072}
+  m_GameObject: {fileID: 1916139448920114}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b45fed72b61530748a01a392cc30d2e2, type: 3}
@@ -359,3 +326,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentAnimationState: 0
   animClipList: []
+--- !u!114 &114671044528080842
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1916139448920114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c08e79d5b918bda4c9d6a623f2355508, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

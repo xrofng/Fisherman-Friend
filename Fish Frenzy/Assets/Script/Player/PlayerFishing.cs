@@ -64,11 +64,12 @@ public class PlayerFishing : PlayerAbility
             case Player.eState.fishing:
                 if (_player.baitedFish.MashForCatch())
                 {
+                    GetCrossZComponent<PlayerFishInteraction>().FinishFishing(_player.baitedFish);
+
                     _player.baitedFish.fishMeshRenderer.enabled = true;
                     _player.ChangeState(Player.eState.waitForFish);
                     _player.Animation.ChangeAnimState((int)PlayerAnimation.Anim.FishingEnd, true, (int)PlayerAnimation.Anim.HoldFish);
 
-                    GetCrossZComponent<PlayerFishInteraction>().FinishFishing();
                     guiManager.UpdateMashFishingButtonIndicator(_player.playerID, fishPoint.position, false);
                 }
                 break;

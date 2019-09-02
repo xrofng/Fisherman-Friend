@@ -279,7 +279,7 @@ public class Player : Creature
     {
         yield return new WaitForSeconds(waitBeforeRespawn);
         rigid.velocity = Vector3.zero;
-        this.transform.position = portRoyal.randomSpawnPosition(Vector3.up * portRoyal.respawnPositionOffset);
+        this.transform.position = portRoyal.RandomSpawnPosition(Vector3.up * portRoyal.respawnPositionOffset);
         Death = false;
         _cPlayerFishInteraction.SetHoldFish(false);
         this.damagePercent = 0;

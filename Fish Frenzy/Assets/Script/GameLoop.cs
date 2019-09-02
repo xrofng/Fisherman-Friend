@@ -145,11 +145,11 @@ public class GameLoop : MonoBehaviour
         portRoyal.Player[playerID] = p;
         p.playerID = playerID + 1;
         p.gameObject.name = "Player" + p.playerID;
-        int positionIndex = portRoyal.randomSpawnPosIndex();
+        int positionIndex = portRoyal.RandomSpawnPosIndex();
 
         while (takenPos.Contains(positionIndex))
         {
-            positionIndex = portRoyal.randomSpawnPosIndex();
+            positionIndex = portRoyal.RandomSpawnPosIndex();
         }
 
         p.gameObject.transform.position = portRoyal.getSpawnPositionAtIndex(positionIndex);

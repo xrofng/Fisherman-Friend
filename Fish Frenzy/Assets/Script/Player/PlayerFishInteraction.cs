@@ -124,12 +124,18 @@ public class PlayerFishInteraction : PlayerAbility {
         }
     }
 
-    IEnumerator coroutineFinishFishing;
-
-    public void FinishFishing()
+    public void FinishFishing(Fish fish)
     {
-        coroutineFinishFishing = ieFinishFishing(beforeHoldFrameDuration);
-        StartCoroutine(coroutineFinishFishing);
+        ActivateOnFishing activateOnFishing = fish.GetComponent<ActivateOnFishing>();
+        if (activateOnFishing)
+        {
+            activateOnFishing.OnFishingAction();
+        }
+
+        IEnumerator coroutineFinishFishing = ieFinishFishing(beforeHoldFrameDuration);
+        StartCoroutine(coroutineFinishFishing)
+
+        
     }
 
     IEnumerator ieFinishFishing(int frameDuration)
