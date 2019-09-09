@@ -133,9 +133,7 @@ public class PlayerFishInteraction : PlayerAbility {
         }
 
         IEnumerator coroutineFinishFishing = ieFinishFishing(beforeHoldFrameDuration);
-        StartCoroutine(coroutineFinishFishing)
-
-        
+        StartCoroutine(coroutineFinishFishing);
     }
 
     IEnumerator ieFinishFishing(int frameDuration)
@@ -177,9 +175,6 @@ public class PlayerFishInteraction : PlayerAbility {
             fish.gameObject.GetComponent<FishSpecialThrow>().SetUpFishSpecial();
         }
 
-        if (coroutineFinishFishing != null)
-        {
-            StopCoroutine(coroutineFinishFishing);
-        }
+        StopCoroutine(ieFinishFishing(beforeHoldFrameDuration));
     }
 }

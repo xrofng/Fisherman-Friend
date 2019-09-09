@@ -354,7 +354,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 4d130bf0efb027242a98128bca5a2b92, type: 3}
     volume: 1
     oneTime: 0
-  fishIcon: {fileID: 21300000, guid: e3095200a1646ce45b900224412acf0d, type: 3}
-  fishName: {fileID: 21300000, guid: e1b66ccc501aed14f8e0cb170b2a2fec, type: 3}
-  fishStored: {fileID: 21300000, guid: 3e05e7ec2d00b6a4390714411a3b2995, type: 3}
+  fishHudInfo:
+    fishIcon: {fileID: 21300000, guid: e3095200a1646ce45b900224412acf0d, type: 3}
+    fishName: {fileID: 21300000, guid: e1b66ccc501aed14f8e0cb170b2a2fec, type: 3}
+    fishStored: {fileID: 21300000, guid: 3e05e7ec2d00b6a4390714411a3b2995, type: 3}
   _cSpecial: {fileID: 0}

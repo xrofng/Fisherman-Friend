@@ -16,6 +16,7 @@ public class FishPool
         {
             if (!cachedFishSpawnings.ContainsKey(fishSpawning.Fish))
             {
+                Debug.Log("cache" + fishSpawning.Fish.name);
                 cachedFishSpawnings.Add(fishSpawning.Fish, fishSpawning);
             }
         }
@@ -49,6 +50,8 @@ public class FishPool
 
     public void RemoveFish(Fish remove)
     {
+        Debug.Log(remove.fishId);
+        Debug.Log(cachedFishSpawnings.ContainsKey(remove));
         FishSpawnings.Remove(cachedFishSpawnings[remove]);
         CalculateTotalSpawnRate();
     }

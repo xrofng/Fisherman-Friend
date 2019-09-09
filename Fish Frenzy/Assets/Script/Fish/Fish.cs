@@ -77,10 +77,7 @@ public class Fish : Creature
     public SoundEffect sfx_Throw;
     public SoundEffect sfx_Special;
 
-    [Header("Picture")]
-    public Sprite fishIcon;
-    public Sprite fishName;
-    public Sprite fishStored;
+    public FishHudInfo fishHudInfo; 
 
     [HideInInspector]
     public FishSpecial _cSpecial;
