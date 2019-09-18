@@ -124,11 +124,15 @@ public class PlayerFishInteraction : PlayerAbility {
         }
     }
 
-    IEnumerator coroutineFinishFishing;
-
-    public void FinishFishing()
+    public void FinishFishing(Fish fish)
     {
-        coroutineFinishFishing = ieFinishFishing(beforeHoldFrameDuration);
+        ActivateOnFishing activateOnFishing = fish.GetComponent<ActivateOnFishing>();
+        if (activateOnFishing)
+        {
+            activateOnFishing.OnFishingAction();
+        }
+
+        IEnumerator coroutineFinishFishing = ieFinishFishing(beforeHoldFrameDuration);
         StartCoroutine(coroutineFinishFishing);
     }
 
@@ -171,9 +175,6 @@ public class PlayerFishInteraction : PlayerAbility {
             fish.gameObject.GetComponent<FishSpecialThrow>().SetUpFishSpecial();
         }
 
-        if (coroutineFinishFishing != null)
-        {
-            StopCoroutine(coroutineFinishFishing);
-        }
+        StopCoroutine(ieFinishFishing(beforeHoldFrameDuration));
     }
 }

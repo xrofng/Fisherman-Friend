@@ -6,18 +6,15 @@ public class PortRoyal : MonoBehaviour
 {
     public float characterMass;
 
-    public bool debugMode;
-    
     public float respawnTime;
     public float respawnInvincTime;
     public float respawnPositionOffset = 8;
-    public LayerMask firstSpawnFishLayer;
 
     public Vector2 FishJumpToWaterMultiplier;
 
     public Transform deathRealm;
 
-    public Fish[] fishPool;
+    public FishPool FishPool;
     protected float totalSpawnRate;
 
     public Player[] Player
@@ -38,14 +35,12 @@ public class PortRoyal : MonoBehaviour
     [Header("Debug")]
     public bool FixedFish = false;
     public Fish TestingFish;
+    public bool DrawDebugRay;
+
     // Use this for initialization
     void Start ()
     {
-        totalSpawnRate = 0;
-        for(int i = 0; i < fishPool.Length; i++)
-        {
-            totalSpawnRate += fishPool[i].spawnRate;
-        }
+        FishPool.Initialization();
 
         foreach (Coast coast in coastHolder.GetComponentsInChildren<Coast>())
         {
@@ -53,24 +48,26 @@ public class PortRoyal : MonoBehaviour
         }
 
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    
+
+    // Update is called once per frame
+    void Update ()
     {
         Test();
     }
 
-    public int randomSpawnPosIndex()
+    public int RandomSpawnPosIndex()
     {
         return Random.Range(0, spawnPoint.Length);
     }
-    public Vector3 randomSpawnPosition()
+    public Vector3 RandomSpawnPosition()
     {
-        return spawnPoint[randomSpawnPosIndex()].position;
+        return spawnPoint[RandomSpawnPosIndex()].position;
     }
-    public Vector3 randomSpawnPosition(Vector3 positionOffset)
+    public Vector3 RandomSpawnPosition(Vector3 positionOffset)
     {
-        return  randomSpawnPosition() + positionOffset;
+        return  RandomSpawnPosition() + positionOffset;
     }
     public Vector3 getSpawnPositionAtIndex(int index)
     {
@@ -79,7 +76,7 @@ public class PortRoyal : MonoBehaviour
     
     public Fish GetFish(int number)
     {
-        return fishPool[number];
+        return FishPool.FishSpawnings[number].Fish;
     }
     public Fish RandomFish()
     {
@@ -87,24 +84,8 @@ public class PortRoyal : MonoBehaviour
         {
             return TestingFish;
         }
-        int fishIndex = GetRandomFishIndex(); 
+        int fishIndex = FishPool.GetRandomFishIndex(); 
         return GetFish(fishIndex);
-    }
-
-    public int GetRandomFishIndex()
-    {
-        float ran = Random.Range(0, totalSpawnRate) ;
-        float spawnPercentOffset = 0;
-        for (int i = 0; i < fishPool.Length; i++)
-        {
-            if(ran< fishPool[i].spawnRate + spawnPercentOffset)
-            {
-                return i;
-            }
-            spawnPercentOffset += fishPool[i].spawnRate;
-        }
-        Debug.LogWarning("error random fish");
-        return 999;
     }
 
 
@@ -115,11 +96,11 @@ public class PortRoyal : MonoBehaviour
             ForceSpawnFish(TestingFish);
         }
         KeyCode spa = KeyCode.Keypad1;
-        for(int i = 0; i < fishPool.Length; i++)
+        for(int i = 0; i < FishPool.FishSpawnings.Count; i++)
         {
             if (Input.GetKeyDown(spa))
             {
-                ForceSpawnFish(fishPool[i]);
+                ForceSpawnFish(FishPool.FishSpawnings[i].Fish);
             }
             spa += 1;
         }
@@ -133,12 +114,16 @@ public class PortRoyal : MonoBehaviour
         newFish.ChangeState(Fish.FishConditionalState.fall);
         newFish.gameObject.AddComponent<Rigidbody>();
         newFish.Rigidbody.freezeRotation = true;
-        newFish.gameObject.layer = firstSpawnFishLayer;
+        newFish.gameObject.layer = LayerMask.NameToLayer("Fish_All");
         newFish.GetCollider<BoxCollider>().isTrigger = true;
     }
 
     void OnDrawGizmos()
     {
+        if (!DrawDebugRay)
+        {
+            return;
+        }
         // Draw a yellow sphere at the transform's position
         foreach(Transform point in coastHolder.GetComponentInChildren<Transform>())
         {

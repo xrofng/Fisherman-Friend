@@ -421,12 +421,27 @@ MonoBehaviour:
     m_Bits: 1024
   FishJumpToWaterMultiplier: {x: 8, y: 10}
   deathRealm: {fileID: 4171951954747200}
-  fishPool:
-  - {fileID: 114991169637547864, guid: 152ba1d955b7730468918818b841b43b, type: 2}
-  - {fileID: 114233512559669156, guid: 878485e8cf3b0c74595749eec4eb90c7, type: 2}
-  - {fileID: 114257537931697316, guid: fe938b2f86a8ac845b2c1d3292925b54, type: 2}
-  - {fileID: 114768006698364366, guid: adaf2cead1368e348a86e6f2202a5815, type: 2}
-  - {fileID: 114447408894065984, guid: aeccb13bec295bb44bfb133acf6276f3, type: 2}
+  FishPool:
+    FishSpawnings:
+    - name: generic
+      Fish: {fileID: 114991169637547864, guid: 152ba1d955b7730468918818b841b43b, type: 2}
+      spawnRate: 150
+    - name: star
+      Fish: {fileID: 114257537931697316, guid: fe938b2f86a8ac845b2c1d3292925b54, type: 2}
+      spawnRate: 140
+    - name: hammer
+      Fish: {fileID: 114233512559669156, guid: 878485e8cf3b0c74595749eec4eb90c7, type: 2}
+      spawnRate: 100
+    - name: sword
+      Fish: {fileID: 114768006698364366, guid: adaf2cead1368e348a86e6f2202a5815, type: 2}
+      spawnRate: 100
+    - name: eel
+      Fish: {fileID: 114447408894065984, guid: aeccb13bec295bb44bfb133acf6276f3, type: 2}
+      spawnRate: 110
+    - name: trident
+      Fish: {fileID: 114174926280458592, guid: 74a86637d250a9a43925dd3b27594b1c, type: 2}
+      spawnRate: 12
+    totalSpawnRate: 0
   spawnPoint:
   - {fileID: 4664929111680050}
   - {fileID: 4898723107163610}

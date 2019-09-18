@@ -135,7 +135,7 @@ public class PlayerHUD : MonoBehaviour {
     {
         if (HudOwner.subFish)
         {
-            fishStoreIconImage.sprite = HudOwner.subFish.fishStored;
+            fishStoreIconImage.sprite = HudOwner.subFish.fishHudInfo.fishStored;
         }
         else
         {
@@ -147,8 +147,8 @@ public class PlayerHUD : MonoBehaviour {
             fishNameImage.sprite = transparentSprite;
             return;
         }
-        fishIconImage.sprite = HudOwner.mainFish.fishIcon;
-        fishNameImage.sprite = HudOwner.mainFish.fishName;
+        fishIconImage.sprite = HudOwner.mainFish.fishHudInfo.fishIcon;
+        fishNameImage.sprite = HudOwner.mainFish.fishHudInfo.fishName;
     }
 
     /// <summary>

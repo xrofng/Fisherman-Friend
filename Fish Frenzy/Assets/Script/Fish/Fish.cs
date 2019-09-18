@@ -77,10 +77,7 @@ public class Fish : Creature
     public SoundEffect sfx_Throw;
     public SoundEffect sfx_Special;
 
-    [Header("Picture")]
-    public Sprite fishIcon;
-    public Sprite fishName;
-    public Sprite fishStored;
+    public FishHudInfo fishHudInfo; 
 
     [HideInInspector]
     public FishSpecial _cSpecial;
@@ -144,7 +141,10 @@ public class Fish : Creature
                 _pickupFish.HidePrompt();
                 JumpToWater();
 
-                _cSpecial.OnDehydrate();
+                if (_cSpecial)
+                {
+                    _cSpecial.OnDehydrate();
+                }
             }
             else if (durability < lowDurabilityFloor)
             {
@@ -328,7 +328,7 @@ public class Fish : Creature
         return Vector3.zero;
     }
 
-    public Vector3 getLowestFishPoint()
+    public Vector3 GetLowestFishPoint()
     {
         return new Vector3(transform.position.x, transform.position.y - (transform.localScale.y *  GetCollider<BoxCollider>().size.y) / 2.0f, transform.position.z);
     }
@@ -338,7 +338,7 @@ public class Fish : Creature
         if (state == FishConditionalState.threw || state == FishConditionalState.fall)
         {
             RaycastHit hit;
-            if (Physics.Raycast(getLowestFishPoint(), transform.TransformDirection(Vector3.down), out hit, rayDistance ))
+            if (Physics.Raycast(GetLowestFishPoint(), transform.TransformDirection(Vector3.down), out hit, rayDistance ))
             {
                 if (_rigid)
                 {
@@ -346,7 +346,8 @@ public class Fish : Creature
                     {
                         ChangeState(FishConditionalState.ground);
                     }
-                }else
+                }
+                else
                 {
                     if (hit.transform.gameObject.tag == "Ground")
                     {
@@ -375,7 +376,7 @@ public class Fish : Creature
         if (state == FishConditionalState.threw || state == FishConditionalState.dehydrate || state == FishConditionalState.fall)
         {
             RaycastHit hit;
-            if (Physics.Raycast(getLowestFishPoint(), transform.TransformDirection(Vector3.down), out hit, rayDistance))
+            if (Physics.Raycast(GetLowestFishPoint(), transform.TransformDirection(Vector3.down), out hit, rayDistance))
             {
                 if (hit.transform.gameObject.tag == "Sea" && _rigid.velocity.y < 0)
                 {
