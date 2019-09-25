@@ -35,7 +35,7 @@ public class PlayerSwitchFish : PlayerAbility
 
     void SwitchFish()
     {
-        if (_pInput.GetButtonDown(_pInput.Switch, _player.playerID - 1) || _pInput.GetButtonDown(_pInput.AltSwitch, _player.playerID - 1))
+        if (_pInput.GetButtonDown(_pInput.Switch, _player.playerID - 1))
         {
             _player.baitedFish = _player.subFish;
             _player.subFish = _player.mainFish;

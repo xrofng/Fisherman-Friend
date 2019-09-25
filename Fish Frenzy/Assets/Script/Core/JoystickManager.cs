@@ -18,7 +18,7 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
     public string Special = "Special";
     public string Throw = "Throw";
     public string Switch = "Switch";
-    public string AltSwitch = "AltSwitch";
+    public string Guard = "AltSwitch";
     public string Hori = "Hori";
     public string Verti = "Verti";
     public string Pause = "Pause";
@@ -75,10 +75,10 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
         // specify button of 1st joystick
         playerButton.Add(Fishing, KeyCode.Joystick1Button2);
         playerButton.Add(Jump, KeyCode.Joystick1Button1);
-        playerButton.Add(Special, KeyCode.Joystick1Button3);
-        playerButton.Add(Throw, KeyCode.Joystick1Button0);
-        playerButton.Add(Switch, KeyCode.Joystick1Button5);
-        playerButton.Add(AltSwitch, KeyCode.Joystick1Button4);
+        playerButton.Add(Special, KeyCode.Joystick1Button0);
+        playerButton.Add(Throw, KeyCode.Joystick1Button3);
+        playerButton.Add(Switch, KeyCode.Joystick1Button4);
+        playerButton.Add(Guard, KeyCode.Joystick1Button5);
         playerButton.Add(Pause, KeyCode.Joystick1Button9);
         playerButton.Add(R2, KeyCode.Joystick1Button7);
 
@@ -122,6 +122,13 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
             if (joyName == "Wireless Controller")
             {
             }
+            else 
+            if(joyName == "Wireless Gamepad")
+            {
+                SwapButton(Jump, Fishing, i);
+                SwapButton(Special, Jump, i);
+                //SwapButton(Hori, Verti, i);
+            }
             else
             if (joyName == ("Generic   USB  Joystick  "))
             {
@@ -131,8 +138,8 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
             else
             if (joyName.Contains("Controller"))
             {
-                SwapButton(Jump, Throw, i);
-                SwapButton(Throw, Fishing, i);
+                SwapButton(Special, Fishing, i);
+                SwapButton(Jump, Fishing, i);
                 SwapButton(R2, Pause, i);
             }
         }
