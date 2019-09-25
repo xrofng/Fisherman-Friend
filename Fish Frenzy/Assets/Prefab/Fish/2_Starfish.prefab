@@ -340,11 +340,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack: 20
   specialClip: 11
-  movingobject: {fileID: 114717754795570986, guid: ff305f621d0c71c4598ab42daacd2a38,
+  movingObjects: {fileID: 114717754795570986, guid: ff305f621d0c71c4598ab42daacd2a38,
     type: 2}
-  throwFrameDuration: 999
+  endByFrame: 0
   invicibilityFrame: 50
   freezeFrame: 0
   launchingDamage: 1
+  throwingFrameDuration: 10
   channelingFrameDuration: 10
   ignoreInput: 0

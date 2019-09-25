@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -44,5 +45,9 @@ public class MovingObject : MonoBehaviour
     protected virtual bool CheckEnd()
     {
         return false;
+    }
+
+    public virtual void OnBeforeDestroy()
+    {
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ public class FishSpecialHook : FishSpecialThrow {
     public int releaseFrameDuration = 10;
     public int finalBlowForce = 1;
     protected Player hookedPlayer;
+    private MovingObjHook _hookObject;
 
     [Header("SoundEffect")]
     public SoundEffect sfx_attach;
@@ -20,8 +22,8 @@ public class FishSpecialHook : FishSpecialThrow {
     {
         base.OnThrowStart();
         PlaySFX(sfx_swing);
-        MovingObjHook hookObj = currentMovingObj as MovingObjHook;
-        hookObj.sfx_attach = sfx_attach;
+        _hookObject = currentMovingObj as MovingObjHook;
+        _hookObject.sfx_attach = sfx_attach;
     }
 
     protected override void OnThrowEnd()
@@ -33,20 +35,19 @@ public class FishSpecialHook : FishSpecialThrow {
             StartCoroutine(FinalBlow());
         }else
         {
-            _player._cPlayerAnimator.ChangeAnimState((int)_player._cPlayerAnimator.GetIdleAnimation());
+            Player._cPlayerAnimator.ChangeAnimState((int)Player._cPlayerAnimator.GetIdleAnimation());
         }
-
-        Destroy(currentMovingObj.gameObject);
+        DestroyMovingObject(currentMovingObj);
     }
 
     IEnumerator FinalBlow()
     {
-        _player.AddAbilityInputIntercepter(this);
+        Player.AddAbilityInputIntercepter(this);
 
         hookedPlayer.AddAbilityInputIntercepter(this);
 
         int specialClip = (int)hookSlapClip;
-        _playerFishSpecial._pAnimator.ChangeAnimState(specialClip, damageFrameDuration, true);
+        PlayerFishSpecial._pAnimator.ChangeAnimState(specialClip, damageFrameDuration, true);
 
         int frameCount = 0;
         while (frameCount < damageFrameDuration)
@@ -55,8 +56,8 @@ public class FishSpecialHook : FishSpecialThrow {
             frameCount += 1;
         }
 
-        PlaySFX(_fish.sfx_Special);
-        hookedPlayer.recieveDamage(attack, _player.gameObject, hookedPlayer.transform.position + Vector3.up, invicibilityFrame, true , finalBlowForce);
+        PlaySFX(fish.sfx_Special);
+        hookedPlayer.recieveDamage(attack, Player.gameObject, hookedPlayer.transform.position + Vector3.up, invicibilityFrame, true , finalBlowForce);
 
         frameCount = 0;
         while (frameCount < releaseFrameDuration)
@@ -74,10 +75,10 @@ public class FishSpecialHook : FishSpecialThrow {
             hookedPlayer.RemoveAbilityInputIntercepter(this);
             hookedPlayer._cPlayerFishInteraction.SetPlayerCollideEverything(true);
         }
-        if (_player)
+        if (Player)
         {
-            _player.RemoveAbilityInputIntercepter(this);
-            _player._cPlayerAnimator.ChangeAnimState((int)_player._cPlayerAnimator.GetIdleAnimation());
+            Player.RemoveAbilityInputIntercepter(this);
+            Player._cPlayerAnimator.ChangeAnimState((int)Player._cPlayerAnimator.GetIdleAnimation());
         }
     }
 

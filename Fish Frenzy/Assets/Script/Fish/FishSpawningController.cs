@@ -6,7 +6,7 @@ using UnityEngine;
 public class FishPool
 {
     public List<FishSpawning> FishSpawnings = new List<FishSpawning>();
-    private Dictionary<Fish,FishSpawning> cachedFishSpawnings = new Dictionary<Fish, FishSpawning>();
+    private Dictionary<int, FishSpawning> cachedFishSpawnings = new Dictionary<int, FishSpawning>();
 
     public int totalSpawnRate = 0;
 
@@ -14,10 +14,9 @@ public class FishPool
     {
         foreach(FishSpawning fishSpawning in FishSpawnings)
         {
-            if (!cachedFishSpawnings.ContainsKey(fishSpawning.Fish))
+            if (!cachedFishSpawnings.ContainsKey(fishSpawning.Fish.fishId))
             {
-                Debug.Log("cache" + fishSpawning.Fish.name);
-                cachedFishSpawnings.Add(fishSpawning.Fish, fishSpawning);
+                cachedFishSpawnings.Add(fishSpawning.Fish.fishId, fishSpawning);
             }
         }
         CalculateTotalSpawnRate();
@@ -50,9 +49,7 @@ public class FishPool
 
     public void RemoveFish(Fish remove)
     {
-        Debug.Log(remove.fishId);
-        Debug.Log(cachedFishSpawnings.ContainsKey(remove));
-        FishSpawnings.Remove(cachedFishSpawnings[remove]);
+        FishSpawnings.Remove(cachedFishSpawnings[remove.fishId]);
         CalculateTotalSpawnRate();
     }
 }

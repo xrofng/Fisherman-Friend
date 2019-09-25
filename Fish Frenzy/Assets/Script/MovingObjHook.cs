@@ -104,4 +104,10 @@ public class MovingObjHook : MovingObject {
             StartHook();
         }
     }
+
+    public override void OnBeforeDestroy()
+    {
+        base.OnBeforeDestroy();
+        trailObject.transform.parent = transform;
+    }
 }

@@ -4892,6 +4892,46 @@ Prefab:
       propertyPath: frenzyPointStore
       value: 
       objectReference: {fileID: 940124501}
+    - target: {fileID: 114183386673283880, guid: c5d9d871985d68e4cab1c59335e633a9,
+        type: 2}
+      propertyPath: spawnTime.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114183386673283880, guid: c5d9d871985d68e4cab1c59335e633a9,
+        type: 2}
+      propertyPath: fallSpeed.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114183386673283880, guid: c5d9d871985d68e4cab1c59335e633a9,
+        type: 2}
+      propertyPath: amountRange.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114183386673283880, guid: c5d9d871985d68e4cab1c59335e633a9,
+        type: 2}
+      propertyPath: amountRange.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114183386673283880, guid: c5d9d871985d68e4cab1c59335e633a9,
+        type: 2}
+      propertyPath: spawnPosY
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114183386673283880, guid: c5d9d871985d68e4cab1c59335e633a9,
+        type: 2}
+      propertyPath: rayColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114183386673283880, guid: c5d9d871985d68e4cab1c59335e633a9,
+        type: 2}
+      propertyPath: rayColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114183386673283880, guid: c5d9d871985d68e4cab1c59335e633a9,
+        type: 2}
+      propertyPath: rayColor.a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5d9d871985d68e4cab1c59335e633a9, type: 2}
   m_IsPrefabAsset: 0
@@ -9427,6 +9467,17 @@ Prefab:
       propertyPath: firstSpawnFishLayer.m_Bits
       value: 524288
       objectReference: {fileID: 0}
+    - target: {fileID: 114971161649162972, guid: fa86b9c222ad9c64d85d93def5d605f6,
+        type: 2}
+      propertyPath: FixedFish
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114971161649162972, guid: fa86b9c222ad9c64d85d93def5d605f6,
+        type: 2}
+      propertyPath: TestingFish
+      value: 
+      objectReference: {fileID: 114257537931697316, guid: fe938b2f86a8ac845b2c1d3292925b54,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa86b9c222ad9c64d85d93def5d605f6, type: 2}
   m_IsPrefabAsset: 0
@@ -12444,9 +12495,10 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 76d3523a591904046bc04aace0181371, type: 3}
     volume: 1
     oneTime: 0
-  fishIcon: {fileID: 21300000, guid: eea84c29f313da040b6f2a4457959648, type: 3}
-  fishName: {fileID: 21300000, guid: f03aaede427b1894d811bb55fc13a094, type: 3}
-  fishStored: {fileID: 21300000, guid: d6889fb5c0caca74a8d690104fc824b9, type: 3}
+  fishHudInfo:
+    fishIcon: {fileID: 0}
+    fishName: {fileID: 0}
+    fishStored: {fileID: 0}
   _cSpecial: {fileID: 0}
 --- !u!65 &1037013799
 BoxCollider:

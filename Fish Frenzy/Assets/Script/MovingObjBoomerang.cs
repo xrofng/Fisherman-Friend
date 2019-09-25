@@ -43,6 +43,7 @@ public class MovingObjBoomerang : MovingObject {
         if (distance <= reachDistance)
         {
             SoundManager.Instance.StopSound(sfx_boomerang);
+            OnBeforeDestroy();
             Destroy(this.gameObject);
             return true;
         }

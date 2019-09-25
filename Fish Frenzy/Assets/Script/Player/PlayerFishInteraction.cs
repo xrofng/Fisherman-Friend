@@ -162,18 +162,7 @@ public class PlayerFishInteraction : PlayerAbility {
         GetCrossZComponent<PlayerFishing>().SetFishing(false);
         _player.rigid.velocity = Vector3.zero;
 
-        if (fish.gameObject.GetComponent<FishSpecialMelee>())
-        {
-            fish.gameObject.GetComponent<FishSpecialMelee>().SetUpFishSpecial();
-        }
-        if (fish.gameObject.GetComponent<FishSpecialSpawn>())
-        {
-            fish.gameObject.GetComponent<FishSpecialSpawn>().SetUpFishSpecial();
-        }
-        if (fish.gameObject.GetComponent<FishSpecialThrow>())
-        {
-            fish.gameObject.GetComponent<FishSpecialThrow>().SetUpFishSpecial();
-        }
+        fish._cSpecial.SetUpFishSpecial();
 
         StopCoroutine(ieFinishFishing(beforeHoldFrameDuration));
     }

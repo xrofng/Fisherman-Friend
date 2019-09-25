@@ -32,32 +32,32 @@ public class FishSpecialSpin : FishSpecialMelee {
     public override void OnSpecialActivated()
     {
         ActionForFrame(SpeiclaClipFrameCount + IgnoreInputFrameDuration,
-                 () => { MeleeSpecialing = true; },
-                 () => { MeleeSpecialing = false; });
+                 () => { _isPerformingSpecial = true; },
+                 () => { _isPerformingSpecial = false; });
         // dont call base.OnSpecialActivated to not change to holdfish after finish 1st animation clip
         // inorder to change to looping animation
-        _player._cPlayerAnimator.ChangeAnimState((int)specialClip, SpeiclaClipFrameCount, true, (int)PlayerAnimation.Anim.Spinning);
-        playerPositionY = _player.transform.position.y;
+        Player._cPlayerAnimator.ChangeAnimState((int)specialClip, SpeiclaClipFrameCount, true, (int)PlayerAnimation.Anim.Spinning);
+        playerPositionY = Player.transform.position.y;
         StartCoroutine(Spining());
     }
 
     IEnumerator Spining()
     {
-        _player.AddAbilityInputIntercepter(this);
+        Player.AddAbilityInputIntercepter(this);
         int frameCount = 0;
         while (frameCount < spiningFrameDuration + SpeiclaClipFrameCount)
         {
             PlaySFX(sfx_spining);
             yield return new WaitForEndOfFrame();
-            _player.transform.Translate(_player.PlayerForward * Speed);
-            _player.transform.position = sClass.SetVector3(_player.transform.position, VectorComponent.y, playerPositionY + floorOffset);
-            _fish.transform.Rotate(Vector3.forward * fishSpinSpeed, Space.Self);
+            Player.transform.Translate(Player.PlayerForward * Speed);
+            Player.transform.position = sClass.SetVector3(Player.transform.position, VectorComponent.y, playerPositionY + floorOffset);
+            fish.transform.Rotate(Vector3.forward * fishSpinSpeed, Space.Self);
             frameCount += 1;
         }
-        _player.transform.position = sClass.SetVector3(_player.transform.position, VectorComponent.y, playerPositionY);
-        _player._cPlayerAnimator.ChangeAnimState((int)_player._cPlayerAnimator.GetIdleAnimation());
-        _player.RemoveAbilityInputIntercepter(this);
-        _fish.SnapTransform();
+        Player.transform.position = sClass.SetVector3(Player.transform.position, VectorComponent.y, playerPositionY);
+        Player._cPlayerAnimator.ChangeAnimState((int)Player._cPlayerAnimator.GetIdleAnimation());
+        Player.RemoveAbilityInputIntercepter(this);
+        fish.SnapTransform();
         StopSFX(sfx_spining);
     }
 
@@ -65,9 +65,9 @@ public class FishSpecialSpin : FishSpecialMelee {
     public override void OnDehydrate()
     {
         base.OnDehydrate();
-        if (_player)
+        if (Player)
         {
-            _player.RemoveAbilityInputIntercepter(this);
+            Player.RemoveAbilityInputIntercepter(this);
         }
     }
 
