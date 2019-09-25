@@ -15405,7 +15405,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4258717447166722, guid: 37a5eec4b16ac0340a05e1e79840ec0d, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -14.638336
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4258717447166722, guid: 37a5eec4b16ac0340a05e1e79840ec0d, type: 2}
       propertyPath: m_LocalPosition.y
@@ -23238,7 +23238,7 @@ MonoBehaviour:
   Special: Special
   Throw: Throw
   Switch: Switch
-  AltSwitch: AltSwitch
+  Guard: AltSwitch
   Hori: Hori
   Verti: Verti
   Pause: Pause
