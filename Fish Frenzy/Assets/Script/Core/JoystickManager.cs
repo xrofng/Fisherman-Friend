@@ -236,7 +236,6 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
         {
             if (Input.GetKeyDown(_buttonList[playerID][buttonName[i]]))
             {
-                Debug.Log(_buttonList[playerID][buttonName[i]]);
                 return true;
             }
         }

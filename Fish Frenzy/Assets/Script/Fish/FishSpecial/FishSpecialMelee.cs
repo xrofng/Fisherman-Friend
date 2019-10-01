@@ -68,6 +68,5 @@ public class FishSpecialMelee : FishSpecial
     protected override void PerformSpecialDown()
     {
         base.PerformSpecialDown();
-        OnSpecialActivated();
     }
 }
