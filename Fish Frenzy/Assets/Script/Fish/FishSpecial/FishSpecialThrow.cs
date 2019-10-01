@@ -39,7 +39,6 @@ public class FishSpecialThrow: FishSpecialSpawn
         currentMovingObj = Instantiate(movingObjects, this.transform.position, Quaternion.identity);// add pos set lyr
         currentMovingObj.gameObject.layer = LayerMask.NameToLayer("Fish" + Player.playerID);
         currentMovingObj.HitBox.Owner = Player.gameObject;
-        //currentMovingObj.HitBox._SFX = _playerFishSpecial.sfx_Special;
         currentMovingObj.direction = currentMovingObj.HitBox.OwnerPlayer.GetPart(Player.ePart.body).transform.TransformDirection(-Vector3.forward);
         currentMovingObj.transform.LookAt(currentMovingObj.direction + transform.position);
         fish.MeshRenderer.enabled = false;

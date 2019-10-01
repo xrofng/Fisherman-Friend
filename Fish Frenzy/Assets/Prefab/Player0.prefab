@@ -328,9 +328,10 @@ GameObject:
   - component: {fileID: 114029355444865128}
   - component: {fileID: 114305712712285014}
   - component: {fileID: 114934992711911732}
-  - component: {fileID: 95935791461085208}
   - component: {fileID: 114419155862270234}
   - component: {fileID: 114113260566936514}
+  - component: {fileID: 114227519793500462}
+  - component: {fileID: 95935791461085208}
   m_Layer: 0
   m_Name: Player0
   m_TagString: Fisherman
@@ -1613,7 +1614,7 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1704096998139672}
-  m_Mesh: {fileID: 4300000, guid: 8d3eaa4e6ebb9b447931ca96a3e20875, type: 2}
+  m_Mesh: {fileID: 0}
 --- !u!33 &33441867372247978
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -1771,7 +1772,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: 8d3eaa4e6ebb9b447931ca96a3e20875, type: 2}
+  m_Mesh: {fileID: 0}
 --- !u!65 &65029772642893038
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -1969,6 +1970,18 @@ MonoBehaviour:
   - Base
   - 
   - Base
+--- !u!114 &114227519793500462
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1727452470752796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e2f102c37bf62843a88a5d0a5dc1609, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HitBoxCollections: {fileID: 4126871171258258}
 --- !u!114 &114280614709624312
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2136,6 +2149,7 @@ MonoBehaviour:
   _cPlayerFishInteraction: {fileID: 0}
   _cPlayerEnvironmentInteraction: {fileID: 0}
   _cPlayerSpecial: {fileID: 0}
+  _cPlayerDamageHitBox: {fileID: 0}
   knockBackOrigin: {fileID: 1741521758649520, guid: 5f192c056a302e9418bd3b64d9801479,
     type: 2}
   part:
@@ -2255,9 +2269,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ignoreSpecialFrame: 4
-  hitBoxParent: {fileID: 4126871171258258}
-  specialHitBox: {fileID: 0}
-  specialTrail: {fileID: 0}
   sfx_Special:
     clip: {fileID: 0}
     volume: 1

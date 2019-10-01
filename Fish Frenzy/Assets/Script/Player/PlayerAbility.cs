@@ -139,6 +139,7 @@ public class PlayerAbility : MonoBehaviour, MMEventListener<PlayerInputEvent>
         if (typeof(T) == typeof(PlayerState)) { return _player._cPlayerState as T; }
         if (typeof(T) == typeof(PlayerFishInteraction)) { return _player._cPlayerFishInteraction as T; }
         if (typeof(T) == typeof(PlayerSpecial)) { return _player._cPlayerSpecial as T; }
+        if (typeof(T) == typeof(PlayerDamageHitbox)) { return _player._cPlayerDamageHitBox as T; }
 
         return this as T;
     }

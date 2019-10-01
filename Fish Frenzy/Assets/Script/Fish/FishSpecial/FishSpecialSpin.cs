@@ -24,11 +24,6 @@ public class FishSpecialSpin : FishSpecialMelee {
     [Header("SoundEffect")]
     public SoundEffect sfx_spining;
 
-    public override void SetUpFishSpecial()
-    {
-        base.SetUpFishSpecial();
-    }
-
     public override void OnSpecialActivated()
     {
         ActionForFrame(SpeiclaClipFrameCount + IgnoreInputFrameDuration,
@@ -60,7 +55,6 @@ public class FishSpecialSpin : FishSpecialMelee {
         fish.SnapTransform();
         StopSFX(sfx_spining);
     }
-
 
     public override void OnDehydrate()
     {

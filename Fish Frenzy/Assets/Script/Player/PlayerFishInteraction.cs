@@ -162,7 +162,7 @@ public class PlayerFishInteraction : PlayerAbility {
         GetCrossZComponent<PlayerFishing>().SetFishing(false);
         _player.rigid.velocity = Vector3.zero;
 
-        fish._cSpecial.SetUpFishSpecial();
+        fish._cSpecial.OnPlayerHold();
 
         StopCoroutine(ieFinishFishing(beforeHoldFrameDuration));
     }

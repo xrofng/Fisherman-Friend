@@ -323,8 +323,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack: 50
   specialClip: 3
-  thisSpecialHitBox: {fileID: 114706098538591994, guid: 66da22c8c634a2943bd2093bf7467c2b,
-    type: 2}
+  hitBoxName: EarthShatter_HB
   invicibilityFrame: 50
   freezeFrame: 10
   launchingDamage: 1

@@ -18,9 +18,9 @@ public class FishSpecialSpawn : FishSpecial
     public int channelingFrameDuration = 10;
     public bool ignoreInput;
 
-    public override void SetUpFishSpecial()
+    public override void OnPlayerHold()
     {
-        base.SetUpFishSpecial();
+        base.OnPlayerHold();
         movingObjects.HitBox.FreezeFramesOnHit = freezeFrame;
         movingObjects.HitBox.InvincibilityFrame = invicibilityFrame;
         movingObjects.HitBox.DamageCaused = attack;
@@ -32,11 +32,6 @@ public class FishSpecialSpawn : FishSpecial
         {
             movingObjects.HitBox._SFX = PlayerFishSpecial.sfx_Special;
         }
-    }
-
-    protected override void Update()
-    {
-
     }
 
     protected void DestroyMovingObject(MovingObject movingObject)

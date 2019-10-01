@@ -62,10 +62,6 @@ public class FishSpecial : MonoBehaviour
     {
         Initialization();
     }
-    protected virtual void Update()
-    {
-
-    }
 
     /// <summary>
     /// Gets and stores components for further use
@@ -125,6 +121,11 @@ public class FishSpecial : MonoBehaviour
         }
     }
 
+    public virtual void OnPlayerHold()
+    {
+
+    }
+
     public virtual void OnSpecialActivated()
     {
 
@@ -160,10 +161,7 @@ public class FishSpecial : MonoBehaviour
         return _isPerformingSpecial;
     }
 
-    public virtual void SetUpFishSpecial()
-    {
 
-    }
 
     protected void PerformSpecial(FishSpecialActivatedState fishSpecialActivatedState)
     {

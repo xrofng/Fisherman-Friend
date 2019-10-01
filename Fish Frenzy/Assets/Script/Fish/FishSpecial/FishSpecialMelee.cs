@@ -1,11 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FishSpecialMelee : FishSpecial {
-
-    protected HitBoxMelee playerHitBox;
-    public HitBoxMelee thisSpecialHitBox;
+public class FishSpecialMelee : FishSpecial
+{
+    protected HitBoxMelee damageHitbox;
+    public string hitBoxName;
     public int invicibilityFrame = 50;
     public int freezeFrame = 10;
     public bool launchingDamage = true;
@@ -16,56 +17,41 @@ public class FishSpecialMelee : FishSpecial {
     [Header("Sound Effect")]
     public SoundEffect sfx_startMelee;
 
-    protected override void Start()
+    public override void OnPlayerHold()
     {
-        Initialization();
-    }
-
-    protected override void Initialization()
-    {
-        base.Initialization();
-    }
-
-    public override void SetUpFishSpecial()
-    {
-        base.SetUpFishSpecial();
-        //SetUpSpecialHitBox();
+        base.OnPlayerHold();
+        BindHitBox();
         SetUpGameVariable();
     }
 
-    //protected void SetUpSpecialHitBox()
-    //{
-    //    foreach (Transform hb in fish.GetPlayerHolder.GetPart(Player.ePart.hitBox))
-    //    {
-    //        if(hb.gameObject.name == thisSpecialHitBox.gameObject.name)
-    //        {
-    //            _playerFishSpecial.specialHitBox = hb.GetComponent<HitBoxMelee>();
-    //        }
-    //    }
-    //    if(_playerFishSpecial.specialHitBox == null) { Debug.LogError("Can't find hitbox"); }
-
-    //    _playerFishSpecial.specialHitBox.transform.SetParent(_playerFishSpecial.hitBoxParent);
-    //    _playerFishSpecial.specialHitBox.isLauncher = launchingDamage;
-    //}
+    protected void SetUpSpecialHitBox()
+    {
+        
+    }
 
     /// <summary>
     /// 
     /// </summary>
     void SetUpGameVariable()
-    {
-        //_playerFishSpecial.specialHitBox.gameObject.layer = LayerMask.NameToLayer("Fish" + fish.GetPlayerHolder.playerID);
-        //playerHitBox = _playerFishSpecial.specialHitBox;
-        playerHitBox.FreezeFramesOnHit = freezeFrame;
-        playerHitBox.InvincibilityFrame = invicibilityFrame;
-        playerHitBox.DamageCaused = attack;
+    {   
+        damageHitbox.FreezeFramesOnHit = freezeFrame;
+        damageHitbox.InvincibilityFrame = invicibilityFrame;
+        damageHitbox.DamageCaused = attack;
+        damageHitbox.isLauncher = launchingDamage;
+
         if (fish.sfx_Special.clip)
         {
-            playerHitBox._SFX = fish.sfx_Special;
+            damageHitbox._SFX = fish.sfx_Special;
         }
         else
         {
-            playerHitBox._SFX = PlayerFishSpecial.sfx_Special;
+            damageHitbox._SFX = PlayerFishSpecial.sfx_Special;
         }
+    }
+
+    private void BindHitBox()
+    {
+        damageHitbox = Player._cPlayerDamageHitBox.GetHitBox(hitBoxName);
     }
 
     public override void OnSpecialActivated()

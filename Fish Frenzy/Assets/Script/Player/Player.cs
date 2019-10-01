@@ -80,6 +80,8 @@ public class Player : Creature
     public PlayerEnvironmentInteraction _cPlayerEnvironmentInteraction;
     [HideInInspector]
     public PlayerSpecial _cPlayerSpecial;
+    [HideInInspector]
+    public PlayerDamageHitbox _cPlayerDamageHitBox;
 
 
     public GameObject knockBackOrigin;
@@ -154,6 +156,7 @@ public class Player : Creature
         _cPlayerSwitch = GetComponent<PlayerSwitchFish>();
         _cPlayerSpecial = GetComponent<PlayerSpecial>();
         _cPlayerEnvironmentInteraction = GetComponent<PlayerEnvironmentInteraction>();
+        _cPlayerDamageHitBox = GetComponent<PlayerDamageHitbox>();
     }
 
     public void ChangeState(eState staTE)
