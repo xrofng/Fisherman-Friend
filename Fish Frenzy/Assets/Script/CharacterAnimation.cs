@@ -98,7 +98,7 @@ public class CharacterAnimation : MonoBehaviour
 
     public void SetTrigger(string triggerName)
     {
-        _animator.SetTrigger(triggerName);
+        Animator.SetTrigger(triggerName);
     }
 
     IEnumerator InvokeChangeAnimState(int iState, int frameDuration, System.Action finishAnimationCallback)

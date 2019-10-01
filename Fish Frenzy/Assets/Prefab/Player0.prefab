@@ -332,6 +332,7 @@ GameObject:
   - component: {fileID: 114113260566936514}
   - component: {fileID: 114227519793500462}
   - component: {fileID: 95935791461085208}
+  - component: {fileID: 114293536094680500}
   m_Layer: 0
   m_Name: Player0
   m_TagString: Fisherman
@@ -2013,6 +2014,17 @@ MonoBehaviour:
     clip: {fileID: 0}
     volume: 1
     oneTime: 0
+--- !u!114 &114293536094680500
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1727452470752796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 114bb6c238502ae4296944d033035da7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114305712712285014
 MonoBehaviour:
   m_ObjectHideFlags: 1

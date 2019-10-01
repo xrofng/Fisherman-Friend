@@ -18,7 +18,7 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
     public string Special = "Special";
     public string Throw = "Throw";
     public string Switch = "Switch";
-    public string Guard = "AltSwitch";
+    public string Block = "Block";
     public string Hori = "Hori";
     public string Verti = "Verti";
     public string Pause = "Pause";
@@ -78,7 +78,7 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
         playerButton.Add(Special, KeyCode.Joystick1Button0);
         playerButton.Add(Throw, KeyCode.Joystick1Button3);
         playerButton.Add(Switch, KeyCode.Joystick1Button4);
-        playerButton.Add(Guard, KeyCode.Joystick1Button5);
+        playerButton.Add(Block, KeyCode.Joystick1Button5);
         playerButton.Add(Pause, KeyCode.Joystick1Button9);
         playerButton.Add(R2, KeyCode.Joystick1Button7);
 
