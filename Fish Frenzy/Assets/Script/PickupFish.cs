@@ -23,7 +23,8 @@ public class PickupFish : Pickup {
             if (othercollider.GetComponent<Player>())
             {
                 _player = othercollider.GetComponent<Player>();
-                if (_player.LinkedInputManager.GetButtonDown(_player.LinkedInputManager.Throw, _player.playerID-1) && !_player.holdingFish)
+
+                if (PressPickup() && !_player.holdingFish)
                 {
                     _player._cPlayerSlap.IgnoreInputFor(8);
                     _player._cPlayerThrow.IgnoreInputFor(8);

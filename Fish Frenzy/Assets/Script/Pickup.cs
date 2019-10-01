@@ -152,6 +152,11 @@ public class Pickup : MonoBehaviour {
         guiManager.UpdatePickUpButtonIndicator(this.transform.position, _pickUpImage, false);
     }
 
+    protected bool PressPickup()
+    {
+        string[] pickupButton = { _player.LinkedInputManager.Throw, _player.LinkedInputManager.Special };
+        return _player.LinkedInputManager.GetOneButtonsDown(pickupButton, _player.playerID - 1);
+    }
 
 
     /// <summary>
