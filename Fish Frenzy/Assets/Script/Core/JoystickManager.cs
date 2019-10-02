@@ -27,6 +27,8 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
     public string Dverti = "Dverti";
     public string Dfail = "Dfail";
 
+    public bool IncludeKeyboardKey = false;
+
     /* /// <summary>
             X = 1
             O = 2
@@ -65,9 +67,26 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
     /// </summary>
     protected virtual void Start()
     {
-         InitializeInput();
-         
-         RemapButton();
+        InitializeInput();
+        InitializeKeyboardButton();
+        RemapButton();
+    }
+
+    private void InitializeKeyboardButton()
+    {
+        if (!IncludeKeyboardKey)
+        {
+            return;
+        }
+        ButtonList[0].Add("k" + Fishing, KeyCode.Z);
+        ButtonList[0].Add("k" + Jump, KeyCode.Space);
+        ButtonList[0].Add("k" + Special, KeyCode.C);
+        ButtonList[0].Add("k" + Throw, KeyCode.X);
+        ButtonList[0].Add("k" + Switch, KeyCode.D);
+        ButtonList[0].Add("k" + Block, KeyCode.V);
+
+        ButtonList[0].Add("k" + Hori, KeyCode.RightArrow);
+        ButtonList[0].Add("k" + Verti, KeyCode.UpArrow);
     }
 
     protected virtual void InitializeInput()
@@ -106,8 +125,6 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
             ButtonList.Add(newKeyDict);
             UnregisterButtonList.Add(newKeyDict);
         }
-
-        
     }
 
     /// <summary>
@@ -201,6 +218,12 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
     public bool GetButtonDown(string buttonName, int playerID, bool isUnregistered = false)
     {
         List<Dictionary<string, KeyCode>> _buttonList = GetButtonList(isUnregistered);
+
+        if(playerID == 0)
+        {
+            return Input.GetKeyDown(_buttonList[playerID][buttonName]) || 
+                Input.GetKeyDown(_buttonList[playerID]["k" + buttonName]);
+        }
         return Input.GetKeyDown(_buttonList[playerID][buttonName]);
     }
 
@@ -244,49 +267,35 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
 
     public float GetAxisRaw(string buttonName, int playerID)
     {
-        int playerIDfromButton = ((int)ButtonList[playerID][buttonName] - (int)KeyCode.Joystick1Button0) / 20;
-        playerIDfromButton += 1;
-        string axisName = null;
-        if((int)ButtonList[playerID][buttonName] == (int)KeyCode.Joystick1Button18 + 20 * playerID)
-        {
-        }
-        if ((int)ButtonList[playerID][buttonName] == (int)KeyCode.Joystick1Button17 + 20 * playerID)
-        {
-        }
-        if (buttonName == Hori)
-        {
-            axisName = "Hori" + playerIDfromButton;
-        }
-        else if (buttonName == Verti)
-        {
-            axisName = "Verti" + playerIDfromButton;
-        }
-        else if (buttonName == Dhori)
-        {
-            axisName = "Dhori" + playerIDfromButton;
-        }
-        else if (buttonName == Dverti)
-        {
-            axisName = "Dverti" + playerIDfromButton;
-        }
+        string axisName = GetUnityAxisName(buttonName, playerID);
+        if (axisName == "ERRORBINDING") { return 0.0f; }
         return Input.GetAxisRaw(axisName);
     }
 
     public float GetAxis(string buttonName, int playerID)
     {
-        int playerIDfromButton = ((int)ButtonList[playerID][buttonName] - (int)KeyCode.Joystick1Button0) / 20;
-        playerIDfromButton += 1;
-        string axisName = null;
-
-        if (buttonName == Hori)
-        {
-            axisName = "Hori" + playerIDfromButton;
-        }
-        else if (buttonName == Verti)
-        {
-            axisName = "Verti" + playerIDfromButton;
-        }
+        string axisName = GetUnityAxisName(buttonName, playerID);
+        if (axisName == "ERRORBINDING") { return 0.0f; }
         return Input.GetAxis(axisName);
+    }
+
+    private string GetUnityAxisName(string buttonName, int playerID)
+    {
+        int playerIDfromButton;
+        if (buttonName[0] == 'k')
+        {
+            if (playerID != 0) { return "ERRORBINDING"; }
+            playerIDfromButton = 0;
+        }
+        else
+        {
+            playerIDfromButton = ((int)ButtonList[playerID][buttonName] - (int)KeyCode.Joystick1Button0) / 20;
+        }
+        playerIDfromButton += 1;
+
+        string axisName = null;
+        axisName = buttonName + playerIDfromButton;
+        return axisName;
     }
 
     List<Dictionary<string, KeyCode>> GetButtonList(bool isSwapped)

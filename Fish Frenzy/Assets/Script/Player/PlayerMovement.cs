@@ -56,8 +56,16 @@ public class PlayerMovement : PlayerAbility
     {
         float axisRawX = _pInput.GetAxisRaw(_pInput.Hori, _player.playerID-1);
         float axisRawY = _pInput.GetAxisRaw(_pInput.Verti, _player.playerID-1);
-        float axisX = _pInput.GetAxis(_pInput.Hori, _player.playerID-1);
-        float axisY = _pInput.GetAxis(_pInput.Verti, _player.playerID-1);
+        float axisX =    _pInput.GetAxis(_pInput.Hori, _player.playerID-1);
+        float axisY =    _pInput.GetAxis(_pInput.Verti, _player.playerID-1);
+
+        if (JoystickManager.Instance.IncludeKeyboardKey)
+        {
+            axisRawX += _pInput.GetAxisRaw("k" + _pInput.Hori, _player.playerID - 1);
+            axisRawY += _pInput.GetAxisRaw("k" + _pInput.Verti, _player.playerID - 1);
+            axisX += _pInput.GetAxis("k" + _pInput.Hori, _player.playerID - 1);
+            axisY += _pInput.GetAxis("k" + _pInput.Verti, _player.playerID - 1);
+        }
 
         Move(new Vector3(axisRawX, 0.0f, axisRawY));
         

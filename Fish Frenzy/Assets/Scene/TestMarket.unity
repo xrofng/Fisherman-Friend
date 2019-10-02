@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.801
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.49046057, g: 0.44181448, b: 0.74276716, a: 0.801}
+  m_IndirectSpecularColor: {r: 0.5174175, g: 0.4518044, b: 0.7412683, a: 0.801}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -573,6 +573,11 @@ Prefab:
     - target: {fileID: 1858014000760860, guid: e975908d999cc45469dd342024852ca9, type: 2}
       propertyPath: m_Name
       value: JoystickManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 114965922603070998, guid: e975908d999cc45469dd342024852ca9,
+        type: 2}
+      propertyPath: IncludeKeyboardKey
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e975908d999cc45469dd342024852ca9, type: 2}

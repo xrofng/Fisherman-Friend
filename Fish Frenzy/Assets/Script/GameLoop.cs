@@ -97,11 +97,11 @@ public class GameLoop : MonoBehaviour
             timeCountDown -= Time.deltaTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             timeCountDown = 46;
         }
-        if (Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             timeCountDown = 1;
         }
