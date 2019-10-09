@@ -318,7 +318,7 @@ GameObject:
   - component: {fileID: 33368454839138736}
   - component: {fileID: 23182144031499618}
   - component: {fileID: 54988779360625880}
-  - component: {fileID: 64652661239989366}
+  - component: {fileID: 64879135313733146}
   m_Layer: 9
   m_Name: EarthShatter_HB
   m_TagString: Untagged
@@ -694,13 +694,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1704096998139672}
-  m_LocalRotation: {x: -0, y: -0.9999345, z: -0, w: 0.011445361}
-  m_LocalPosition: {x: 0, y: -0.00079999125, z: -0.0036}
-  m_LocalScale: {x: 0.02224837, y: 0.000604946, z: 0.03662559}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
+  m_LocalPosition: {x: 0, y: -0.0008, z: -0.02316}
+  m_LocalScale: {x: 2, y: 2.5, z: 0.05}
   m_Children: []
   m_Father: {fileID: 4126871171258258}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: -178.688, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 180}
 --- !u!4 &4326650829156008
 Transform:
   m_ObjectHideFlags: 1
@@ -1690,7 +1690,7 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1704096998139672}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: abf375b9bf282dd4c916234e5278d948, type: 2}
 --- !u!33 &33441867372247978
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -1849,7 +1849,7 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!64 &64652661239989366
+--- !u!64 &64879135313733146
 MeshCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1862,7 +1862,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_SkinWidth: 0.01
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: abf375b9bf282dd4c916234e5278d948, type: 2}
 --- !u!65 &65029772642893038
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -2114,6 +2114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 114bb6c238502ae4296944d033035da7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IgnoreAbilityFrame: 40
 --- !u!114 &114305712712285014
 MonoBehaviour:
   m_ObjectHideFlags: 1
