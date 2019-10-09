@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerBlock : PlayerAbility
 {
+    public int IgnoreAbilityFrame = 40;
+
     protected override void Initialization()
     {
         base.Initialization();
@@ -27,6 +29,9 @@ public class PlayerBlock : PlayerAbility
     private void Block()
     {
         _player.Animation.SetTrigger("block");
+        ActionForFrame(IgnoreAbilityFrame,
+                 () => { _player.AddAbilityInputIntercepter(this); },
+                 () => { _player.RemoveAbilityInputIntercepter(this); });
     }
 }
 
