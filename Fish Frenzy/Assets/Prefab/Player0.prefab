@@ -2475,12 +2475,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a42c936c12fb74b449113ef5c8668ece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: {x: 7.5, y: 0, z: 7.5}
-  jumpForce: {x: 0, y: 30, z: 0}
-  jumpFaster: 3
-  fallFaster: 3
+  Speed: 7.5
+  jumpForce: {x: 0, y: 70, z: 0}
+  jumpFaster: 10
+  fallFaster: 10
   FreezeMovement: 0
   FreezeRotation: 0
+  JumpOfWaterMultiplier: 0.7
+  Control: 1
+  AirControl: 0.8
   lookTo: {x: 0, y: 0, z: 0}
 --- !u!114 &114712716794707714
 MonoBehaviour:

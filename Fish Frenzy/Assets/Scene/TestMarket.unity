@@ -1961,7 +1961,7 @@ GameObject:
   - component: {fileID: 88996140}
   m_Layer: 0
   m_Name: Bridge (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5078,12 +5078,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1488403750361722, guid: 5e780846ae5a5fb4c97f2e8d89a52bc8, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114909970887747114, guid: 5e780846ae5a5fb4c97f2e8d89a52bc8,
         type: 2}
       propertyPath: FirstFrenzyTime
-      value: 150
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e780846ae5a5fb4c97f2e8d89a52bc8, type: 2}
@@ -9756,7 +9756,7 @@ GameObject:
   - component: {fileID: 473869618}
   m_Layer: 0
   m_Name: Boat
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22981,7 +22981,7 @@ GameObject:
   - component: {fileID: 1003984458}
   m_Layer: 0
   m_Name: Boat (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37952,7 +37952,7 @@ GameObject:
   - component: {fileID: 1563227574}
   m_Layer: 0
   m_Name: Boat
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51051,7 +51051,7 @@ GameObject:
   - component: {fileID: 2133589903}
   m_Layer: 0
   m_Name: Boat (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

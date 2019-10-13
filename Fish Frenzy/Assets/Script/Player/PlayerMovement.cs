@@ -1,20 +1,25 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : PlayerAbility
 {
-    public Vector3 speed;
+    public float Speed = 7.5f;
     public Vector3 jumpForce;
     public float jumpFaster;
     public float fallFaster;
 
     public bool FreezeMovement;
     public bool FreezeRotation;
+    public float JumpOfWaterMultiplier = 0.7f;
+    public float Control = 1.0f;
+    public float AirControl = 0.2f;
 
     public Vector3 lookTo;
     Vector3 playerDirection;
 
+    private PlayerModel _playerModel;
 
     // Use this for initialization
     protected override void Start()
@@ -25,6 +30,7 @@ public class PlayerMovement : PlayerAbility
     protected override void Initialization()
     {
         base.Initialization();
+        _playerModel = _player.gameObject.GetComponent<PlayerModel>();
     }
 
     void OnDrawGizmos()
@@ -100,8 +106,12 @@ public class PlayerMovement : PlayerAbility
     {
         if (!FreezeMovement && !GetCrossZComponent<PlayerState>().IsAttacking && !GetCrossZComponent<PlayerState>().IsDamaged)
         {
-            mov *= Time.deltaTime;
-            this.transform.Translate(mov.x * speed.x, 0.0f, mov.z * speed.z);
+            Vector3 _forward = mov.z * Vector3.forward * Speed * GetSideControl();
+            Vector3 _right = mov.x* Vector3.right * Speed * GetSideControl();
+            Vector3 _moveSpeed = _forward + _right;
+            _moveSpeed.y *= 0;
+            _moveSpeed *= Time.deltaTime;
+            this.transform.Translate(_moveSpeed.x, 0.0f, _moveSpeed.z);
         }
     }
 
@@ -120,9 +130,9 @@ public class PlayerMovement : PlayerAbility
     {
         if (_pInput.GetButtonDown(_pInput.Jump, _player.playerID - 1) && !GetCrossZComponent<PlayerThrow>().aiming)
         {
-            if ( GetCrossZComponent<PlayerState>().IsSwiming)
+            if (GetCrossZComponent<PlayerState>().IsSwiming)
             {
-                StartJumping(jumpForce * 0.7f);
+                StartJumping(jumpForce * JumpOfWaterMultiplier);
             }
             if (GetCrossZComponent<PlayerState>().IsGrounded)
             {
@@ -143,6 +153,15 @@ public class PlayerMovement : PlayerAbility
         _pRigid.AddForce(force, ForceMode.Impulse);
         GetCrossZComponent<PlayerState>().IsJumping = true;
         _pRigid.drag = jumpFaster;
+    }
+
+    private float GetSideControl()
+    {
+        if (_player._cPlayerState.IsJumping)
+        {
+            return AirControl;
+        }
+        return Control;
     }
 
     public float GetTurningDegree()
