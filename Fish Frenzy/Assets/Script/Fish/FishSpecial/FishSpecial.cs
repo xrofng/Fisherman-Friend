@@ -38,11 +38,7 @@ public class FishSpecial : MonoBehaviour
     {
         get { return Player.GetAnimator<PlayerAnimation>().AnimationFrame[(int)specialClip]; }
     }
-    public int IgnoreInputFrameDuration
-    {
-        get;
-        set;
-    }
+    public int InputLagFrameDuration = 10;
 
     protected bool _isPerformingSpecial = false;
     public bool IsPerformingSpecial

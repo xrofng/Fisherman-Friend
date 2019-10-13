@@ -10,6 +10,7 @@ public class FishSpecialMelee : FishSpecial
     public int invicibilityFrame = 50;
     public int freezeFrame = 10;
     public bool launchingDamage = true;
+    public bool freezeRotation = true;
 
     [Header("Prefab Ref")]
     public Transform hitBoxRef;
@@ -58,15 +59,39 @@ public class FishSpecialMelee : FishSpecial
     {
         base.OnSpecialActivated();
         PlaySFX(sfx_startMelee);
-        ActionForFrame(SpeiclaClipFrameCount + IgnoreInputFrameDuration,
-                 () => { IsPerformingSpecial = true; },
-                 () => { IsPerformingSpecial = false; });
+        ActionForFrame(SpeiclaClipFrameCount + InputLagFrameDuration,
+            // before acitvate
+                 () => {
+                     IsPerformingSpecial = true;
+                     OnControlSteal();
+                 },
+            // after acitvate
+                 () => {
+                     IsPerformingSpecial = false;
+                     OnControlGive();
+                 });
 
+        ChangeToSpecialAnimation();
+    }
+
+    protected virtual void ChangeToSpecialAnimation()
+    {
         Player._cPlayerAnimator.ChangeAnimState((int)specialClip, SpeiclaClipFrameCount, true);
     }
 
-    protected override void PerformSpecialDown()
+    protected virtual void OnControlSteal()
     {
-        base.PerformSpecialDown();
+        if (freezeRotation)
+        {
+            Player._cPlayerMovement.FreezeRotation = true;
+        }
+    }
+
+    protected virtual void OnControlGive()
+    {
+        if (freezeRotation)
+        {
+            Player._cPlayerMovement.FreezeRotation = false;
+        }
     }
 }

@@ -9,10 +9,12 @@ public class PlayerMovement : PlayerAbility
     public float jumpFaster;
     public float fallFaster;
 
-    public bool freezeMovement;
+    public bool FreezeMovement;
+    public bool FreezeRotation;
 
     public Vector3 lookTo;
     Vector3 playerDirection;
+
 
     // Use this for initialization
     protected override void Start()
@@ -96,7 +98,7 @@ public class PlayerMovement : PlayerAbility
 
     public void Move(Vector3 mov)
     {
-        if (!freezeMovement && !GetCrossZComponent<PlayerState>().IsAttacking && !GetCrossZComponent<PlayerState>().IsDamaged)
+        if (!FreezeMovement && !GetCrossZComponent<PlayerState>().IsAttacking && !GetCrossZComponent<PlayerState>().IsDamaged)
         {
             mov *= Time.deltaTime;
             this.transform.Translate(mov.x * speed.x, 0.0f, mov.z * speed.z);
@@ -105,6 +107,10 @@ public class PlayerMovement : PlayerAbility
 
     public void ChangeDirection(float dirX,float dirZ)
     {
+        if (FreezeRotation)
+        {
+            return;
+        }
         playerDirection = lookTo;
         playerDirection = Vector3.right * -dirX + Vector3.forward * -dirZ;
         lookTo = playerDirection;

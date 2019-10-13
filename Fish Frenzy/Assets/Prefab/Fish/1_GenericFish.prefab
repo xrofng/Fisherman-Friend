@@ -276,10 +276,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack: 20
   specialClip: 2
+  InputLagFrameDuration: 10
   hitBoxName: Slap_HB
   invicibilityFrame: 50
   freezeFrame: 0
   launchingDamage: 1
+  freezeRotation: 1
   hitBoxRef: {fileID: 4992497796906506, guid: 6657a06d3df040b4a8412bd9f0e164c1, type: 2}
   sfx_startMelee:
     clip: {fileID: 8300000, guid: 7edc773777a468a47b51bbbf1a9b6ddf, type: 3}

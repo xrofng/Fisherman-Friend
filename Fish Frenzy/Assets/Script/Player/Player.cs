@@ -46,8 +46,8 @@ public class Player : Creature
 
     public bool FreezingMovement
     {
-        get { return _cPlayerMovement.freezeMovement; }
-        set { _cPlayerMovement.freezeMovement = value; }
+        get { return _cPlayerMovement.FreezeMovement; }
+        set { _cPlayerMovement.FreezeMovement = value; }
     }
 
     public bool holdingFish;

@@ -26,7 +26,7 @@ public class PickupFish : Pickup {
 
                 if (PressPickup() && !_player.holdingFish)
                 {
-                    _player._cPlayerSlap.IgnoreInputFor(8);
+                    _player._cPlayerSpecial.IgnoreInputFor(8);
                     _player._cPlayerThrow.IgnoreInputFor(8);
                     _player._cPlayerFishInteraction.HoldFish(FishRef);
                 }

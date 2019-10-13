@@ -13,7 +13,6 @@ public class FishSpecialSpin : FishSpecialMelee {
         get { if (_speed == 0) { _speed = speed / speedDet; } return _speed;  }
     }
 
-
     public float floorOffset;
     protected float floorRatio = 10;
     protected float playerPositionY;
@@ -26,14 +25,16 @@ public class FishSpecialSpin : FishSpecialMelee {
 
     public override void OnSpecialActivated()
     {
-        ActionForFrame(SpeiclaClipFrameCount + IgnoreInputFrameDuration,
-                 () => { _isPerformingSpecial = true; },
-                 () => { _isPerformingSpecial = false; });
-        // dont call base.OnSpecialActivated to not change to holdfish after finish 1st animation clip
-        // inorder to change to looping animation
-        Player._cPlayerAnimator.ChangeAnimState((int)specialClip, SpeiclaClipFrameCount, true, (int)PlayerAnimation.Anim.Spinning);
+        base.OnSpecialActivated();
+
         playerPositionY = Player.transform.position.y;
         StartCoroutine(Spining());
+    }
+
+    protected override void ChangeToSpecialAnimation()
+    {
+        // inorder to change to looping animation
+        // not call base.this preventing change to holdfish after finish 1st animation clip
     }
 
     IEnumerator Spining()

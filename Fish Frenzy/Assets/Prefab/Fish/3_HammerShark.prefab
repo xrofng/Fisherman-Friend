@@ -323,10 +323,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack: 50
   specialClip: 3
+  InputLagFrameDuration: 10
   hitBoxName: EarthShatter_HB
   invicibilityFrame: 50
   freezeFrame: 10
   launchingDamage: 1
+  freezeRotation: 1
   hitBoxRef: {fileID: 4352711589645446, guid: 66da22c8c634a2943bd2093bf7467c2b, type: 2}
   sfx_startMelee:
     clip: {fileID: 8300000, guid: d8e6c4141fbf0db45b2ae36293d560d8, type: 3}
