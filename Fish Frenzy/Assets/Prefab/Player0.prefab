@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 64105908859036218}
   - component: {fileID: 114602076170422292}
   m_Layer: 0
-  m_Name: Bloock
+  m_Name: Block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -626,7 +626,7 @@ Transform:
   m_LocalScale: {x: 0.019016325, y: 0.008922197, z: 0.019870887}
   m_Children: []
   m_Father: {fileID: 4126871171258258}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4107190696405228
 Transform:
@@ -656,8 +656,8 @@ Transform:
   - {fileID: 4288532701475046}
   - {fileID: 4061336989130752}
   - {fileID: 4088582809848268}
-  - {fileID: 4197158359995432}
   - {fileID: 4105915660846396}
+  - {fileID: 4197158359995432}
   m_Father: {fileID: 4265649757716330}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -667,12 +667,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1112058381955380}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.006, z: -0.00439}
-  m_LocalScale: {x: 0.0008, y: 0.007, z: 0.002}
+  m_LocalScale: {x: 0.0007999884, y: 0.006999983, z: 0.0020000278}
   m_Children: []
   m_Father: {fileID: 4126871171258258}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!4 &4233969711900982
 Transform:
@@ -1077,7 +1077,7 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1112058381955380}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2319,7 +2319,7 @@ MonoBehaviour:
   - {fileID: 7400000, guid: ab95b4c44ab90c04b8c18ec397a41b89, type: 2}
   - {fileID: 7400000, guid: 0539952431b7cd04f83d7d53d6c85867, type: 2}
   - {fileID: 7400000, guid: 05c0b5dbc2e0a3743b97617598271b3d, type: 2}
-  AnimationFrame: 000000009dffffff0f000000280000009dffffff000000001e0000000a0000000a0000009600000036000000230000000a000000280000000a0000001e0000001e0000003c0000001e000000
+  AnimationFrame: 000000009dffffff0f000000460000009dffffff000000001e0000000a0000000a0000009600000036000000230000000a000000280000000a0000001e0000001e0000003c0000001e000000
 --- !u!114 &114484359588375932
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2479,7 +2479,8 @@ MonoBehaviour:
   jumpForce: {x: 0, y: 30, z: 0}
   jumpFaster: 3
   fallFaster: 3
-  freezeMovement: 0
+  FreezeMovement: 0
+  FreezeRotation: 0
   lookTo: {x: 0, y: 0, z: 0}
 --- !u!114 &114712716794707714
 MonoBehaviour:
