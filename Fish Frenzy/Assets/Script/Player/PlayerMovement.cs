@@ -13,13 +13,15 @@ public class PlayerMovement : PlayerAbility
     public bool FreezeMovement;
     public bool FreezeRotation;
     public float JumpOfWaterMultiplier = 0.7f;
-    public float Control = 1.0f;
-    public float AirControl = 0.2f;
+
+    public float JumpDirectionInfluence = 0.5f;
+    public float JumpInputInfluence = 0.5f;
 
     public Vector3 lookTo;
     Vector3 playerDirection;
 
     private PlayerModel _playerModel;
+    private Vector3 _playerForwardOnJump = Vector3.zero;
 
     // Use this for initialization
     protected override void Start()
@@ -31,13 +33,18 @@ public class PlayerMovement : PlayerAbility
     {
         base.Initialization();
         _playerModel = _player.gameObject.GetComponent<PlayerModel>();
+        UpdatePlayerForward();
     }
 
     void OnDrawGizmos()
     {
         // Draw a yellow sphere at the transform's position
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere( transform.position-lookTo * 3, 0.5f);
+        Gizmos.DrawLine(transform.position, transform.position + _playerForwardOnJump * 3);
+        Gizmos.color = Color.green;
+        Vector3 _playerRightOnJump = Quaternion.Euler(0, 90, 0) * _playerForwardOnJump;
+        Gizmos.DrawLine(transform.position, transform.position + _playerRightOnJump * 3);
+
     }
 
     // Update is called once per frame
@@ -106,9 +113,15 @@ public class PlayerMovement : PlayerAbility
     {
         if (!FreezeMovement && !GetCrossZComponent<PlayerState>().IsAttacking && !GetCrossZComponent<PlayerState>().IsDamaged)
         {
-            Vector3 _forward = mov.z * Vector3.forward * Speed * GetSideControl();
-            Vector3 _right = mov.x* Vector3.right * Speed * GetSideControl();
+            Vector3 _forward = mov.z * Vector3.forward * Speed;
+            Vector3 _right = mov.x* Vector3.right * Speed ;
             Vector3 _moveSpeed = _forward + _right;
+            if (_player._cPlayerState.IsJumping)
+            {
+                Vector3 _inputSpeed = _moveSpeed * JumpInputInfluence;
+                Vector3 _jumpSpeed = _playerForwardOnJump* Speed * JumpDirectionInfluence;
+                _moveSpeed = _jumpSpeed + _inputSpeed;
+            }
             _moveSpeed.y *= 0;
             _moveSpeed *= Time.deltaTime;
             this.transform.Translate(_moveSpeed.x, 0.0f, _moveSpeed.z);
@@ -149,19 +162,16 @@ public class PlayerMovement : PlayerAbility
 
     public void StartJumping(Vector3 force)
     {
+        UpdatePlayerForward();
         _pRigid.velocity = Vector3.zero;
         _pRigid.AddForce(force, ForceMode.Impulse);
         GetCrossZComponent<PlayerState>().IsJumping = true;
         _pRigid.drag = jumpFaster;
     }
 
-    private float GetSideControl()
+    private void UpdatePlayerForward()
     {
-        if (_player._cPlayerState.IsJumping)
-        {
-            return AirControl;
-        }
-        return Control;
+        _playerForwardOnJump = _playerModel.ModelDirection(-Vector3.forward);
     }
 
     public float GetTurningDegree()

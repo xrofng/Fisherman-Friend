@@ -84,8 +84,12 @@ public class PlayerModel : MonoBehaviour
         }
     }
 
-    public Vector3 ModelDirection(Vector3 dir)
+    public Vector3 ModelDirection(Vector3 dir, bool invert = false)
     {
+        if (invert)
+        {
+            dir = -dir;
+        }
         return Body.transform.TransformDirection(dir);
     }
 }
