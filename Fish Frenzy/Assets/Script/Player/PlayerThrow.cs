@@ -40,17 +40,17 @@ public class PlayerThrow : PlayerAbility {
     {
         base.Initialization();
         _aimArrow = Instantiate(aimArrow);
-        _aimArrow.transform.SetParent( _player.GetPart(Player.ePart.body) );
-        _aimArrow.GetComponent<SpriteRenderer>().color = PlayerData.Instance.playerColor[_player.playerID-1];
+        _aimArrow.transform.SetParent( Player.GetPart(Player.ePart.body) );
+        _aimArrow.GetComponent<SpriteRenderer>().color = PlayerData.Instance.playerColor[Player.playerID-1];
         _aimArrow.localPosition = arrowPositioningOffset;
         _aimArrow.gameObject.SetActive(false);
     }
 
     void Update ()
     {
-        if(_player.state == Player.eState.ground)
+        if(Player.state == Player.eState.ground)
         {
-            if (_player.IgnoreInputForAbilities || IgnoreInput)
+            if (Player.IgnoreInputForAbilities || IgnoreInput)
             {
                 return;
             }
@@ -60,7 +60,7 @@ public class PlayerThrow : PlayerAbility {
 
     void ThrowFish()
     {
-        if (_player.mainFish == null)
+        if (Player.mainFish == null)
         {
             return;
         }
@@ -69,15 +69,15 @@ public class PlayerThrow : PlayerAbility {
         {
             return;
         }
-        if (_pInput.GetButtonDown(_pInput.Throw, _player.playerID - 1))
+        if (_pInput.GetButtonDown(_pInput.Throw, Player.playerID - 1))
         {
             OnButtonDown();
         }
-        else if (_pInput.GetButton(_pInput.Throw, _player.playerID - 1) && aiming)
+        else if (_pInput.GetButton(_pInput.Throw, Player.playerID - 1) && aiming)
         {
             OnButtonHold();
         }
-        else if (_pInput.GetButtonUp(_pInput.Throw, _player.playerID - 1) && aiming)
+        else if (_pInput.GetButtonUp(_pInput.Throw, Player.playerID - 1) && aiming)
         {
             OnButtonUp();
         }
@@ -87,8 +87,8 @@ public class PlayerThrow : PlayerAbility {
     {
         holdToThrow = 0;
         GetCrossZComponent<PlayerFishInteraction>().SetMainFishTransformAsPart(Player.ePart.rightArm, Player.ePart.body, true);
-        _player.mainFish.SnapAimingTransform();
-        _player.FreezingMovement = true;
+        Player.mainFish.SnapAimingTransform();
+        Player.FreezingMovement = true;
         EvaluateAimArrowPosition();
         _aimArrow.gameObject.SetActive(true);
         aiming = true;
@@ -104,21 +104,21 @@ public class PlayerThrow : PlayerAbility {
     {
         PlayThrowSFX();
 
-        _player.mainFish.lastHoldPoition = _player.mainFish.transform.position;
+        Player.mainFish.lastHoldPoition = Player.mainFish.transform.position;
         GetCrossZComponent<PlayerFishInteraction>().SetMainFishTransformAsPart(Player.ePart.body, Player.ePart.body, true);
 
-        GetCrossZComponent<PlayerFishInteraction>().SetFishCollideType(PlayerFishInteraction.CollideType.Collide_Opponent,_player.mainFish, _player);
+        GetCrossZComponent<PlayerFishInteraction>().SetFishCollideType(PlayerFishInteraction.CollideType.Collide_Opponent,Player.mainFish, Player);
 
-        _player.mainFish.FishThrow(holdToThrow, minForwardMultiplier,maxForwardMultiplier, upMultiplier);
-        _player.mainFish.ChangeState(Fish.FishConditionalState.threw);
+        Player.mainFish.FishThrow(holdToThrow, minForwardMultiplier,maxForwardMultiplier, upMultiplier);
+        Player.mainFish.ChangeState(Fish.FishConditionalState.threw);
         GetCrossZComponent<PlayerFishInteraction>().SetHoldFish(false);
     }
 
     public void PlayThrowSFX()
     {
-        if (_player.mainFish.sfx_Throw.clip)
+        if (Player.mainFish.sfx_Throw.clip)
         {
-            PlaySFX(_player.mainFish.sfx_Throw);
+            PlaySFX(Player.mainFish.sfx_Throw);
         }
         else
         {
@@ -134,7 +134,7 @@ public class PlayerThrow : PlayerAbility {
         
         for (int i = 0; i < NumberOfVerticalRays; i++)
         {
-            rayPos += _player.GetPart(Player.ePart.body).TransformDirection(-Vector3.forward) * rayDistanceFrequent ;
+            rayPos += Player.GetPart(Player.ePart.body).TransformDirection(-Vector3.forward) * rayDistanceFrequent ;
             RaycastHit hit;
             // Does the ray intersect any objects excluding the player layer
             Color lineColor = Color.magenta;
@@ -165,7 +165,7 @@ public class PlayerThrow : PlayerAbility {
 
     public void ChangeToUnAim()
     {
-        _player.FreezingMovement = false;
+        Player.FreezingMovement = false;
         _aimArrow.gameObject.SetActive(false);
         aiming = false;
     }
@@ -185,7 +185,7 @@ public class PlayerThrow : PlayerAbility {
         {
             if (turningDegree >= circleDegree[i] && turningDegree < circleDegree[i + 1])
             {
-                _player.GetPart(Player.ePart.body).transform.eulerAngles = new Vector3(0,HardCodeDegreeConvert( circleDegree[i]), 0);
+                Player.GetPart(Player.ePart.body).transform.eulerAngles = new Vector3(0,HardCodeDegreeConvert( circleDegree[i]), 0);
             }
         }
     }

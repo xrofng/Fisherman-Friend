@@ -36,16 +36,16 @@ public class PlayerSlap : PlayerAbility
     protected override void Initialization()
     {
         base.Initialization();
-        hitBox.gameObject.layer = LayerMask.NameToLayer("Fish" + _player.playerID);
+        hitBox.gameObject.layer = LayerMask.NameToLayer("Fish" + Player.playerID);
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_player.state == Player.eState.ground)
+        if (Player.state == Player.eState.ground)
         {
-            if (_player.IgnoreInputForAbilities || IgnoreInput)
+            if (Player.IgnoreInputForAbilities || IgnoreInput)
             {
                 return;
             }
@@ -56,11 +56,11 @@ public class PlayerSlap : PlayerAbility
     // Update is called once per frame
     void SlapFish()
     {
-        if (_player.mainFish == null)
+        if (Player.mainFish == null)
         {
             return;
         }
-        if (_pInput.GetButtonDown(_pInput.Special, _player.playerID - 1))
+        if (_pInput.GetButtonDown(_pInput.Special, Player.playerID - 1))
         {
             //hitBox.InvincibilityFrame = _player.mainFish.s_invicibilityFrame;
             //hitBox.DamageCaused = _player.mainFish.attack;
@@ -88,9 +88,9 @@ public class PlayerSlap : PlayerAbility
 
     public void PlaySlapSFX()
     {
-        if (_player.mainFish.sfx_Slap.clip)
+        if (Player.mainFish.sfx_Slap.clip)
         {
-            PlaySFX(_player.mainFish.sfx_Slap);
+            PlaySFX(Player.mainFish.sfx_Slap);
         }
         else
         {

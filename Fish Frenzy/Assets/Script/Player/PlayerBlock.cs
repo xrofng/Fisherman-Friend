@@ -15,7 +15,7 @@ public class PlayerBlock : PlayerAbility
     // Update is called once per frame
     void Update ()
     {
-		if(_player.state == Player.eState.ground)
+		if(Player.state == Player.eState.ground)
         {
             HandleInput();
         }
@@ -28,10 +28,10 @@ public class PlayerBlock : PlayerAbility
 
     private void Block()
     {
-        _player.Animation.SetTrigger("block");
+        Player.Animation.SetTrigger("block");
         ActionForFrame(IgnoreAbilityFrame,
-                 () => { _player.AddAbilityInputIntercepter(this); },
-                 () => { _player.RemoveAbilityInputIntercepter(this); });
+                 () => { Player.AddAbilityInputIntercepter(this); },
+                 () => { Player.RemoveAbilityInputIntercepter(this); });
     }
 }
 

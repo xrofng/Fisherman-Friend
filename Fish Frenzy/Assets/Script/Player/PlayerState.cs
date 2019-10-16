@@ -84,7 +84,7 @@ public class PlayerState : PlayerAbility
 
         Reset();
         // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(_player.getLowestPlayerPoint(), transform.TransformDirection(Vector3.down), out hit, 0.5f))
+        if (Physics.Raycast(Player.GetLowestPlayerPoint(), transform.TransformDirection(Vector3.down), out hit, 0.5f))
         {
             Color lineColor = Color.yellow;
             if(hit.transform != null)
@@ -140,7 +140,7 @@ public class PlayerState : PlayerAbility
     {
         IsDamaged = true;
         int frameCount = 0;
-        if (_player.holdingFish)
+        if (Player.holdingFish)
         {
             _pAnimator.ChangeAnimState((int)PlayerAnimation.Anim.Damaged_HoldFish);
         }
@@ -155,7 +155,7 @@ public class PlayerState : PlayerAbility
         }
         IsDamaged = false;
 
-        _pAnimator.ChangeAnimState((int)_player._cPlayerAnimator.GetIdleAnimation());
+        _pAnimator.ChangeAnimState((int)Player._cPlayerAnimator.GetIdleAnimation());
 
     }
 

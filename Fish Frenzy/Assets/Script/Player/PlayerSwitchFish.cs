@@ -18,9 +18,9 @@ public class PlayerSwitchFish : PlayerAbility
     // Update is called once per frame
     void Update()
     {
-        if (_player.state == Player.eState.ground)
+        if (Player.state == Player.eState.ground)
         {
-            if (_player.IgnoreInputForAbilities || IgnoreInput)
+            if (Player.IgnoreInputForAbilities || IgnoreInput)
             {
                 return;
             }
@@ -35,23 +35,23 @@ public class PlayerSwitchFish : PlayerAbility
 
     void SwitchFish()
     {
-        if (_pInput.GetButtonDown(_pInput.Switch, _player.playerID - 1))
+        if (_pInput.GetButtonDown(_pInput.Switch, Player.playerID - 1))
         {
-            _player.baitedFish = _player.subFish;
-            _player.subFish = _player.mainFish;
-            if (_player.subFish != null)
+            Player.baitedFish = Player.subFish;
+            Player.subFish = Player.mainFish;
+            if (Player.subFish != null)
             {
-                _player.subFish.KeepFish(true);
+                Player.subFish.KeepFish(true);
             }
 
-            _player.mainFish = _player.baitedFish;
-            _player.baitedFish = null;
+            Player.mainFish = Player.baitedFish;
+            Player.baitedFish = null;
 
-            if (_player.mainFish != null)
+            if (Player.mainFish != null)
             {
-                _player.mainFish.KeepFish(false);
+                Player.mainFish.KeepFish(false);
             }
-            GetCrossZComponent<PlayerFishInteraction>().SetHoldFish(_player.mainFish != null);
+            GetCrossZComponent<PlayerFishInteraction>().SetHoldFish(Player.mainFish != null);
         }
     }
 }

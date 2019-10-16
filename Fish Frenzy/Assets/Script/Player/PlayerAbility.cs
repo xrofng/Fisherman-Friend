@@ -10,7 +10,7 @@ public class PlayerAbility : MonoBehaviour, MMEventListener<PlayerInputEvent>
 {
     protected string inputName;
 
-    protected Player _player;
+    private Player _player;
     public Player Player
     {
         get
@@ -20,23 +20,33 @@ public class PlayerAbility : MonoBehaviour, MMEventListener<PlayerInputEvent>
         }
     }
 
+    private PlayerModel _playerModel;
+    public PlayerModel PlayerModel
+    {
+        get
+        {
+            if (!_playerModel) { _playerModel = GetComponent<PlayerModel>(); }
+            return _playerModel;
+        }
+    }
+
     // private ignore Input for specific ability
     protected bool ignoreInput;
     public bool IgnoreInput { get { return ignoreInput; } }
 
     public JoystickManager _pInput
     {
-        get { return _player.LinkedInputManager; }
+        get { return Player.LinkedInputManager; }
     }
 
     public Rigidbody _pRigid
     {
-        get { return _player.rigid; }
+        get { return Player.rigid; }
 
     }
     public PlayerAnimation  _pAnimator
     {
-        get { return _player._cPlayerAnimator; }
+        get { return Player._cPlayerAnimator; }
     }
 
     protected virtual void PlaySFX(SoundEffect SFXclip)
@@ -64,7 +74,6 @@ public class PlayerAbility : MonoBehaviour, MMEventListener<PlayerInputEvent>
     /// </summary>
     protected virtual void Initialization()
     {
-        _player = GetComponent<Player>();
         gameLoop = FFGameManager.Instance.GameLoop;
         portRoyal = FFGameManager.Instance.PortRoyal;
         guiManager = FFGameManager.Instance.GUIManager;
@@ -76,21 +85,21 @@ public class PlayerAbility : MonoBehaviour, MMEventListener<PlayerInputEvent>
 
     protected virtual void HandleInput()
     {
-        if (_player.IgnoreInputForAbilities || IgnoreInput)
+        if (Player.IgnoreInputForAbilities || IgnoreInput)
         {
             return;
         }
-        if (_pInput.GetButtonDown(inputName, _player.playerID - 1))
+        if (_pInput.GetButtonDown(inputName, Player.playerID - 1))
         {
-            MMEventManager.TriggerEvent(new PlayerInputDownEvent(inputName, _player.playerID - 1));
+            MMEventManager.TriggerEvent(new PlayerInputDownEvent(inputName, Player.playerID - 1));
         }
-        if (_pInput.GetButton(inputName, _player.playerID - 1))
+        if (_pInput.GetButton(inputName, Player.playerID - 1))
         {
-            MMEventManager.TriggerEvent(new PlayerInputHoldEvent(inputName, _player.playerID - 1));
+            MMEventManager.TriggerEvent(new PlayerInputHoldEvent(inputName, Player.playerID - 1));
         }
-        if (_pInput.GetButtonUp(inputName, _player.playerID - 1))
+        if (_pInput.GetButtonUp(inputName, Player.playerID - 1))
         {
-            MMEventManager.TriggerEvent(new PlayerInputUpEvent(inputName, _player.playerID - 1));
+            MMEventManager.TriggerEvent(new PlayerInputUpEvent(inputName, Player.playerID - 1));
         }
     }
 
@@ -130,16 +139,16 @@ public class PlayerAbility : MonoBehaviour, MMEventListener<PlayerInputEvent>
 
     public T GetCrossZComponent<T>() where T : PlayerAbility
     {
-        if (typeof(T) == typeof(PlayerMovement)) { return _player._cPlayerMovement as T; }
-        if (typeof(T) == typeof(PlayerThrow)) { return _player._cPlayerThrow as T; }
-        if (typeof(T) == typeof(PlayerFishing)) { return _player._cPlayerFishing as T; }
-        if (typeof(T) == typeof(PlayerSlap)) { return _player._cPlayerSlap as T; }
-        if (typeof(T) == typeof(PlayerSwitchFish)) { return _player._cPlayerSwitch as T; }
-        if (typeof(T) == typeof(PlayerInvincibility)) { return _player._cPlayerInvincibility as T; }
-        if (typeof(T) == typeof(PlayerState)) { return _player._cPlayerState as T; }
-        if (typeof(T) == typeof(PlayerFishInteraction)) { return _player._cPlayerFishInteraction as T; }
-        if (typeof(T) == typeof(PlayerSpecial)) { return _player._cPlayerSpecial as T; }
-        if (typeof(T) == typeof(PlayerDamageHitbox)) { return _player._cPlayerDamageHitBox as T; }
+        if (typeof(T) == typeof(PlayerMovement)) { return Player._cPlayerMovement as T; }
+        if (typeof(T) == typeof(PlayerThrow)) { return Player._cPlayerThrow as T; }
+        if (typeof(T) == typeof(PlayerFishing)) { return Player._cPlayerFishing as T; }
+        if (typeof(T) == typeof(PlayerSlap)) { return Player._cPlayerSlap as T; }
+        if (typeof(T) == typeof(PlayerSwitchFish)) { return Player._cPlayerSwitch as T; }
+        if (typeof(T) == typeof(PlayerInvincibility)) { return Player._cPlayerInvincibility as T; }
+        if (typeof(T) == typeof(PlayerState)) { return Player._cPlayerState as T; }
+        if (typeof(T) == typeof(PlayerFishInteraction)) { return Player._cPlayerFishInteraction as T; }
+        if (typeof(T) == typeof(PlayerSpecial)) { return Player._cPlayerSpecial as T; }
+        if (typeof(T) == typeof(PlayerDamageHitbox)) { return Player._cPlayerDamageHitBox as T; }
 
         return this as T;
     }
@@ -150,9 +159,9 @@ public class PlayerAbility : MonoBehaviour, MMEventListener<PlayerInputEvent>
 
     public void OnMMEvent(PlayerInputEvent eventType)
     {
-        if (eventType.buttonName == inputName && eventType.playerId == _player.playerID - 1)
+        if (eventType.buttonName == inputName && eventType.playerId == Player.playerID - 1)
         {
-            MMEventManager.TriggerEvent(new PlayerInputDownEvent(inputName, _player.playerID - 1));
+            MMEventManager.TriggerEvent(new PlayerInputDownEvent(inputName, Player.playerID - 1));
             StartCoroutine(PressInputFor(eventType.holdingFrame));
         }
     }
@@ -162,16 +171,16 @@ public class PlayerAbility : MonoBehaviour, MMEventListener<PlayerInputEvent>
         int frameCount = 0;
         while(frameCount < frameDuration)
         {
-            MMEventManager.TriggerEvent(new PlayerInputHoldEvent(inputName, _player.playerID - 1));
+            MMEventManager.TriggerEvent(new PlayerInputHoldEvent(inputName, Player.playerID - 1));
             frameCount += 1;
             yield return new WaitForEndOfFrame();
         }
-        MMEventManager.TriggerEvent(new PlayerInputUpEvent(inputName, _player.playerID - 1));
+        MMEventManager.TriggerEvent(new PlayerInputUpEvent(inputName, Player.playerID - 1));
     }
 
     public void OnMMEvent(PlayerInputUpEvent eventType)
     {
-        if (eventType.buttonName == inputName && eventType.playerId == _player.playerID - 1)
+        if (eventType.buttonName == inputName && eventType.playerId == Player.playerID - 1)
         {
             OnInputUp();
         }
@@ -179,7 +188,7 @@ public class PlayerAbility : MonoBehaviour, MMEventListener<PlayerInputEvent>
 
     public void OnMMEvent(PlayerInputDownEvent eventType)
     {
-        if (eventType.buttonName == inputName && eventType.playerId == _player.playerID - 1)
+        if (eventType.buttonName == inputName && eventType.playerId == Player.playerID - 1)
         {
             OnInputDown();
         }
@@ -187,7 +196,7 @@ public class PlayerAbility : MonoBehaviour, MMEventListener<PlayerInputEvent>
 
     public void OnMMEvent(PlayerInputHoldEvent eventType)
     {
-        if (eventType.buttonName == inputName && eventType.playerId == _player.playerID - 1)
+        if (eventType.buttonName == inputName && eventType.playerId == Player.playerID - 1)
         {
             OnInputHold();
         }

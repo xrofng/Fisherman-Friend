@@ -82,6 +82,8 @@ public class Player : Creature
     public PlayerSpecial _cPlayerSpecial;
     [HideInInspector]
     public PlayerDamageHitbox _cPlayerDamageHitBox;
+    [HideInInspector]
+    public PlayerJump _cPlayerJump;
 
 
     public GameObject knockBackOrigin;
@@ -127,6 +129,7 @@ public class Player : Creature
     protected GameLoop gameLoop;
     protected PortRoyal portRoyal;
     protected KnockData knockData;
+
     // Use this for initialization
     void Start() {
 
@@ -292,7 +295,7 @@ public class Player : Creature
 
     }
 
-    public Vector3 getLowestPlayerPoint()
+    public Vector3 GetLowestPlayerPoint()
     {
         return new Vector3(transform.position.x, transform.position.y - GetCollider<BoxCollider>().size.y / 2.0f, transform.position.z);
     }

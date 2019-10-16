@@ -56,7 +56,7 @@ public class SI_JellyFish : StageInteraction {
             // play animation feedback
             Animation.ChangeAnimState(1, true, 0);
             SoundManager.Instance.PlaySound(RandomAudioClip(), this.transform.position);
-            _player._cPlayerMovement.StartJumping(bounceForce);
+            _player._cPlayerJump.StartJumping(bounceForce);
         }
         else 
         {

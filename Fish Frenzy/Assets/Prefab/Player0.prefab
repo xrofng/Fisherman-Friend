@@ -372,6 +372,7 @@ GameObject:
   - component: {fileID: 114227519793500462}
   - component: {fileID: 95935791461085208}
   - component: {fileID: 114293536094680500}
+  - component: {fileID: 114376877632834070}
   m_Layer: 0
   m_Name: Player0
   m_TagString: Fisherman
@@ -2274,6 +2275,21 @@ MonoBehaviour:
     clip: {fileID: 0}
     volume: 1
     oneTime: 0
+--- !u!114 &114376877632834070
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1727452470752796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62b8e90293d9fb14583cbea8f0b26fd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpForce: {x: 0, y: 70, z: 0}
+  jumpFaster: 10
+  fallFaster: 10
+  JumpOfWaterMultiplier: 0.7
 --- !u!114 &114403877366973610
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2482,8 +2498,8 @@ MonoBehaviour:
   FreezeMovement: 0
   FreezeRotation: 0
   JumpOfWaterMultiplier: 0.7
-  Control: 1
-  AirControl: 0.8
+  JumpDirectionInfluence: 0.5
+  JumpInputInfluence: 0.5
   lookTo: {x: 0, y: 0, z: 0}
 --- !u!114 &114712716794707714
 MonoBehaviour:

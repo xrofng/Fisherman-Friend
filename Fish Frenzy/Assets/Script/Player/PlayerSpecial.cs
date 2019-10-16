@@ -9,14 +9,14 @@ public class PlayerSpecial : PlayerAbility
     
     public T FishSpecialAs<T>() where T : FishSpecial
     {
-        return _player.mainFish._cSpecial as T;
+        return Player.mainFish._cSpecial as T;
     }
 
     public FishSpecial Special
     {
         get
         {
-            return _player.mainFish._cSpecial;
+            return Player.mainFish._cSpecial;
         }
     }
 
@@ -37,20 +37,20 @@ public class PlayerSpecial : PlayerAbility
     /// <returns></returns>
     public bool GetSpecialing()
     {
-        if (_player.mainFish && _player.mainFish._cSpecial)
+        if (Player.mainFish && Player.mainFish._cSpecial)
         {
-            return _player.mainFish._cSpecial.CheckPerformingSpecial();
+            return Player.mainFish._cSpecial.CheckPerformingSpecial();
         }
         return false;
     }
 
     public bool GetSpecialing<T>() where T : FishSpecial
     {
-        if (!_player.mainFish)
+        if (!Player.mainFish)
         {
             return false;
         }
-        T specialComponent = _player.mainFish.GetComponent<T>();
+        T specialComponent = Player.mainFish.GetComponent<T>();
         if (specialComponent != null)
         {
             return specialComponent.CheckPerformingSpecial();
@@ -61,7 +61,7 @@ public class PlayerSpecial : PlayerAbility
     // Update is called once per frame
     void Update()
     {
-        if (_player.state == Player.eState.ground)
+        if (Player.state == Player.eState.ground)
         {
             HandleInput();
         }
@@ -69,12 +69,12 @@ public class PlayerSpecial : PlayerAbility
 
     bool IsValidForSpecial()
     {
-        if (_player.mainFish == null)
+        if (Player.mainFish == null)
         {
             return false;
         }
 
-        if (_player.mainFish.state == Fish.FishConditionalState.dehydrate || !_player.mainFish.GetComponent<FishSpecial>())
+        if (Player.mainFish.state == Fish.FishConditionalState.dehydrate || !Player.mainFish.GetComponent<FishSpecial>())
         {
             return false;
         }
