@@ -47,7 +47,6 @@ public class EnvironmentResponse : MonoBehaviour
         foreach(Collider hit  in hitColliders)
         {
             //Output all of the collider names
-            Debug.Log("Hit : " + hit.name);
             if (hit)
             {
                 Animator.SetTrigger(animTriggerName);
