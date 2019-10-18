@@ -379,7 +379,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1757172497880862
 GameObject:
   m_ObjectHideFlags: 1
@@ -2218,7 +2218,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 114bb6c238502ae4296944d033035da7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IgnoreAbilityFrame: 40
+  BlockIgnoreAbilityFrame: 40
+  CounterIgnoreAbilityFrame: 40
+  thisBlock: {fileID: 114602076170422292}
 --- !u!114 &114305712712285014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2335,7 +2337,7 @@ MonoBehaviour:
   - {fileID: 7400000, guid: ab95b4c44ab90c04b8c18ec397a41b89, type: 2}
   - {fileID: 7400000, guid: 0539952431b7cd04f83d7d53d6c85867, type: 2}
   - {fileID: 7400000, guid: 05c0b5dbc2e0a3743b97617598271b3d, type: 2}
-  AnimationFrame: 000000009dffffff0f000000460000009dffffff000000001e0000000a0000000a0000009600000036000000230000000a000000280000000a0000001e0000001e0000003c0000001e000000
+  AnimationFrame: 000000009dffffff0f000000320000009dffffff000000001e0000000a0000000a0000009600000036000000230000000a000000280000000a0000001e0000001e0000003c0000001e000000
 --- !u!114 &114484359588375932
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2402,6 +2404,8 @@ MonoBehaviour:
   _cPlayerEnvironmentInteraction: {fileID: 0}
   _cPlayerSpecial: {fileID: 0}
   _cPlayerDamageHitBox: {fileID: 0}
+  _cPlayerJump: {fileID: 0}
+  _cPlayerBlock: {fileID: 0}
   knockBackOrigin: {fileID: 1741521758649520, guid: 5f192c056a302e9418bd3b64d9801479,
     type: 2}
   part:
@@ -2492,12 +2496,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 7.5
-  jumpForce: {x: 0, y: 70, z: 0}
-  jumpFaster: 10
-  fallFaster: 10
   FreezeMovement: 0
   FreezeRotation: 0
-  JumpOfWaterMultiplier: 0.7
   JumpDirectionInfluence: 0.5
   JumpInputInfluence: 0.5
   lookTo: {x: 0, y: 0, z: 0}

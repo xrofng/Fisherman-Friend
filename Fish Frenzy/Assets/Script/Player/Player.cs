@@ -84,7 +84,8 @@ public class Player : Creature
     public PlayerDamageHitbox _cPlayerDamageHitBox;
     [HideInInspector]
     public PlayerJump _cPlayerJump;
-
+    [HideInInspector]
+    public PlayerBlock _cPlayerBlock;
 
     public GameObject knockBackOrigin;
     public bool IsInvincible
@@ -160,6 +161,8 @@ public class Player : Creature
         _cPlayerSpecial = GetComponent<PlayerSpecial>();
         _cPlayerEnvironmentInteraction = GetComponent<PlayerEnvironmentInteraction>();
         _cPlayerDamageHitBox = GetComponent<PlayerDamageHitbox>();
+        _cPlayerJump = GetComponent<PlayerJump>();
+        _cPlayerBlock = GetComponent<PlayerBlock>();
     }
 
     public void ChangeState(eState staTE)

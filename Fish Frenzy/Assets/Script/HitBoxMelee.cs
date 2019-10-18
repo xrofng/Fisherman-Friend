@@ -117,9 +117,8 @@ public class HitBoxMelee : DamageOnHit
             return;
         }
 
-        if (IsBlocked(damageDealer,_player))
+        if (_player._cPlayerBlock.CheckBlock(damageDealer,_player))
         {
-            //_player do somthing
             return;
         }
 
@@ -132,25 +131,6 @@ public class HitBoxMelee : DamageOnHit
         {
             OnEnemyHit(damageDealer);
         }
-    }
-
-    private bool IsBlocked(GameObject damageDealer, Player damageReciever)
-    {
-        RaycastHit[] hits;
-        Vector3 dir = (damageReciever.transform.position - damageDealer.transform.position).normalized;
-        float dis = Vector3.Distance(damageReciever.transform.position, damageDealer.transform.position);
-        hits = Physics.RaycastAll(damageDealer.transform.position, dir, dis);
-
-        for (int i = 0; i < hits.Length; i++)
-        {
-            RaycastHit hit = hits[i];
-            if (hit.collider.gameObject != damageReciever.gameObject &&
-                hit.collider.gameObject.GetComponent<Block>())
-            {
-                return true;
-            }
-        }
-        return false;
     }
 
     void OnEnemyHit(GameObject damageDealer)
