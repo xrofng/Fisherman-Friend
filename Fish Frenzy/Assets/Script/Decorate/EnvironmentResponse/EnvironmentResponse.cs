@@ -6,6 +6,7 @@ using Xrofng;
 public class EnvironmentResponse : MonoBehaviour
 {
     public string animTriggerName = "response";
+    public SoundEffect sfx_response;
     public LayerMask ResponseToLayers;
     public Vector3 ResponseAreaSize;
     public Vector3 ResponseAreaOffset;
@@ -49,6 +50,10 @@ public class EnvironmentResponse : MonoBehaviour
             //Output all of the collider names
             if (hit)
             {
+                if (sfx_response != null)
+                {
+                    SoundManager.Instance.PlaySound(sfx_response,transform.position);
+                }
                 Animator.SetTrigger(animTriggerName);
                 UpdateRandomDelay();
                 return;

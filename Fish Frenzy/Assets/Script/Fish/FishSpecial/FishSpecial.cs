@@ -179,7 +179,7 @@ public class FishSpecial : MonoBehaviour
     protected virtual void PerformSpecialHold() { }
     protected virtual void PerformSpecialUp() { }
 
-    protected virtual bool CheckCanActivateDown() { return CheckValidForSpecial()&& !CheckPerformingSpecial(); }
+    protected virtual bool CheckCanActivateDown() { return CheckValidForSpecial() && !CheckPerformingSpecial(); }
     protected virtual bool CheckCanActivateHold() { return CheckValidForSpecial() && !CheckPerformingSpecial(); }
     protected virtual bool CheckCanActivateUp() { return CheckValidForSpecial() && !CheckPerformingSpecial(); }
 

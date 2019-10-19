@@ -68,7 +68,8 @@ public class PlayerState : PlayerAbility
         IsSwiming = false;
     }
     // Update is called once per frame
-    void Update () {
+    void Update ()
+    {
         CheckGround();
     }
 
@@ -86,17 +87,17 @@ public class PlayerState : PlayerAbility
         // Does the ray intersect any objects excluding the player layer
         if (Physics.Raycast(Player.GetLowestPlayerPoint(), transform.TransformDirection(Vector3.down), out hit, 0.5f))
         {
-            Color lineColor = Color.yellow;
-            if(hit.transform != null)
+            if(hit.transform == null)
             {
-                hitBelow = true;
+                return;
             }
+            hitBelow = true;
 
             // Both Tag share same Action
-            if(hit.transform.gameObject.tag == "Sea" ||
+            if (hit.transform.gameObject.tag == "Sea" ||
                 hit.transform.gameObject.tag == "Ground")
             {
-                CheckFinishJumping();
+                CheckFinishJumping(hit);
             }
 
             // Each Tag has different Action
@@ -118,9 +119,9 @@ public class PlayerState : PlayerAbility
         IsCollidingBelow = hitBelow;
     }
 
-    public void CheckFinishJumping(){
-        
-        if (IsJumping && _pRigid.velocity.y <= 0)
+    public void CheckFinishJumping(RaycastHit hit)
+    {
+        if (IsJumping && _pRigid.velocity.y < 0)
         {
             IsJumping = false;
         }
@@ -158,6 +159,4 @@ public class PlayerState : PlayerAbility
         _pAnimator.ChangeAnimState((int)Player._cPlayerAnimator.GetIdleAnimation());
 
     }
-
-
 }

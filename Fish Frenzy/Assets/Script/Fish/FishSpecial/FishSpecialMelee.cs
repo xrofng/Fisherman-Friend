@@ -94,4 +94,9 @@ public class FishSpecialMelee : FishSpecial
             Player._cPlayerMovement.FreezeRotation = false;
         }
     }
+
+    protected override bool CheckValidForSpecial()
+    {
+        return !Player.Aiming;
+    }
 }

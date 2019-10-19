@@ -16,7 +16,6 @@ public class FishSpecialSpawn : FishSpecial
     [Header("Channeling")]
     public int throwingFrameDuration = 10;
     public int channelingFrameDuration = 10;
-    public bool ignoreInput;
 
     public override void OnPlayerHold()
     {
@@ -38,6 +37,11 @@ public class FishSpecialSpawn : FishSpecial
     {
         movingObject.OnBeforeDestroy();
         Destroy(movingObject.gameObject);
+    }
+
+    protected bool SpawnedExist()
+    {
+        return currentMovingObj;
     }
 
 }

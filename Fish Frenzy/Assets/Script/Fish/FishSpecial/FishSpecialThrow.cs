@@ -11,8 +11,9 @@ public class FishSpecialThrow: FishSpecialSpawn
         StartCoroutine(ieSpecialThrowAttack(throwingFrameDuration, channelingFrameDuration));
     }
 
-    IEnumerator ieSpecialThrowAttack(int frameDuration, int channelFrameDuration)
+    protected IEnumerator ieSpecialThrowAttack(int frameDuration, int channelFrameDuration)
     {
+        _isPerformingSpecial = true;
         IgnoreInputFor(channelFrameDuration);
         int frameCount = 0;
         while (frameCount < channelFrameDuration)
@@ -23,14 +24,11 @@ public class FishSpecialThrow: FishSpecialSpawn
         
         OnThrowStart();
 
-        IgnoreInputFor(frameDuration);
-        frameCount = 0;
-        while (frameCount < frameDuration && !currentMovingObj.MoveEnd)
+        while (!currentMovingObj.MoveEnd)
         {
             yield return new WaitForEndOfFrame();
-            frameCount++;
         }
-
+        _isPerformingSpecial = false;
         OnThrowEnd();
     }
 
@@ -50,15 +48,6 @@ public class FishSpecialThrow: FishSpecialSpawn
         fish.SnapTransform();
     }
 
-    protected override void IgnoreInputFor(int ignoreFrame)
-    {
-        if (!ignoreInput)
-        {
-            return;
-        }
-        StartCoroutine(ieIgnoreInput(ignoreFrame));
-    }
-
     IEnumerator ieIgnoreInput(int frameDuration)
     {
         int frameCount = 0;
@@ -70,7 +59,8 @@ public class FishSpecialThrow: FishSpecialSpawn
                 yield return new WaitForEndOfFrame();
                 frameCount++;
             }
-        }else
+        }
+        else
         {
             while (frameCount < frameDuration)
             {
@@ -100,6 +90,8 @@ public class FishSpecialThrow: FishSpecialSpawn
 
     protected override bool CheckValidForSpecial()
     {
-        return !PlayerFishSpecial.GetCrossZComponent<PlayerState>().IsJumping;
+        bool valid = !PlayerFishSpecial.GetCrossZComponent<PlayerState>().IsJumping &&
+            !SpawnedExist();
+        return valid;
     }
 }
