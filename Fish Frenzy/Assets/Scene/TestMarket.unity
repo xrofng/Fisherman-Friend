@@ -5451,6 +5451,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1727452470752796, guid: 39fef1461dd626e4c869f96b5a2d7e66, type: 2}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 65029772642893038, guid: 39fef1461dd626e4c869f96b5a2d7e66,
+        type: 2}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -47826,6 +47831,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 23
       objectReference: {fileID: 0}
+    - target: {fileID: 114894236116428748, guid: b8cbed68061224c4c858383bad86a564,
+        type: 2}
+      propertyPath: numPlayer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8cbed68061224c4c858383bad86a564, type: 2}
   m_IsPrefabAsset: 0
@@ -49592,6 +49602,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animTriggerName: response
+  sfx_response:
+    clip: {fileID: 0}
+    volume: 1
+    oneTime: 0
   ResponseToLayers:
     serializedVersion: 2
     m_Bits: 522240
