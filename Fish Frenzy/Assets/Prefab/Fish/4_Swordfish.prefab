@@ -272,13 +272,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 063923ab17acfe54abf9317ead1268cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack: 40
+  damage:
+    damage: 40
+    damageFromOwner: 1
+    isLauncher: 1
+    hitBoxName: Spin_HB
+    invicibilityFrame: 50
+    freezeFrame: 0
   specialClip: 14
   InputLagFrameDuration: 10
-  hitBoxName: Spin_HB
-  invicibilityFrame: 50
-  freezeFrame: 0
-  launchingDamage: 1
   freezeRotation: 1
   hitBoxRef: {fileID: 4524753283349938, guid: 4553a14b9b388c6428bb0880ecfe688b, type: 2}
   sfx_startMelee:

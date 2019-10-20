@@ -379,7 +379,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1757172497880862
 GameObject:
   m_ObjectHideFlags: 1
@@ -2221,6 +2221,13 @@ MonoBehaviour:
   BlockIgnoreAbilityFrame: 40
   CounterIgnoreAbilityFrame: 40
   thisBlock: {fileID: 114602076170422292}
+  counterDamage:
+    damage: 10
+    damageFromOwner: 1
+    isLauncher: 1
+    hitBoxName: Counter_HB
+    invicibilityFrame: 50
+    freezeFrame: 10
 --- !u!114 &114305712712285014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2540,7 +2547,6 @@ MonoBehaviour:
     clip: {fileID: 0}
     volume: 1
     oneTime: 0
-  showHitBox: 0
 --- !u!135 &135176067904847010
 SphereCollider:
   m_ObjectHideFlags: 1

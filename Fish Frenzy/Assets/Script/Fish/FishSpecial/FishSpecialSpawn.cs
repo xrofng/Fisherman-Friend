@@ -8,11 +8,6 @@ public class FishSpecialSpawn : FishSpecial
     public MovingObject movingObjects;
     protected MovingObject currentMovingObj;
 
-    public bool endByFrame;
-    public int invicibilityFrame = 50;
-    public int freezeFrame = 0;
-    public bool launchingDamage = true;
-
     [Header("Channeling")]
     public int throwingFrameDuration = 10;
     public int channelingFrameDuration = 10;
@@ -20,9 +15,7 @@ public class FishSpecialSpawn : FishSpecial
     public override void OnPlayerHold()
     {
         base.OnPlayerHold();
-        movingObjects.HitBox.FreezeFramesOnHit = freezeFrame;
-        movingObjects.HitBox.InvincibilityFrame = invicibilityFrame;
-        movingObjects.HitBox.DamageCaused = attack;
+        movingObjects.HitBox.SetDamage(damage);
         if (fish.sfx_Special.clip)
         {
             movingObjects.HitBox._SFX = fish.sfx_Special;

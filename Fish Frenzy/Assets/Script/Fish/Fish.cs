@@ -284,7 +284,7 @@ public class Fish : Creature
         float chargePer = Mathf.Lerp(0.1f, 1, scaleToDuration);
         float forwardMultiplier = minForwardMultiplier + (maxForwardMultiplier - minForwardMultiplier)*chargePer;
         _rigid.velocity = -transform.forward * -(  forwardMultiplier) + (transform.up* upMultiplier);
-        throwAttack = _cSpecial.attack * scaleToDuration;
+        throwAttack = _cSpecial.damage.damage * scaleToDuration;
     }
 
     public void RemoveRigidBody()

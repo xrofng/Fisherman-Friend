@@ -23,16 +23,10 @@ public class FishSpecial : MonoBehaviour
     {
         get { return fish.GetPlayerHolder; }
     }
-    protected virtual void PlaySFX(SoundEffect SFXclip)
-    {
-        SoundManager.Instance.PlaySound(SFXclip, transform.position);
-    }
-    protected virtual void StopSFX(SoundEffect SFXclip)
-    {
-        SoundManager.Instance.StopSound(SFXclip);
-    }
+
+
     [Header("Special")]
-    public float attack;
+    public DamagingData damage;
     public PlayerAnimation.Anim specialClip;
     public int SpeiclaClipFrameCount
     {
@@ -157,8 +151,6 @@ public class FishSpecial : MonoBehaviour
         return _isPerformingSpecial;
     }
 
-
-
     protected void PerformSpecial(FishSpecialActivatedState fishSpecialActivatedState)
     {
         if(fishSpecialActivatedState == FishSpecialActivatedState.DOWN)
@@ -191,5 +183,14 @@ public class FishSpecial : MonoBehaviour
     protected virtual bool CheckValidForSpecial()
     {
         return true;
+    }
+
+    protected virtual void PlaySFX(SoundEffect SFXclip)
+    {
+        SoundManager.Instance.PlaySound(SFXclip, transform.position);
+    }
+    protected virtual void StopSFX(SoundEffect SFXclip)
+    {
+        SoundManager.Instance.StopSound(SFXclip);
     }
 }

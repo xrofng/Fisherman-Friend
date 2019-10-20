@@ -325,18 +325,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12e2aa3f861dbde4898c25c7c78df741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack: 35
+  damage:
+    damage: 35
+    damageFromOwner: 0
+    isLauncher: 1
+    hitBoxName: 
+    invicibilityFrame: 50
+    freezeFrame: 0
   specialClip: 9
   InputLagFrameDuration: 10
   movingObjects: {fileID: 114532827588214438, guid: 6415abaacfab66948abfae3bbfc54429,
     type: 2}
-  endByFrame: 0
-  invicibilityFrame: 50
-  freezeFrame: 0
-  launchingDamage: 1
   throwingFrameDuration: 20
   channelingFrameDuration: 30
-  ignoreInput: 1
   damageFrameDuration: 20
   releaseFrameDuration: 10
   finalBlowForce: 2

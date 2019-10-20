@@ -149,13 +149,15 @@ public class SoundManager : PersistentSingleton<SoundManager>
     /// <param name="loop">If set to true, the sound will loop.</param>
     public virtual AudioSource PlaySound(SoundEffect sfx, Vector3 location, bool loop = false, float spartialBlend = 0f)
     {
-        if (!Settings.SfxOn)
-            return null;
-        if(sfx.oneTime == true && sfx.TimeCount > 0)
+        if (!Settings.SfxOn || sfx == null || sfx.clip == null)
         {
             return null;
         }
-        if(sfx.AudioSource && sfx.AudioSource.isPlaying)
+        if (sfx.oneTime == true && sfx.TimeCount > 0)
+        {
+            return null;
+        }
+        if (sfx.AudioSource && sfx.AudioSource.isPlaying)
         {
             return null;
         }

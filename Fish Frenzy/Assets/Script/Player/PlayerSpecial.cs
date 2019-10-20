@@ -116,7 +116,4 @@ public class PlayerSpecial : PlayerAbility
 
     [Header("SFX")]
     public SoundEffect sfx_Special;
-
-    [Header("Debug")]
-    public bool showHitBox;
 }

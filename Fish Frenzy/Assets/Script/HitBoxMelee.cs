@@ -1,7 +1,20 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+[System.Serializable]
+public class DamagingData
+{
+    public float damage = 1;
+    /// the owner of the HitBoxMelee zone
+    public bool damageFromOwner = true;
+    public bool isLauncher;
+    public string hitBoxName;
+
+    [Header("Damage Receiver")]
+    public int invicibilityFrame = 50;
+    public int freezeFrame = 10;
+}
 
 public class HitBoxMelee : DamageOnHit
 {
@@ -9,6 +22,7 @@ public class HitBoxMelee : DamageOnHit
     public bool mustHaveOwner;
     /// the owner of the HitBoxMelee zone
     public bool damageFromOwner = true;
+
     public bool isLauncher;
     public GameObject Owner;
     protected Player ownerPlayer;
@@ -42,6 +56,17 @@ public class HitBoxMelee : DamageOnHit
         {
             this.gameObject.AddComponent<AudioSource>();
         }
+    }
+
+    public void SetDamage(DamagingData data)
+    {
+        FreezeFramesOnHit = data.freezeFrame;
+        InvincibilityFrame = data.invicibilityFrame;
+        DamageCaused = data.damage;
+        isLauncher = data.isLauncher;
+
+        damageFromOwner = data.damageFromOwner;
+        mustHaveOwner = damageFromOwner;
     }
 
     protected override void Colliding(Collider collider)

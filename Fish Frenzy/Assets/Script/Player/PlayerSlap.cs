@@ -37,7 +37,6 @@ public class PlayerSlap : PlayerAbility
     {
         base.Initialization();
         hitBox.gameObject.layer = LayerMask.NameToLayer("Fish" + Player.playerID);
-
     }
 
     // Update is called once per frame

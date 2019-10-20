@@ -5451,11 +5451,6 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1727452470752796, guid: 39fef1461dd626e4c869f96b5a2d7e66, type: 2}
       propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 65029772642893038, guid: 39fef1461dd626e4c869f96b5a2d7e66,
-        type: 2}
-      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -24120,13 +24115,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcbb71c491f658e448fc46b5a9c5e9b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack: 20
+  damage:
+    damage: 1
+    damageFromOwner: 1
+    isLauncher: 0
+    hitBoxName: 
+    invicibilityFrame: 50
+    freezeFrame: 10
   specialClip: 2
   InputLagFrameDuration: 0
-  hitBoxName: 
-  invicibilityFrame: 50
-  freezeFrame: 0
-  launchingDamage: 1
   freezeRotation: 1
   hitBoxRef: {fileID: 4992497796906506, guid: 6657a06d3df040b4a8412bd9f0e164c1, type: 2}
   sfx_startMelee:

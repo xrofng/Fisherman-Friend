@@ -10,10 +10,16 @@ public class PlayerBlock : PlayerAbility
 
     public Block thisBlock;
 
+    protected HitBoxMelee damageHitbox;
+
+    public DamagingData counterDamage;
+
     protected override void Initialization()
     {
         base.Initialization();
         inputName = _pInput.Block;
+        damageHitbox = Player._cPlayerDamageHitBox.GetHitBox(counterDamage.hitBoxName);
+        damageHitbox.SetDamage(counterDamage);
     }
     // Update is called once per frame
     void Update ()

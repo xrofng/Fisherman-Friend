@@ -6,10 +6,6 @@ using UnityEngine;
 public class FishSpecialMelee : FishSpecial
 {
     protected HitBoxMelee damageHitbox;
-    public string hitBoxName;
-    public int invicibilityFrame = 50;
-    public int freezeFrame = 10;
-    public bool launchingDamage = true;
     public bool freezeRotation = true;
 
     [Header("Prefab Ref")]
@@ -22,23 +18,6 @@ public class FishSpecialMelee : FishSpecial
     {
         base.OnPlayerHold();
         BindHitBox();
-        SetUpGameVariable();
-    }
-
-    protected void SetUpSpecialHitBox()
-    {
-        
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    void SetUpGameVariable()
-    {   
-        damageHitbox.FreezeFramesOnHit = freezeFrame;
-        damageHitbox.InvincibilityFrame = invicibilityFrame;
-        damageHitbox.DamageCaused = attack;
-        damageHitbox.isLauncher = launchingDamage;
 
         if (fish.sfx_Special.clip)
         {
@@ -50,9 +29,22 @@ public class FishSpecialMelee : FishSpecial
         }
     }
 
+    protected void SetUpSpecialHitBox()
+    {
+        
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    void SetUpGameVariable()
+    {
+        
+    }
+
     private void BindHitBox()
     {
-        damageHitbox = Player._cPlayerDamageHitBox.GetHitBox(hitBoxName);
+        damageHitbox = Player._cPlayerDamageHitBox.GetHitBox(damage.hitBoxName);
     }
 
     public override void OnSpecialActivated()

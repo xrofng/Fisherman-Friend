@@ -321,13 +321,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcbb71c491f658e448fc46b5a9c5e9b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack: 50
+  damage:
+    damage: 1
+    damageFromOwner: 1
+    isLauncher: 0
+    hitBoxName: 
+    invicibilityFrame: 50
+    freezeFrame: 10
   specialClip: 3
   InputLagFrameDuration: 10
-  hitBoxName: EarthShatter_HB
-  invicibilityFrame: 50
-  freezeFrame: 10
-  launchingDamage: 1
   freezeRotation: 1
   hitBoxRef: {fileID: 4352711589645446, guid: 66da22c8c634a2943bd2093bf7467c2b, type: 2}
   sfx_startMelee:
