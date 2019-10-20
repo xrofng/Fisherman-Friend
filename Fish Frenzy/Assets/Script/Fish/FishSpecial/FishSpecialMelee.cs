@@ -8,9 +8,6 @@ public class FishSpecialMelee : FishSpecial
     protected HitBoxMelee damageHitbox;
     public bool freezeRotation = true;
 
-    [Header("Prefab Ref")]
-    public Transform hitBoxRef;
-
     [Header("Sound Effect")]
     public SoundEffect sfx_startMelee;
 
@@ -18,14 +15,13 @@ public class FishSpecialMelee : FishSpecial
     {
         base.OnPlayerHold();
         BindHitBox();
-
         if (fish.sfx_Special.clip)
         {
-            damageHitbox._SFX = fish.sfx_Special;
+            damageHitbox.HitSFX = fish.sfx_Special;
         }
         else
         {
-            damageHitbox._SFX = PlayerFishSpecial.sfx_Special;
+            damageHitbox.HitSFX = PlayerFishSpecial.sfx_Special;
         }
     }
 

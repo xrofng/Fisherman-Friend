@@ -39,7 +39,22 @@ public class HitBoxMelee : DamageOnHit
     }
 
     [Header("SFX")]
-    public SoundEffect _SFX;
+    public SoundEffect m_hitSfx;
+    public SoundEffect HitSFX
+    {
+        get
+        {
+            if(m_hitSfx == null)
+            {
+                m_hitSfx = new SoundEffect();
+            }
+            return m_hitSfx;
+        }
+        set
+        {
+            m_hitSfx = value;
+        }
+    }
 
     /// <summary>
     /// Initialization
@@ -160,7 +175,7 @@ public class HitBoxMelee : DamageOnHit
 
     void OnEnemyHit(GameObject damageDealer)
     {
-        SoundManager.Instance.PlaySound(_SFX,this.transform.position);
+        SoundManager.Instance.PlaySound(HitSFX, this.transform.position);
         Vector3 forcesource = this.transform.position;
         if (damageFromOwner)
         {

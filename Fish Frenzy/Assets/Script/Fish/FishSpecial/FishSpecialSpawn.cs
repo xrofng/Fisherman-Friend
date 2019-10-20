@@ -18,11 +18,11 @@ public class FishSpecialSpawn : FishSpecial
         movingObjects.HitBox.SetDamage(damage);
         if (fish.sfx_Special.clip)
         {
-            movingObjects.HitBox._SFX = fish.sfx_Special;
+            movingObjects.HitBox.HitSFX = fish.sfx_Special;
         }
         else
         {
-            movingObjects.HitBox._SFX = PlayerFishSpecial.sfx_Special;
+            movingObjects.HitBox.HitSFX = PlayerFishSpecial.sfx_Special;
         }
     }
 

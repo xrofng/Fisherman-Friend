@@ -35,6 +35,7 @@ public class FishSpecialSpin : FishSpecialMelee {
     {
         // inorder to change to looping animation
         // not call base.this preventing change to holdfish after finish 1st animation clip
+        Player._cPlayerAnimator.ChangeAnimState((int)specialClip, true, (int)spiningClip);
     }
 
     IEnumerator Spining()
