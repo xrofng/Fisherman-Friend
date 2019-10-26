@@ -23,32 +23,21 @@ public class FishSpecialSpin : FishSpecialMelee {
     [Header("SoundEffect")]
     public SoundEffect sfx_spining;
 
-    protected override void ChangeToSpecialAnimation()
-    {
-        // inorder to change to looping animation
-        // not call base.this preventing change to holdfish after finish 1st animation clip
-        //Player._cPlayerAnimator.ChangeAnimState((int)specialClip, true, (int)spiningClip);
-    }
-
     protected override void OnSpecialStart()
     {
         base.OnSpecialStart();
         Player.AddAbilityInputIntercepter(this);
         playerPositionY = Player.transform.position.y;
-        Player._cPlayerAnimator.TriggerAnimation("s_startspin");
-        Debug.Log("start melee");
     }
 
     protected override void OnSpecialEnd()
     {
         base.OnSpecialEnd();
         Player.transform.position = sClass.SetVector3(Player.transform.position, VectorComponent.y, playerPositionY);
-        //Player._cPlayerAnimator.ChangeAnimState((int)Player._cPlayerAnimator.GetIdleAnimation());
         Player._cPlayerAnimator.TriggerAnimation("s_endspin");
         Player.RemoveAbilityInputIntercepter(this);
         fish.SnapTransform();
         StopSFX(sfx_spining);
-        Debug.Log("end melee");
     }
 
     protected override void OnSpecialProcess()
@@ -58,7 +47,6 @@ public class FishSpecialSpin : FishSpecialMelee {
         Player.transform.Translate(Player.PlayerForward * Speed);
         Player.transform.position = sClass.SetVector3(Player.transform.position, VectorComponent.y, playerPositionY + floorOffset);
         fish.transform.Rotate(Vector3.forward * fishSpinSpeed, Space.Self);
-        Debug.Log("process melee");
     }
 
     protected override int GetSpecialFrameDuration(bool includeLag = false)
@@ -68,7 +56,6 @@ public class FishSpecialSpin : FishSpecialMelee {
         {
             c += InputLagFrameDuration;
         }
-        Debug.Log("frame dura" + c);
         return c;
     }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FishSpecialSpawn : FishSpecial
 {
-    [Header("Throw Seetting")]
+    [Header("spawn")]
     public MovingObject movingObjects;
     protected MovingObject currentMovingObj;
 

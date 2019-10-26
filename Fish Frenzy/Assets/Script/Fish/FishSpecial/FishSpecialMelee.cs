@@ -7,6 +7,7 @@ public class FishSpecialMelee : FishSpecial
 {
     protected HitBoxMelee damageHitbox;
     public bool freezeRotation = true;
+    public string onStartTriggerName = "";
 
     [Header("Sound Effect")]
     public SoundEffect sfx_startMelee;
@@ -29,6 +30,11 @@ public class FishSpecialMelee : FishSpecial
     private void BindHitBox()
     {
         damageHitbox = Player._cPlayerDamageHitBox.GetHitBox(damage.hitBoxName);
+    }
+
+    protected override void OnSpecialStart()
+    {
+        Player._cPlayerAnimator.TriggerAnimation(onStartTriggerName);
     }
 
     public override void OnSpecialActivated()
@@ -66,11 +72,6 @@ public class FishSpecialMelee : FishSpecial
                  });
 
         //ChangeToSpecialAnimation();
-    }
-
-    protected virtual void ChangeToSpecialAnimation()
-    {
-        Player._cPlayerAnimator.ChangeAnimState((int)specialClip, GetSpecialFrameDuration(), true);
     }
 
     protected virtual void OnControlSteal()

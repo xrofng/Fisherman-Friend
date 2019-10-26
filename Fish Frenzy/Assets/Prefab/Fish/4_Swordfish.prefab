@@ -282,7 +282,7 @@ MonoBehaviour:
   specialClip: 14
   InputLagFrameDuration: 10
   freezeRotation: 1
-  hitBoxRef: {fileID: 4524753283349938, guid: 4553a14b9b388c6428bb0880ecfe688b, type: 2}
+  onStartTriggerName: s_startspin
   sfx_startMelee:
     clip: {fileID: 8300000, guid: 4d130bf0efb027242a98128bca5a2b92, type: 3}
     volume: 1

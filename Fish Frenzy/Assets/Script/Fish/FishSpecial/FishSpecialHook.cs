@@ -28,14 +28,16 @@ public class FishSpecialHook : FishSpecialThrow {
 
     protected override void OnThrowEnd()
     {
+        Player._cPlayerAnimator.TriggerAnimation("s_endhook");
         hookedPlayer = currentMovingObj.GetComponent<MovingObjHook>().HookedPlayer;
         base.OnThrowEnd();
         if (hookedPlayer != null)
         {
             StartCoroutine(FinalBlow());
-        }else
+        }
+        else
         {
-            Player._cPlayerAnimator.ChangeAnimState((int)Player._cPlayerAnimator.GetIdleAnimation());
+            // REFACTOR
         }
         DestroyMovingObject(currentMovingObj);
     }
@@ -47,7 +49,8 @@ public class FishSpecialHook : FishSpecialThrow {
         hookedPlayer.AddAbilityInputIntercepter(this);
 
         int specialClip = (int)hookSlapClip;
-        PlayerFishSpecial._pAnimator.ChangeAnimState(specialClip, damageFrameDuration, true);
+        Player._cPlayerAnimator.TriggerAnimation("s_finalblow");
+        //PlayerFishSpecial._pAnimator.ChangeAnimState(specialClip, damageFrameDuration, true);
 
         int frameCount = 0;
         while (frameCount < damageFrameDuration)

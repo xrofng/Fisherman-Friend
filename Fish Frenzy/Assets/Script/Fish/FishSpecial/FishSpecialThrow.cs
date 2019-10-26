@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class FishSpecialThrow: FishSpecialSpawn
 {
+    public string onStartChannelingTriggerName;
+
     public override void OnSpecialActivated()
     {
         base.OnSpecialActivated();
-        Player._cPlayerAnimator.ChangeAnimState((int)specialClip, GetSpecialFrameDuration(), true);
-        StartCoroutine(ieSpecialThrowAttack(throwingFrameDuration, channelingFrameDuration));
+        Player._cPlayerAnimator.TriggerAnimation(onStartChannelingTriggerName);
+        StartCoroutine(PerformThrow(throwingFrameDuration, channelingFrameDuration));
     }
 
-    protected IEnumerator ieSpecialThrowAttack(int frameDuration, int channelFrameDuration)
+    protected IEnumerator PerformThrow(int frameDuration, int channelFrameDuration)
     {
         _isPerformingSpecial = true;
         IgnoreInputFor(channelFrameDuration);
