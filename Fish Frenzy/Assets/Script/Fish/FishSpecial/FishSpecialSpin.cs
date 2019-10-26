@@ -23,39 +23,53 @@ public class FishSpecialSpin : FishSpecialMelee {
     [Header("SoundEffect")]
     public SoundEffect sfx_spining;
 
-    public override void OnSpecialActivated()
-    {
-        base.OnSpecialActivated();
-
-        playerPositionY = Player.transform.position.y;
-        StartCoroutine(Spining());
-    }
-
     protected override void ChangeToSpecialAnimation()
     {
         // inorder to change to looping animation
         // not call base.this preventing change to holdfish after finish 1st animation clip
-        Player._cPlayerAnimator.ChangeAnimState((int)specialClip, true, (int)spiningClip);
+        //Player._cPlayerAnimator.ChangeAnimState((int)specialClip, true, (int)spiningClip);
     }
 
-    IEnumerator Spining()
+    protected override void OnSpecialStart()
     {
+        base.OnSpecialStart();
         Player.AddAbilityInputIntercepter(this);
-        int frameCount = 0;
-        while (frameCount < spiningFrameDuration + SpeiclaClipFrameCount)
-        {
-            PlaySFX(sfx_spining);
-            yield return new WaitForEndOfFrame();
-            Player.transform.Translate(Player.PlayerForward * Speed);
-            Player.transform.position = sClass.SetVector3(Player.transform.position, VectorComponent.y, playerPositionY + floorOffset);
-            fish.transform.Rotate(Vector3.forward * fishSpinSpeed, Space.Self);
-            frameCount += 1;
-        }
+        playerPositionY = Player.transform.position.y;
+        Player._cPlayerAnimator.TriggerAnimation("s_startspin");
+        Debug.Log("start melee");
+    }
+
+    protected override void OnSpecialEnd()
+    {
+        base.OnSpecialEnd();
         Player.transform.position = sClass.SetVector3(Player.transform.position, VectorComponent.y, playerPositionY);
-        Player._cPlayerAnimator.ChangeAnimState((int)Player._cPlayerAnimator.GetIdleAnimation());
+        //Player._cPlayerAnimator.ChangeAnimState((int)Player._cPlayerAnimator.GetIdleAnimation());
+        Player._cPlayerAnimator.TriggerAnimation("s_endspin");
         Player.RemoveAbilityInputIntercepter(this);
         fish.SnapTransform();
         StopSFX(sfx_spining);
+        Debug.Log("end melee");
+    }
+
+    protected override void OnSpecialProcess()
+    {
+        base.OnSpecialProcess();
+        PlaySFX(sfx_spining);
+        Player.transform.Translate(Player.PlayerForward * Speed);
+        Player.transform.position = sClass.SetVector3(Player.transform.position, VectorComponent.y, playerPositionY + floorOffset);
+        fish.transform.Rotate(Vector3.forward * fishSpinSpeed, Space.Self);
+        Debug.Log("process melee");
+    }
+
+    protected override int GetSpecialFrameDuration(bool includeLag = false)
+    {
+        int c = spiningFrameDuration + base.GetSpecialFrameDuration();
+        if (includeLag)
+        {
+            c += InputLagFrameDuration;
+        }
+        Debug.Log("frame dura" + c);
+        return c;
     }
 
     public override void OnDehydrate()

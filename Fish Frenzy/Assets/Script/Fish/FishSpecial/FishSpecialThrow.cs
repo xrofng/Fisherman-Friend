@@ -7,7 +7,7 @@ public class FishSpecialThrow: FishSpecialSpawn
     public override void OnSpecialActivated()
     {
         base.OnSpecialActivated();
-        Player._cPlayerAnimator.ChangeAnimState((int)specialClip, SpeiclaClipFrameCount, true);
+        Player._cPlayerAnimator.ChangeAnimState((int)specialClip, GetSpecialFrameDuration(), true);
         StartCoroutine(ieSpecialThrowAttack(throwingFrameDuration, channelingFrameDuration));
     }
 

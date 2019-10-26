@@ -23,19 +23,7 @@ public class FishSpecialMelee : FishSpecial
         {
             damageHitbox.HitSFX = PlayerFishSpecial.sfx_Special;
         }
-    }
-
-    protected void SetUpSpecialHitBox()
-    {
-        
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    void SetUpGameVariable()
-    {
-        
+        damageHitbox.SetDamage(damage);
     }
 
     private void BindHitBox()
@@ -47,11 +35,29 @@ public class FishSpecialMelee : FishSpecial
     {
         base.OnSpecialActivated();
         PlaySFX(sfx_startMelee);
-        ActionForFrame(SpeiclaClipFrameCount + InputLagFrameDuration,
+
+        ActionForFrame(GetSpecialFrameDuration(),
+                 // before acitvate
+                 () => {
+                     OnSpecialStart();
+                 },
+                 // middle acitvate
+                 () => {
+                     OnSpecialProcess();
+                 },
+                 // after acitvate
+                 () => {
+                     OnSpecialEnd();
+                 });
+
+        ActionForFrame(GetSpecialFrameDuration(true),
             // before acitvate
                  () => {
                      IsPerformingSpecial = true;
                      OnControlSteal();
+                 },
+            // middle acitvate
+                 () => {
                  },
             // after acitvate
                  () => {
@@ -59,12 +65,12 @@ public class FishSpecialMelee : FishSpecial
                      OnControlGive();
                  });
 
-        ChangeToSpecialAnimation();
+        //ChangeToSpecialAnimation();
     }
 
     protected virtual void ChangeToSpecialAnimation()
     {
-        Player._cPlayerAnimator.ChangeAnimState((int)specialClip, SpeiclaClipFrameCount, true);
+        Player._cPlayerAnimator.ChangeAnimState((int)specialClip, GetSpecialFrameDuration(), true);
     }
 
     protected virtual void OnControlSteal()

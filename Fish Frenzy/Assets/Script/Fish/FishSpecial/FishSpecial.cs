@@ -28,10 +28,7 @@ public class FishSpecial : MonoBehaviour
     [Header("Special")]
     public DamagingData damage;
     public PlayerAnimation.Anim specialClip;
-    public int SpeiclaClipFrameCount
-    {
-        get { return Player.GetAnimator<PlayerAnimation>().AnimationFrame[(int)specialClip]; }
-    }
+
     public int InputLagFrameDuration = 10;
 
     protected bool _isPerformingSpecial = false;
@@ -78,17 +75,18 @@ public class FishSpecial : MonoBehaviour
         Player.RemoveAbilityInputIntercepter(this);
     }
 
-    public void ActionForFrame(int frameDuration, System.Action begin, System.Action end)
+    public void ActionForFrame(int frameDuration, System.Action begin, System.Action mid,System.Action end)
     {
-        StartCoroutine(ieActionForFrame(frameDuration, begin, end));
+        StartCoroutine(ieActionForFrame(frameDuration, begin,mid,  end));
     }
 
-    IEnumerator ieActionForFrame(int frameDuration, System.Action begin, System.Action end)
+    IEnumerator ieActionForFrame(int frameDuration, System.Action begin, System.Action mid, System.Action end)
     {
         begin();
         int frameCount = 0;
         while (frameCount < frameDuration)
         {
+            mid();
             yield return new WaitForEndOfFrame();
             frameCount++;
         }
@@ -119,6 +117,29 @@ public class FishSpecial : MonoBehaviour
     public virtual void OnSpecialActivated()
     {
 
+    }
+
+    protected virtual void OnSpecialStart()
+    {
+
+    }
+
+    protected virtual void OnSpecialEnd()
+    {
+
+    }
+
+    protected virtual void OnSpecialProcess()
+    {
+    }
+
+    protected virtual int GetSpecialFrameDuration(bool includeLag = false)
+    {
+        if (includeLag)
+        {
+            return Player.GetAnimator<PlayerAnimation>().AnimationFrame[(int)specialClip] + InputLagFrameDuration;
+        }
+        return Player.GetAnimator<PlayerAnimation>().AnimationFrame[(int)specialClip];
     }
 
     public void TryPerformSpecial(FishSpecialActivatedState fishSpecialActivatedState)

@@ -96,7 +96,7 @@ public class CharacterAnimation : MonoBehaviour
         ChangeState(i);
     }
 
-    public void SetTrigger(string triggerName)
+    public void TriggerAnimation(string triggerName)
     {
         Animator.SetTrigger(triggerName);
     }
