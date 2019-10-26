@@ -65,6 +65,7 @@ public class PlayerFishInteraction : PlayerAbility {
     {
         GetCrossZComponent<PlayerThrow>().ChangeToUnAim();
         Player.holdingFish = isHoldingFish;
+        Player.Animation.Animator.SetBool("is_holdingfish", isHoldingFish);
         if (!isHoldingFish)
         {
             Player.mainFish = null;

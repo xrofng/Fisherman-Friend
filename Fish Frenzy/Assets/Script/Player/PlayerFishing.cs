@@ -58,6 +58,7 @@ public class PlayerFishing : PlayerAbility
                 {
                     guiManager.UpdateFishButtonIndicator(Player.playerID, fishPoint.position, false);
                     Player.ChangeState(Player.eState.rodSwinging);
+                    Player.Animation.TriggerAnimation("f_startfishing");
                     StartCoroutine(StartFishing(delayFrame));
                 }
                 break;
@@ -68,7 +69,7 @@ public class PlayerFishing : PlayerAbility
 
                     Player.baitedFish.fishMeshRenderer.enabled = true;
                     Player.ChangeState(Player.eState.waitForFish);
-                    Player.Animation.ChangeAnimState((int)PlayerAnimation.Anim.FishingEnd, true, (int)PlayerAnimation.Anim.HoldFish);
+                    Player.Animation.TriggerAnimation("f_endfishing");
 
                     guiManager.UpdateMashFishingButtonIndicator(Player.playerID, fishPoint.position, false);
                 }
@@ -82,8 +83,6 @@ public class PlayerFishing : PlayerAbility
     {
         PlaySFX(sfx_RodSwing);
         int frameCount = 0;
-
-        Player.Animation.ChangeAnimState((int)PlayerAnimation.Anim.FishingStart);
 
         while (frameCount < frameDuration)
         {
