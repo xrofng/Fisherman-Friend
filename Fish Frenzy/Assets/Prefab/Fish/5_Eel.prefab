@@ -333,10 +333,9 @@ MonoBehaviour:
     invicibilityFrame: 50
     freezeFrame: 0
   specialClip: 9
-  InputLagFrameDuration: 10
+  InputLagFrameDuration: 40
   movingObjects: {fileID: 114532827588214438, guid: 6415abaacfab66948abfae3bbfc54429,
     type: 2}
-  throwingFrameDuration: 20
   channelingFrameDuration: 30
   onStartChannelingTriggerName: s_hook
   damageFrameDuration: 20
