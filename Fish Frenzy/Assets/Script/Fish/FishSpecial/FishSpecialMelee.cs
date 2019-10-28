@@ -7,6 +7,7 @@ public class FishSpecialMelee : FishSpecial
 {
     protected HitBoxMelee damageHitbox;
     public bool freezeRotation = true;
+    public bool hasInvincibility = false;
     public string onStartTriggerName = "";
 
     [Header("Sound Effect")]
@@ -35,6 +36,21 @@ public class FishSpecialMelee : FishSpecial
     protected override void OnSpecialStart()
     {
         Player._cPlayerAnimator.TriggerAnimation(onStartTriggerName);
+        SpecialStart();
+        if (hasInvincibility)
+        {
+            Player._cPlayerInvincibility.IsInvincible = true;
+        }
+        if (freezeRotation)
+        {
+            Player._cPlayerMovement.FreezeRotation = true;
+        }
+    }
+
+    protected override void OnSpecialEnd()
+    {
+        base.OnSpecialEnd();
+        SpecialEnd();
     }
 
     public override void OnSpecialActivated()
@@ -76,22 +92,31 @@ public class FishSpecialMelee : FishSpecial
 
     protected virtual void OnControlSteal()
     {
-        if (freezeRotation)
-        {
-            Player._cPlayerMovement.FreezeRotation = true;
-        }
     }
 
     protected virtual void OnControlGive()
     {
-        if (freezeRotation)
-        {
-            Player._cPlayerMovement.FreezeRotation = false;
-        }
     }
 
     protected override bool CheckValidForSpecial()
     {
         return !Player.Aiming;
+    }
+
+    public override void SpecialEnd()
+    {
+        base.SpecialEnd();
+        if (!Player)
+        {
+            return;
+        }
+        if (hasInvincibility)
+        {
+            Player._cPlayerInvincibility.IsInvincible = false;
+        }
+        if (freezeRotation)
+        {
+            Player._cPlayerMovement.FreezeRotation = false;
+        }
     }
 }

@@ -135,13 +135,13 @@ MonoBehaviour:
   InvincibilityDuration: 0.5
   InvincibilityFrame: 50
   FreezeFramesOnHitDuration: 0
-  FreezeFramesOnHit: 0
+  FreezeFramesOnHit: 10
   IgnorePlayerFrame: 20
-  mustHaveOwner: 1
+  mustHaveOwner: 0
   damageFromOwner: 0
   isLauncher: 1
   Owner: {fileID: 0}
-  _SFX:
+  m_hitSfx:
     clip: {fileID: 8300000, guid: 76d3523a591904046bc04aace0181371, type: 3}
     volume: 1
     oneTime: 0

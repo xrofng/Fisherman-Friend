@@ -99,6 +99,7 @@ public class FishSpecial : MonoBehaviour
         {
             Player._cPlayerAnimator.ChangeAnimState((int)PlayerAnimation.Anim.Idle);
         }
+        SpecialEnd();
     }
 
     public virtual void OnPlayerDeath()
@@ -107,6 +108,7 @@ public class FishSpecial : MonoBehaviour
         {
             Player.RemoveAbilityInputIntercepter(this);
         }
+        SpecialEnd();
     }
 
     public virtual void OnPlayerHold()
@@ -213,5 +215,18 @@ public class FishSpecial : MonoBehaviour
     protected virtual void StopSFX(SoundEffect SFXclip)
     {
         SoundManager.Instance.StopSound(SFXclip);
+    }
+
+    /// <summary>
+    /// set of method call in base  on dehydrate , death , specialEnd
+    /// </summary>
+    public virtual void SpecialEnd()
+    {
+        
+    }
+
+    public virtual void SpecialStart()
+    {
+
     }
 }
