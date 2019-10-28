@@ -68,9 +68,9 @@ public class FishSpecialSpin : FishSpecialMelee {
         }
     }
 
-    public override void SpecialEnd()
+    public override void SpecialEndPerform()
     {
-        base.SpecialEnd();
+        base.SpecialEndPerform();
         Player._cPlayerAnimator.TriggerAnimation("s_endspin");
     }
 }

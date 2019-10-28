@@ -99,7 +99,7 @@ public class FishSpecial : MonoBehaviour
         {
             Player._cPlayerAnimator.ChangeAnimState((int)PlayerAnimation.Anim.Idle);
         }
-        SpecialEnd();
+        SpecialEndPerform();
     }
 
     public virtual void OnPlayerDeath()
@@ -108,7 +108,7 @@ public class FishSpecial : MonoBehaviour
         {
             Player.RemoveAbilityInputIntercepter(this);
         }
-        SpecialEnd();
+        SpecialEndPerform();
     }
 
     public virtual void OnPlayerHold()
@@ -220,12 +220,12 @@ public class FishSpecial : MonoBehaviour
     /// <summary>
     /// set of method call in base  on dehydrate , death , specialEnd
     /// </summary>
-    public virtual void SpecialEnd()
+    public virtual void SpecialEndPerform()
     {
         
     }
 
-    public virtual void SpecialStart()
+    public virtual void SpecialStartPerform()
     {
 
     }

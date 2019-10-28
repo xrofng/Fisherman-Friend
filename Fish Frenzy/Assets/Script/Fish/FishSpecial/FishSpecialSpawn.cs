@@ -9,7 +9,6 @@ public class FishSpecialSpawn : FishSpecial
     protected MovingObject currentMovingObj;
 
     [Header("Channeling")]
-    public int throwingFrameDuration = 10;
     public int channelingFrameDuration = 10;
 
     public override void OnPlayerHold()

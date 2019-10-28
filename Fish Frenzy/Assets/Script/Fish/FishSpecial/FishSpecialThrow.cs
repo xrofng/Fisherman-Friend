@@ -10,13 +10,14 @@ public class FishSpecialThrow: FishSpecialSpawn
     {
         base.OnSpecialActivated();
         Player._cPlayerAnimator.TriggerAnimation(onStartChannelingTriggerName);
-        StartCoroutine(PerformThrow(throwingFrameDuration, channelingFrameDuration));
+        StartCoroutine(PerformThrow(InputLagFrameDuration,channelingFrameDuration));
     }
 
     protected IEnumerator PerformThrow(int frameDuration, int channelFrameDuration)
     {
         _isPerformingSpecial = true;
-        IgnoreInputFor(channelFrameDuration);
+        // ignore input for channeling and inputlag
+        IgnoreInputFor(channelFrameDuration + frameDuration);
         int frameCount = 0;
         while (frameCount < channelFrameDuration)
         {

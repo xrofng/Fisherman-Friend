@@ -36,21 +36,6 @@ public class FishSpecialMelee : FishSpecial
     protected override void OnSpecialStart()
     {
         Player._cPlayerAnimator.TriggerAnimation(onStartTriggerName);
-        SpecialStart();
-        if (hasInvincibility)
-        {
-            Player._cPlayerInvincibility.IsInvincible = true;
-        }
-        if (freezeRotation)
-        {
-            Player._cPlayerMovement.FreezeRotation = true;
-        }
-    }
-
-    protected override void OnSpecialEnd()
-    {
-        base.OnSpecialEnd();
-        SpecialEnd();
     }
 
     public override void OnSpecialActivated()
@@ -92,10 +77,12 @@ public class FishSpecialMelee : FishSpecial
 
     protected virtual void OnControlSteal()
     {
+        SpecialStartPerform();
     }
 
     protected virtual void OnControlGive()
     {
+        SpecialEndPerform();
     }
 
     protected override bool CheckValidForSpecial()
@@ -103,9 +90,9 @@ public class FishSpecialMelee : FishSpecial
         return !Player.Aiming;
     }
 
-    public override void SpecialEnd()
+    public override void SpecialEndPerform()
     {
-        base.SpecialEnd();
+        base.SpecialEndPerform();
         if (!Player)
         {
             return;
@@ -117,6 +104,23 @@ public class FishSpecialMelee : FishSpecial
         if (freezeRotation)
         {
             Player._cPlayerMovement.FreezeRotation = false;
+        }
+    }
+
+    public override void SpecialStartPerform()
+    {
+        base.SpecialStartPerform();
+        if (!Player)
+        {
+            return;
+        }
+        if (hasInvincibility)
+        {
+            Player._cPlayerInvincibility.IsInvincible = true;
+        }
+        if (freezeRotation)
+        {
+            Player._cPlayerMovement.FreezeRotation = true;
         }
     }
 }
