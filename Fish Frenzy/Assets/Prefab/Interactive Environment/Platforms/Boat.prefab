@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 114324284843825088}
   m_Layer: 0
   m_Name: Boat
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1656,9 +1656,7 @@ MonoBehaviour:
   destinationPosition: {x: -80, y: 0, z: 0}
   MinDistanceToGoal: 0.1
   NextRunDelayAction:
-    Duration:
-      durationTimeUnit: 0
-      duration: 4
+    DurationSecond: 0
   MoveOnStart: 1
   Gizmo:
     DrawGizmo: 1
