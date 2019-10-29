@@ -10279,7 +10279,8 @@ Prefab:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114304820609064454, guid: 7c391234e1372b046a30df663947b8f9, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 7c391234e1372b046a30df663947b8f9, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &654456259
@@ -34365,7 +34366,27 @@ Prefab:
     - target: {fileID: 114894236116428748, guid: b8cbed68061224c4c858383bad86a564,
         type: 2}
       propertyPath: numPlayer
-      value: 2
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114894236116428748, guid: b8cbed68061224c4c858383bad86a564,
+        type: 2}
+      propertyPath: playerSkinId.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114894236116428748, guid: b8cbed68061224c4c858383bad86a564,
+        type: 2}
+      propertyPath: playerSkinId.Array.data[1]
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114894236116428748, guid: b8cbed68061224c4c858383bad86a564,
+        type: 2}
+      propertyPath: playerSkinId.Array.data[2]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114894236116428748, guid: b8cbed68061224c4c858383bad86a564,
+        type: 2}
+      propertyPath: playerSkinId.Array.data[3]
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8cbed68061224c4c858383bad86a564, type: 2}

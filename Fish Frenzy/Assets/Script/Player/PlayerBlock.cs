@@ -14,6 +14,8 @@ public class PlayerBlock : PlayerAbility
 
     public DamagingData counterDamage;
 
+    public GameObject BlockEffect;
+
     protected override void Initialization()
     {
         base.Initialization();
@@ -38,9 +40,10 @@ public class PlayerBlock : PlayerAbility
     private void Block()
     {
         Player.Animation.TriggerAnimation("block");
+        
         ActionForFrame(BlockIgnoreAbilityFrame,
-                 () => { Player.AddAbilityInputIntercepter(this); },
-                 () => { Player.RemoveAbilityInputIntercepter(this); });
+                 () => { BlockEffect.SetActive(true);  Player.AddAbilityInputIntercepter(this); },
+                 () => { BlockEffect.SetActive(false);  Player.RemoveAbilityInputIntercepter(this); });
     }
 
     public bool CheckBlock(GameObject damageDealer, Player damageReciever)
