@@ -25943,6 +25943,9 @@ MonoBehaviour:
     - name: eel
       Fish: {fileID: 114447408894065984, guid: aeccb13bec295bb44bfb133acf6276f3, type: 2}
       spawnRate: 110
+    - name: trident
+      Fish: {fileID: 114174926280458592, guid: 74a86637d250a9a43925dd3b27594b1c, type: 2}
+      spawnRate: 10
     totalSpawnRate: 0
   spawnPoint:
   - {fileID: 1368302312}
@@ -25955,7 +25958,7 @@ MonoBehaviour:
   coastHolder: {fileID: 1683323781}
   coastPoints: []
   FixedFish: 1
-  TestingFish: {fileID: 114447408894065984, guid: aeccb13bec295bb44bfb133acf6276f3,
+  TestingFish: {fileID: 114174926280458592, guid: 74a86637d250a9a43925dd3b27594b1c,
     type: 2}
   DrawDebugRay: 0
 --- !u!4 &1506630399

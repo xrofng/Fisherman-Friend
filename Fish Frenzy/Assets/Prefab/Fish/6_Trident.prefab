@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 95535419549181530}
   - component: {fileID: 114603847899059960}
   - component: {fileID: 114671044528080842}
+  - component: {fileID: 114913667408432390}
   m_Layer: 0
   m_Name: 6_Trident
   m_TagString: Fish
@@ -338,3 +339,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c08e79d5b918bda4c9d6a623f2355508, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114913667408432390
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1916139448920114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d462a442a236d9340af66b2e81d8bb4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage:
+    damage: 1
+    damageFromOwner: 1
+    isLauncher: 0
+    hitBoxName: 
+    invicibilityFrame: 50
+    freezeFrame: 10
+  specialClip: 0
+  InputLagFrameDuration: 10
+  animTriggers: []
+  movingObjects: {fileID: 114717754795570986, guid: e31a39378f156c44ea5618605354ef50,
+    type: 2}
+  channelingFrameDuration: 10
+  onStartChannelingTriggerName: s_shuriken
+  Range: 10
+  Radius: 3
+  LayerMask:
+    serializedVersion: 2
+    m_Bits: 30720
+  IgnoredDuration: 2
+  sfx_attach:
+    clip: {fileID: 0}
+    volume: 1
+    oneTime: 0
+  sfx_swing:
+    clip: {fileID: 0}
+    volume: 1
+    oneTime: 0
