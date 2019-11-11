@@ -135,7 +135,7 @@ public class Fish : Creature
         if (state == FishConditionalState.hold || state== FishConditionalState.ground || state == FishConditionalState.lowDurability)
         {
             durability -= Time.deltaTime;
-            if (durability <= 0)
+            if (durability <= 0 && !_cSpecial.IsPerformingSpecial)
             {
                 LeftPlayer();
                 state = FishConditionalState.dehydrate;

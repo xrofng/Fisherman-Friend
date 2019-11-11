@@ -200,9 +200,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1
   direction: {x: 0, y: 0, z: 0}
-  fowardTime: 0.3
-  reachDistance: 5
+  forwardTimer:
+    Value: 0
+    MaxVal: 0.3
+    exceedPercentType: 0
+  backwardTimer:
+    Value: 0
+    MaxVal: 0.1
+    exceedPercentType: 0
   trailObject: {fileID: 4422206966418936}
+  stretchDistance: 10
   stretchSpeed: 5.5
   sfx_attach:
     clip: {fileID: 8300000, guid: ab553917f1d24d240b7579019a7c1e08, type: 3}
@@ -222,7 +229,7 @@ MonoBehaviour:
   TargetLayerMask:
     serializedVersion: 2
     m_Bits: 0
-  DamageCaused: 7
+  DamageCaused: 35
   DamageCausedKnockbackType: 1
   DamageCausedKnockbackDirection: 0
   DamageCausedKnockbackForce: {x: 10, y: 2}
@@ -231,11 +238,11 @@ MonoBehaviour:
   FreezeFramesOnHitDuration: 0
   FreezeFramesOnHit: 0
   IgnorePlayerFrame: 20
-  mustHaveOwner: 1
+  mustHaveOwner: 0
   damageFromOwner: 0
   isLauncher: 1
   Owner: {fileID: 0}
-  _SFX:
-    clip: {fileID: 0}
+  m_hitSfx:
+    clip: {fileID: 8300000, guid: 76d3523a591904046bc04aace0181371, type: 3}
     volume: 1
     oneTime: 0

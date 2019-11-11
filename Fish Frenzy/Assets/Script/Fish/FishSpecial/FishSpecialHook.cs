@@ -37,7 +37,6 @@ public class FishSpecialHook : FishSpecialThrow {
         }
         else
         {
-            // REFACTOR
         }
         DestroyMovingObject(currentMovingObj);
     }

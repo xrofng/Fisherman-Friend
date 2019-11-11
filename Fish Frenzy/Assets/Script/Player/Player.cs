@@ -165,6 +165,11 @@ public class Player : Creature
         _cPlayerBlock = GetComponent<PlayerBlock>();
     }
 
+
+    private void Update()
+    {
+    }
+
     public void ChangeState(eState staTE)
     {
         state = staTE;

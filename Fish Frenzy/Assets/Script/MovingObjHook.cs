@@ -1,17 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Xrofng;
 
-public class MovingObjHook : MovingObject {
-
-    public float fowardTime = 5.0f;
+public class MovingObjHook : MovingObject
+{
+    public PercentFloat forwardTimer = new PercentFloat(0, 0.3f);
+    public PercentFloat backwardTimer = new PercentFloat(0, 0.1f);
     protected bool backwarding;
-    public float reachDistance = 2.0f;
     public Transform trailObject;
 
+    public float stretchDistance = 1;
     public float stretchSpeed;
-    protected int stretchincrement;
-    protected Vector3 startStretchPosition;
+
+    private Vector3 startStretchPosition;
+    private Vector3 endStretchPosition;
 
     protected Player hookedPlayer;
     public Player HookedPlayer
@@ -32,23 +35,20 @@ public class MovingObjHook : MovingObject {
     {
         base.Initialization();
         startStretchPosition = this.transform.position;
-        stretchincrement = 1;
+        endStretchPosition = transform.position + direction * stretchDistance;
         trailObject.parent = null;
     }
 
     protected override void Update()
     {
-        Vector3 moveDirection = direction;
-        fowardTime -= Time.deltaTime;
-        if (fowardTime <= 0)
+        if (!backwarding)
         {
-            SetBackward();
-            moveDirection = Vector3.Normalize(HitBox.Owner.gameObject.transform.position - transform.position);
-            MoveEnd = CheckEnd();
-            stretchincrement = -1;
+            StretchForward();
         }
-        transform.Translate(moveDirection * speed,Space.World);
-        trailObject.localScale += Vector3.forward * stretchSpeed* stretchincrement;
+        else
+        {
+            StretchBack();
+        }
 
         if (hookedPlayer)
         {
@@ -56,15 +56,36 @@ public class MovingObjHook : MovingObject {
         }
     }
 
+    protected void StretchForward()
+    {
+        forwardTimer.AddValue(Time.deltaTime);
+
+        transform.position = Vector3.Lerp(startStretchPosition, endStretchPosition, forwardTimer.Ratio);
+        trailObject.localScale += Vector3.forward * stretchSpeed;
+
+        if (forwardTimer.IsAtMax)
+        {
+            SetBackward();
+        }
+    }
+
+    protected void StretchBack()
+    {
+        backwardTimer.AddValue(Time.deltaTime);
+
+        transform.position = Vector3.Lerp(endStretchPosition, startStretchPosition, backwardTimer.Ratio);
+        trailObject.localScale -= Vector3.forward * stretchSpeed * forwardTimer.MaxVal/backwardTimer.MaxVal;
+
+        if (backwardTimer.IsAtMax)
+        {
+            MoveEnd = CheckEnd();
+            StopHook();
+        }
+    }
+
     protected override bool CheckEnd()
     {
-        float distance = Vector3.Distance(HitBox.Owner.gameObject.transform.position, transform.position);
-        if (distance <= reachDistance)
-        {
-            StopHook();
-            return true;
-        }
-        return false;
+        return backwardTimer.IsAtMax;
     }
   
 
@@ -81,7 +102,6 @@ public class MovingObjHook : MovingObject {
 
     void StartHook()
     {
-        fowardTime = 0;
         hookedPlayer.AddAbilityInputIntercepter(this);
         hookedPlayer._cPlayerFishInteraction.SetPlayerCollideEverything(false);
         SoundManager.Instance.PlaySound(sfx_attach, transform.position);
@@ -108,6 +128,6 @@ public class MovingObjHook : MovingObject {
     public override void OnBeforeDestroy()
     {
         base.OnBeforeDestroy();
-        trailObject.transform.parent = transform;
+        StopHook();
     }
 }

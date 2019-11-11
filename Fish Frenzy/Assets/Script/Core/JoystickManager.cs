@@ -243,12 +243,22 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
     public bool GetButton(string buttonName, int playerID, bool isUnregistered = false)
     {
         List<Dictionary<string, KeyCode>> _buttonList = GetButtonList(isUnregistered);
+        if (playerID == 0)
+        {
+            return Input.GetKey(_buttonList[playerID][buttonName]) ||
+                Input.GetKey(_buttonList[playerID]["k" + buttonName]);
+        }
         return Input.GetKey(_buttonList[playerID][buttonName]);
     }
 
     public bool GetButtonUp(string buttonName, int playerID, bool isUnregistered = false)
     {
         List<Dictionary<string, KeyCode>> _buttonList = GetButtonList(isUnregistered);
+        if (playerID == 0)
+        {
+            return Input.GetKeyUp(_buttonList[playerID][buttonName]) ||
+                Input.GetKeyUp(_buttonList[playerID]["k" + buttonName]);
+        }
         return Input.GetKeyUp(_buttonList[playerID][buttonName]);
     }
 

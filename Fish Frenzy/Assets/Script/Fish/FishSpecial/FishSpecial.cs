@@ -32,8 +32,12 @@ public class FishSpecial : MonoBehaviour
     public int InputLagFrameDuration = 10;
 
     protected bool _isPerformingSpecial = false;
+    [Header("Animator")]
+    public List<string> animTriggers = new List<string>();
+
     public bool IsPerformingSpecial
     {
+        get { return _isPerformingSpecial; }
         set { _isPerformingSpecial = value; }
     }
 
@@ -176,6 +180,7 @@ public class FishSpecial : MonoBehaviour
 
     protected void PerformSpecial(FishSpecialActivatedState fishSpecialActivatedState)
     {
+        ResetAnimationTrigger();
         if(fishSpecialActivatedState == FishSpecialActivatedState.DOWN)
         {
             PerformSpecialDown();
@@ -187,6 +192,14 @@ public class FishSpecial : MonoBehaviour
         if (fishSpecialActivatedState == FishSpecialActivatedState.UP)
         {
             PerformSpecialUp();
+        }
+    }
+
+    protected virtual void ResetAnimationTrigger()
+    {
+        foreach(string triggerName in animTriggers)
+        {
+            Player.Animation.Animator.ResetTrigger(triggerName);
         }
     }
 

@@ -3978,6 +3978,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1722991338312768, guid: 39fef1461dd626e4c869f96b5a2d7e66, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39fef1461dd626e4c869f96b5a2d7e66, type: 2}
   m_IsPrefabAsset: 0
@@ -8514,7 +8518,7 @@ Transform:
   m_GameObject: {fileID: 539189161}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 10, y: -5, z: 8.75}
-  m_LocalScale: {x: 2.5093117, y: 12.997296, z: -2.4846494}
+  m_LocalScale: {x: 2.5093117, y: 12.997296, z: 2.484649}
   m_Children: []
   m_Father: {fileID: 919056210}
   m_RootOrder: 9
@@ -11639,7 +11643,7 @@ Transform:
   m_GameObject: {fileID: 715672451}
   m_LocalRotation: {x: 0.10886683, y: 0.9940564, z: 0, w: 0}
   m_LocalPosition: {x: 14.5, y: -1, z: 0}
-  m_LocalScale: {x: -9.5, y: 1, z: -10.2156}
+  m_LocalScale: {x: -9.5, y: 1, z: 10.2156}
   m_Children: []
   m_Father: {fileID: 88996139}
   m_RootOrder: 2
@@ -14765,7 +14769,7 @@ Transform:
   m_GameObject: {fileID: 881886362}
   m_LocalRotation: {x: 0.10886683, y: 0.9940564, z: 0, w: 0}
   m_LocalPosition: {x: 14.5, y: -1, z: 0}
-  m_LocalScale: {x: -9.5, y: 1, z: -6}
+  m_LocalScale: {x: 9.5, y: 1, z: 6}
   m_Children: []
   m_Father: {fileID: 840364138}
   m_RootOrder: 2
@@ -25950,8 +25954,8 @@ MonoBehaviour:
   multiPCamera: {fileID: 1296815681}
   coastHolder: {fileID: 1683323781}
   coastPoints: []
-  FixedFish: 0
-  TestingFish: {fileID: 114257537931697316, guid: fe938b2f86a8ac845b2c1d3292925b54,
+  FixedFish: 1
+  TestingFish: {fileID: 114447408894065984, guid: aeccb13bec295bb44bfb133acf6276f3,
     type: 2}
   DrawDebugRay: 0
 --- !u!4 &1506630399
@@ -27705,7 +27709,7 @@ Transform:
   m_GameObject: {fileID: 1587047723}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -10, y: -5, z: 8.75}
-  m_LocalScale: {x: 2.5093124, y: 12.9973, z: -2.4846494}
+  m_LocalScale: {x: 2.5093124, y: 12.9973, z: 2.484649}
   m_Children: []
   m_Father: {fileID: 919056210}
   m_RootOrder: 8

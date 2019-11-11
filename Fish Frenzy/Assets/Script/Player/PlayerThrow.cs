@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerThrow : PlayerAbility {
+public class PlayerThrow : PlayerAbility
+{
 
     private float holdToThrow;
     public float maxForwardMultiplier = 80.0f;
