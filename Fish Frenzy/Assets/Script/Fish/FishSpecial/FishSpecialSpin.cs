@@ -36,7 +36,7 @@ public class FishSpecialSpin : FishSpecialMelee {
         Player.transform.position = sClass.SetVector3(Player.transform.position, VectorComponent.y, playerPositionY);
         Player._cPlayerAnimator.TriggerAnimation("s_endspin");
         Player.RemoveAbilityInputIntercepter(this);
-        fish.SnapTransform();
+        fish.SnapToHold();
         StopSFX(sfx_spining);
     }
 

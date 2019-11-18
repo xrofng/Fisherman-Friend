@@ -84,6 +84,7 @@ public class FishSpecialStorm : FishSpecialThrow
     protected override void PerformSpecialDown()
     {
         base.PerformSpecialDown();
+        Player.Animation.Animator.SetTrigger("s_holdtrident");
         finalTargets = new List<GameObject>();
         ignoredTarget = new Dictionary<GameObject, float>();
         Debug.Log(finalTargets.Count);
@@ -92,7 +93,8 @@ public class FishSpecialStorm : FishSpecialThrow
     protected override void PerformSpecialUp()
     {
         base.PerformSpecialUp();
-        foreach(GameObject target in finalTargets)
+        fish.SnapToHold();
+        foreach (GameObject target in finalTargets)
         {
             Debug.Log(target.gameObject.name);
         }

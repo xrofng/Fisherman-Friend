@@ -233,7 +233,7 @@ public class Fish : Creature
         Rigidbody.AddForce(Vector3.up * 3,ForceMode.Impulse);
     }
 
-    public void SnapTransform()
+    public void SnapToHold()
     {
         transform.localPosition = holdPosition;
         transform.localEulerAngles = holdRotation;

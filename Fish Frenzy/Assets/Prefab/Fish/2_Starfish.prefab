@@ -347,8 +347,9 @@ MonoBehaviour:
     freezeFrame: 10
   specialClip: 11
   InputLagFrameDuration: 10
+  animTriggers: []
   movingObjects: {fileID: 114717754795570986, guid: ff305f621d0c71c4598ab42daacd2a38,
     type: 2}
-  throwingFrameDuration: 10
   channelingFrameDuration: 10
   onStartChannelingTriggerName: s_shuriken
+  HideFishOnThrow: 1

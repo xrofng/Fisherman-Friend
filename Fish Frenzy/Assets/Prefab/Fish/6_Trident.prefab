@@ -274,7 +274,7 @@ MonoBehaviour:
   t_launchingDamage: 1
   lastHoldPoition: {x: 0, y: 0, z: 0}
   chargePercent: 0
-  holdPosition: {x: 0.00006958129, y: 0.00963, z: -0.01432}
+  holdPosition: {x: 0, y: 0, z: 0}
   holdRotation: {x: -35, y: 180, z: 0}
   aimPositioningOffset: {x: 0, y: 0, z: 0}
   sfx_WaterJump:
@@ -359,11 +359,13 @@ MonoBehaviour:
     freezeFrame: 10
   specialClip: 0
   InputLagFrameDuration: 10
-  animTriggers: []
+  animTriggers:
+  - s_trident
   movingObjects: {fileID: 114717754795570986, guid: e31a39378f156c44ea5618605354ef50,
     type: 2}
   channelingFrameDuration: 10
-  onStartChannelingTriggerName: s_shuriken
+  onStartChannelingTriggerName: s_trident
+  HideFishOnThrow: 0
   Range: 10
   Radius: 3
   LayerMask:

@@ -152,7 +152,7 @@ public class PlayerFishInteraction : PlayerAbility {
     {
         fish.ChangeState(Fish.FishConditionalState.hold);
         fish.gameObject.transform.parent = Player.GetPart(Player.ePart.rightArm).transform;
-        fish.SnapTransform();
+        fish.SnapToHold();
         fish.RemoveRigidBody();
         fish.SetToGround(false);
         fish.SetHolder(Player.gameObject);

@@ -1,10 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class FishSpecialThrow: FishSpecialSpawn
 {
     public string onStartChannelingTriggerName;
+
+    public bool HideFishOnThrow;
 
     public override void OnSpecialActivated()
     {
@@ -42,13 +45,22 @@ public class FishSpecialThrow: FishSpecialSpawn
         currentMovingObj.HitBox.Owner = Player.gameObject;
         currentMovingObj.direction = currentMovingObj.HitBox.OwnerPlayer.GetPart(Player.ePart.body).transform.TransformDirection(-Vector3.forward);
         currentMovingObj.transform.LookAt(currentMovingObj.direction + transform.position);
-        fish.MeshRenderer.enabled = false;
+        SetFishVisibility(false);
+    }
+
+    private void SetFishVisibility(bool isVisible)
+    {
+        if (!HideFishOnThrow)
+        {
+            return;
+        }
+        fish.MeshRenderer.enabled = isVisible;
     }
 
     protected virtual void OnThrowEnd()
     {
-        fish.MeshRenderer.enabled = true;
-        fish.SnapTransform();
+        SetFishVisibility(true);
+        fish.SnapToHold();
     }
 
     IEnumerator ieIgnoreInput(int frameDuration)
