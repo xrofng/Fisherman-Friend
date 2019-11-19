@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.40658703, g: 0.8667387, b: 1.3582686, a: 1}
+  m_IndirectSpecularColor: {r: 0.40661013, g: 0.86674637, b: 1.358268, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2001,6 +2001,23 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 153490229}
   m_Script: {fileID: 11500000, guid: 5d9154fc20f25a4429ed08df12671ad3, type: 3}
+--- !u!1 &154868372 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1769233497176430, guid: 37a5eec4b16ac0340a05e1e79840ec0d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1296815680}
+--- !u!114 &154868373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 154868372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: fd8205fbf4b84984aacaaa23035abc6d, type: 2}
 --- !u!1 &162466053
 GameObject:
   m_ObjectHideFlags: 0
@@ -12389,13 +12406,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcbb71c491f658e448fc46b5a9c5e9b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack: 20
+  damage:
+    damage: 1
+    damageFromOwner: 1
+    isLauncher: 0
+    hitBoxName: 
+    invicibilityFrame: 50
+    freezeFrame: 10
   specialClip: 2
-  hitBoxName: 
-  invicibilityFrame: 50
-  freezeFrame: 0
-  launchingDamage: 1
-  hitBoxRef: {fileID: 4992497796906506, guid: 6657a06d3df040b4a8412bd9f0e164c1, type: 2}
+  InputLagFrameDuration: 10
+  animTriggers: []
+  freezeRotation: 1
+  hasInvincibility: 0
+  onStartTriggerName: 
   sfx_startMelee:
     clip: {fileID: 8300000, guid: 7edc773777a468a47b51bbbf1a9b6ddf, type: 3}
     volume: 1
