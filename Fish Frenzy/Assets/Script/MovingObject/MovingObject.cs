@@ -6,7 +6,7 @@ using UnityEngine;
 public class MovingObject : MonoBehaviour
 {
     public float speed;
-    public Vector3 direction;
+    public Vector3 Direction { get; set; }
     private bool moveEnd;
     public bool MoveEnd
     {
@@ -26,7 +26,8 @@ public class MovingObject : MonoBehaviour
         }
     }
     // Use this for initialization
-    protected virtual void Start () {
+    protected virtual void Start ()
+    {
         Initialization();
 
     }

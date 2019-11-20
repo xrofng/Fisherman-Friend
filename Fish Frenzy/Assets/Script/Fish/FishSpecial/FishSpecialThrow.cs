@@ -6,6 +6,7 @@ using UnityEngine;
 public class FishSpecialThrow: FishSpecialSpawn
 {
     public string onStartChannelingTriggerName;
+    public bool WaitForCurrentMovingObj = false;
 
     public bool HideFishOnThrow;
 
@@ -30,7 +31,7 @@ public class FishSpecialThrow: FishSpecialSpawn
         
         OnThrowStart();
 
-        while (!currentMovingObj.MoveEnd)
+        while (WaitForCurrentMovingObj && !currentMovingObj.MoveEnd)
         {
             yield return new WaitForEndOfFrame();
         }
@@ -43,8 +44,8 @@ public class FishSpecialThrow: FishSpecialSpawn
         currentMovingObj = Instantiate(movingObjects, this.transform.position, Quaternion.identity);// add pos set lyr
         currentMovingObj.gameObject.layer = LayerMask.NameToLayer("Fish" + Player.playerID);
         currentMovingObj.HitBox.Owner = Player.gameObject;
-        currentMovingObj.direction = currentMovingObj.HitBox.OwnerPlayer.GetPart(Player.ePart.body).transform.TransformDirection(-Vector3.forward);
-        currentMovingObj.transform.LookAt(currentMovingObj.direction + transform.position);
+        currentMovingObj.Direction = currentMovingObj.HitBox.OwnerPlayer.GetPart(Player.ePart.body).transform.TransformDirection(-Vector3.forward);
+        currentMovingObj.transform.LookAt(currentMovingObj.Direction + transform.position);
         SetFishVisibility(false);
     }
 

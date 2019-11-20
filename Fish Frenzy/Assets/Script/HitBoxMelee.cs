@@ -14,6 +14,10 @@ public class DamagingData
     [Header("Damage Receiver")]
     public int invicibilityFrame = 50;
     public int freezeFrame = 10;
+
+    [Header("Limited Damaging")]
+    public bool unlimitedDamaging = true;
+    public int numberOfDamaging = 1;
 }
 
 public class HitBoxMelee : DamageOnHit
@@ -22,6 +26,8 @@ public class HitBoxMelee : DamageOnHit
     public bool mustHaveOwner;
     /// the owner of the HitBoxMelee zone
     public bool damageFromOwner = true;
+    public bool unlimitedDamaging = true;
+    public int numberOfDamaging = 1;
 
     public bool isLauncher;
     public GameObject Owner;
@@ -55,7 +61,7 @@ public class HitBoxMelee : DamageOnHit
             m_hitSfx = value;
         }
     }
-
+    
     /// <summary>
     /// Initialization
     /// </summary>
@@ -82,6 +88,9 @@ public class HitBoxMelee : DamageOnHit
 
         damageFromOwner = data.damageFromOwner;
         mustHaveOwner = damageFromOwner;
+
+        unlimitedDamaging = data.unlimitedDamaging;
+        numberOfDamaging = data.numberOfDamaging;
     }
 
     protected override void Colliding(Collider collider)
@@ -115,7 +124,7 @@ public class HitBoxMelee : DamageOnHit
 
         //    return;
         //}
-        
+
         _player = collider.gameObject.GetComponent<Player>();
 
         // if what we're colliding with player
@@ -141,6 +150,7 @@ public class HitBoxMelee : DamageOnHit
     /// <param name="health">Health.</param>
     protected override void OnCollideWithPlayer(Player player , GameObject damageDealer)
     {
+        
         // Check player will be ignored from recently collide
         if (_ignoredGameObjects.Contains(player.gameObject))
         {
@@ -182,6 +192,13 @@ public class HitBoxMelee : DamageOnHit
             forcesource = damageDealer.transform.position;
         }
         _player.recieveDamage(DamageCaused, damageDealer , forcesource, InvincibilityFrame,isLauncher);
+
+        numberOfDamaging -= 1;
+        if (!unlimitedDamaging && numberOfDamaging < 0)
+        {
+            Debug.Log("des");
+            Destroy(this.gameObject);
+        }
     }
 
     IEnumerator ieFreezePlayer(Player player, int FreezeFramesOnHitDuration, GameObject damageDealer)

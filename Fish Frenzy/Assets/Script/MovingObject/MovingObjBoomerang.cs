@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingObjBoomerang : MovingObject {
+public class MovingObjBoomerang : MovingObject
+{
 
     public float normalTime = 5.0f;
     public float reachDistance = 2.0f;
@@ -11,6 +12,7 @@ public class MovingObjBoomerang : MovingObject {
     [Header("SoundEffect")]
     public SoundEffect sfx_boomerang;
     private AudioSource sfx_source;
+
     protected override void Start()
     {
         Initialization();
@@ -23,7 +25,7 @@ public class MovingObjBoomerang : MovingObject {
 
     protected override void Update()
     {
-        Vector3 moveDirection = direction;
+        Vector3 moveDirection = Direction;
         normalTime -= Time.deltaTime;
         if (normalTime <= 0)
         {

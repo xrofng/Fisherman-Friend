@@ -10,6 +10,8 @@ public class FishSpecialStorm : FishSpecialThrow
     public float Radius;
     public LayerMask LayerMask;
     public float IgnoredDuration;
+    public GameObject TridentEdge;
+
     protected HitBoxMelee detection;
 
     protected List<GameObject> finalTargets;
@@ -23,7 +25,6 @@ public class FishSpecialStorm : FishSpecialThrow
     [Header("SoundEffect")]
     public SoundEffect sfx_attach;
     public SoundEffect sfx_swing;
-
 
     public override void OnPlayerHold()
     {
@@ -57,7 +58,7 @@ public class FishSpecialStorm : FishSpecialThrow
         {
             RaycastHit hit = hits[i];
             GameObject hitObject = hit.collider.gameObject;
-            if (hit.collider.gameObject != Player.gameObject)
+            if (hitObject != Player.gameObject)
             {
                 if (!ignoredTarget.ContainsKey(hitObject))
                 {
@@ -93,10 +94,24 @@ public class FishSpecialStorm : FishSpecialThrow
     protected override void PerformSpecialUp()
     {
         base.PerformSpecialUp();
+    }
+
+    protected override void OnThrowStart()
+    {
         fish.SnapToHold();
-        foreach (GameObject target in finalTargets)
+        for (int i = 0; i < finalTargets.Count; i++)
         {
-            Debug.Log(target.gameObject.name);
+            float angle = (360 / finalTargets.Count);
+            float z = angle * (i + 1);
+            Vector3 cam = Camera.main.transform.eulerAngles;
+            MovingObject movingObj = Instantiate(movingObjects, TridentEdge.transform.position, Quaternion.Euler(cam.x, cam.y, z));
+            movingObj.HitBox.Owner = Player.gameObject;
+            MovingObjToTarget movingObjToTarget = movingObj.GetComponent<MovingObjToTarget>();
+
+            if (movingObjToTarget)
+            {
+                movingObjToTarget.target = finalTargets[i].transform;
+            }
         }
     }
 

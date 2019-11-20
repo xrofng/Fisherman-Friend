@@ -180,7 +180,7 @@ public class SlidePlatform : MonoBehaviour
     /// <summary>
     /// On DrawGizmos, we draw lines to show the path the object will follow
     /// </summary>
-    protected virtual void OnDrawGizmos()
+    protected virtual void OnDrawGizmosSelected()
     {
         if (Gizmo.DrawGizmo)
         {

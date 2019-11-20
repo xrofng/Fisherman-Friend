@@ -342,6 +342,8 @@ MonoBehaviour:
     type: 2}
   channelingFrameDuration: 30
   onStartChannelingTriggerName: s_hook
+  WaitForCurrentMovingObj: 1
+  HideFishOnThrow: 0
   damageFrameDuration: 20
   releaseFrameDuration: 10
   finalBlowForce: 2

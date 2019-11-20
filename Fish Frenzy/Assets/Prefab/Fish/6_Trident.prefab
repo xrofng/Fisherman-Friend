@@ -28,6 +28,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1671078450130878
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4920047464740038}
+  m_Layer: 0
+  m_Name: Edge
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1916139448920114
 GameObject:
   m_ObjectHideFlags: 0
@@ -71,12 +86,26 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1916139448920114}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalPosition: {x: 22.225113, y: 2.0496154, z: -46.559547}
   m_LocalScale: {x: 50, y: 50, z: 50}
   m_Children:
   - {fileID: 4221678765711030}
+  - {fileID: 4920047464740038}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4920047464740038
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1671078450130878}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.07}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4801043439205422}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23271880803393762
 MeshRenderer:
@@ -93,7 +122,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 9fb65c3293b06fe4d8c4e20705717d68, type: 3}
+  - {fileID: 2100000, guid: d0d832ff2359e954daf1bac4cffc996f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -351,27 +380,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage:
-    damage: 1
-    damageFromOwner: 1
-    isLauncher: 0
+    damage: 10
+    damageFromOwner: 0
+    isLauncher: 1
     hitBoxName: 
-    invicibilityFrame: 50
+    invicibilityFrame: 900
     freezeFrame: 10
+    unlimitedDamaging: 0
+    numberOfDamaging: 1
   specialClip: 0
   InputLagFrameDuration: 10
   animTriggers:
   - s_trident
-  movingObjects: {fileID: 114717754795570986, guid: e31a39378f156c44ea5618605354ef50,
+  movingObjects: {fileID: 114405840523076482, guid: e31a39378f156c44ea5618605354ef50,
     type: 2}
   channelingFrameDuration: 10
   onStartChannelingTriggerName: s_trident
+  WaitForCurrentMovingObj: 0
   HideFishOnThrow: 0
-  Range: 10
+  Range: 100
   Radius: 3
   LayerMask:
     serializedVersion: 2
     m_Bits: 30720
-  IgnoredDuration: 2
+  IgnoredDuration: 0.5
+  TridentEdge: {fileID: 1671078450130878}
   sfx_attach:
     clip: {fileID: 0}
     volume: 1

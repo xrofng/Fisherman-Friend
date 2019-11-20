@@ -35,7 +35,7 @@ public class MovingObjHook : MovingObject
     {
         base.Initialization();
         startStretchPosition = this.transform.position;
-        endStretchPosition = transform.position + direction * stretchDistance;
+        endStretchPosition = transform.position + Direction * stretchDistance;
         trailObject.parent = null;
     }
 
