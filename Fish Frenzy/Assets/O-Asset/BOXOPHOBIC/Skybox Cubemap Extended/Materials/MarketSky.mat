@@ -8,7 +8,7 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: MarketSky
   m_Shader: {fileID: 4800000, guid: 82881a2d011b0964696411c822cdd00b, type: 3}
-  m_ShaderKeywords: _ENABLEFOG_ON _ENABLEROTATION_ON
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA _ENABLEFOG_ON _ENABLEROTATION_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
