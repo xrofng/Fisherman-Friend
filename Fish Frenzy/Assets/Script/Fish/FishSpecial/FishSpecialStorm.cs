@@ -11,6 +11,7 @@ public class FishSpecialStorm : FishSpecialThrow
     public LayerMask LayerMask;
     public float IgnoredDuration;
     public GameObject TridentEdge;
+    public MeshRenderer AreaIndicator;
 
     protected HitBoxMelee detection;
 
@@ -88,12 +89,14 @@ public class FishSpecialStorm : FishSpecialThrow
         Player.Animation.Animator.SetTrigger("s_holdtrident");
         finalTargets = new List<GameObject>();
         ignoredTarget = new Dictionary<GameObject, float>();
+        //AreaIndicator.enabled = true;
         Debug.Log(finalTargets.Count);
     }
 
     protected override void PerformSpecialUp()
     {
         base.PerformSpecialUp();
+       // AreaIndicator.enabled = false;
     }
 
     protected override void OnThrowStart()
@@ -104,8 +107,7 @@ public class FishSpecialStorm : FishSpecialThrow
             float angle = (360 / finalTargets.Count);
             float z = angle * (i + 1);
             Vector3 cam = Camera.main.transform.eulerAngles;
-            MovingObject movingObj = Instantiate(movingObjects, TridentEdge.transform.position, Quaternion.Euler(cam.x, cam.y, z));
-            movingObj.HitBox.Owner = Player.gameObject;
+            MovingObject movingObj = SpawnMovingObject(movingObjects, TridentEdge.transform.position);
             MovingObjToTarget movingObjToTarget = movingObj.GetComponent<MovingObjToTarget>();
 
             if (movingObjToTarget)
@@ -118,8 +120,8 @@ public class FishSpecialStorm : FishSpecialThrow
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(Player.transform.position, Radius);
-        Gizmos.DrawWireSphere(Player.transform.position + Player.PlayerForward * Range, Radius);
+        Gizmos.DrawWireSphere(this.transform.position, Radius);
+        Gizmos.DrawWireSphere(this.transform.position + transform.TransformDirection(Vector3.forward) * Range, Radius);
     }
 
     protected void SetDetection(bool allow)

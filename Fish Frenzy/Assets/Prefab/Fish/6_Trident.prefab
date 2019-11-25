@@ -59,6 +59,8 @@ GameObject:
   - component: {fileID: 114603847899059960}
   - component: {fileID: 114671044528080842}
   - component: {fileID: 114913667408432390}
+  - component: {fileID: 114310977847951446}
+  - component: {fileID: 114884798126992356}
   m_Layer: 0
   m_Name: 6_Trident
   m_TagString: Fish
@@ -86,7 +88,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1916139448920114}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.225113, y: 2.0496154, z: -46.559547}
+  m_LocalPosition: {x: -11.268712, y: 3.1384249, z: 1.9380522}
   m_LocalScale: {x: 50, y: 50, z: 50}
   m_Children:
   - {fileID: 4221678765711030}
@@ -344,6 +346,19 @@ MonoBehaviour:
   pickUpImage: {fileID: 114966499513919200, guid: 30e9f486e02400240b828642365cd627,
     type: 2}
   allowToPick: 0
+--- !u!114 &114310977847951446
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1916139448920114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71e1a51a9b181594a91619eaa629c2d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Colliders:
+  - {fileID: 65646660916743196}
 --- !u!114 &114603847899059960
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -358,6 +373,17 @@ MonoBehaviour:
   _currentAnimationState: 0
   animClipList: []
 --- !u!114 &114671044528080842
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1916139448920114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c08e79d5b918bda4c9d6a623f2355508, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114884798126992356
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -384,10 +410,12 @@ MonoBehaviour:
     damageFromOwner: 0
     isLauncher: 1
     hitBoxName: 
-    invicibilityFrame: 900
-    freezeFrame: 10
+    FreezeFramesOnHit: 0
+    IgnorePlayerFrame: 20
+    InvincibilityFrame: 10
     unlimitedDamaging: 0
     numberOfDamaging: 1
+    OnReachLimitedDamaging: {fileID: 114310977847951446}
   specialClip: 0
   InputLagFrameDuration: 10
   animTriggers:
@@ -399,12 +427,13 @@ MonoBehaviour:
   WaitForCurrentMovingObj: 0
   HideFishOnThrow: 0
   Range: 100
-  Radius: 3
+  Radius: 10
   LayerMask:
     serializedVersion: 2
     m_Bits: 30720
   IgnoredDuration: 0.5
   TridentEdge: {fileID: 1671078450130878}
+  AreaIndicator: {fileID: 0}
   sfx_attach:
     clip: {fileID: 0}
     volume: 1

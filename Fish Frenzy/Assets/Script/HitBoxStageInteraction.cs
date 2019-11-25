@@ -83,13 +83,13 @@ public class HitBoxStageInteraction : DamageOnHit
         }
 
         // don't care about invincibility
-        if (FreezeFramesOnHit > 0)
+        if (Damage.FreezeFramesOnHit > 0)
         {
-            StartCoroutine(ieFreezePlayer(_player, FreezeFramesOnHit));
+            StartCoroutine(ieFreezePlayer(_player, Damage.FreezeFramesOnHit));
         }
         else
         {
-            _player.recieveDamage(this, DamageCaused, this.gameObject,gameObject.transform.position , InvincibilityFrame , launchingDamage);
+            _player.recieveDamage(this, Damage.damage, this.gameObject,gameObject.transform.position , Damage.InvincibilityFrame, launchingDamage);
         }
     }
 
@@ -105,6 +105,6 @@ public class HitBoxStageInteraction : DamageOnHit
         }
         player.FreezingMovement = false;
         player.RemoveAbilityInputIntercepter(this);
-        player.recieveDamage(this, DamageCaused, this.gameObject , this.gameObject.transform.position, InvincibilityFrame, launchingDamage);
+        player.recieveDamage(this, Damage.damage, this.gameObject , this.gameObject.transform.position, Damage.InvincibilityFrame, launchingDamage);
     }
 }

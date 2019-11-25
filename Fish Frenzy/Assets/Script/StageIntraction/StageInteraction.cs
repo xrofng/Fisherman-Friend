@@ -29,9 +29,9 @@ public class StageInteraction : Creature
     protected virtual void Initialization()
     {
         hitBox = GetComponent<HitBoxStageInteraction>();
-        hitBox.InvincibilityFrame = invicibilityFrame;
-        hitBox.IgnorePlayerFrame = ignorePlayerFrame;
-        hitBox.DamageCaused = damage;
+        hitBox.Damage.InvincibilityFrame = invicibilityFrame;
+        hitBox.Damage.IgnorePlayerFrame = ignorePlayerFrame;
+        hitBox.Damage.damage = damage;
         gameObject.layer = LayerMask.NameToLayer("StageInteraction");
     }
 

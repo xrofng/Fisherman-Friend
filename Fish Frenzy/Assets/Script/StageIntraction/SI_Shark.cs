@@ -53,7 +53,7 @@ public class SI_Shark : StageInteraction
     protected override void Initialization()
     {
         base.Initialization();
-        hitBox.FreezeFramesOnHit = BiteFrame;
+        hitBox.Damage.FreezeFramesOnHit = BiteFrame;
 
         if (randomStartWayPoint)
         {

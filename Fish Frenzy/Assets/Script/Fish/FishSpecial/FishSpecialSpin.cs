@@ -30,16 +30,6 @@ public class FishSpecialSpin : FishSpecialMelee {
         playerPositionY = Player.transform.position.y;
     }
 
-    protected override void OnSpecialEnd()
-    {
-        base.OnSpecialEnd();
-        Player.transform.position = sClass.SetVector3(Player.transform.position, VectorComponent.y, playerPositionY);
-        Player._cPlayerAnimator.TriggerAnimation("s_endspin");
-        Player.RemoveAbilityInputIntercepter(this);
-        fish.SnapToHold();
-        StopSFX(sfx_spining);
-    }
-
     protected override void OnSpecialProcess()
     {
         base.OnSpecialProcess();
@@ -71,6 +61,10 @@ public class FishSpecialSpin : FishSpecialMelee {
     public override void SpecialEndPerform()
     {
         base.SpecialEndPerform();
+        Player.transform.position = sClass.SetVector3(Player.transform.position, VectorComponent.y, playerPositionY);
         Player._cPlayerAnimator.TriggerAnimation("s_endspin");
+        Player.RemoveAbilityInputIntercepter(this);
+        fish.SnapToHold();
+        StopSFX(sfx_spining);
     }
 }

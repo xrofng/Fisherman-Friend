@@ -1,33 +1,13 @@
-﻿using System.Collections;
+﻿using OneButton;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-[System.Serializable]
-public class DamagingData
-{
-    public float damage = 1;
-    /// the owner of the HitBoxMelee zone
-    public bool damageFromOwner = true;
-    public bool isLauncher;
-    public string hitBoxName;
-
-    [Header("Damage Receiver")]
-    public int invicibilityFrame = 50;
-    public int freezeFrame = 10;
-
-    [Header("Limited Damaging")]
-    public bool unlimitedDamaging = true;
-    public int numberOfDamaging = 1;
-}
 
 public class HitBoxMelee : DamageOnHit
 {
     [Header("Utility")]
+    //public DamagingData DamagingData;
     public bool mustHaveOwner;
-    /// the owner of the HitBoxMelee zone
-    public bool damageFromOwner = true;
-    public bool unlimitedDamaging = true;
-    public int numberOfDamaging = 1;
 
     public bool isLauncher;
     public GameObject Owner;
@@ -61,7 +41,9 @@ public class HitBoxMelee : DamageOnHit
             m_hitSfx = value;
         }
     }
-    
+
+    public CustomResponse OnReachLimitedDamaging;
+
     /// <summary>
     /// Initialization
     /// </summary>
@@ -81,16 +63,18 @@ public class HitBoxMelee : DamageOnHit
 
     public void SetDamage(DamagingData data)
     {
-        FreezeFramesOnHit = data.freezeFrame;
-        InvincibilityFrame = data.invicibilityFrame;
-        DamageCaused = data.damage;
-        isLauncher = data.isLauncher;
+        Damage = data;
+        mustHaveOwner = data.damageFromOwner;
+        //FreezeFramesOnHit = data.freezeFrame;
+        //InvincibilityFrame = data.invicibilityFrame;
+        //DamageCaused = data.damage;
+        //isLauncher = data.isLauncher;
 
-        damageFromOwner = data.damageFromOwner;
-        mustHaveOwner = damageFromOwner;
+        //damageFromOwner = data.damageFromOwner;
+        //mustHaveOwner = damageFromOwner;
 
-        unlimitedDamaging = data.unlimitedDamaging;
-        numberOfDamaging = data.numberOfDamaging;
+        //unlimitedDamaging = data.unlimitedDamaging;
+        //numberOfDamaging = data.numberOfDamaging;
     }
 
     protected override void Colliding(Collider collider)
@@ -99,7 +83,6 @@ public class HitBoxMelee : DamageOnHit
         {
             return;
         }
-        
 
         if (!this.isActiveAndEnabled)
         {
@@ -132,6 +115,7 @@ public class HitBoxMelee : DamageOnHit
         {
             if (!_player.IsInvincible)
             {
+                Debug.Log("p:" + _player.name); 
                 OnCollideWithPlayer(_player, this.Owner.gameObject);
             }
         }
@@ -173,9 +157,9 @@ public class HitBoxMelee : DamageOnHit
         }
 
         // don't care about invincibility
-        if (FreezeFramesOnHit > 0)
+        if (Damage.FreezeFramesOnHit > 0)
         {
-            StartCoroutine(ieFreezePlayer(_player, FreezeFramesOnHit, damageDealer));
+            StartCoroutine(ieFreezePlayer(_player, Damage.FreezeFramesOnHit, damageDealer));
         }
         else
         {
@@ -187,17 +171,22 @@ public class HitBoxMelee : DamageOnHit
     {
         SoundManager.Instance.PlaySound(HitSFX, this.transform.position);
         Vector3 forcesource = this.transform.position;
-        if (damageFromOwner)
+        if (Damage.damageFromOwner)
         {
             forcesource = damageDealer.transform.position;
         }
-        _player.recieveDamage(DamageCaused, damageDealer , forcesource, InvincibilityFrame,isLauncher);
-
-        numberOfDamaging -= 1;
-        if (!unlimitedDamaging && numberOfDamaging < 0)
+        if (_player)
         {
-            Debug.Log("des");
-            Destroy(this.gameObject);
+            _player.recieveDamage(Damage.damage, damageDealer, forcesource, Damage.InvincibilityFrame, Damage.isLauncher);
+        }
+
+        Damage.numberOfDamaging -= 1;
+        if (!Damage.unlimitedDamaging && Damage.numberOfDamaging < 0)
+        {
+            if (OnReachLimitedDamaging)
+            {
+                OnReachLimitedDamaging.PerformResponse();
+            }
         }
     }
 

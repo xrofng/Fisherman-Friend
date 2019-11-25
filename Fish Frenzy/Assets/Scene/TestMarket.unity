@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.801
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.49046057, g: 0.44181448, b: 0.74276716, a: 0.801}
+  m_IndirectSpecularColor: {r: 0.5174175, g: 0.4518044, b: 0.7412683, a: 0.801}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -29237,7 +29237,7 @@ MonoBehaviour:
   multiPCamera: {fileID: 1296815681}
   coastHolder: {fileID: 1683323781}
   coastPoints: []
-  FixedFish: 1
+  FixedFish: 0
   TestingFish: {fileID: 114174926280458592, guid: 74a86637d250a9a43925dd3b27594b1c,
     type: 2}
   DrawDebugRay: 0

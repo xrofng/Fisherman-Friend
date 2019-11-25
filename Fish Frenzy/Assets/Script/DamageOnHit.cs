@@ -1,6 +1,31 @@
-﻿using System.Collections;
+﻿using OneButton;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+[System.Serializable]
+public class DamagingData
+{
+    /// The amount of health to remove from the player's health
+    public float damage = 1;
+    /// the owner of the HitBoxMelee zone
+    public bool damageFromOwner = true;
+    public bool isLauncher;
+    public string hitBoxName;
+
+    [Header("Damage Receiver")]
+    /// the frames of player freeze frames on hit (leave it at 0 to ignore)
+    public int FreezeFramesOnHit = 10;
+    /// the frames of player will be ignored from colliing this
+    public int IgnorePlayerFrame = 20;
+    /// The duration of the invincibility frames after the hit (in frames)
+    public int InvincibilityFrame = 50;
+
+    [Header("Limited Damaging")]
+    public bool unlimitedDamaging = true;
+    public int numberOfDamaging = 1;
+    public CustomResponse OnReachLimitedDamaging;
+}
 
 public class DamageOnHit : MonoBehaviour
 {
@@ -9,31 +34,15 @@ public class DamageOnHit : MonoBehaviour
     /// the possible knockback directions
     public enum KnockbackDirections { BasedOnOwnerPosition, BasedOnSpeed }
 
-    [Header("Targets")]
-    // the layers that will be damaged by this object
-    public LayerMask TargetLayerMask;
-
     [Header("Damage Caused")]
-    /// The amount of health to remove from the player's health
-    public float DamageCaused = 10;
+    public DamagingData Damage;
     /// the type of knockback to apply when causing damage
     public KnockbackStyles DamageCausedKnockbackType = KnockbackStyles.SetForce;
     /// The direction to apply the knockback 
     public KnockbackDirections DamageCausedKnockbackDirection;
     /// The force to apply to the object that gets damaged
     public Vector2 DamageCausedKnockbackForce = new Vector2(10, 2);
-    /// The duration of the invincibility frames after the hit (in seconds)
-    public float InvincibilityDuration = 0.5f;
-    /// The duration of the invincibility frames after the hit (in frames)
-    public int InvincibilityFrame = 50;
-
-    [Header("Feedback")]
-    /// the duration of freeze frames on hit (leave it at 0 to ignore)
-    public float FreezeFramesOnHitDuration = 0f;
-    /// the frames of player freeze frames on hit (leave it at 0 to ignore)
-    public int FreezeFramesOnHit = 0;
-    /// the frames of player will be ignored from colliing this
-    public int IgnorePlayerFrame = 20;
+    
 
     // storage		
     protected Vector2 _lastPosition, _velocity, _knockbackForce;
@@ -103,7 +112,7 @@ public class DamageOnHit : MonoBehaviour
     {
         _ignoredGameObjects.Add(newIgnoredGameObject);
         int frameCount = 0;
-        while (frameCount < IgnorePlayerFrame)
+        while (frameCount < Damage.IgnorePlayerFrame)
         {
             yield return new WaitForEndOfFrame();
             frameCount++;
@@ -171,15 +180,7 @@ public class DamageOnHit : MonoBehaviour
         //    return;
         //}
         
-
-
         _player = collider.gameObject.GetComponent<Player>();
-
-        if (FreezeFramesOnHitDuration > 0)
-        {
-            //StartCoroutine(FreezePlayer(_player,FreezeFramesOnHitDuration));
-            // MMEventManager.TriggerEvent(new MMFreezeFrameEvent(FreezeFramesOnHitDuration));
-        }
 
         // if what we're colliding with player
         if (_player != null)

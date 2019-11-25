@@ -33,7 +33,7 @@ public class SI_JellyFish : StageInteraction {
     protected override void Initialization()
     {
         base.Initialization();
-        hitBox.FreezeFramesOnHit = ShockingFrame;
+        hitBox.Damage.FreezeFramesOnHit = ShockingFrame;
         originPosition = transform.position;
     }
 

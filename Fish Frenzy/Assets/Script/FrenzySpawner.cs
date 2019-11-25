@@ -52,11 +52,11 @@ public class FrenzySpawner : MonoBehaviour
     {
         Fish spawnFish = Instantiate(portRoyal.RandomFish(), spawnPos, Random.rotation) as Fish;
 
-        ActivateOnFishing activateOnFishing = spawnFish.GetComponent<ActivateOnFishing>();
-        if (activateOnFishing)
-        {
-            activateOnFishing.OnFishingAction();
-        }
+        //ActivateOnFishing activateOnFishing = spawnFish.GetComponent<ActivateOnFishing>();
+        //if (activateOnFishing)
+        //{
+        //    activateOnFishing.OnFishingAction();
+        //}
 
         spawnFish.gameObject.transform.localEulerAngles = sClass.SetVector3(spawnFish.gameObject.transform.localEulerAngles, VectorComponent.x, 0);
         spawnFish.gameObject.transform.localEulerAngles = sClass.SetVector3(spawnFish.gameObject.transform.localEulerAngles, VectorComponent.z, 0);

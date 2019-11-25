@@ -41,12 +41,18 @@ public class FishSpecialThrow: FishSpecialSpawn
 
     protected virtual void OnThrowStart()
     {
-        currentMovingObj = Instantiate(movingObjects, this.transform.position, Quaternion.identity);// add pos set lyr
-        currentMovingObj.gameObject.layer = LayerMask.NameToLayer("Fish" + Player.playerID);
-        currentMovingObj.HitBox.Owner = Player.gameObject;
+        SetFishVisibility(false);
+        currentMovingObj = SpawnMovingObject(movingObjects,transform.position);
         currentMovingObj.Direction = currentMovingObj.HitBox.OwnerPlayer.GetPart(Player.ePart.body).transform.TransformDirection(-Vector3.forward);
         currentMovingObj.transform.LookAt(currentMovingObj.Direction + transform.position);
-        SetFishVisibility(false);
+    }
+
+    protected MovingObject SpawnMovingObject(MovingObject movingObjects,Vector3 pos)
+    {
+        MovingObject newMov = Instantiate(movingObjects, pos, Quaternion.identity);
+        newMov.gameObject.layer = LayerMask.NameToLayer("Fish" + Player.playerID);
+        newMov.HitBox.Owner = Player.gameObject;
+        return newMov;
     }
 
     private void SetFishVisibility(bool isVisible)
