@@ -263,7 +263,7 @@ MonoBehaviour:
   fishMeshRenderer: {fileID: 23386506973063562}
   durability: 10
   lowDurabilityFloor: 1
-  weight: 0
+  weight: 11
   mashCountDown: 8
   spawnRate: 10
   rayDistance: 0.25
@@ -326,10 +326,15 @@ MonoBehaviour:
     damageFromOwner: 1
     isLauncher: 1
     hitBoxName: EarthShatter_HB
-    invicibilityFrame: 50
-    freezeFrame: 10
+    FreezeFramesOnHit: 10
+    IgnorePlayerFrame: 20
+    InvincibilityFrame: 50
+    unlimitedDamaging: 1
+    numberOfDamaging: 1
+    IsUnblockable: 0
   specialClip: 3
   InputLagFrameDuration: 10
+  animTriggers: []
   freezeRotation: 1
   hasInvincibility: 1
   onStartTriggerName: s_hammerdown

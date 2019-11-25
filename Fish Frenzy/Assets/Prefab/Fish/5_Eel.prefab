@@ -280,7 +280,7 @@ MonoBehaviour:
   fishMeshRenderer: {fileID: 23609865208187692}
   durability: 7
   lowDurabilityFloor: 1
-  weight: 0
+  weight: 11
   mashCountDown: 3
   spawnRate: 11
   rayDistance: 0.25
@@ -330,8 +330,12 @@ MonoBehaviour:
     damageFromOwner: 0
     isLauncher: 1
     hitBoxName: 
-    invicibilityFrame: 50
-    freezeFrame: 0
+    FreezeFramesOnHit: 10
+    IgnorePlayerFrame: 20
+    InvincibilityFrame: 50
+    unlimitedDamaging: 1
+    numberOfDamaging: 1
+    IsUnblockable: 0
   specialClip: 9
   InputLagFrameDuration: 40
   animTriggers:

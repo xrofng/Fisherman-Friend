@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerFishInteraction : PlayerAbility {
 
     public int beforeHoldFrameDuration;
+    public float FishWeightFloor;
+    public Fish damagedByFish;
 
     // Use this for initialization
     protected override void Start()
@@ -166,5 +168,21 @@ public class PlayerFishInteraction : PlayerAbility {
         fish._cSpecial.OnPlayerHold();
 
         StopCoroutine(ieFinishFishing(beforeHoldFrameDuration));
+    }
+
+    public string GetDamagedAnimationTriggerName()
+    {
+        if (Player._cPlayerFishInteraction.damagedByFish)
+        {
+            if (Player._cPlayerFishInteraction.damagedByFish.weight > FishWeightFloor)
+            {
+                return "is_heavy_damaged";
+            }
+            else
+            {
+                return "is_light_damaged";
+            }
+        }
+        return "";
     }
 }

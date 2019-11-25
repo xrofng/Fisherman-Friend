@@ -11,6 +11,7 @@ public class FishSpecialStorm : FishSpecialThrow
     public LayerMask LayerMask;
     public float IgnoredDuration;
     public Animator LockUI;
+    public Vector3 LockUISpawnOffset;
     public GameObject TridentEdge;
     public GameObject AreaIndicator;
     private GameObject _areaIndicator;
@@ -26,6 +27,7 @@ public class FishSpecialStorm : FishSpecialThrow
             return _areaIndicator;
         }
     }
+
 
     protected HitBoxMelee detection;
 
@@ -94,7 +96,9 @@ public class FishSpecialStorm : FishSpecialThrow
     {
         if (!targetLockUIs.ContainsKey(player))
         {
-            targetLockUIs.Add(player, Instantiate(LockUI, player.transform));
+            targetLockUIs.Add(player, Instantiate(LockUI,player.transform.position,Quaternion.identity));
+            targetLockUIs[player].transform.parent = player.transform;
+            targetLockUIs[player].transform.position += LockUISpawnOffset;
         }
         else
         {
@@ -173,7 +177,7 @@ public class FishSpecialStorm : FishSpecialThrow
     {
         foreach(GameObject playr in targetLockUIs.Keys)
         {
-            Destroy(targetLockUIs[playr]);
+            Destroy(targetLockUIs[playr].gameObject);
         }
         targetLockUIs.Clear();
     }

@@ -54,7 +54,6 @@ public class Player : Creature
     public Fish mainFish;
     public Fish subFish;
     public Fish baitedFish;
-    public Fish damagedByFish;
 
     // Other Component
     [HideInInspector]
@@ -194,7 +193,7 @@ public class Player : Creature
         _cPlayerFishing.SetFishing(false);
         _cPlayerInvincibility.StartInvincible(recoveryFrame);
         _cPlayerState.ToggleIsDamage();
-
+        Animation.Animator.SetInteger("damage_percent", (int)damagePercent);
         MatchResult.Instance.StoreAttacker(playerID, damageDealer);
 
         DamagePercentClamp();
@@ -281,7 +280,6 @@ public class Player : Creature
         MatchResult.Instance.ClearRecentDamager(playerID);
         yield return new WaitForSeconds(waitBeforeCancelInvinc);
         _cPlayerFishInteraction.SetPlayerCollideEverything(true);
-
     }
 
     public Vector3 GetLowestPlayerPoint()

@@ -172,6 +172,7 @@ public class HitBoxMelee : DamageOnHit
         }
         if (_player)
         {
+            _player._cPlayerFishInteraction.damagedByFish = OwnerPlayer.mainFish;
             _player.RecieveDamage(Damage.damage, damageDealer, forcesource, Damage.InvincibilityFrame, Damage.isLauncher);
         }
 

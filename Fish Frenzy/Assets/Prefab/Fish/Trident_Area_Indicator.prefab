@@ -52,7 +52,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4535489304385482}
   m_Layer: 0
-  m_Name: Trident_Indicator
+  m_Name: Trident_Area_Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -190,7 +190,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: ec4986201fbb91b4fbc4b73c7410bc6a, type: 2}
+  - {fileID: 2100000, guid: d0d832ff2359e954daf1bac4cffc996f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -236,7 +236,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: ec4986201fbb91b4fbc4b73c7410bc6a, type: 2}
+  - {fileID: 2100000, guid: d0d832ff2359e954daf1bac4cffc996f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
