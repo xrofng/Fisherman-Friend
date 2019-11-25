@@ -9,7 +9,6 @@ public class HitBoxMelee : DamageOnHit
     //public DamagingData DamagingData;
     public bool mustHaveOwner;
 
-    public bool isLauncher;
     public GameObject Owner;
     protected Player ownerPlayer;
     public Player OwnerPlayer
@@ -41,8 +40,6 @@ public class HitBoxMelee : DamageOnHit
             m_hitSfx = value;
         }
     }
-
-    public CustomResponse OnReachLimitedDamaging;
 
     /// <summary>
     /// Initialization
@@ -175,11 +172,16 @@ public class HitBoxMelee : DamageOnHit
         }
         if (_player)
         {
-            _player.recieveDamage(Damage.damage, damageDealer, forcesource, Damage.InvincibilityFrame, Damage.isLauncher);
+            _player.RecieveDamage(Damage.damage, damageDealer, forcesource, Damage.InvincibilityFrame, Damage.isLauncher);
         }
 
+        EvaluateLimitedUses();
+    }
+
+    public void EvaluateLimitedUses()
+    {
         Damage.numberOfDamaging -= 1;
-        if (!Damage.unlimitedDamaging && Damage.numberOfDamaging < 0)
+        if (!Damage.unlimitedDamaging && Damage.numberOfDamaging <= 0)
         {
             if (OnReachLimitedDamaging)
             {

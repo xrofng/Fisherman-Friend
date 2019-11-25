@@ -47,9 +47,14 @@ public class FishSpecialThrow: FishSpecialSpawn
         currentMovingObj.transform.LookAt(currentMovingObj.Direction + transform.position);
     }
 
-    protected MovingObject SpawnMovingObject(MovingObject movingObjects,Vector3 pos)
+    protected MovingObject SpawnMovingObject(MovingObject movingObject,Vector3 pos)
     {
-        MovingObject newMov = Instantiate(movingObjects, pos, Quaternion.identity);
+        return SpawnMovingObject(movingObject,pos,Quaternion.identity);
+    }
+
+    protected MovingObject SpawnMovingObject(MovingObject movingObject, Vector3 pos,Quaternion quaternion)
+    {
+        MovingObject newMov = Instantiate(movingObject, pos, quaternion);
         newMov.gameObject.layer = LayerMask.NameToLayer("Fish" + Player.playerID);
         newMov.HitBox.Owner = Player.gameObject;
         return newMov;

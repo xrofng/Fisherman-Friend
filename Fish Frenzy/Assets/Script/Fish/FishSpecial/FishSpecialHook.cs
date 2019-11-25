@@ -59,7 +59,7 @@ public class FishSpecialHook : FishSpecialThrow {
         }
 
         PlaySFX(fish.sfx_Special);
-        hookedPlayer.recieveDamage(damage.damage, Player.gameObject, hookedPlayer.transform.position + Vector3.up, 
+        hookedPlayer.RecieveDamage(damage.damage, Player.gameObject, hookedPlayer.transform.position + Vector3.up, 
             damage.InvincibilityFrame, damage.isLauncher, finalBlowForce);
 
         frameCount = 0;

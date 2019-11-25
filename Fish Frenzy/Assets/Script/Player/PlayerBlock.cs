@@ -59,7 +59,7 @@ public class PlayerBlock : PlayerAbility
     private void PerformCounter()
     {
         Player.Animation.TriggerAnimation("counter");
-        GetCrossZComponent<PlayerInvincibility>().startInvincible(CounterIgnoreAbilityFrame);
+        GetCrossZComponent<PlayerInvincibility>().StartInvincible(CounterIgnoreAbilityFrame);
         ActionForFrame(CounterIgnoreAbilityFrame,
                  () => { Player.AddAbilityInputIntercepter(this); },
                  () => { Player.RemoveAbilityInputIntercepter(this); });

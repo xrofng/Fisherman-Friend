@@ -87,7 +87,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1916139448920114}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.6, y: 6.65, z: -9.4}
+  m_LocalPosition: {x: 14.739721, y: 3.1384277, z: 1.165288}
   m_LocalScale: {x: 50, y: 50, z: 50}
   m_Children:
   - {fileID: 4221678765711030}
@@ -392,7 +392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage:
-    damage: 10
+    damage: 3
     damageFromOwner: 0
     isLauncher: 1
     hitBoxName: 
@@ -401,7 +401,6 @@ MonoBehaviour:
     InvincibilityFrame: 0
     unlimitedDamaging: 0
     numberOfDamaging: 1
-    OnReachLimitedDamaging: {fileID: 0}
     IsUnblockable: 0
   specialClip: 0
   InputLagFrameDuration: 10
@@ -414,11 +413,12 @@ MonoBehaviour:
   WaitForCurrentMovingObj: 0
   HideFishOnThrow: 0
   Range: 100
-  Radius: 10
+  Radius: 5
   LayerMask:
     serializedVersion: 2
     m_Bits: 30720
-  IgnoredDuration: 0.5
+  IgnoredDuration: 1
+  LockUI: {fileID: 95123027313482860, guid: 2a9b2c04a3000c1489d8c77c797490d5, type: 2}
   TridentEdge: {fileID: 1671078450130878}
   AreaIndicator: {fileID: 1802070306965592, guid: 96ac24ae939c1e14385be06a3427579d,
     type: 2}

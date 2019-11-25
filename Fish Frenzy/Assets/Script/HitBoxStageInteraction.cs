@@ -89,7 +89,7 @@ public class HitBoxStageInteraction : DamageOnHit
         }
         else
         {
-            _player.recieveDamage(this, Damage.damage, this.gameObject,gameObject.transform.position , Damage.InvincibilityFrame, launchingDamage);
+            _player.RecieveDamage(Damage.damage, this.gameObject,gameObject.transform.position , Damage.InvincibilityFrame, launchingDamage,0, this);
         }
     }
 
@@ -105,6 +105,6 @@ public class HitBoxStageInteraction : DamageOnHit
         }
         player.FreezingMovement = false;
         player.RemoveAbilityInputIntercepter(this);
-        player.recieveDamage(this, Damage.damage, this.gameObject , this.gameObject.transform.position, Damage.InvincibilityFrame, launchingDamage);
+        player.RecieveDamage(Damage.damage, this.gameObject , this.gameObject.transform.position, Damage.InvincibilityFrame, launchingDamage,0,this);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using OneButton;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,7 +25,6 @@ public class DamagingData
     [Header("Limited Damaging")]
     public bool unlimitedDamaging = true;
     public int numberOfDamaging = 1;
-    public CustomResponse OnReachLimitedDamaging;
 
     public bool IsUnblockable = false;
 }
@@ -38,13 +38,14 @@ public class DamageOnHit : MonoBehaviour
 
     [Header("Damage Caused")]
     public DamagingData Damage;
+    public CustomResponse OnReachLimitedDamaging;
     /// the type of knockback to apply when causing damage
     public KnockbackStyles DamageCausedKnockbackType = KnockbackStyles.SetForce;
     /// The direction to apply the knockback 
     public KnockbackDirections DamageCausedKnockbackDirection;
     /// The force to apply to the object that gets damaged
     public Vector2 DamageCausedKnockbackForce = new Vector2(10, 2);
-    
+
 
     // storage		
     protected Vector2 _lastPosition, _velocity, _knockbackForce;
@@ -53,7 +54,6 @@ public class DamageOnHit : MonoBehaviour
     protected List<GameObject> _ignoredGameObjects;
     protected Color _gizmosColor;
     protected Vector3 _gizmoSize;
-
 
     protected Collider _Collider;
     protected MeshRenderer _MeshRenderer;

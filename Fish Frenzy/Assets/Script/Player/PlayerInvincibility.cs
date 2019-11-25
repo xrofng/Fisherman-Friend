@@ -30,7 +30,7 @@ public class PlayerInvincibility : PlayerAbility {
 		
 	}
 
-    public void startInvincible(int inviFrame)
+    public void StartInvincible(int inviFrame)
     {
         invisibilityFrame = inviFrame;
         StartCoroutine(invokeInvinceible(invisibilityFrame));

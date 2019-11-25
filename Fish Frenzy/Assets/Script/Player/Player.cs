@@ -54,6 +54,7 @@ public class Player : Creature
     public Fish mainFish;
     public Fish subFish;
     public Fish baitedFish;
+    public Fish damagedByFish;
 
     // Other Component
     [HideInInspector]
@@ -175,28 +176,13 @@ public class Player : Creature
         state = staTE;
     }
 
-    public void recieveDamage(float damage , GameObject damageDealer, Vector3 damageDealerPos,  int recoveryFrame , bool launchingDamage)
+    public void RecieveDamage(float damage, GameObject damageDealer, Vector3 damageDealerPos, int recoveryFrame, bool launchingDamage, 
+                                float upMultiplier=0, object intercepter=null)
     {
-        damagePercent += (int)damage;
-        //Instantiate(knockBackOrigin, center ,Quaternion.identity);
-        Vector2 knockBackForce = knockData.GetSlapKnockForce((int)damage, damagePercent);
-
-        //print(launchingDamage);
-
-        if (launchingDamage)
+        if (intercepter != null)
         {
-            AddKnockBackForce(damage, damageDealerPos, knockBackForce);
+            StartCoroutine(IgnoreAbilityInput(intercepter, recoveryFrame));
         }
-        _cPlayerFishing.SetFishing(false);
-        _cPlayerInvincibility.startInvincible(recoveryFrame);
-        _cPlayerState.ToggleIsDamage();
-        MatchResult.Instance.StoreAttacker(playerID, damageDealer);
-
-        DamagePercentClamp();
-    }
-
-    public void recieveDamage(float damage, GameObject damageDealer, Vector3 damageDealerPos, int recoveryFrame, bool launchingDamage, float upMultiplier)
-    {
         damagePercent += (int)damage;
         Vector2 knockBackForce = knockData.GetSlapKnockForce((int)damage, damagePercent);
         knockBackForce += Vector2.up * knockData.GetVerticalKnockForce(damagePercent) * upMultiplier;
@@ -206,17 +192,12 @@ public class Player : Creature
             AddKnockBackForce(damage, damageDealerPos, knockBackForce);
         }
         _cPlayerFishing.SetFishing(false);
-        _cPlayerInvincibility.startInvincible(recoveryFrame);
+        _cPlayerInvincibility.StartInvincible(recoveryFrame);
         _cPlayerState.ToggleIsDamage();
+
         MatchResult.Instance.StoreAttacker(playerID, damageDealer);
 
         DamagePercentClamp();
-    }
-
-    public void recieveDamage(object intercepter,float damage, GameObject damageDealer, Vector3 damageDealerPos, int recoveryFrame, bool launchingDamage)
-    {
-        StartCoroutine(IgnoreAbilityInput(intercepter, recoveryFrame));
-        recieveDamage(damage, damageDealer, damageDealerPos,recoveryFrame,launchingDamage);
     }
 
     IEnumerator IgnoreAbilityInput(object intercepter , int ignoreFrameDuration )

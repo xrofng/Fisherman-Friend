@@ -147,6 +147,7 @@ public class PlayerState : PlayerAbility
             yield return new WaitForEndOfFrame();
             frameCount += 1;
         }
+        Player.Animation.TriggerAnimation("end_damaged");
         IsDamaged = false;
     }
 }

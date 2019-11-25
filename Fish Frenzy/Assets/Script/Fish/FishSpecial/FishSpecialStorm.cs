@@ -10,6 +10,7 @@ public class FishSpecialStorm : FishSpecialThrow
     public float Radius;
     public LayerMask LayerMask;
     public float IgnoredDuration;
+    public Animator LockUI;
     public GameObject TridentEdge;
     public GameObject AreaIndicator;
     private GameObject _areaIndicator;
@@ -34,7 +35,9 @@ public class FishSpecialStorm : FishSpecialThrow
     /// key is object ignored from detection
     /// value is time left for detection allowance
     /// </summary>
-    protected Dictionary<GameObject,float> ignoredTarget;
+    protected Dictionary<GameObject,float> ignoredTargets;
+
+    protected Dictionary<GameObject, Animator> targetLockUIs;
 
 
     [Header("SoundEffect")]
@@ -77,24 +80,37 @@ public class FishSpecialStorm : FishSpecialThrow
             GameObject hitObject = hit.collider.gameObject;
             if (hitObject != Player.gameObject)
             {
-                if (!ignoredTarget.ContainsKey(hitObject))
+                if (!ignoredTargets.ContainsKey(hitObject))
                 {
+                    ToggleLockUI(hitObject);
                     finalTargets.Add(hitObject);
-                    ignoredTarget.Add(hitObject, IgnoredDuration);
+                    ignoredTargets.Add(hitObject, IgnoredDuration);
                 }
             }
         }
     }
 
+    private void ToggleLockUI(GameObject player)
+    {
+        if (!targetLockUIs.ContainsKey(player))
+        {
+            targetLockUIs.Add(player, Instantiate(LockUI, player.transform));
+        }
+        else
+        {
+            targetLockUIs[player].SetTrigger("relock");
+        }
+    }
+
     private void EvaluateIgnoredTarget()
     {
-        List<GameObject> _ignoredTarget = new List<GameObject>(ignoredTarget.Keys);
+        List<GameObject> _ignoredTarget = new List<GameObject>(ignoredTargets.Keys);
         foreach (GameObject ignored in _ignoredTarget)
         {
-            ignoredTarget[ignored] -= Time.deltaTime;
-            if (ignoredTarget[ignored] <= 0)
+            ignoredTargets[ignored] -= Time.deltaTime;
+            if (ignoredTargets[ignored] <= 0)
             {
-                ignoredTarget.Remove(ignored);
+                ignoredTargets.Remove(ignored);
             }
         }
     }
@@ -104,7 +120,8 @@ public class FishSpecialStorm : FishSpecialThrow
         base.PerformSpecialDown();
         Player.Animation.Animator.SetTrigger("s_holdtrident");
         finalTargets = new List<GameObject>();
-        ignoredTarget = new Dictionary<GameObject, float>();
+        ignoredTargets = new Dictionary<GameObject, float>();
+        targetLockUIs = new Dictionary<GameObject, Animator>();
         ShowAreaIndicator(true);
     }
 
@@ -112,6 +129,7 @@ public class FishSpecialStorm : FishSpecialThrow
     {
         base.PerformSpecialUp();
         ShowAreaIndicator(false);
+        ClearLockUI();
     }
 
     protected override void OnThrowStart()
@@ -122,7 +140,7 @@ public class FishSpecialStorm : FishSpecialThrow
             float angle = (360 / finalTargets.Count);
             float z = angle * (i + 1);
             Vector3 cam = Camera.main.transform.eulerAngles;
-            MovingObject movingObj = SpawnMovingObject(movingObjects, TridentEdge.transform.position);
+            MovingObject movingObj = SpawnMovingObject(movingObjects, TridentEdge.transform.position, Quaternion.Euler(cam.x, cam.y, z));
             MovingObjToTarget movingObjToTarget = movingObj.GetComponent<MovingObjToTarget>();
 
             if (movingObjToTarget)
@@ -148,6 +166,16 @@ public class FishSpecialStorm : FishSpecialThrow
     {
         base.OnDehydrate();
         ShowAreaIndicator(false);
+        ClearLockUI();
+    }
+
+    private void ClearLockUI()
+    {
+        foreach(GameObject playr in targetLockUIs.Keys)
+        {
+            Destroy(targetLockUIs[playr]);
+        }
+        targetLockUIs.Clear();
     }
 
     private void ShowAreaIndicator(bool show)
