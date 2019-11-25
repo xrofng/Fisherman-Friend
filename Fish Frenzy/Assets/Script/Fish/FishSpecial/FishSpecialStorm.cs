@@ -11,7 +11,20 @@ public class FishSpecialStorm : FishSpecialThrow
     public LayerMask LayerMask;
     public float IgnoredDuration;
     public GameObject TridentEdge;
-    public MeshRenderer AreaIndicator;
+    public GameObject AreaIndicator;
+    private GameObject _areaIndicator;
+    protected GameObject areaIndicator
+    {
+        get
+        {
+            if(_areaIndicator == null)
+            {
+                _areaIndicator = Instantiate(AreaIndicator, transform);
+                //_areaIndicator.transform.position
+            }
+            return _areaIndicator;
+        }
+    }
 
     protected HitBoxMelee detection;
 
@@ -22,6 +35,7 @@ public class FishSpecialStorm : FishSpecialThrow
     /// value is time left for detection allowance
     /// </summary>
     protected Dictionary<GameObject,float> ignoredTarget;
+
 
     [Header("SoundEffect")]
     public SoundEffect sfx_attach;
@@ -44,6 +58,8 @@ public class FishSpecialStorm : FishSpecialThrow
         DetectTarget();
 
         EvaluateIgnoredTarget();
+
+        areaIndicator.transform.eulerAngles = new Vector3(0.0f, areaIndicator.transform.eulerAngles.y, areaIndicator.transform.eulerAngles.z);
     }
 
     private void DetectTarget()
@@ -89,14 +105,13 @@ public class FishSpecialStorm : FishSpecialThrow
         Player.Animation.Animator.SetTrigger("s_holdtrident");
         finalTargets = new List<GameObject>();
         ignoredTarget = new Dictionary<GameObject, float>();
-        //AreaIndicator.enabled = true;
-        Debug.Log(finalTargets.Count);
+        ShowAreaIndicator(true);
     }
 
     protected override void PerformSpecialUp()
     {
         base.PerformSpecialUp();
-       // AreaIndicator.enabled = false;
+        ShowAreaIndicator(false);
     }
 
     protected override void OnThrowStart()
@@ -132,6 +147,11 @@ public class FishSpecialStorm : FishSpecialThrow
     public override void OnDehydrate()
     {
         base.OnDehydrate();
+        ShowAreaIndicator(false);
     }
 
+    private void ShowAreaIndicator(bool show)
+    {
+        areaIndicator.SetActive(show);
+    }
 }

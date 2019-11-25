@@ -115,7 +115,6 @@ public class HitBoxMelee : DamageOnHit
         {
             if (!_player.IsInvincible)
             {
-                Debug.Log("p:" + _player.name); 
                 OnCollideWithPlayer(_player, this.Owner.gameObject);
             }
         }
@@ -134,7 +133,6 @@ public class HitBoxMelee : DamageOnHit
     /// <param name="health">Health.</param>
     protected override void OnCollideWithPlayer(Player player , GameObject damageDealer)
     {
-        
         // Check player will be ignored from recently collide
         if (_ignoredGameObjects.Contains(player.gameObject))
         {
@@ -151,7 +149,7 @@ public class HitBoxMelee : DamageOnHit
             return;
         }
 
-        if (_player._cPlayerBlock.CheckBlock(damageDealer,_player))
+        if (_player._cPlayerBlock.CheckBlock(damageDealer,_player) && !Damage.IsUnblockable)
         {
             return;
         }

@@ -25,6 +25,8 @@ public class DamagingData
     public bool unlimitedDamaging = true;
     public int numberOfDamaging = 1;
     public CustomResponse OnReachLimitedDamaging;
+
+    public bool IsUnblockable = false;
 }
 
 public class DamageOnHit : MonoBehaviour

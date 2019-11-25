@@ -71,6 +71,7 @@ GameObject:
   - component: {fileID: 65151335393581598}
   - component: {fileID: 114114254988744584}
   - component: {fileID: 114405840523076482}
+  - component: {fileID: 114363080550028016}
   m_Layer: 0
   m_Name: Trident_Storm
   m_TagString: Untagged
@@ -333,22 +334,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ca0f42ae7141b6438ad514d3bbb47b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
-  DamageCaused: 10
+  Damage:
+    damage: 10
+    damageFromOwner: 0
+    isLauncher: 1
+    hitBoxName: 
+    FreezeFramesOnHit: 0
+    IgnorePlayerFrame: 0
+    InvincibilityFrame: 0
+    unlimitedDamaging: 0
+    numberOfDamaging: 1
+    OnReachLimitedDamaging: {fileID: 0}
+    IsUnblockable: 0
   DamageCausedKnockbackType: 1
   DamageCausedKnockbackDirection: 0
   DamageCausedKnockbackForce: {x: 0, y: 0}
-  InvincibilityDuration: 0.5
-  InvincibilityFrame: 50
-  FreezeFramesOnHitDuration: 0
-  FreezeFramesOnHit: 10
-  IgnorePlayerFrame: 20
   mustHaveOwner: 0
-  damageFromOwner: 0
-  unlimitedDamaging: 0
-  numberOfDamaging: 1
   isLauncher: 1
   Owner: {fileID: 0}
   m_hitSfx:
@@ -356,6 +357,19 @@ MonoBehaviour:
     volume: 1
     oneTime: 0
   OnReachLimitedDamaging: {fileID: 0}
+--- !u!114 &114363080550028016
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1863845108734078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71e1a51a9b181594a91619eaa629c2d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Colliders:
+  - {fileID: 65151335393581598}
 --- !u!114 &114405840523076482
 MonoBehaviour:
   m_ObjectHideFlags: 1

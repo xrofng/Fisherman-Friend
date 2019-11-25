@@ -29237,7 +29237,7 @@ MonoBehaviour:
   multiPCamera: {fileID: 1296815681}
   coastHolder: {fileID: 1683323781}
   coastPoints: []
-  FixedFish: 0
+  FixedFish: 1
   TestingFish: {fileID: 114174926280458592, guid: 74a86637d250a9a43925dd3b27594b1c,
     type: 2}
   DrawDebugRay: 0
@@ -40677,6 +40677,48 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2025236305}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &2028134691
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4801043439205422, guid: 74a86637d250a9a43925dd3b27594b1c, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 15.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4801043439205422, guid: 74a86637d250a9a43925dd3b27594b1c, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 6.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 4801043439205422, guid: 74a86637d250a9a43925dd3b27594b1c, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -9.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4801043439205422, guid: 74a86637d250a9a43925dd3b27594b1c, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4801043439205422, guid: 74a86637d250a9a43925dd3b27594b1c, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4801043439205422, guid: 74a86637d250a9a43925dd3b27594b1c, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4801043439205422, guid: 74a86637d250a9a43925dd3b27594b1c, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4801043439205422, guid: 74a86637d250a9a43925dd3b27594b1c, type: 2}
+      propertyPath: m_RootOrder
+      value: 30
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 74a86637d250a9a43925dd3b27594b1c, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &2031711759
 GameObject:
   m_ObjectHideFlags: 0
