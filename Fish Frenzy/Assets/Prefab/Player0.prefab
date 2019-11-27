@@ -427,7 +427,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1757172497880862
 GameObject:
   m_ObjectHideFlags: 1
@@ -2332,26 +2332,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ca0f42ae7141b6438ad514d3bbb47b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetLayerMask:
-    serializedVersion: 2
-    m_Bits: 30720
-  DamageCaused: 10
+  Damage:
+    damage: 1
+    damageFromOwner: 1
+    isLauncher: 0
+    hitBoxName: 
+    FreezeFramesOnHit: 10
+    IgnorePlayerFrame: 20
+    InvincibilityFrame: 50
+    unlimitedDamaging: 1
+    numberOfDamaging: 1
+    IsUnblockable: 0
+  OnReachLimitedDamaging: {fileID: 0}
   DamageCausedKnockbackType: 1
   DamageCausedKnockbackDirection: 0
   DamageCausedKnockbackForce: {x: 10, y: 2}
-  InvincibilityDuration: 0.5
-  InvincibilityFrame: 50
-  FreezeFramesOnHitDuration: 0
-  FreezeFramesOnHit: 10
-  IgnorePlayerFrame: 20
   mustHaveOwner: 0
-  damageFromOwner: 1
-  isLauncher: 1
   Owner: {fileID: 1727452470752796}
   m_hitSfx:
     clip: {fileID: 0}
     volume: 1
     oneTime: 0
+  HitEffect: {fileID: 1726025313061766, guid: 540b1972bced52a40b732b106f248c4d, type: 2}
+  HitEffectSpawnOffest: {x: 0, y: 3, z: 0}
+  HitEffectDuration: 0
 --- !u!114 &114293536094680500
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2371,8 +2375,12 @@ MonoBehaviour:
     damageFromOwner: 1
     isLauncher: 1
     hitBoxName: Counter_HB
-    invicibilityFrame: 50
-    freezeFrame: 10
+    FreezeFramesOnHit: 10
+    IgnorePlayerFrame: 20
+    InvincibilityFrame: 50
+    unlimitedDamaging: 1
+    numberOfDamaging: 1
+    IsUnblockable: 0
   BlockEffect: {fileID: 1722991338312768}
 --- !u!114 &114305712712285014
 MonoBehaviour:
@@ -2386,6 +2394,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   beforeHoldFrameDuration: 12
+  FishWeightFloor: 0
+  damagedByFish: {fileID: 0}
 --- !u!114 &114321977098985326
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2410,26 +2420,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ca0f42ae7141b6438ad514d3bbb47b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetLayerMask:
-    serializedVersion: 2
-    m_Bits: 30720
-  DamageCaused: 10
+  Damage:
+    damage: 1
+    damageFromOwner: 1
+    isLauncher: 0
+    hitBoxName: 
+    FreezeFramesOnHit: 10
+    IgnorePlayerFrame: 20
+    InvincibilityFrame: 50
+    unlimitedDamaging: 1
+    numberOfDamaging: 1
+    IsUnblockable: 0
+  OnReachLimitedDamaging: {fileID: 0}
   DamageCausedKnockbackType: 1
   DamageCausedKnockbackDirection: 0
   DamageCausedKnockbackForce: {x: 10, y: 2}
-  InvincibilityDuration: 0.5
-  InvincibilityFrame: 50
-  FreezeFramesOnHitDuration: 0
-  FreezeFramesOnHit: 0
-  IgnorePlayerFrame: 20
   mustHaveOwner: 1
-  damageFromOwner: 1
-  isLauncher: 1
   Owner: {fileID: 1727452470752796}
   m_hitSfx:
     clip: {fileID: 0}
     volume: 1
     oneTime: 0
+  HitEffect: {fileID: 1726025313061766, guid: 540b1972bced52a40b732b106f248c4d, type: 2}
+  HitEffectSpawnOffest: {x: 0, y: 3, z: 0}
+  HitEffectDuration: 0
 --- !u!114 &114376877632834070
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2502,26 +2516,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ca0f42ae7141b6438ad514d3bbb47b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetLayerMask:
-    serializedVersion: 2
-    m_Bits: 30720
-  DamageCaused: 10
+  Damage:
+    damage: 1
+    damageFromOwner: 1
+    isLauncher: 0
+    hitBoxName: 
+    FreezeFramesOnHit: 10
+    IgnorePlayerFrame: 20
+    InvincibilityFrame: 50
+    unlimitedDamaging: 1
+    numberOfDamaging: 1
+    IsUnblockable: 0
+  OnReachLimitedDamaging: {fileID: 0}
   DamageCausedKnockbackType: 1
   DamageCausedKnockbackDirection: 0
   DamageCausedKnockbackForce: {x: 10, y: 2}
-  InvincibilityDuration: 0.5
-  InvincibilityFrame: 50
-  FreezeFramesOnHitDuration: 0
-  FreezeFramesOnHit: 0
-  IgnorePlayerFrame: 20
   mustHaveOwner: 1
-  damageFromOwner: 1
-  isLauncher: 1
   Owner: {fileID: 1727452470752796}
   m_hitSfx:
     clip: {fileID: 0}
     volume: 1
     oneTime: 0
+  HitEffect: {fileID: 1726025313061766, guid: 540b1972bced52a40b732b106f248c4d, type: 2}
+  HitEffectSpawnOffest: {x: 0, y: 3, z: 0}
+  HitEffectDuration: 0
 --- !u!114 &114598192372927898
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2617,26 +2635,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ca0f42ae7141b6438ad514d3bbb47b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetLayerMask:
-    serializedVersion: 2
-    m_Bits: 30720
-  DamageCaused: 10
+  Damage:
+    damage: 1
+    damageFromOwner: 1
+    isLauncher: 0
+    hitBoxName: 
+    FreezeFramesOnHit: 10
+    IgnorePlayerFrame: 20
+    InvincibilityFrame: 50
+    unlimitedDamaging: 1
+    numberOfDamaging: 1
+    IsUnblockable: 0
+  OnReachLimitedDamaging: {fileID: 0}
   DamageCausedKnockbackType: 1
   DamageCausedKnockbackDirection: 0
   DamageCausedKnockbackForce: {x: 10, y: 2}
-  InvincibilityDuration: 0.5
-  InvincibilityFrame: 50
-  FreezeFramesOnHitDuration: 0
-  FreezeFramesOnHit: 0
-  IgnorePlayerFrame: 20
   mustHaveOwner: 1
-  damageFromOwner: 1
-  isLauncher: 1
   Owner: {fileID: 1727452470752796}
   m_hitSfx:
     clip: {fileID: 0}
     volume: 1
     oneTime: 0
+  HitEffect: {fileID: 1726025313061766, guid: 540b1972bced52a40b732b106f248c4d, type: 2}
+  HitEffectSpawnOffest: {x: 0, y: 3, z: 0}
+  HitEffectDuration: 0
 --- !u!114 &114691492094371878
 MonoBehaviour:
   m_ObjectHideFlags: 1

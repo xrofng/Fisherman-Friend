@@ -1,4 +1,5 @@
 ﻿using OneButton;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,6 +41,10 @@ public class HitBoxMelee : DamageOnHit
             m_hitSfx = value;
         }
     }
+
+    public GameObject HitEffect;
+    public Vector3 HitEffectSpawnOffest;
+    public float HitEffectDuration;
 
     /// <summary>
     /// Initialization
@@ -128,15 +133,22 @@ public class HitBoxMelee : DamageOnHit
     /// Describes what happens when colliding with a player object
     /// </summary>
     /// <param name="health">Health.</param>
-    protected override void OnCollideWithPlayer(Player player , GameObject damageDealer)
+    protected override void OnCollideWithPlayer(Player damagedReceiver , GameObject damageDealer)
     {
         // Check player will be ignored from recently collide
-        if (_ignoredGameObjects.Contains(player.gameObject))
+        if (_ignoredGameObjects.Contains(damagedReceiver.gameObject))
         {
             return;
         }
-        AddIgnoreGameObject(player.gameObject);
+        AddIgnoreGameObject(damagedReceiver.gameObject);
+        SpawnHitEffect(damagedReceiver.transform.position);
         CauseDamage(damageDealer);
+    }
+
+    private void SpawnHitEffect(Vector3 pos)
+    {
+        GameObject effect = Instantiate(HitEffect, pos+ HitEffectSpawnOffest, Quaternion.identity);
+        //Destroy(HitEffect, HitEffectDuration);
     }
 
     void CauseDamage(GameObject damageDealer)
