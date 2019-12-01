@@ -208,7 +208,7 @@ MeshCollider:
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114782356949862088, guid: ade12a05872bb1e4fa9fe3d92adc8def,
     type: 2}
-  m_PrefabInternal: {fileID: 1064477524}
+  m_PrefabInternal: {fileID: 1094306569}
   m_Script: {fileID: 11500000, guid: ff151a6fab313854f94e5adfab3552af, type: 3}
 --- !u!1001 &45200161
 Prefab:
@@ -4839,7 +4839,7 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300030, guid: 60cf2b54863cf114395f55ced55e264a, type: 3}
---- !u!1001 &1064477524
+--- !u!1001 &1094306569
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -4878,9 +4878,9 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 1948829092695278, guid: ade12a05872bb1e4fa9fe3d92adc8def, type: 2}
-      propertyPath: m_Name
-      value: Hat_Strawhat
+    - target: {fileID: 4169921453549552, guid: ade12a05872bb1e4fa9fe3d92adc8def, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.01284
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ade12a05872bb1e4fa9fe3d92adc8def, type: 2}
@@ -8609,23 +8609,6 @@ Transform:
   m_Father: {fileID: 554959410}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2077381580 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1713983084381312, guid: ade12a05872bb1e4fa9fe3d92adc8def,
-    type: 2}
-  m_PrefabInternal: {fileID: 1064477524}
---- !u!114 &2077381582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2077381580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: f7ed8cb015b243d4e9351cb7a0dfab8f, type: 2}
 --- !u!1 &2102202114
 GameObject:
   m_ObjectHideFlags: 0
