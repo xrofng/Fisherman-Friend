@@ -166,6 +166,13 @@ public class FishSpecialStorm : FishSpecialThrow
         detection.enabled = allow;
     }
 
+    public override void OnPlayerDeath()
+    {
+        base.OnPlayerDeath();
+        ShowAreaIndicator(false);
+        ClearLockUI();
+    }
+
     public override void OnDehydrate()
     {
         base.OnDehydrate();

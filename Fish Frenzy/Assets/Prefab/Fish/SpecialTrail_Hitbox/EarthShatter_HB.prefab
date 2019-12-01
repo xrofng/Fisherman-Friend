@@ -126,20 +126,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ca0f42ae7141b6438ad514d3bbb47b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetLayerMask:
-    serializedVersion: 2
-    m_Bits: 30720
-  DamageCaused: 10
+  Damage:
+    damage: 1
+    damageFromOwner: 1
+    isLauncher: 0
+    hitBoxName: 
+    FreezeFramesOnHit: 10
+    IgnorePlayerFrame: 20
+    InvincibilityFrame: 50
+    unlimitedDamaging: 1
+    numberOfDamaging: 1
+    IsUnblockable: 0
+  OnReachLimitedDamaging: {fileID: 0}
   DamageCausedKnockbackType: 1
   DamageCausedKnockbackDirection: 0
   DamageCausedKnockbackForce: {x: 10, y: 2}
-  InvincibilityDuration: 0.5
-  InvincibilityFrame: 50
-  FreezeFramesOnHitDuration: 0
-  FreezeFramesOnHit: 10
-  IgnorePlayerFrame: 20
   mustHaveOwner: 0
-  damageFromOwner: 1
-  isLauncher: 1
   Owner: {fileID: 0}
-  _SFXclip: {fileID: 0}
+  m_hitSfx:
+    clip: {fileID: 0}
+    volume: 1
+    oneTime: 0
+  HitEffect: {fileID: 1726025313061766, guid: 540b1972bced52a40b732b106f248c4d, type: 2}
+  HitEffectSpawnOffest: {x: 0, y: 0, z: 0}
+  HitEffectDuration: 3

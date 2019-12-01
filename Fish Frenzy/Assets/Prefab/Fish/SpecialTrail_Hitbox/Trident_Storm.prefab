@@ -355,6 +355,9 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 76d3523a591904046bc04aace0181371, type: 3}
     volume: 1
     oneTime: 0
+  HitEffect: {fileID: 1726025313061766, guid: 540b1972bced52a40b732b106f248c4d, type: 2}
+  HitEffectSpawnOffest: {x: 0, y: 3, z: 0}
+  HitEffectDuration: 3
 --- !u!114 &114405840523076482
 MonoBehaviour:
   m_ObjectHideFlags: 1

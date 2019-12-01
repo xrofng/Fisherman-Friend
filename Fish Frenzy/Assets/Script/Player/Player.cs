@@ -233,13 +233,13 @@ public class Player : Creature
         }
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "StageEdge" && !Death)
-        {
-            KillPlayer();
-        }
-    }
+    //void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.tag == "StageEdge" && !Death)
+    //    {
+    //        KillPlayer();
+    //    }
+    //}
 
     public void KillPlayer()
     {

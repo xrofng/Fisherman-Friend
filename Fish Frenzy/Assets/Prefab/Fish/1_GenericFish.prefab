@@ -279,11 +279,18 @@ MonoBehaviour:
     damageFromOwner: 1
     isLauncher: 1
     hitBoxName: Slap_HB
-    invicibilityFrame: 50
-    freezeFrame: 0
+    FreezeFramesOnHit: 10
+    IgnorePlayerFrame: 20
+    InvincibilityFrame: 50
+    unlimitedDamaging: 1
+    numberOfDamaging: 1
+    IsUnblockable: 0
   specialClip: 2
   InputLagFrameDuration: 10
+  animTriggers: []
+  IgnoreInput: 0
   freezeRotation: 1
+  hasInvincibility: 0
   onStartTriggerName: s_slap
   sfx_startMelee:
     clip: {fileID: 8300000, guid: 7edc773777a468a47b51bbbf1a9b6ddf, type: 3}
