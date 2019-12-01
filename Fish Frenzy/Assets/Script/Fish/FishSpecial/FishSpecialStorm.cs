@@ -182,7 +182,11 @@ public class FishSpecialStorm : FishSpecialThrow
 
     private void ClearLockUI()
     {
-        foreach(GameObject playr in targetLockUIs.Keys)
+        if (targetLockUIs ==null)
+        {
+            return;
+        }
+        foreach (GameObject playr in targetLockUIs.Keys)
         {
             Destroy(targetLockUIs[playr].gameObject);
         }

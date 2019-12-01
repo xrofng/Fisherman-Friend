@@ -49,7 +49,7 @@ public class EffectManager : PersistentSingleton<EffectManager>
     /// <returns></returns>
     public virtual GameObject PlayEffect(VisualEffect vFX, Vector3 location)
     {
-        GameObject temporaryEffectHost = Instantiate(vFX.effect, location,Quaternion.identity);
+        GameObject temporaryEffectHost = Instantiate(vFX.effect, location, vFX.effect.transform.rotation);
 
         Destroy(temporaryEffectHost.gameObject, vFX.destroyEffectDelay);
 
