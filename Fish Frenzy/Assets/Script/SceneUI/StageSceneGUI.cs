@@ -8,9 +8,9 @@ using UnityEngine.PostProcessing;
 [System.Serializable]
 public class StageIdentifier
 {
-    public string displayName;
-    public Sprite stageImage;
     public string sceneName;
+    public Sprite stageImage;
+    public Sprite stageName;
     public GameObject model;
     public PostProcessingProfile postProcessProfile;
     public Material Sky;
@@ -20,6 +20,7 @@ public class StageSceneGUI : GameSceneGUI
 {
     public List<StageIdentifier> Stages = new List<StageIdentifier>();
     public Image StageImage;
+    public Image StageName;
 
     private int _currentIndex = 0;
     public StageIdentifier CurrentStage
@@ -80,5 +81,6 @@ public class StageSceneGUI : GameSceneGUI
     {
         _currentIndex = ind;
         StageImage.sprite = CurrentStage.stageImage;
+        StageName.sprite = CurrentStage.stageName;
     }
 }
