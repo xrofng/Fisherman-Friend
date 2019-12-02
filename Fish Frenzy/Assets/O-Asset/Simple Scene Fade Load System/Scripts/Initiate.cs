@@ -1,7 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
-public static class Initiate {
+public static class Initiate
+{
     //Create Fader object and assing the fade scripts and assign all the variables
     public static void Fade (string scene,Color col,float damp){
 		GameObject init = new GameObject ();

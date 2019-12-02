@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainMenu : MonoBehaviour
+public class MainMenu : GameSceneGUI
 {
     public float ignoreInputDuration = 1.5f;
 
@@ -11,7 +11,8 @@ public class MainMenu : MonoBehaviour
     public SoundEffect sfx_entergame;
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
         Cursor.visible = false;
     }
 	
@@ -30,7 +31,8 @@ public class MainMenu : MonoBehaviour
             {
                 GetComponent<AudioSource>().Play();
                 SoundManager.Instance.PlaySound(sfx_entergame, this.transform.position);
-                Initiate.FadeToLoading("CharacterSelect", Color.white, 2.0f);
+                MenuGUI.Instance.ChangeSubSceneIndex(1);
+                //Initiate.FadeToLoading("CharacterSelect", Color.white, 2.0f);
             }
         }
         

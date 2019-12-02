@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class PlayerData : PersistentSingleton<PlayerData> {
+public class PlayerData : PersistentSingleton<PlayerData>
+{
 
     public int numPlayer = 4;
     public int numBot = 0;

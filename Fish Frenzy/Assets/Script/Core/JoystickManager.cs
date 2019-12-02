@@ -114,8 +114,8 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
         // duplicate input from 1st to other but increase key code by offsetToNextPlayerKeycode
         
         int offsetToNextPlayerKeycode = KeyCode.Joystick2Button0 - KeyCode.Joystick1Button0;
-        int maxJoystickDetected = 8;
-        for (int i = 1; i <= maxJoystickDetected; i++)
+        int maxJoystickDetected = 4;
+        for (int i = 1; i <= maxJoystickDetected-1; i++)
         {
             Dictionary<string, KeyCode> newKeyDict = new Dictionary<string, KeyCode>();
             foreach (string key in playerButton.Keys)
@@ -221,10 +221,35 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
 
         if(playerID == 0)
         {
-            return Input.GetKeyDown(_buttonList[playerID][buttonName]) || 
-                Input.GetKeyDown(_buttonList[playerID]["k" + buttonName]);
+            return Input.GetKeyDown(_buttonList[playerID][buttonName]) || GetKeyBoardKey(buttonName, playerID,isUnregistered, "down");
         }
         return Input.GetKeyDown(_buttonList[playerID][buttonName]);
+    }
+
+    private bool GetKeyBoardKey(string buttonName, int playerID, bool isUnregistered = false, string keyBehav="down")
+    {
+        List<Dictionary<string, KeyCode>> _buttonList = GetButtonList(isUnregistered);
+        bool hasKeyboard = false;
+        if (_buttonList[playerID].ContainsKey("k" + buttonName))
+        {
+            hasKeyboard = true;
+        }
+        if (hasKeyboard)
+        {
+            if(keyBehav == "down")
+            {
+                return Input.GetKeyDown(_buttonList[playerID]["k" + buttonName]);
+            }
+            else if(keyBehav == "hold")
+            {
+                return Input.GetKey(_buttonList[playerID]["k" + buttonName]);
+            }
+            else if(keyBehav == "up")
+            {
+                return Input.GetKeyUp(_buttonList[playerID]["k" + buttonName]);
+            }
+        }
+        return false;
     }
 
     public bool GetAnyPlayerButtonDown(string buttonName, bool isUnregistered = false)
@@ -245,8 +270,7 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
         List<Dictionary<string, KeyCode>> _buttonList = GetButtonList(isUnregistered);
         if (playerID == 0)
         {
-            return Input.GetKey(_buttonList[playerID][buttonName]) ||
-                Input.GetKey(_buttonList[playerID]["k" + buttonName]);
+            return Input.GetKey(_buttonList[playerID][buttonName]) || GetKeyBoardKey(buttonName, playerID, isUnregistered, "hold");
         }
         return Input.GetKey(_buttonList[playerID][buttonName]);
     }
@@ -256,8 +280,7 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
         List<Dictionary<string, KeyCode>> _buttonList = GetButtonList(isUnregistered);
         if (playerID == 0)
         {
-            return Input.GetKeyUp(_buttonList[playerID][buttonName]) ||
-                Input.GetKeyUp(_buttonList[playerID]["k" + buttonName]);
+            return Input.GetKeyUp(_buttonList[playerID][buttonName]) || GetKeyBoardKey(buttonName, playerID, isUnregistered,"up");
         }
         return Input.GetKeyUp(_buttonList[playerID][buttonName]);
     }
@@ -273,6 +296,39 @@ public class JoystickManager : PersistentSingleton<JoystickManager>
             }
         }
         return false;
+    }
+
+    public float GetAnyPlayerAxisRaw(string buttonName, bool isUnregistered = false)
+    {
+        List<Dictionary<string, KeyCode>> _buttonList = GetButtonList(isUnregistered);
+        int mostInfluencePlayer = 0;
+        float maxDiffZero = 0;
+
+        for (int i = 0; i < _buttonList.Count; i++)
+        {
+            float diffZero = Mathf.Abs(GetAxisRaw(buttonName, i));
+            if (diffZero > maxDiffZero)
+            {
+                maxDiffZero = diffZero;
+                mostInfluencePlayer = i;
+            }
+        }
+        return GetAxisRaw(buttonName, mostInfluencePlayer);
+    }
+
+    public float GetAnyPlayerAxis(string buttonName, bool isUnregistered = false)
+    {
+        List<Dictionary<string, KeyCode>> _buttonList = GetButtonList(isUnregistered);
+        float maxAxis = float.MinValue;
+
+        for (int i = 0; i < _buttonList.Count; i++)
+        {
+            if (maxAxis > GetAxis(buttonName, i))
+            {
+                maxAxis = GetAxis(buttonName, i);
+            }
+        }
+        return maxAxis;
     }
 
     public float GetAxisRaw(string buttonName, int playerID)

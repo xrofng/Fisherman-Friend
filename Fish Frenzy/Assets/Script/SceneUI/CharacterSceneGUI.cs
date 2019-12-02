@@ -35,7 +35,8 @@ public class CharacterSceneGUI : GameSceneGUI
         {
             if (JoystickManager.Instance.GetButtonDown("Pause", i, true) || Input.GetKeyDown(KeyCode.G))
             {
-                Initiate.FadeToLoading("Gameplay", Color.white, 2.0f);
+                MenuGUI.Instance.ChangeSubSceneIndex(1);
+                //Initiate.FadeToLoading("Gameplay", Color.white, 2.0f);
                 SoundManager.Instance.PlaySound(sfx_ready_fight, this.transform.position);
             }
         }

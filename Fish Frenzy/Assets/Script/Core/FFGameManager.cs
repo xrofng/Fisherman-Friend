@@ -94,5 +94,7 @@ public class FFGameManager : PersistentSingleton<FFGameManager>
             return _guiManager;
         }
     }
+
+    public StageIdentifier CurrentStage { get; set; }
 }
 
