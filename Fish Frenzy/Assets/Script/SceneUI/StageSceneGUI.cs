@@ -54,12 +54,7 @@ public class StageSceneGUI : GameSceneGUI
 
         if (sClass.intervalCheck(axisRawX, -0.9f, 0.9f, true))
         {
-
             ChangeStageIndex(sClass.getSign(axisRawX, 0.015f));
-            Debug.Log("sd" + _currentIndex);
-            //Stages.ChangeIndex();
-            //StageImage.sprite = Stages.CurrentElement.stageImage;
-            //SoundManager.Instance.PlaySound(sfx_arrow, this.transform.position);
         }
 
         if (JoystickManager.Instance.GetAnyPlayerButtonDown("Jump") || JoystickManager.Instance.GetAnyPlayerButtonDown("Pause"))
