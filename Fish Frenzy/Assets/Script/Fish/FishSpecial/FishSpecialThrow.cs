@@ -121,4 +121,13 @@ public class FishSpecialThrow: FishSpecialSpawn
             !SpawnedExist();
         return valid;
     }
+
+    public override void OnPlayerDeath()
+    {
+        base.OnPlayerDeath();
+        if (currentMovingObj)
+        {
+            Destroy(currentMovingObj.gameObject);
+        }
+    }
 }

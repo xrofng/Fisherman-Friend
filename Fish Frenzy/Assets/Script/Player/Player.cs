@@ -265,8 +265,10 @@ public class Player : Creature
         {
             mainFish._cSpecial.OnPlayerDeath();
         }
+        AddAbilityInputIntercepter(this);
 
         StartCoroutine(Respawn(portRoyal.respawnTime , portRoyal.respawnInvincTime));
+
     }
 
     IEnumerator Respawn(float waitBeforeRespawn, float waitBeforeCancelInvinc)
@@ -280,6 +282,9 @@ public class Player : Creature
         MatchResult.Instance.ClearRecentDamager(playerID);
         yield return new WaitForSeconds(waitBeforeCancelInvinc);
         _cPlayerFishInteraction.SetPlayerCollideEverything(true);
+
+        RemoveAbilityInputIntercepter(this);
+        abilityInputIntercepter.Clear();
     }
 
     public Vector3 GetLowestPlayerPoint()

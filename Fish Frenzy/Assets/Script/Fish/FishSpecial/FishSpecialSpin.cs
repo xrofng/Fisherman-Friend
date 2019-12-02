@@ -22,6 +22,7 @@ public class FishSpecialSpin : FishSpecialMelee {
 
     [Header("SoundEffect")]
     public SoundEffect sfx_spining;
+    private bool _forceStop;
 
     protected override void OnSpecialStart()
     {
@@ -33,6 +34,10 @@ public class FishSpecialSpin : FishSpecialMelee {
     protected override void OnSpecialProcess()
     {
         base.OnSpecialProcess();
+        if (_forceStop)
+        {
+            return;
+        }
         PlaySFX(sfx_spining);
         Player.transform.Translate(Player.PlayerForward * Speed);
         Player.transform.position = sClass.SetVector3(Player.transform.position, VectorComponent.y, playerPositionY + floorOffset);
@@ -49,21 +54,29 @@ public class FishSpecialSpin : FishSpecialMelee {
         return c;
     }
 
+    public override void OnPlayerDeath()
+    {
+        base.OnPlayerDeath();
+        SpecialEndPerform();
+        _forceStop = true;
+    }
+
     public override void OnDehydrate()
     {
         base.OnDehydrate();
-        if (Player)
-        {
-            Player.RemoveAbilityInputIntercepter(this);
-        }
+        SpecialEndPerform();
+        _forceStop = true;
     }
 
     public override void SpecialEndPerform()
     {
         base.SpecialEndPerform();
-        Player.transform.position = sClass.SetVector3(Player.transform.position, VectorComponent.y, playerPositionY);
-        Player._cPlayerAnimator.TriggerAnimation("s_endspin");
-        Player.RemoveAbilityInputIntercepter(this);
+        if (Player)
+        {
+            Player.transform.position = sClass.SetVector3(Player.transform.position, VectorComponent.y, playerPositionY);
+            Player._cPlayerAnimator.TriggerAnimation("s_endspin");
+            Player.RemoveAbilityInputIntercepter(this);
+        }
         fish.SnapToHold();
         StopSFX(sfx_spining);
     }
