@@ -21,6 +21,9 @@ public class PortRoyal : MonoBehaviour
     {
         get { return PlayerData.Instance.player; }
     }
+
+    public Transform StageCenterCeil;
+
     public Transform[] spawnPoint;
     public Transform underWater;
 
@@ -132,6 +135,6 @@ public class PortRoyal : MonoBehaviour
             Gizmos.color += new Color(0, 0.2f, 0.2f);
             Gizmos.DrawWireSphere(point.position+point.forward*5, 1);
         }
-
+        Gizmos.DrawWireSphere(StageCenterCeil.transform.position, 1);
     }
 }

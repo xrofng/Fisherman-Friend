@@ -63,14 +63,55 @@ public class EffectManager : PersistentSingleton<EffectManager>
     /// <param name="location"></param>
     public virtual GameObject PlayEffectOnCamera(VisualEffect vFX, Vector3 location)
     {
-        Vector3 targetScreenPos = MainCam.WorldToScreenPoint(location);
-        Vector2 halfSize = EffectCanvas.sizeDelta/2.0f;
+        Vector3 dir = location - FFGameManager.Instance.PortRoyal.StageCenterCeil.transform.position;
+        float y = dir.z;
+        if(dir.y*dir.y > dir.z * dir.z)
+        {
+            y = dir.y;
+        }
+        Vector2 topViewDir = new Vector2(dir.x, y).normalized;
 
-        targetScreenPos.x = Mathf.Clamp(targetScreenPos.x, -halfSize.x, halfSize.x);
-        targetScreenPos.y = Mathf.Clamp(targetScreenPos.y, -halfSize.y, halfSize.y);
         RectTransform temporaryEffectHost = Instantiate(vFX.effect, EffectCanvas.transform).GetComponent<RectTransform>();
 
-        temporaryEffectHost.anchoredPosition = targetScreenPos;
+        Vector2 halfSize = EffectCanvas.sizeDelta / 2.0f;
+
+        Vector2 spawnPos = new Vector2(topViewDir.x * halfSize.x, topViewDir.y* halfSize.y);
+        temporaryEffectHost.anchoredPosition = spawnPos;
+        Destroy(temporaryEffectHost.gameObject, vFX.destroyEffectDelay);
+
+        return temporaryEffectHost.gameObject;
+    }
+
+    private float CeilFloor(float va)
+    {
+        if (va > 0)
+        {
+            return Mathf.Ceil(va);
+        }
+        else if(va<0)
+        {
+            return Mathf.Floor(va);
+        }
+        return 0;
+    }
+
+    protected Vector3 KeepInsideCamera(Vector2 screenPos)
+    {
+        screenPos.x = Mathf.Clamp(screenPos.x, 0, Screen.width - 0);
+        screenPos.y = Mathf.Clamp(screenPos.y, 0, Screen.height - 0);
+        return screenPos;
+    }
+
+    /*
+      
+        Vector3 targetViewPos = MainCam.WorldToViewportPoint(location);
+        Vector2 targetScreenPos = MainCam.ViewportToScreenPoint(targetViewPos);
+
+        Vector2 effectPos = KeepInsideCamera(targetScreenPos);
+        RectTransform temporaryEffectHost = Instantiate(vFX.effect, EffectCanvas.transform).GetComponent<RectTransform>();
+
+        Debug.Log("effectPos" + targetViewPos);
+        temporaryEffectHost.anchoredPosition = targetViewPos;
 
         Vector3 targetDirection = EffectCanvas.position - location;
         float angle = Vector3.Angle(targetDirection, temporaryEffectHost.transform.up);
@@ -78,6 +119,5 @@ public class EffectManager : PersistentSingleton<EffectManager>
 
         Destroy(temporaryEffectHost.gameObject, vFX.destroyEffectDelay);
 
-        return temporaryEffectHost.gameObject;
-    }
+        return temporaryEffectHost.gameObject;*/
 }

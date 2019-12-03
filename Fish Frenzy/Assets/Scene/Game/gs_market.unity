@@ -5207,6 +5207,7 @@ Transform:
   - {fileID: 1912287833}
   - {fileID: 1683323782}
   - {fileID: 257947723}
+  - {fileID: 1395334914}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10583,6 +10584,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   force: {x: 300, y: 400}
+  destroyDelay: 3
 --- !u!1 &513967968
 GameObject:
   m_ObjectHideFlags: 0
@@ -11884,6 +11886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   force: {x: 300, y: 400}
+  destroyDelay: 3
 --- !u!1 &600040479
 GameObject:
   m_ObjectHideFlags: 0
@@ -15477,6 +15480,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   force: {x: 300, y: 400}
+  destroyDelay: 3
 --- !u!1 &809664134
 GameObject:
   m_ObjectHideFlags: 0
@@ -22538,6 +22542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   force: {x: 300, y: 400}
+  destroyDelay: 3
 --- !u!65 &1136034898
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -23126,6 +23131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   force: {x: 300, y: 400}
+  destroyDelay: 3
 --- !u!1 &1171444257
 GameObject:
   m_ObjectHideFlags: 0
@@ -27896,6 +27902,34 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1390398070}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1395334913
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1395334914}
+  m_Layer: 0
+  m_Name: StageCenter
+  m_TagString: Untagged
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1395334914
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1395334913}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 14, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 210222648}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1397335664
 GameObject:
   m_ObjectHideFlags: 0
@@ -30292,6 +30326,7 @@ MonoBehaviour:
       Fish: {fileID: 114174926280458592, guid: 74a86637d250a9a43925dd3b27594b1c, type: 2}
       spawnRate: 50
     totalSpawnRate: 0
+  StageCenterCeil: {fileID: 1395334914}
   spawnPoint:
   - {fileID: 1368302312}
   - {fileID: 1699122248}
@@ -30302,7 +30337,7 @@ MonoBehaviour:
   multiPCamera: {fileID: 1296815681}
   coastHolder: {fileID: 1683323781}
   coastPoints: []
-  FixedFish: 1
+  FixedFish: 0
   TestingFish: {fileID: 114257537931697316, guid: fe938b2f86a8ac845b2c1d3292925b54,
     type: 2}
   DrawDebugRay: 0
@@ -33068,6 +33103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   force: {x: 300, y: 400}
+  destroyDelay: 3
 --- !u!1 &1612527241
 GameObject:
   m_ObjectHideFlags: 0

@@ -2961,6 +2961,7 @@ Transform:
   - {fileID: 1912287833}
   - {fileID: 1683323782}
   - {fileID: 1128780479}
+  - {fileID: 1975024370}
   - {fileID: 1226092593}
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -14927,7 +14928,7 @@ Transform:
   - {fileID: 184172847}
   - {fileID: 1209956263}
   m_Father: {fileID: 210222648}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1230544451
 GameObject:
@@ -17307,7 +17308,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1855912574238914, guid: 615199913138c4749b187cf0288e597f, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 615199913138c4749b187cf0288e597f, type: 2}
@@ -17551,6 +17552,7 @@ MonoBehaviour:
       Fish: {fileID: 114174926280458592, guid: 74a86637d250a9a43925dd3b27594b1c, type: 2}
       spawnRate: 50
     totalSpawnRate: 0
+  StageCenterCeil: {fileID: 1975024370}
   spawnPoint:
   - {fileID: 694017112}
   - {fileID: 1170780574}
@@ -17562,7 +17564,7 @@ MonoBehaviour:
   coastHolder: {fileID: 1683323781}
   coastPoints: []
   FixedFish: 0
-  TestingFish: {fileID: 114257537931697316, guid: fe938b2f86a8ac845b2c1d3292925b54,
+  TestingFish: {fileID: 114174926280458592, guid: 74a86637d250a9a43925dd3b27594b1c,
     type: 2}
   DrawDebugRay: 0
 --- !u!4 &1489613359
@@ -17573,7 +17575,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1489613356}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -13.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1068157393}
@@ -22402,6 +22404,34 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1973503462}
   m_Script: {fileID: 11500000, guid: 5d9154fc20f25a4429ed08df12671ad3, type: 3}
+--- !u!1 &1975024369
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1975024370}
+  m_Layer: 0
+  m_Name: StageCenter
+  m_TagString: Untagged
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1975024370
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1975024369}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 14, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 210222648}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1977537318
 GameObject:
   m_ObjectHideFlags: 0
