@@ -21,7 +21,7 @@ public class ResultIntroVictory : ResultIntro
         int vicId = PlayerData.Instance.victoryId[playerId];
         if(vicId == (int)VictoryAnimation.Random)
         {
-            vicId = (int)VictoryAnimation.Starfish;
+            vicId = (int)VictoryAnimation.Hammerhead;
         }
         ChangeState(vicId);
     }
