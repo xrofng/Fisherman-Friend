@@ -100,41 +100,11 @@ public class MaterialManager : PersistentSingleton<MaterialManager>
         {
             if (cacheMaterialSwap.ContainsKey(m.swapperName))
             {
-                Material[] subMats = null;
-
-                if (m.subSwapperName.Length > 0)
-                {
-                    subMats = GetSubSwapperMaterials(m.subSwapperName,colorIndex);
-                }
-
-                m.SetMaterial(GetTargetMaterial(m.swapperName, colorIndex), subMats);
+                m.SetMaterial(GetTargetMaterial(m.swapperName, colorIndex));
             }
 
         }
     }
-
-    /// <summary>
-    /// evaluate material array for second-last materials
-    /// </summary>
-    /// <param name="subSwapperName"></param>
-    /// <param name="colorIndex"></param>
-    /// <returns></returns>
-    Material[] GetSubSwapperMaterials(string[] subSwapperName, int colorIndex)
-    {
-        List<Material> subMats = new List<Material>();
-        for (int i = 0; i < subSwapperName.Length; i++)
-        {
-            if (cacheMaterialSwap.ContainsKey(subSwapperName[i]))
-            {
-                subMats.Add(GetTargetMaterial(subSwapperName[i], colorIndex));
-            }else
-            {
-                subMats.Add(null);
-            }
-        }
-        return subMats.ToArray();
-    }
-
 
     Material GetTargetMaterial(string swapperName, int colorIndex)
     {
