@@ -396,11 +396,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1102370091}
     m_Modifications:
-    - target: {fileID: 114708115318157070, guid: 259dd70d41602b8489762647e28bf17c,
-        type: 2}
-      propertyPath: hatCustom.Array.size
-      value: 11
-      objectReference: {fileID: 0}
     - target: {fileID: 224320919014925694, guid: 259dd70d41602b8489762647e28bf17c,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -495,24 +490,6 @@ Prefab:
       propertyPath: m_Name
       value: CustomizeMenu1
       objectReference: {fileID: 0}
-    - target: {fileID: 114708115318157070, guid: 259dd70d41602b8489762647e28bf17c,
-        type: 2}
-      propertyPath: hatCustom.Array.data[8]
-      value: 
-      objectReference: {fileID: 21300000, guid: 39b071c96216729428a04afbbb6f0963,
-        type: 3}
-    - target: {fileID: 114708115318157070, guid: 259dd70d41602b8489762647e28bf17c,
-        type: 2}
-      propertyPath: hatCustom.Array.data[9]
-      value: 
-      objectReference: {fileID: 21300000, guid: 8bd85b3bc1e98ed4a8a0e86702ccda38,
-        type: 3}
-    - target: {fileID: 114708115318157070, guid: 259dd70d41602b8489762647e28bf17c,
-        type: 2}
-      propertyPath: hatCustom.Array.data[10]
-      value: 
-      objectReference: {fileID: 21300000, guid: 37f111a7871644b43aa13b438cf92def,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 259dd70d41602b8489762647e28bf17c, type: 2}
   m_IsPrefabAsset: 0

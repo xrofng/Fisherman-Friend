@@ -124,6 +124,7 @@ public class HitBoxMelee : DamageOnHit
         // if what we're colliding with can't be damaged
         else
         {
+            CheckCollidingOther(collider);
             OnCollideWithNonDamageable();
         }
     }

@@ -183,6 +183,7 @@ public class DamageOnHit : MonoBehaviour
         //}
         
         _player = collider.gameObject.GetComponent<Player>();
+        Debug.Log(collider.gameObject.name);
 
         // if what we're colliding with player
         if (_player != null)
@@ -193,13 +194,27 @@ public class DamageOnHit : MonoBehaviour
             }
         }
 
+
         // if what we're colliding with can't be damaged
         else
         {
+            CheckCollidingOther(collider);
             OnCollideWithNonDamageable();
         }
     }
 
+    /// <summary>
+    /// Describes what happens when colliding with a other object
+    /// </summary>
+    protected void CheckCollidingOther(Collider collider)
+    {
+        Breakable _breakable = collider.gameObject.GetComponent<Breakable>();
+
+        if (_breakable != null)
+        {
+            _breakable.Break();
+        }
+    }
 
     /// <summary>
     /// Describes what happens when colliding with a player object
