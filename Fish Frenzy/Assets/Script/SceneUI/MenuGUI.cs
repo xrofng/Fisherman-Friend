@@ -5,11 +5,19 @@ using UnityEngine;
 
 public class MenuGUI : Singleton<MenuGUI>
 {
-    public List<GameSceneGUI> SubSceneGUIs = new List<GameSceneGUI>();
+    [System.Serializable]
+    public class SubSceneSUI
+    {
+        public string name;
+        public GameSceneGUI GameSceneGUI;
+    }
 
+    public List<SubSceneSUI> SubSceneGUIs = new List<SubSceneSUI>();
+    public Animator BackgroundCameraAnimator;
     private int _currentSubScene;
+    private bool _moveCam;
 
-    public GameSceneGUI CurrentSubScene
+    public SubSceneSUI CurrentSubScene
     {
         get
         {
@@ -24,11 +32,11 @@ public class MenuGUI : Singleton<MenuGUI>
         SetSubSceneIndex(0);
     }
 
-    public void ChangeSubSceneIndex(int increment)
+    public void ChangeSubSceneIndex(int increment, bool moveCam = true)
     {
         int nexIndex = _currentSubScene + increment;
         nexIndex = Mathf.Clamp(nexIndex, 0, SubSceneGUIs.Count);
-
+        _moveCam = moveCam;
         SetSubSceneIndex(nexIndex);
     }
 
@@ -43,16 +51,15 @@ public class MenuGUI : Singleton<MenuGUI>
     {
         if (ind < SubSceneGUIs.Count)
         {
-            SubSceneGUIs[ind].gameObject.SetActive(active);
+            SubSceneGUIs[ind].GameSceneGUI.gameObject.SetActive(active);
             if (active)
             {
-                CurrentSubScene.OnGameSceneActive();
+                if (_moveCam)
+                {
+                    BackgroundCameraAnimator.SetTrigger(SubSceneGUIs[ind].name);
+                }
+                SubSceneGUIs[ind].GameSceneGUI.OnGameSceneActive();
             }
         }
     }
-
-    // Update is called once per frame
-    void Update () {
-		
-	}
 }

@@ -21,6 +21,7 @@ public class StageSceneGUI : GameSceneGUI
     public List<StageIdentifier> Stages = new List<StageIdentifier>();
     public Image StageImage;
     public Image StageName;
+    public PercentFloat IgnoreTime = new PercentFloat(0, 0.5f);
 
     private int _currentIndex = 0;
     public StageIdentifier CurrentStage
@@ -46,6 +47,11 @@ public class StageSceneGUI : GameSceneGUI
 
     void Update ()
     {
+        if (!IgnoreTime.IsAtMax)
+        {
+            IgnoreTime.AddValue(Time.deltaTime);
+            return;
+        }
         float axisRawX = JoystickManager.Instance.GetAnyPlayerAxisRaw("Dhori");
         float axisRawY = JoystickManager.Instance.GetAnyPlayerAxisRaw("Dverti");
 
@@ -55,6 +61,11 @@ public class StageSceneGUI : GameSceneGUI
         if (sClass.intervalCheck(axisRawX, -0.9f, 0.9f, true))
         {
             ChangeStageIndex(sClass.getSign(axisRawX, 0.015f));
+        }
+
+        if (JoystickManager.Instance.GetAnyPlayerButtonDown("Fishing"))
+        {
+            MenuGUI.Instance.ChangeSubSceneIndex(-1,false);
         }
 
         if (JoystickManager.Instance.GetAnyPlayerButtonDown("Jump") || JoystickManager.Instance.GetAnyPlayerButtonDown("Pause"))
@@ -67,7 +78,8 @@ public class StageSceneGUI : GameSceneGUI
     public void ChangeStageIndex(int increment)
     {
         int nexIndex = _currentIndex + increment;
-        nexIndex = Mathf.Clamp(nexIndex, 0, Stages.Count-1);
+        nexIndex = (nexIndex + Stages.Count) % Stages.Count;
+        IgnoreTime.SetValue01(0);
 
         SetStageIndex(nexIndex);
     }
