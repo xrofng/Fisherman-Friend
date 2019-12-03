@@ -19,7 +19,7 @@ public class ResultIntroVictory : ResultIntro
         base.PlayResult();
         // TODO real random
         int vicId = PlayerData.Instance.victoryId[playerId];
-        if(vicId == (int)VictoryAnimation.Random)
+        if(vicId == (int)VictoryAnimation.Random || vicId == (int)VictoryAnimation.Generic)
         {
             vicId = (int)VictoryAnimation.Hammerhead;
         }

@@ -1685,6 +1685,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swapperName: Base
   subSwapperName: []
+  AdditionalIndex: -1
 --- !u!114 &114469140860398328
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1755,6 +1756,7 @@ MonoBehaviour:
   - Base
   - 
   - Base
+  AdditionalIndex: -1
 --- !u!114 &114647405133558398
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1795,6 +1797,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swapperName: Base
   subSwapperName: []
+  AdditionalIndex: -1
 --- !u!114 &114675643911054560
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1973,6 +1976,9 @@ MonoBehaviour:
   - {fileID: 21300010, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
   - {fileID: 21300012, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
   - {fileID: 21300014, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
+  - {fileID: 21300016, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
+  - {fileID: 21300018, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
+  - {fileID: 21300020, guid: e2059c43a4b26e7439f7b2efd1b7b009, type: 3}
   colorCustom:
   - {fileID: 21300000, guid: dca8af9041e51fe4f851fbbee2caf0fe, type: 3}
   - {fileID: 21300000, guid: ac3414241be01c84ebb5a4ad7dc62c11, type: 3}
@@ -1984,11 +1990,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0fa0b4f0f010ed34eb19432c4560aa91, type: 3}
   vicCustom:
   - {fileID: 21300000, guid: 6a6f0a67e9d15eb4ea38d43f9ccc5c3f, type: 3}
-  - {fileID: 21300000, guid: ecdee73d46d3474488cc85113c8c59e4, type: 3}
-  - {fileID: 21300000, guid: 3e026791dddd8f64fb0638cb3111051d, type: 3}
   - {fileID: 21300000, guid: 1185dba843f94ef448214bdce0099a79, type: 3}
-  - {fileID: 21300000, guid: 4af488da395195749b467ee69f47525a, type: 3}
-  - {fileID: 21300000, guid: 7268ee04fa168134c90e776c60aa4704, type: 3}
+  - {fileID: 21300000, guid: 3e026791dddd8f64fb0638cb3111051d, type: 3}
   readyBanner: {fileID: 114699339191472420}
 --- !u!114 &114709337995939070
 MonoBehaviour:
@@ -2003,6 +2006,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swapperName: Base
   subSwapperName: []
+  AdditionalIndex: -1
 --- !u!114 &114821049489433512
 MonoBehaviour:
   m_ObjectHideFlags: 1
