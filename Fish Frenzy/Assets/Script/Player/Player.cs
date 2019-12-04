@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -86,6 +87,8 @@ public class Player : Creature
     public PlayerJump _cPlayerJump;
     [HideInInspector]
     public PlayerBlock _cPlayerBlock;
+    [HideInInspector]
+    public PlayerModel _cPlayerModel;
 
     public GameObject knockBackOrigin;
     public bool IsInvincible
@@ -112,6 +115,10 @@ public class Player : Creature
             return -GetPart(ePart.body).forward;
         }
     }
+    [Header("Hat")]
+    public Vector3 HatSpawnOffset;
+    public float DestroyHatDelay;
+
     public enum eState
     {
         ground,
@@ -163,6 +170,7 @@ public class Player : Creature
         _cPlayerDamageHitBox = GetComponent<PlayerDamageHitbox>();
         _cPlayerJump = GetComponent<PlayerJump>();
         _cPlayerBlock = GetComponent<PlayerBlock>();
+        _cPlayerModel = GetComponent<PlayerModel>();
     }
 
 
@@ -273,9 +281,13 @@ public class Player : Creature
 
     IEnumerator Respawn(float waitBeforeRespawn, float waitBeforeCancelInvinc)
     {
+        Vector3 spawnPos = portRoyal.RandomSpawnPosition(Vector3.up * portRoyal.respawnPositionOffset);
+        GameObject hat = SpawnFallingHat(spawnPos + HatSpawnOffset);
+
         yield return new WaitForSeconds(waitBeforeRespawn);
+        Destroy(hat.gameObject, DestroyHatDelay);
         rigid.velocity = Vector3.zero;
-        this.transform.position = portRoyal.RandomSpawnPosition(Vector3.up * portRoyal.respawnPositionOffset);
+        this.transform.position = spawnPos;
         Death = false;
         _cPlayerFishInteraction.SetHoldFish(false);
         this.damagePercent = 0;
@@ -285,6 +297,18 @@ public class Player : Creature
 
         RemoveAbilityInputIntercepter(this);
         abilityInputIntercepter.Clear();
+    }
+
+    private GameObject SpawnFallingHat(Vector3 spawnPos)
+    {
+        GameObject hat = Instantiate(_cPlayerModel.Hat, GetPart(ePart.body));
+        
+        hat.transform.position = spawnPos;
+        hat.transform.rotation = Xrofng.Xmath.RandomQuaternion();
+        hat.transform.parent = null;
+        hat.AddComponent<Rigidbody>();
+        hat.AddComponent<BoxCollider>();
+        return hat;
     }
 
     public Vector3 GetLowestPlayerPoint()

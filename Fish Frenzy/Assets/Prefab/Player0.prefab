@@ -2293,6 +2293,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swapperName: Base
   subSwapperName: []
+  AdditionalIndex: -1
 --- !u!114 &114192123058738820
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2309,6 +2310,7 @@ MonoBehaviour:
   - Base
   - 
   - Base
+  AdditionalIndex: -1
 --- !u!114 &114227519793500462
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2409,6 +2411,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swapperName: Base
   subSwapperName: []
+  AdditionalIndex: -1
 --- !u!114 &114344913012789986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2472,6 +2475,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swapperName: Base
   subSwapperName: []
+  AdditionalIndex: -1
 --- !u!114 &114419155862270234
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2577,6 +2581,7 @@ MonoBehaviour:
   _cPlayerDamageHitBox: {fileID: 0}
   _cPlayerJump: {fileID: 0}
   _cPlayerBlock: {fileID: 0}
+  _cPlayerModel: {fileID: 0}
   knockBackOrigin: {fileID: 1741521758649520, guid: 5f192c056a302e9418bd3b64d9801479,
     type: 2}
   part:
@@ -2584,6 +2589,8 @@ MonoBehaviour:
   - {fileID: 4836818010158862}
   - {fileID: 4666289591519604}
   - {fileID: 4126871171258258}
+  HatSpawnOffset: {x: 0, y: 5, z: 0}
+  DestroyHatDelay: 0.5
   state: 0
   sfx_Death:
     clip: {fileID: 8300000, guid: 8ddf30244bfadbe40a9fb00dec90be75, type: 3}

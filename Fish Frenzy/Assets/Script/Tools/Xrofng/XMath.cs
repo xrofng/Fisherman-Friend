@@ -42,6 +42,15 @@ namespace Xrofng
             c.a = Mathf.Lerp(cA.a, cB.a, t);
             return c;
         }
+
+        public static Quaternion RandomQuaternion()
+        {
+            float x, y, z, u, v, w, s;
+            do { x = Random.Range(-1.0f, 1.0f); y = Random.Range(-1.0f, 1.0f); z = x * x + y * y; } while (z > 1.0f);
+            do { u = Random.Range(-1.0f, 1.0f); v = Random.Range(-1.0f, 1.0f); w = u * u + v * v; } while (w > 1.0f);
+            s = Mathf.Sqrt((1 - z) / w);
+            return new Quaternion(x, y, s * u, s * v);
+        }
     }
 }
 

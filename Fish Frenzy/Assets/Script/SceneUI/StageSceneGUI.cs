@@ -30,8 +30,8 @@ public class StageSceneGUI : GameSceneGUI
     }
 
     [Header("SoundEffect")]
-    public SoundEffect sfx_ready;
-    public SoundEffect sfx_ready_fight;
+    public SoundEffect sfx_nav;
+    public SoundEffect sfx_fight;
 
     // Use this for initialization
     void Start ()
@@ -61,11 +61,13 @@ public class StageSceneGUI : GameSceneGUI
         if (sClass.intervalCheck(axisRawX, -0.9f, 0.9f, true))
         {
             ChangeStageIndex(sClass.getSign(axisRawX, 0.015f));
+            SoundManager.Instance.PlaySound(sfx_nav,transform.position);
         }
 
         if (JoystickManager.Instance.GetAnyPlayerButtonDown("Fishing"))
         {
             MenuGUI.Instance.ChangeSubSceneIndex(-1,false);
+            SoundManager.Instance.PlaySound(sfx_fight,transform.position);
         }
 
         if (JoystickManager.Instance.GetAnyPlayerButtonDown("Jump") || JoystickManager.Instance.GetAnyPlayerButtonDown("Pause"))
