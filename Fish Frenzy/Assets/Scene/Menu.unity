@@ -1882,12 +1882,16 @@ MonoBehaviour:
     Sky: {fileID: 0}
   StageImage: {fileID: 889241632}
   StageName: {fileID: 749766164}
-  sfx_ready:
-    clip: {fileID: 0}
+  IgnoreTime:
+    Value: 0
+    MaxVal: 0.25
+    exceedPercentType: 0
+  sfx_nav:
+    clip: {fileID: 8300000, guid: 2e3dd4c0704a08247a8e7e771e6af803, type: 3}
     volume: 1
     oneTime: 0
-  sfx_ready_fight:
-    clip: {fileID: 0}
+  sfx_fight:
+    clip: {fileID: 8300000, guid: ca3cf96c9e6c8394388b007f20d934ea, type: 3}
     volume: 1
     oneTime: 0
 --- !u!4 &1108237897
