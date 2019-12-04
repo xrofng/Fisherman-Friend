@@ -67,11 +67,11 @@ public class StageSceneGUI : GameSceneGUI
         if (JoystickManager.Instance.GetAnyPlayerButtonDown("Fishing"))
         {
             MenuGUI.Instance.ChangeSubSceneIndex(-1,false);
-            SoundManager.Instance.PlaySound(sfx_fight,transform.position);
         }
 
         if (JoystickManager.Instance.GetAnyPlayerButtonDown("Jump") || JoystickManager.Instance.GetAnyPlayerButtonDown("Pause"))
         {
+            SoundManager.Instance.PlaySound(sfx_fight,transform.position);
             FFGameManager.Instance.CurrentStage = CurrentStage;
             Initiate.FadeToLoading(CurrentStage.sceneName,Color.white,2.0f);
         }

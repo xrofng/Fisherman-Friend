@@ -236,7 +236,7 @@ public class ResultSceneGUI : MonoBehaviour
                 ignoreInputDuration = 10000;
                 GetComponent<AudioSource>().Play();
                 SoundManager.Instance.PlaySound(sfx_endScreen, this.transform.position);
-                Initiate.FadeToLoading("CharacterSelect", Color.white, 2.0f);
+                Initiate.FadeToLoading("Menu", Color.white, 2.0f);
             }
         }
 
