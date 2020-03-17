@@ -91,7 +91,7 @@ public class MultiPlayerCamera : MonoBehaviour
     }
     Vector3 GetCenterPoint()
     {
-        if (targets.Count == 1)
+        if (targets != null && targets.Count == 1)
         {
             return targets[0].gameObject.transform.position;
         }
